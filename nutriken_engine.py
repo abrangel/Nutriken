@@ -109,7 +109,7 @@ MSK_SLUGS = {
     "calcium":"calcium","calcio":"calcium",
     "iron":"iron","hierro":"iron",
     "glutamine":"glutamine","glutamina":"glutamine",
-    "fish oil":"fish-oil","pyruvate":"pyruvate","chitosan":"chitosan",
+    "fish oil":"fish-oil","omega-3":"fish-oil","omega3":"fish-oil","omega 3":"fish-oil","pyruvate":"pyruvate","chitosan":"chitosan",
     "kava":"kava","valerian":"valerian","valeriana":"valerian",
     "5-htp":"5-htp-01","serotonin":"5-htp-01",
     "ginkgo":"ginkgo","ginkgo biloba":"ginkgo",
@@ -117,6 +117,737 @@ MSK_SLUGS = {
     "black cohosh":"black-cohosh",
     "evening primrose":"evening-primrose-oil",
     "dhea":"dhea","melatonin":"melatonin",
+}
+
+GENE_DB = {
+  "APOE": {
+    "symbol": "APOE",
+    "gene_id": "348",
+    "ensembl_id": "ENSG00000130203",
+    "name": "apolipoprotein E",
+    "chromosome": "19",
+    "location": "19q13.32",
+    "summary": "The protein encoded by this gene is a major apoprotein of the chylomicron. It binds to a specific liver and peripheral cell receptor, and is essential for the normal catabolism of triglyceride-rich lipoprotein constituents. Mutations result in familial dysbetalipoproteinemia (type III hyperlipoproteinemia), in which increased plasma cholesterol and triglycerides are the consequence of impaired clearance of chylomicron and VLDL remnants.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/348",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000130203",
+    "snpedia_url": "https://www.snpedia.com/index.php/APOE",
+    "omim_url": "https://omim.org/search?index=entry&search=APOE"
+  },
+  "LDLR": {
+    "symbol": "LDLR",
+    "gene_id": "3949",
+    "ensembl_id": "ENSG00000130164",
+    "name": "low density lipoprotein receptor",
+    "chromosome": "19",
+    "location": "19p13.2",
+    "summary": "The LDL receptor mediates the endocytosis of cholesterol-rich LDL. Mutations cause familial hypercholesterolemia (FH), an autosomal dominant disorder characterized by elevated LDL and premature cardiovascular disease. Statins upregulate LDLR expression in the liver.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/3949",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000130164",
+    "snpedia_url": "https://www.snpedia.com/index.php/LDLR",
+    "omim_url": "https://omim.org/search?index=entry&search=LDLR"
+  },
+  "PCSK9": {
+    "symbol": "PCSK9",
+    "gene_id": "255738",
+    "ensembl_id": "ENSG00000169174",
+    "name": "proprotein convertase subtilisin/kexin type 9",
+    "chromosome": "1",
+    "location": "1p32.3",
+    "summary": "PCSK9 promotes degradation of the LDL receptor. Loss-of-function variants are associated with reduced LDL and cardiovascular protection. PCSK9 inhibitors (evolocumab, alirocumab) are approved treatments for hypercholesterolemia.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/255738",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000169174",
+    "snpedia_url": "https://www.snpedia.com/index.php/PCSK9",
+    "omim_url": "https://omim.org/search?index=entry&search=PCSK9"
+  },
+  "HMGCR": {
+    "symbol": "HMGCR",
+    "gene_id": "3156",
+    "ensembl_id": "ENSG00000197142",
+    "name": "3-hydroxy-3-methylglutaryl-CoA reductase",
+    "chromosome": "5",
+    "location": "5q13.3",
+    "summary": "HMG-CoA reductase is the rate-limiting enzyme for cholesterol synthesis. It is the pharmacological target of statins (atorvastatin, rosuvastatin, simvastatin). Inhibition of this enzyme reduces LDL cholesterol. Variants in HMGCR affect statin efficacy and risk of familial hypercholesterolemia.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/3156",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000197142",
+    "snpedia_url": "https://www.snpedia.com/index.php/HMGCR",
+    "omim_url": "https://omim.org/search?index=entry&search=HMGCR"
+  },
+  "APOB": {
+    "symbol": "APOB",
+    "gene_id": "338",
+    "ensembl_id": "ENSG00000084674",
+    "name": "apolipoprotein B",
+    "chromosome": "2",
+    "location": "2p24.1",
+    "summary": "apolipoprotein B. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/338",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000084674",
+    "snpedia_url": "https://www.snpedia.com/index.php/APOB",
+    "omim_url": "https://omim.org/search?index=entry&search=APOB"
+  },
+  "APOA5": {
+    "symbol": "APOA5",
+    "gene_id": "116519",
+    "ensembl_id": "ENSG00000110244",
+    "name": "apolipoprotein A5",
+    "chromosome": "11",
+    "location": "11q23.3",
+    "summary": "apolipoprotein A5. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/116519",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000110244",
+    "snpedia_url": "https://www.snpedia.com/index.php/APOA5",
+    "omim_url": "https://omim.org/search?index=entry&search=APOA5"
+  },
+  "LPL": {
+    "symbol": "LPL",
+    "gene_id": "4023",
+    "ensembl_id": "ENSG00000175445",
+    "name": "lipoprotein lipase",
+    "chromosome": "8",
+    "location": "8p21.3",
+    "summary": "lipoprotein lipase. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/4023",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000175445",
+    "snpedia_url": "https://www.snpedia.com/index.php/LPL",
+    "omim_url": "https://omim.org/search?index=entry&search=LPL"
+  },
+  "APOC3": {
+    "symbol": "APOC3",
+    "gene_id": "345",
+    "ensembl_id": "ENSG00000110245",
+    "name": "apolipoprotein C3",
+    "chromosome": "11",
+    "location": "11q23.3",
+    "summary": "apolipoprotein C3. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/345",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000110245",
+    "snpedia_url": "https://www.snpedia.com/index.php/APOC3",
+    "omim_url": "https://omim.org/search?index=entry&search=APOC3"
+  },
+  "FTO": {
+    "symbol": "FTO",
+    "gene_id": "79068",
+    "ensembl_id": "ENSG00000140718",
+    "name": "FTO alpha-ketoglutarate dependent dioxygenase",
+    "chromosome": "16",
+    "location": "16q12.2",
+    "summary": "The FTO gene encodes an alpha-ketoglutarate-dependent dioxygenase involved in regulation of fat mass and obesity. Variants in FTO are among the strongest genetic determinants of BMI in genome-wide association studies. FTO regulates energy homeostasis and food intake.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/79068",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000140718",
+    "snpedia_url": "https://www.snpedia.com/index.php/FTO",
+    "omim_url": "https://omim.org/search?index=entry&search=FTO"
+  },
+  "MC4R": {
+    "symbol": "MC4R",
+    "gene_id": "25927",
+    "ensembl_id": "ENSG00000166603",
+    "name": "melanocortin 4 receptor",
+    "chromosome": "18",
+    "location": "18q21.32",
+    "summary": "melanocortin 4 receptor. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/25927",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000166603",
+    "snpedia_url": "https://www.snpedia.com/index.php/MC4R",
+    "omim_url": "https://omim.org/search?index=entry&search=MC4R"
+  },
+  "LEP": {
+    "symbol": "LEP",
+    "gene_id": "3952",
+    "ensembl_id": "ENSG00000174697",
+    "name": "leptin",
+    "chromosome": "7",
+    "location": "7q32.1",
+    "summary": "Leptin is a hormone secreted by adipose tissue that regulates energy balance by inhibiting hunger. LEP variants affect leptin levels and obesity risk. Leptin resistance is common in obese individuals despite high leptin levels.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/3952",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000174697",
+    "snpedia_url": "https://www.snpedia.com/index.php/LEP",
+    "omim_url": "https://omim.org/search?index=entry&search=LEP"
+  },
+  "LEPR": {
+    "symbol": "LEPR",
+    "gene_id": "3953",
+    "ensembl_id": "ENSG00000116678",
+    "name": "leptin receptor",
+    "chromosome": "1",
+    "location": "1p31.3",
+    "summary": "leptin receptor. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/3953",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000116678",
+    "snpedia_url": "https://www.snpedia.com/index.php/LEPR",
+    "omim_url": "https://omim.org/search?index=entry&search=LEPR"
+  },
+  "PPARG": {
+    "symbol": "PPARG",
+    "gene_id": "5468",
+    "ensembl_id": "ENSG00000132170",
+    "name": "peroxisome proliferator activated receptor gamma",
+    "chromosome": "3",
+    "location": "3p25.2",
+    "summary": "peroxisome proliferator activated receptor gamma. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/5468",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000132170",
+    "snpedia_url": "https://www.snpedia.com/index.php/PPARG",
+    "omim_url": "https://omim.org/search?index=entry&search=PPARG"
+  },
+  "ADIPOQ": {
+    "symbol": "ADIPOQ",
+    "gene_id": "9370",
+    "ensembl_id": "ENSG00000181092",
+    "name": "adiponectin, C1Q and collagen domain containing",
+    "chromosome": "3",
+    "location": "3q27.3",
+    "summary": "adiponectin, C1Q and collagen domain containing. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/9370",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000181092",
+    "snpedia_url": "https://www.snpedia.com/index.php/ADIPOQ",
+    "omim_url": "https://omim.org/search?index=entry&search=ADIPOQ"
+  },
+  "TCF7L2": {
+    "symbol": "TCF7L2",
+    "gene_id": "6934",
+    "ensembl_id": "ENSG00000148737",
+    "name": "transcription factor 7 like 2",
+    "chromosome": "10",
+    "location": "10q25.2",
+    "summary": "TCF7L2 variants are the strongest genetic risk factors for type 2 diabetes identified to date. The gene encodes a transcription factor involved in Wnt signaling and beta-cell function. Risk alleles reduce insulin secretion and increase glucagon levels.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/6934",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000148737",
+    "snpedia_url": "https://www.snpedia.com/index.php/TCF7L2",
+    "omim_url": "https://omim.org/search?index=entry&search=TCF7L2"
+  },
+  "KCNJ11": {
+    "symbol": "KCNJ11",
+    "gene_id": "3767",
+    "ensembl_id": "ENSG00000187486",
+    "name": "potassium inwardly rectifying channel subfamily J member 11",
+    "chromosome": "11",
+    "location": "11p15.1",
+    "summary": "potassium inwardly rectifying channel subfamily J member 11. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/3767",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000187486",
+    "snpedia_url": "https://www.snpedia.com/index.php/KCNJ11",
+    "omim_url": "https://omim.org/search?index=entry&search=KCNJ11"
+  },
+  "HNF1A": {
+    "symbol": "HNF1A",
+    "gene_id": "6927",
+    "ensembl_id": "ENSG00000135100",
+    "name": "HNF1 homeobox A",
+    "chromosome": "12",
+    "location": "12q24.31",
+    "summary": "HNF1 homeobox A. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/6927",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000135100",
+    "snpedia_url": "https://www.snpedia.com/index.php/HNF1A",
+    "omim_url": "https://omim.org/search?index=entry&search=HNF1A"
+  },
+  "ACE": {
+    "symbol": "ACE",
+    "gene_id": "1636",
+    "ensembl_id": "ENSG00000159640",
+    "name": "angiotensin I converting enzyme",
+    "chromosome": "17",
+    "location": "17q23.3",
+    "summary": "angiotensin I converting enzyme. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/1636",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000159640",
+    "snpedia_url": "https://www.snpedia.com/index.php/ACE",
+    "omim_url": "https://omim.org/search?index=entry&search=ACE"
+  },
+  "AGT": {
+    "symbol": "AGT",
+    "gene_id": "183",
+    "ensembl_id": "ENSG00000135744",
+    "name": "angiotensinogen",
+    "chromosome": "1",
+    "location": "1q42.2",
+    "summary": "angiotensinogen. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/183",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000135744",
+    "snpedia_url": "https://www.snpedia.com/index.php/AGT",
+    "omim_url": "https://omim.org/search?index=entry&search=AGT"
+  },
+  "AGTR1": {
+    "symbol": "AGTR1",
+    "gene_id": "185",
+    "ensembl_id": "ENSG00000144891",
+    "name": "angiotensin II receptor type 1",
+    "chromosome": "3",
+    "location": "3q24",
+    "summary": "angiotensin II receptor type 1. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/185",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000144891",
+    "snpedia_url": "https://www.snpedia.com/index.php/AGTR1",
+    "omim_url": "https://omim.org/search?index=entry&search=AGTR1"
+  },
+  "VDR": {
+    "symbol": "VDR",
+    "gene_id": "7421",
+    "ensembl_id": "ENSG00000111424",
+    "name": "vitamin D receptor",
+    "chromosome": "12",
+    "location": "12q13.11",
+    "summary": "The vitamin D receptor mediates the action of calcitriol (active vitamin D). VDR variants affect vitamin D absorption, bone metabolism, immune function, and cancer risk. Relevant in supplementation decisions for vitamin D deficiency.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/7421",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000111424",
+    "snpedia_url": "https://www.snpedia.com/index.php/VDR",
+    "omim_url": "https://omim.org/search?index=entry&search=VDR"
+  },
+  "CYP27B1": {
+    "symbol": "CYP27B1",
+    "gene_id": "1594",
+    "ensembl_id": "ENSG00000111012",
+    "name": "cytochrome P450 family 27 subfamily B member 1",
+    "chromosome": "12",
+    "location": "12q14.1",
+    "summary": "cytochrome P450 family 27 subfamily B member 1. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/1594",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000111012",
+    "snpedia_url": "https://www.snpedia.com/index.php/CYP27B1",
+    "omim_url": "https://omim.org/search?index=entry&search=CYP27B1"
+  },
+  "CYP2R1": {
+    "symbol": "CYP2R1",
+    "gene_id": "120227",
+    "ensembl_id": "ENSG00000186104",
+    "name": "cytochrome P450 family 2 subfamily R member 1",
+    "chromosome": "11",
+    "location": "11p15.2",
+    "summary": "cytochrome P450 family 2 subfamily R member 1. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/120227",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000186104",
+    "snpedia_url": "https://www.snpedia.com/index.php/CYP2R1",
+    "omim_url": "https://omim.org/search?index=entry&search=CYP2R1"
+  },
+  "MTHFR": {
+    "symbol": "MTHFR",
+    "gene_id": "4524",
+    "ensembl_id": "ENSG00000177000",
+    "name": "methylenetetrahydrofolate reductase",
+    "chromosome": "1",
+    "location": "1p36.22",
+    "summary": "Methylenetetrahydrofolate reductase catalyzes the conversion of 5,10-methylenetetrahydrofolate to 5-methyltetrahydrofolate. The C677T variant (rs1801133) reduces enzyme activity by 30-70%, leading to elevated homocysteine. This variant affects folate and vitamin B12 metabolism and is relevant in cardiovascular risk, neural tube defects, and depression.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/4524",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000177000",
+    "snpedia_url": "https://www.snpedia.com/index.php/MTHFR",
+    "omim_url": "https://omim.org/search?index=entry&search=MTHFR"
+  },
+  "FOLH1": {
+    "symbol": "FOLH1",
+    "gene_id": "2346",
+    "ensembl_id": "ENSG00000086205",
+    "name": "folate hydrolase 1",
+    "chromosome": "11",
+    "location": "11p11.2",
+    "summary": "folate hydrolase 1. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/2346",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000086205",
+    "snpedia_url": "https://www.snpedia.com/index.php/FOLH1",
+    "omim_url": "https://omim.org/search?index=entry&search=FOLH1"
+  },
+  "SLC19A1": {
+    "symbol": "SLC19A1",
+    "gene_id": "6573",
+    "ensembl_id": "ENSG00000173638",
+    "name": "solute carrier family 19 member 1",
+    "chromosome": "21",
+    "location": "21q22.3",
+    "summary": "solute carrier family 19 member 1. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/6573",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000173638",
+    "snpedia_url": "https://www.snpedia.com/index.php/SLC19A1",
+    "omim_url": "https://omim.org/search?index=entry&search=SLC19A1"
+  },
+  "TCN2": {
+    "symbol": "TCN2",
+    "gene_id": "6948",
+    "ensembl_id": "ENSG00000185339",
+    "name": "transcobalamin 2",
+    "chromosome": "22",
+    "location": "22q12.2",
+    "summary": "transcobalamin 2. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/6948",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000185339",
+    "snpedia_url": "https://www.snpedia.com/index.php/TCN2",
+    "omim_url": "https://omim.org/search?index=entry&search=TCN2"
+  },
+  "MTRR": {
+    "symbol": "MTRR",
+    "gene_id": "4552",
+    "ensembl_id": "ENSG00000124275",
+    "name": "5-methyltetrahydrofolate-homocysteine methyltransferase reductase",
+    "chromosome": "5",
+    "location": "5p15.31",
+    "summary": "5-methyltetrahydrofolate-homocysteine methyltransferase reductase. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/4552",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000124275",
+    "snpedia_url": "https://www.snpedia.com/index.php/MTRR",
+    "omim_url": "https://omim.org/search?index=entry&search=MTRR"
+  },
+  "MTR": {
+    "symbol": "MTR",
+    "gene_id": "4548",
+    "ensembl_id": "ENSG00000116984",
+    "name": "5-methyltetrahydrofolate-homocysteine methyltransferase",
+    "chromosome": "1",
+    "location": "1q43",
+    "summary": "5-methyltetrahydrofolate-homocysteine methyltransferase. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/4548",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000116984",
+    "snpedia_url": "https://www.snpedia.com/index.php/MTR",
+    "omim_url": "https://omim.org/search?index=entry&search=MTR"
+  },
+  "FUT2": {
+    "symbol": "FUT2",
+    "gene_id": "2524",
+    "ensembl_id": "ENSG00000176920",
+    "name": "fucosyltransferase 2",
+    "chromosome": "19",
+    "location": "19q13.33",
+    "summary": "fucosyltransferase 2. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/2524",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000176920",
+    "snpedia_url": "https://www.snpedia.com/index.php/FUT2",
+    "omim_url": "https://omim.org/search?index=entry&search=FUT2"
+  },
+  "NOD2": {
+    "symbol": "NOD2",
+    "gene_id": "64127",
+    "ensembl_id": "ENSG00000167207",
+    "name": "nucleotide binding oligomerization domain containing 2",
+    "chromosome": "16",
+    "location": "16q12.1",
+    "summary": "nucleotide binding oligomerization domain containing 2. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/64127",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000167207",
+    "snpedia_url": "https://www.snpedia.com/index.php/NOD2",
+    "omim_url": "https://omim.org/search?index=entry&search=NOD2"
+  },
+  "PNPLA3": {
+    "symbol": "PNPLA3",
+    "gene_id": "80339",
+    "ensembl_id": "ENSG00000100344",
+    "name": "patatin like phospholipase domain containing 3",
+    "chromosome": "22",
+    "location": "22q13.31",
+    "summary": "patatin like phospholipase domain containing 3. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/80339",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000100344",
+    "snpedia_url": "https://www.snpedia.com/index.php/PNPLA3",
+    "omim_url": "https://omim.org/search?index=entry&search=PNPLA3"
+  },
+  "TM6SF2": {
+    "symbol": "TM6SF2",
+    "gene_id": "53345",
+    "ensembl_id": "ENSG00000197142",
+    "name": "transmembrane 6 superfamily member 2",
+    "chromosome": "19",
+    "location": "19p13.11",
+    "summary": "transmembrane 6 superfamily member 2. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/53345",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000197142",
+    "snpedia_url": "https://www.snpedia.com/index.php/TM6SF2",
+    "omim_url": "https://omim.org/search?index=entry&search=TM6SF2"
+  },
+  "TNF": {
+    "symbol": "TNF",
+    "gene_id": "7124",
+    "ensembl_id": "ENSG00000232810",
+    "name": "tumor necrosis factor",
+    "chromosome": "6",
+    "location": "6p21.33",
+    "summary": "tumor necrosis factor. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/7124",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000232810",
+    "snpedia_url": "https://www.snpedia.com/index.php/TNF",
+    "omim_url": "https://omim.org/search?index=entry&search=TNF"
+  },
+  "IL6": {
+    "symbol": "IL6",
+    "gene_id": "3569",
+    "ensembl_id": "ENSG00000136244",
+    "name": "interleukin 6",
+    "chromosome": "7",
+    "location": "7p15.3",
+    "summary": "interleukin 6. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/3569",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000136244",
+    "snpedia_url": "https://www.snpedia.com/index.php/IL6",
+    "omim_url": "https://omim.org/search?index=entry&search=IL6"
+  },
+  "IL1B": {
+    "symbol": "IL1B",
+    "gene_id": "3553",
+    "ensembl_id": "ENSG00000125538",
+    "name": "interleukin 1 beta",
+    "chromosome": "2",
+    "location": "2q14.1",
+    "summary": "interleukin 1 beta. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/3553",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000125538",
+    "snpedia_url": "https://www.snpedia.com/index.php/IL1B",
+    "omim_url": "https://omim.org/search?index=entry&search=IL1B"
+  },
+  "CRP": {
+    "symbol": "CRP",
+    "gene_id": "1401",
+    "ensembl_id": "ENSG00000132693",
+    "name": "C-reactive protein",
+    "chromosome": "1",
+    "location": "1q23.2",
+    "summary": "C-reactive protein. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/1401",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000132693",
+    "snpedia_url": "https://www.snpedia.com/index.php/CRP",
+    "omim_url": "https://omim.org/search?index=entry&search=CRP"
+  },
+  "PTGS2": {
+    "symbol": "PTGS2",
+    "gene_id": "5743",
+    "ensembl_id": "ENSG00000073756",
+    "name": "prostaglandin-endoperoxide synthase 2",
+    "chromosome": "1",
+    "location": "1q31.1",
+    "summary": "prostaglandin-endoperoxide synthase 2. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/5743",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000073756",
+    "snpedia_url": "https://www.snpedia.com/index.php/PTGS2",
+    "omim_url": "https://omim.org/search?index=entry&search=PTGS2"
+  },
+  "CYP3A4": {
+    "symbol": "CYP3A4",
+    "gene_id": "1576",
+    "ensembl_id": "ENSG00000160868",
+    "name": "cytochrome P450 family 3 subfamily A member 4",
+    "chromosome": "7",
+    "location": "7q22.1",
+    "summary": "CYP3A4 is the most abundant cytochrome P450 enzyme in the liver, responsible for metabolizing approximately 50% of drugs. Inhibitors (grapefruit, ketoconazole) increase drug levels. Inducers (rifampin, St. John's Wort) decrease drug levels. Critical for statin metabolism — grapefruit inhibits CYP3A4 and can increase atorvastatin/simvastatin toxicity.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/1576",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000160868",
+    "snpedia_url": "https://www.snpedia.com/index.php/CYP3A4",
+    "omim_url": "https://omim.org/search?index=entry&search=CYP3A4"
+  },
+  "SLCO1B1": {
+    "symbol": "SLCO1B1",
+    "gene_id": "10599",
+    "ensembl_id": "ENSG00000134538",
+    "name": "solute carrier organic anion transporter family member 1B1",
+    "chromosome": "12",
+    "location": "12p12.1",
+    "summary": "Encodes the OATP1B1 transporter, responsible for hepatic uptake of statins. The rs4149056 variant (521T>C) reduces statin uptake and is associated with statin-induced myopathy, particularly with simvastatin. Relevant for pharmacogenomics of lipid-lowering therapy.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/10599",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000134538",
+    "snpedia_url": "https://www.snpedia.com/index.php/SLCO1B1",
+    "omim_url": "https://omim.org/search?index=entry&search=SLCO1B1"
+  },
+  "ABCB1": {
+    "symbol": "ABCB1",
+    "gene_id": "5243",
+    "ensembl_id": "ENSG00000085563",
+    "name": "ATP binding cassette subfamily B member 1",
+    "chromosome": "7",
+    "location": "7q21.12",
+    "summary": "ATP binding cassette subfamily B member 1. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/5243",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000085563",
+    "snpedia_url": "https://www.snpedia.com/index.php/ABCB1",
+    "omim_url": "https://omim.org/search?index=entry&search=ABCB1"
+  },
+  "FADS1": {
+    "symbol": "FADS1",
+    "gene_id": "3992",
+    "ensembl_id": "ENSG00000149485",
+    "name": "fatty acid desaturase 1",
+    "chromosome": "11",
+    "location": "11q12.2",
+    "summary": "fatty acid desaturase 1. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/3992",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000149485",
+    "snpedia_url": "https://www.snpedia.com/index.php/FADS1",
+    "omim_url": "https://omim.org/search?index=entry&search=FADS1"
+  },
+  "FADS2": {
+    "symbol": "FADS2",
+    "gene_id": "9415",
+    "ensembl_id": "ENSG00000134824",
+    "name": "fatty acid desaturase 2",
+    "chromosome": "11",
+    "location": "11q12.2",
+    "summary": "fatty acid desaturase 2. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/9415",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000134824",
+    "snpedia_url": "https://www.snpedia.com/index.php/FADS2",
+    "omim_url": "https://omim.org/search?index=entry&search=FADS2"
+  },
+  "LCT": {
+    "symbol": "LCT",
+    "gene_id": "3938",
+    "ensembl_id": "ENSG00000115850",
+    "name": "lactase",
+    "chromosome": "2",
+    "location": "2q21.3",
+    "summary": "lactase. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/3938",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000115850",
+    "snpedia_url": "https://www.snpedia.com/index.php/LCT",
+    "omim_url": "https://omim.org/search?index=entry&search=LCT"
+  },
+  "MCM6": {
+    "symbol": "MCM6",
+    "gene_id": "4175",
+    "ensembl_id": "ENSG00000076003",
+    "name": "minichromosome maintenance complex component 6",
+    "chromosome": "2",
+    "location": "2q21.3",
+    "summary": "minichromosome maintenance complex component 6. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/4175",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000076003",
+    "snpedia_url": "https://www.snpedia.com/index.php/MCM6",
+    "omim_url": "https://omim.org/search?index=entry&search=MCM6"
+  },
+  "ABCG5": {
+    "symbol": "ABCG5",
+    "gene_id": "64240",
+    "ensembl_id": "ENSG00000138075",
+    "name": "ATP binding cassette subfamily G member 5",
+    "chromosome": "2",
+    "location": "2p21",
+    "summary": "ATP binding cassette subfamily G member 5. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/64240",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000138075",
+    "snpedia_url": "https://www.snpedia.com/index.php/ABCG5",
+    "omim_url": "https://omim.org/search?index=entry&search=ABCG5"
+  },
+  "ABCG8": {
+    "symbol": "ABCG8",
+    "gene_id": "64241",
+    "ensembl_id": "ENSG00000143921",
+    "name": "ATP binding cassette subfamily G member 8",
+    "chromosome": "2",
+    "location": "2p21",
+    "summary": "ATP binding cassette subfamily G member 8. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/64241",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000143921",
+    "snpedia_url": "https://www.snpedia.com/index.php/ABCG8",
+    "omim_url": "https://omim.org/search?index=entry&search=ABCG8"
+  },
+  "GCKR": {
+    "symbol": "GCKR",
+    "gene_id": "2646",
+    "ensembl_id": "ENSG00000084734",
+    "name": "glucokinase regulator",
+    "chromosome": "2",
+    "location": "2p23.3",
+    "summary": "glucokinase regulator. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/2646",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000084734",
+    "snpedia_url": "https://www.snpedia.com/index.php/GCKR",
+    "omim_url": "https://omim.org/search?index=entry&search=GCKR"
+  },
+  "SLC30A8": {
+    "symbol": "SLC30A8",
+    "gene_id": "169026",
+    "ensembl_id": "ENSG00000164756",
+    "name": "solute carrier family 30 member 8",
+    "chromosome": "8",
+    "location": "8q24.11",
+    "summary": "solute carrier family 30 member 8. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/169026",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000164756",
+    "snpedia_url": "https://www.snpedia.com/index.php/SLC30A8",
+    "omim_url": "https://omim.org/search?index=entry&search=SLC30A8"
+  },
+  "ADD1": {
+    "symbol": "ADD1",
+    "gene_id": "118",
+    "ensembl_id": "ENSG00000087274",
+    "name": "adducin 1",
+    "chromosome": "4",
+    "location": "4p16.3",
+    "summary": "adducin 1. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/118",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000087274",
+    "snpedia_url": "https://www.snpedia.com/index.php/ADD1",
+    "omim_url": "https://omim.org/search?index=entry&search=ADD1"
+  },
+  "CYP11B2": {
+    "symbol": "CYP11B2",
+    "gene_id": "1585",
+    "ensembl_id": "ENSG00000179142",
+    "name": "cytochrome P450 family 11 subfamily B member 2",
+    "chromosome": "8",
+    "location": "8q24.3",
+    "summary": "cytochrome P450 family 11 subfamily B member 2. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/1585",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000179142",
+    "snpedia_url": "https://www.snpedia.com/index.php/CYP11B2",
+    "omim_url": "https://omim.org/search?index=entry&search=CYP11B2"
+  },
+  "GC": {
+    "symbol": "GC",
+    "gene_id": "2638",
+    "ensembl_id": "ENSG00000145321",
+    "name": "GC, vitamin D binding protein",
+    "chromosome": "4",
+    "location": "4q13.3",
+    "summary": "GC, vitamin D binding protein. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/2638",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000145321",
+    "snpedia_url": "https://www.snpedia.com/index.php/GC",
+    "omim_url": "https://omim.org/search?index=entry&search=GC"
+  },
+  "IL23R": {
+    "symbol": "IL23R",
+    "gene_id": "149233",
+    "ensembl_id": "ENSG00000162594",
+    "name": "interleukin 23 receptor",
+    "chromosome": "1",
+    "location": "1p31.3",
+    "summary": "interleukin 23 receptor. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/149233",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000162594",
+    "snpedia_url": "https://www.snpedia.com/index.php/IL23R",
+    "omim_url": "https://omim.org/search?index=entry&search=IL23R"
+  },
+  "CARD9": {
+    "symbol": "CARD9",
+    "gene_id": "64170",
+    "ensembl_id": "ENSG00000187796",
+    "name": "caspase recruitment domain family member 9",
+    "chromosome": "9",
+    "location": "9q34.3",
+    "summary": "caspase recruitment domain family member 9. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/64170",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000187796",
+    "snpedia_url": "https://www.snpedia.com/index.php/CARD9",
+    "omim_url": "https://omim.org/search?index=entry&search=CARD9"
+  },
+  "DHFR": {
+    "symbol": "DHFR",
+    "gene_id": "1719",
+    "ensembl_id": "ENSG00000228716",
+    "name": "dihydrofolate reductase",
+    "chromosome": "5",
+    "location": "5q14.1",
+    "summary": "dihydrofolate reductase. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/1719",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000228716",
+    "snpedia_url": "https://www.snpedia.com/index.php/DHFR",
+    "omim_url": "https://omim.org/search?index=entry&search=DHFR"
+  },
+  "ELOVL2": {
+    "symbol": "ELOVL2",
+    "gene_id": "54898",
+    "ensembl_id": "ENSG00000197142",
+    "name": "ELOVL fatty acid elongase 2",
+    "chromosome": "6",
+    "location": "6p24.2",
+    "summary": "ELOVL fatty acid elongase 2. Gen relevante en nutricion clinica y farmacogenetica. Ver NCBI para informacion completa.",
+    "ncbi_url": "https://www.ncbi.nlm.nih.gov/gene/54898",
+    "ensembl_url": "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000197142",
+    "snpedia_url": "https://www.snpedia.com/index.php/ELOVL2",
+    "omim_url": "https://omim.org/search?index=entry&search=ELOVL2"
+  }
 }
 
 # Mapa clínico ampliado
@@ -328,59 +1059,62 @@ async def fetch_msk_herb(slug: str, client: httpx.AsyncClient) -> dict:
         return {"error": str(e), "slug": slug}
 
 
-# ── MYGENE.INFO — Ensembl ID correcto ────────────────────────────────────────
+# ── GENE LOOKUP — local DB first, NCBI fallback ───────────────────────────────
 async def fetch_ncbi_gene(gene_symbol: str, client: httpx.AsyncClient) -> dict:
-    cached = cache_get("gene_cache","gene_id", gene_symbol.upper())
+    sym = gene_symbol.upper().strip()
+
+    # 1. Check SQLite cache
+    cached = cache_get("gene_cache","gene_id", sym)
     if cached: return cached
-    try:
-        # Use MyGene.info for Ensembl ID + complete info
-        r = await client.get("https://mygene.info/v3/query",
-            params={"q": gene_symbol, "species":"human",
-                    "fields":"ensembl.gene,symbol,name,chromosome,genomic_pos,summary,MIM,alias"},
-            timeout=10.0)
-        hits = r.json().get("hits",[])
-        # Pick best hit — exact symbol match
-        hit = next((h for h in hits if h.get("symbol","").upper()==gene_symbol.upper()), hits[0] if hits else None)
-        if not hit: return {"symbol":gene_symbol,"error":"No encontrado"}
 
-        ensembl_id = ""
-        ens = hit.get("ensembl",{})
-        if isinstance(ens, dict): ensembl_id = ens.get("gene","")
-        elif isinstance(ens, list): ensembl_id = ens[0].get("gene","") if ens else ""
-
-        gpos = hit.get("genomic_pos",{})
-        if isinstance(gpos, list): gpos = gpos[0] if gpos else {}
-        chromosome = str(gpos.get("chr","")) or str(hit.get("chromosome",""))
-
-        # Get summary from NCBI esummary using gene_id
-        ncbi_id = hit.get("_id","")
-        summary = ""
-        if ncbi_id:
-            try:
-                r2 = await client.get("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi",
-                    params={"db":"gene","id":ncbi_id,"retmode":"json"}, timeout=8.0)
-                doc = r2.json().get("result",{}).get(str(ncbi_id),{})
-                summary = doc.get("summary","")[:1000]
-                if not chromosome: chromosome = doc.get("chromosome","")
-            except: pass
-
-        data = {
-            "symbol": gene_symbol.upper(),
-            "gene_id": ncbi_id,
-            "ensembl_id": ensembl_id,
-            "name": hit.get("name",""),
-            "chromosome": chromosome,
-            "location": f"Chr{chromosome} · {gpos.get('start','')}",
-            "summary": summary or hit.get("summary","")[:1000],
-            "ncbi_url": f"https://www.ncbi.nlm.nih.gov/gene/{ncbi_id}",
-            "ensembl_url": f"https://www.ensembl.org/Homo_sapiens/Gene/Summary?g={ensembl_id}" if ensembl_id else f"https://www.ensembl.org/Homo_sapiens/Gene/Summary?q={gene_symbol}",
-            "snpedia_url": f"https://www.snpedia.com/index.php/{gene_symbol}",
-            "omim_url": f"https://omim.org/search?index=entry&search={gene_symbol}",
-        }
-        cache_set("gene_cache","gene_id",gene_symbol.upper(),"data","",data)
+    # 2. Local GENE_DB (works offline, no external calls needed)
+    if sym in GENE_DB:
+        data = dict(GENE_DB[sym])
+        cache_set("gene_cache","gene_id",sym,"data","",data)
+        logger.info(f"💾 Gene from local DB: {sym}")
         return data
+
+    # 3. Try MyGene.info (may be blocked on some hosts)
+    try:
+        r = await client.get("https://mygene.info/v3/query",
+            params={"q": sym, "species":"human",
+                    "fields":"ensembl.gene,symbol,name,chromosome,genomic_pos,summary"},
+            timeout=8.0)
+        hits = r.json().get("hits",[])
+        hit = next((h for h in hits if h.get("symbol","").upper()==sym), hits[0] if hits else None)
+        if hit:
+            ens = hit.get("ensembl",{})
+            if isinstance(ens, list): ens = ens[0] if ens else {}
+            ensembl_id = ens.get("gene","") if isinstance(ens, dict) else ""
+            gpos = hit.get("genomic_pos",{})
+            if isinstance(gpos, list): gpos = gpos[0] if gpos else {}
+            chrom = str(gpos.get("chr","")) or str(hit.get("chromosome",""))
+            ncbi_id = hit.get("_id","")
+            data = {
+                "symbol": sym, "gene_id": ncbi_id, "ensembl_id": ensembl_id,
+                "name": hit.get("name",""), "chromosome": chrom,
+                "location": hit.get("location", chrom+"q" if chrom else ""),
+                "summary": (hit.get("summary","") or "")[:800],
+                "ncbi_url": f"https://www.ncbi.nlm.nih.gov/gene/{ncbi_id}",
+                "ensembl_url": f"https://www.ensembl.org/Homo_sapiens/Gene/Summary?g={ensembl_id}" if ensembl_id else f"https://www.ensembl.org/Homo_sapiens/Gene/Summary?q={sym}",
+                "snpedia_url": f"https://www.snpedia.com/index.php/{sym}",
+                "omim_url": f"https://omim.org/search?index=entry&search={sym}",
+            }
+            cache_set("gene_cache","gene_id",sym,"data","",data)
+            return data
     except Exception as e:
-        return {"symbol": gene_symbol, "error": str(e)}
+        logger.warning(f"MyGene.info unavailable for {sym}: {e}")
+
+    # 4. Minimal fallback
+    return {
+        "symbol": sym, "gene_id": "", "ensembl_id": "", "name": sym,
+        "chromosome": "?", "location": "?",
+        "summary": f"Gen {sym} — ver informacion completa en NCBI.",
+        "ncbi_url": f"https://www.ncbi.nlm.nih.gov/gene/?term={sym}+Homo+sapiens",
+        "ensembl_url": f"https://www.ensembl.org/Homo_sapiens/Gene/Summary?q={sym}",
+        "snpedia_url": f"https://www.snpedia.com/index.php/{sym}",
+        "omim_url": f"https://omim.org/search?index=entry&search={sym}",
+    }
 
 
 # ── KEGG ──────────────────────────────────────────────────────────────────────
@@ -714,4 +1448,5 @@ async def stats():
 
 if __name__ == "__main__":
     uvicorn.run("nutriken_engine:app", host="0.0.0.0", port=7860, reload=False)
+
 
