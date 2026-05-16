@@ -6,6 +6,7 @@
 <title>NUTRIKEN — Plataforma Bioinformática Nutricional</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Spectral:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -34,6 +35,9 @@
   <div class="sidebar-footer">
     <div class="status-pill"><div class="pulse"></div> SISTEMA ACTIVO</div>
     <div class="stats-line" id="stats-line">Cargando estadísticas…</div>
+    <button onclick="exportToPDF()" class="btn-run" style="margin-top:10px; width:100%; height:32px; font-size:10px; padding:0">
+      <i class="fas fa-file-pdf"></i> DESCARGAR PDF
+    </button>
   </div>
 </aside>
 
@@ -48,7 +52,7 @@
     <div class="view-pad">
       <div class="input-panel">
         <span class="input-label">Consulta Clínica</span>
-        <div class="input-hint">Escribe en lenguaje natural — sin necesidad de conocer bioinformática</div>
+        <div class="input-hint">Escribe en lenguaje natural — sin necesidad de conocer bioinformática</div>     
         <div class="input-row">
           <input type="text" class="query-field" id="clinical-input"
             placeholder="ej: obesidad, diabetes, intolerancia a la lactosa, déficit vitamina D…">
@@ -128,7 +132,6 @@
           <span class="tag" onclick="qt('gene','APOE')">APOE</span>
           <span class="tag" onclick="qt('gene','PPARG')">PPARG</span>
           <span class="tag" onclick="qt('gene','TCF7L2')">TCF7L2</span>
-          <span class="tag" onclick="qt('gene','MTHFR,VDR')">MTHFR + VDR</span>
         </div>
       </div>
       <div class="terminal" id="term-gene">
@@ -170,26 +173,13 @@
     <div class="view-pad">
       <div class="input-panel">
         <span class="input-label">Suplemento / Hierba</span>
-        <div class="input-hint">Datos en tiempo real desde MSK — Memorial Sloan Kettering Cancer Center</div>
+        <div class="input-hint">Datos en tiempo real desde MSK — Memorial Sloan Kettering Cancer Center</div>   
         <div class="input-row">
           <input type="text" class="query-field" id="nutrient-input"
             placeholder="ej: omega-3, vitamina D, berberina, cúrcuma, probióticos…">
           <button class="btn-run" onclick="runNutrient()">
             <i class="fas fa-play"></i> Buscar
           </button>
-        </div>
-        <div class="tag-row">
-          <span class="tag" onclick="qt('nutrient','omega-3')">Omega-3</span>
-          <span class="tag" onclick="qt('nutrient','vitamin-d')">Vitamina D</span>
-          <span class="tag" onclick="qt('nutrient','berberine')">Berberina</span>
-          <span class="tag" onclick="qt('nutrient','turmeric')">Cúrcuma</span>
-          <span class="tag" onclick="qt('nutrient','probiotics')">Probióticos</span>
-          <span class="tag" onclick="qt('nutrient','magnesium')">Magnesio</span>
-          <span class="tag" onclick="qt('nutrient','green-tea')">Té Verde</span>
-          <span class="tag" onclick="qt('nutrient','garlic')">Ajo</span>
-          <span class="tag" onclick="qt('nutrient','folic-acid')">Ácido Fólico</span>
-          <span class="tag" onclick="qt('nutrient','zinc')">Zinc</span>
-          <span class="tag" onclick="qt('nutrient','cinnamon')">Canela</span>
         </div>
       </div>
       <div class="terminal" id="term-nutrient">
@@ -219,59 +209,25 @@
   </div>
 
   <!-- VIEW: EDITOR -->
-  <div class="view" id="view-report">
+  <div class="view" id="view-report" style="background:#525659">
     <div id="toolbar">
       <div class="tb-group"><span style="color:var(--gold);font-weight:600;font-size:12px;font-family:'IBM Plex Mono',monospace">PRO EDITOR</span></div>
-      <div class="tb-group">
-        <button class="tb-btn" onclick="fmt('bold')">B</button>
-        <button class="tb-btn" onclick="fmt('italic')">I</button>
-        <button class="tb-btn" onclick="fmt('underline')">U</button>
-      </div>
-      <div class="tb-group">
-        <button class="tb-btn" onclick="insertBlock('note')">✏️ Nota</button>
-        <button class="tb-btn" onclick="insertBlock('gene')">🧬 Gen</button>
-        <button class="tb-btn" onclick="addPage()">+ Página</button>
-      </div>
       <div class="tb-spacer"></div>
-      <button class="tb-export" onclick="exportText()">📄 .TXT</button>
-      <button class="tb-export" onclick="exportMarkdown()">↓ .MD</button>
-      <button class="tb-export" onclick="window.print()">⬇ PDF</button>
+      <button class="tb-export" onclick="exportToPDF()" style="background:#1f6feb"><i class="fas fa-file-pdf"></i> DESCARGAR INFORME PDF</button>
     </div>
-    <div id="workspace">
-      <div id="sidebar-panel">
-        <div class="panel-tabs">
-          <div class="panel-tab active" onclick="switchPanel('outline')">Esquema</div>
-          <div class="panel-tab" onclick="switchPanel('insert')">Insertar</div>
-          <div class="panel-tab" onclick="switchPanel('props')">Props</div>
-        </div>
-        <div class="panel-content active" id="panel-outline">
-          <div class="panel-section">
-            <div class="panel-section-title">Secciones</div>
-            <div id="outline-list"></div>
-          </div>
-        </div>
-        <div class="panel-content" id="panel-insert">
-          <div class="panel-section">
-            <div class="panel-section-title">Insertar bloque</div>
-            <div class="insert-btn" onclick="insertBlock('note')">📝 Nota manual</div>
-            <div class="insert-btn" onclick="insertBlock('gene')">🧬 Bloque gen</div>
-            <div class="insert-btn" onclick="addPage()">📄 Nueva página</div>
-          </div>
-        </div>
-        <div class="panel-content" id="panel-props">
-          <div class="panel-section">
-            <div class="panel-section-title">Metadatos</div>
-            <div class="prop-row"><span class="prop-label">Institución</span><input class="prop-input" id="prop-inst" value=""></div>
-            <div class="prop-row"><span class="prop-label">Fecha</span><input class="prop-input" id="prop-date" type="date"></div>
-          </div>
+    <div id="workspace" style="display:flex; height: calc(100vh - 100px); overflow:hidden">
+      <div id="sidebar-panel" style="width:240px; background:#1a1a1a; border-right:1px solid #333; padding:20px; flex-shrink:0">
+        <div class="panel-section">
+          <div class="panel-section-title" style="color:var(--gold); font-size:10px; text-transform:uppercase; margin-bottom:10px">Estructura A4</div>
+          <p style="font-size:11px; color:#aaa; line-height:1.4">El informe se genera automáticamente en múltiples páginas siguiendo el formato científico de Bioinformática.</p>
         </div>
       </div>
-      <div id="canvas">
-        <div id="editor-empty">
-          <i class="fas fa-file-signature"></i>
-          <p>Realice un análisis para habilitar el editor profesional.</p>
+      <div id="canvas" style="flex:1; overflow-y:auto; padding:40px 0; display:flex; flex-direction:column; align-items:center">
+        <div id="editor-empty" style="color:white; text-align:center; margin-top:100px">
+          <i class="fas fa-file-medical-alt" style="font-size:48px; opacity:0.3"></i>
+          <p>Realice un análisis clínico para generar el reporte profesional.</p>
         </div>
-        <div id="report-canvas-content" style="display:none"></div>
+        <div id="report-web-preview" style="display:none"></div>
       </div>
     </div>
   </div>
@@ -295,4 +251,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-

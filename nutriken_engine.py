@@ -1924,9 +1924,9 @@ def init_db():
     c.execute("""CREATE TABLE IF NOT EXISTS herb_cache (
         slug TEXT PRIMARY KEY, name TEXT, data TEXT, fetched_at TEXT)""")
     c.execute("""CREATE TABLE IF NOT EXISTS gene_cache (
-        gene_id TEXT PRIMARY KEY, data TEXT, fetched_at TEXT)""")
+        gene_id TEXT PRIMARY KEY, extra TEXT, data TEXT, fetched_at TEXT)""")
     c.execute("""CREATE TABLE IF NOT EXISTS query_cache (
-        query_key TEXT PRIMARY KEY, data TEXT, fetched_at TEXT)""")
+        query_key TEXT PRIMARY KEY, extra TEXT, data TEXT, fetched_at TEXT)""")
     c.execute("""CREATE TABLE IF NOT EXISTS query_log (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         query TEXT, query_type TEXT, timestamp TEXT)""")
@@ -2116,8 +2116,7 @@ async def fetch_kegg_pathway(pathway_id: str, client: httpx.AsyncClient) -> dict
                 parts = line.strip().split(None,2)
                 if len(parts)>=2: genes.append({"id":parts[0],"symbol":parts[1].rstrip(';')})
         return {"id":pathway_id,"name":name,"description":desc,"genes":genes,
-                "kegg_url":f"https://www.kegg.jp/pathway/{pathway_id}",
-                "image_url":f"https://www.kegg.jp/kegg/pathway/{pathway_id}/{pathway_id}.png"}
+                "kegg_url":f"https://www.kegg.jp/pathway/{pathway_id}"}
     except Exception as e:
         return {"id":pathway_id,"error":str(e)}
 
