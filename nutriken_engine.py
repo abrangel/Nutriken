@@ -17,6 +17,39 @@ BASE_DIR = Path(__file__).resolve().parent
 DB_PATH  = BASE_DIR / "local_db" / "nutriken_cache.db"
 Path("local_db").mkdir(exist_ok=True)
 
+# ── LOCAL DATABASES — cargadas al inicio desde archivos locales ───────────────
+HERB_DRUG_DB = {}     # herb name -> list of drug interactions (from tapirro/herb-drug-interaction-checker)
+PHARMGKB_DB  = {}     # gene -> list of chemical relationships (from PharmGKB)
+
+def load_local_databases():
+    global HERB_DRUG_DB, PHARMGKB_DB
+    db_dir = BASE_DIR / "local_db"
+
+    # 1. Herb-drug interactions (tapirro MIT — 204 herbs, 592 interactions)
+    hdi_file = db_dir / "herb_drug_interactions.json"
+    if hdi_file.exists():
+        try:
+            data = json.loads(hdi_file.read_text(encoding="utf-8"))
+            HERB_DRUG_DB = data.get("interactions_by_herb", {})
+            logger.info(f"Herb-drug DB cargada: {len(HERB_DRUG_DB)} hierbas, fuente: tapirro/herb-drug-interaction-checker (MIT)")
+        except Exception as e:
+            logger.warning(f"Error cargando herb_drug_interactions.json: {e}")
+
+    # 2. PharmGKB nutrition relationships (CC BY-SA 4.0)
+    pgkb_file = db_dir / "pharmgkb_nutrition.json"
+    if pgkb_file.exists():
+        try:
+            rows = json.loads(pgkb_file.read_text(encoding="utf-8"))
+            for row in rows:
+                gene = row.get("gene","").upper()
+                if gene:
+                    PHARMGKB_DB.setdefault(gene, []).append(row)
+            logger.info(f"PharmGKB DB cargada: {len(PHARMGKB_DB)} genes, {len(rows)} relaciones")
+        except Exception as e:
+            logger.warning(f"Error cargando pharmgkb_nutrition.json: {e}")
+
+
+
 # ── TRADUCCIÓN ES→EN ──────────────────────────────────────────────────────────
 ES_EN = {
     "trigliceridos":"triglycerides","triglicéridos":"triglycerides",
@@ -1163,113 +1196,101 @@ async def search_pubmed(query: str, client: httpx.AsyncClient, n: int = 6) -> li
 
 # ── DRUG/FOOD INTERACTION ANALYZER ───────────────────────────────────────────
 def analyze_interactions(herbs: list, drugs: list) -> dict:
-    drug_alerts = []
-    food_alerts = []
-    herb_alerts = []
-    seen_drugs = set()
-    seen_foods = set()
+    """Cross-reference drugs with herb data — MSK + tapirro/herb-drug-interaction-checker + PharmGKB."""
+    drug_alerts, food_alerts = [], []
+    seen = set()
 
     food_keywords = {
-        "grapefruit":   "Inhibe CYP3A4 — aumenta niveles plasmáticos del fármaco",
-        "pomegranate":  "Puede inhibir metabolismo hepático — riesgo de toxicidad",
-        "pomelo":       "Inhibe CYP3A4 similar a la toronja",
-        "alcohol":      "Aumenta riesgo de daño hepático y potencia efectos adversos",
-        "caffeine":     "Puede aumentar absorción y efectos secundarios",
-        "dairy":        "Puede reducir absorción de algunos fármacos",
-        "juice":        "Jugos cítricos pueden alterar metabolismo hepático",
-        "st. john":     "Inductor CYP3A4 — reduce niveles plasmáticos del fármaco",
-        "toronja":      "Inhibe CYP3A4 — aumenta niveles plasmáticos del fármaco",
-        "granada":      "Puede inhibir metabolismo hepático",
+        "grapefruit": "Toronja — Inhibe CYP3A4 — aumenta niveles plasmaticos del farmaco — mayor riesgo de toxicidad",
+        "pomegranate": "Granada — Puede inhibir metabolismo hepatico — riesgo de toxicidad acumulada",
+        "alcohol":  "Alcohol — Aumenta riesgo de dano hepatico y potencia efectos adversos",
+        "caffeine": "Cafeina — Puede aumentar absorcion y efectos secundarios de ciertos farmacos",
+        "dairy":    "Lacteos — Pueden reducir absorcion de ciertos farmacos",
+        "st. john": "Hierba de San Juan — Inductor potente CYP3A4/CYP2C9 — reduce niveles del farmaco",
+        "toronja":  "Toronja — Inhibe CYP3A4 — aumenta niveles plasmaticos del farmaco",
+        "cumarina": "Cumarina (canela en exceso) — Hepatotoxica en dosis altas, potencia anticoagulantes",
+        "iron":     "Hierro — Reduce absorcion de quinolonas, tetraciclinas y hormonas tiroideas",
+        "calcium":  "Calcio — Puede reducir absorcion de ciertos antibioticos y bifosfonatos",
     }
+
+    drug_class_map = {
+        "anticoagulantes":["warfarin","warfarina","acenocoumarol","heparin","apixaban","rivaroxaban","dabigatran","clopidogrel"],
+        "antiplaquetarios":["aspirin","aspirina","clopidogrel","ticagrelor"],
+        "estatinas":["atorvastatin","atorvastatina","simvastatin","simvastatina","rosuvastatin","rosuvastatina","pravastatin","lovastatin","fluvastatin","pitavastatin"],
+        "antidiabeticos":["metformin","metformina","insulin","insulina","glipizide","glibenclamide","sitagliptin","empagliflozin","semaglutide","liraglutide"],
+        "antihipertensivos":["enalapril","losartan","amlodipine","amlodipino","metoprolol","atenolol","hydrochlorothiazide","ramipril","valsartan"],
+        "antidepresivos":["sertraline","fluoxetine","paroxetine","venlafaxine","amitriptyline","citalopram","escitalopram","duloxetine"],
+        "ansiolíticos":["diazepam","alprazolam","lorazepam","clonazepam","midazolam"],
+        "inmunosupresores":["cyclosporine","ciclosporina","tacrolimus","mycophenolate","sirolimus"],
+        "quimioterapia":["methotrexate","metotrexato","tamoxifen","tamoxifeno","irinotecan","docetaxel","paclitaxel"],
+        "anticonvulsivantes":["phenytoin","fenitoina","carbamazepine","carbamazepina","valproate","valproato","levetiracetam","lamotrigine"],
+        "antiinflamatorios":["ibuprofen","ibuprofeno","naproxen","naproxeno","celecoxib","diclofenac","meloxicam"],
+        "corticoides":["prednisone","prednisona","dexamethasone","dexametasona","methylprednisolone","budesonide"],
+    }
+
+    sev_order = {"ALTA": 0, "MODERADA": 1, "BAJA": 2}
 
     for herb in herbs:
         if not herb or "error" in herb: continue
         hname = herb.get("name","")
-        di_raw = herb.get("drug_interactions_raw","").lower()
+        hslug = herb.get("slug","").lower()
+        di_raw = (herb.get("drug_interactions_raw","") + " " + " ".join(herb.get("drug_interactions",[]))).lower()
         di_list = herb.get("drug_interactions",[])
         fi_list = herb.get("food_interactions",[])
 
-        # Drug interactions
+        # A. MSK interactions (from real-time scraping)
         for drug in drugs:
             dl = drug.lower()
-            if dl in di_raw and dl not in seen_drugs:
+            key = f"msk_{hslug}_{dl}"
+            if dl in di_raw and key not in seen:
                 for line in di_list:
                     if dl in line.lower():
                         drug_alerts.append({
-                            "drug": drug, "herb": hname, "alert": line,
-                            "source": herb.get("url",""),
-                            "severity": "⚠ PRECAUCIÓN" if any(w in line.lower() for w in
-                                ["avoid","caution","increase","toxic","inhibit","serious","severe","bleeding"]) else "ℹ MONITOREAR"
+                            "drug": drug.title(), "herb": hname, "alert": line,
+                            "mechanism": "", "source": herb.get("url",""),
+                            "severity": "ALTA" if any(w in line.lower() for w in
+                                ["avoid","contraindicated","serious","severe","toxic","bleeding","major"]) else "MODERADA",
+                            "evidence": "MSK Clinical Review",
+                            "origin": "MSK Memorial Sloan Kettering"
                         })
-                        seen_drugs.add(dl)
+                        seen.add(key)
                         break
 
-        # Food interactions from herb data
-        all_text = " ".join(di_list + fi_list + [herb.get("clinical_summary","")[:300]])
+        # B. Tapirro local DB (MIT license — 592 interactions, EMA/HMPC/ESCOP sources)
+        for hkey in [hslug, hname.lower()]:
+            for li in HERB_DRUG_DB.get(hkey, []):
+                dc = li.get("drug_class","").lower()
+                for drug in drugs:
+                    dl = drug.lower()
+                    key2 = f"tapirro_{hkey}_{dc}_{dl}"
+                    if key2 in seen: continue
+                    drugs_in_class = drug_class_map.get(dc, [])
+                    if dl in drugs_in_class or dl in dc or dc in dl:
+                        sev = {"alta":"ALTA","moderada":"MODERADA","baja":"BAJA"}.get(li.get("severity","baja"),"BAJA")
+                        drug_alerts.append({
+                            "drug": drug.title(), "herb": hname,
+                            "alert": li.get("effect",""),
+                            "mechanism": li.get("mechanism",""),
+                            "source": "https://github.com/tapirro/herb-drug-interaction-checker",
+                            "severity": sev,
+                            "evidence": li.get("evidence",""),
+                            "reference": li.get("source","")[:200],
+                            "origin": "EMA/HMPC/ESCOP (via tapirro/herb-drug-interaction-checker MIT)"
+                        })
+                        seen.add(key2)
+
+        # C. Food interactions
+        all_text = " ".join(di_list + fi_list + [herb.get("clinical_summary","")[:400]])
         for food_kw, food_desc in food_keywords.items():
-            if food_kw in all_text.lower() and food_kw not in seen_foods:
+            fkey = f"food_{hslug}_{food_kw}"
+            if food_kw in all_text.lower() and fkey not in seen:
                 food_alerts.append({"food": food_kw.title(), "herb": hname,
                                     "description": food_desc, "source": herb.get("url","")})
-                seen_foods.add(food_kw)
+                seen.add(fkey)
 
+    drug_alerts.sort(key=lambda x: sev_order.get(x.get("severity","BAJA"), 2))
     return {"drug_alerts": drug_alerts, "food_alerts": food_alerts}
 
-
-# ── FREE SEARCH — cualquier término ──────────────────────────────────────────
-async def free_search(query_en: str, query_orig: str, client: httpx.AsyncClient) -> dict:
-    """Search MSK for any term not in CLINICAL_MAP."""
-    # Search PubMed for related supplements
-    refs = await search_pubmed(f"{query_en} supplement herbal clinical nutrition", client, n=6)
-
-    # Try to find MSK herbs related to this query
-    related_slugs = []
-    for slug, kw_list in [
-        ("fish-oil", ["triglyceride","lipid","heart","cardiovascular","omega"]),
-        ("berberine", ["glucose","cholesterol","triglyceride","diabetes","lipid"]),
-        ("milk-thistle", ["liver","hepatic","statin","cholesterol"]),
-        ("coenzyme-q10", ["statin","myopathy","energy","mitochondria","heart"]),
-        ("green-tea", ["weight","obesity","lipid","antioxidant","cancer"]),
-        ("turmeric", ["inflammation","arthritis","cancer","pain","antioxidant"]),
-        ("garlic", ["blood pressure","cholesterol","lipid","cardiovascular","infection"]),
-        ("magnesium", ["muscle","heart","diabetes","migraine","anxiety","bone"]),
-        ("vitamin-d", ["bone","immune","cancer","depression","cardiovascular"]),
-        ("ginger", ["nausea","inflammation","digestion","pain","arthritis"]),
-        ("probiotics", ["gut","microbiota","diarrhea","immune","bowel"]),
-        ("artichoke", ["liver","cholesterol","digestion","gallstone","lipid"]),
-        ("red-yeast-rice", ["cholesterol","statin","lipid","cardiovascular"]),
-        ("alpha-lipoic-acid", ["diabetes","neuropathy","antioxidant","liver","weight"]),
-        ("flaxseed", ["cholesterol","triglyceride","omega","cardiovascular","fiber"]),
-        ("resveratrol", ["cardiovascular","antioxidant","inflammation","cancer","aging"]),
-        ("niacin", ["cholesterol","triglyceride","pellagra","cardiovascular"]),
-        ("chromium", ["diabetes","insulin","weight","glucose","obesity"]),
-        ("fenugreek", ["diabetes","cholesterol","testosterone","lactation"]),
-    ]:
-        if any(kw in query_en for kw in kw_list):
-            related_slugs.append(slug)
-
-    # Fetch up to 6 related herbs
-    herb_tasks = [fetch_msk_herb(slug, client) for slug in related_slugs[:6]]
-    herbs = [h for h in await asyncio.gather(*herb_tasks) if "error" not in h]
-
-    return {"herbs": herbs, "references": refs, "related_slugs": related_slugs}
-
-
-# ── DESCRIPTIONS ─────────────────────────────────────────────────────────────
-DESCRIPTIONS = {
-    "obesity": "La obesidad involucra genes reguladores del apetito (FTO, MC4R, LEP) y metabolismo energético (PPARG). Fármacos como orlistat y semaglutide interactúan con múltiples suplementos. Pérdida de peso rápida (>1.5 kg/sem) aumenta riesgo de cálculos biliares — el UDCA (ácido ursodesoxicólico) se usa como protección. El té verde, berberina y cromo tienen mayor evidencia clínica.",
-    "triglycerides": "Los triglicéridos elevados (hipertrigliceridemia) involucran genes APOA5, LPL y APOC3. Los omega-3 (EPA/DHA) son el suplemento con mayor evidencia — reducen triglicéridos 20-30%. La niacina también es eficaz pero interactúa con estatinas. El ajo y la berberina tienen evidencia secundaria.",
-    "cholesterol": "El metabolismo lipídico depende de APOE, LDLR y HMGCR. Las estatinas (atorvastatina, rosuvastatina) son la base del tratamiento. La toronja inhibe CYP3A4 y AUMENTA los niveles de estatinas — riesgo de miopatía y hepatotoxicidad. El CoQ10 es recomendado como coadyuvante en miopatía por estatinas. La silimarina (cardo mariano) tiene efecto hepatoprotector documentado.",
-    "atorvastatin": "La atorvastatina inhibe HMGCR (enzima limitante de la síntesis de colesterol). Interacciones críticas: TORONJA inhibe CYP3A4 → aumenta niveles de atorvastatina → mayor toxicidad. La SILIMARINA puede interactuar via CYP3A4. El CoQ10 puede atenuar la miopatía inducida. La CANELA EN EXCESO (cumarina) tiene efecto hepatotóxico aditivo. Kava, chaparral y comfrey son hepatotóxicos — CONTRAINDICADOS con estatinas.",
-    "statins": "Las estatinas (atorvastatina, rosuvastatina, simvastatina) inhiben HMGCR. Coadyuvantes con evidencia: CoQ10 para miopatía, silimarina para hepatoprotección. Contraindicados: toronja, kava, chaparral, comfrey. La pravastatin y rosuvastatina son más seguras hepaticamente.",
-    "silymarin": "La silimarina actúa sobre CYP3A4 y CYP2C9, modificando el metabolismo de múltiples fármacos. Tiene efecto hepatoprotector documentado en MSK. Interactúa con estatinas, anticoagulantes y ciclosporina. Es el hepatoprotector natural con mayor evidencia clínica.",
-    "liver": "La salud hepática depende de PNPLA3 y TM6SF2. El cardo mariano (silimarina) es el hepatoprotector con mayor evidencia. La alcachofa tiene efecto colerético. Evitar: kava, chaparral, comfrey, canela en exceso — hepatotóxicos.",
-    "inflammation": "La inflamación crónica involucra TNF-α, IL-6 y NF-kB. Curcumina (cúrcuma), omega-3 y quercetina tienen mayor evidencia. Interacciones: curcumina potencia anticoagulantes. Omega-3 aumenta riesgo de sangrado con warfarina.",
-    "hypertension": "El ajo reduce presión arterial modestamente (evidencia Cochrane). CoQ10 tiene efecto vasodilatador. El magnesio es esencial para función vascular. El espino blanco (hawthorn) tiene evidencia en ICC leve. Cuidado: ajo + antihipertensivos puede causar hipotensión.",
-    "diabetes": "La berberina tiene eficacia comparable a metformina en glucosa (estudios chinos). El cromo mejora sensibilidad a insulina. La canela reduce glucosa en ayunas modestamente. PRECAUCIÓN: combinación con metformina o insulina puede causar hipoglucemia.",
-    "weight loss": "Pérdida rápida de peso aumenta riesgo de cálculos biliares — UDCA (ursodiol) es preventivo. Déficit de micronutrientes es común. El té verde (EGCG) tiene evidencia en metabolismo. La berberina actúa sobre AMPK similar a metformina.",
-    "gallstones": "Los cálculos biliares se forman por saturación de colesterol biliar. El UDCA (ácido ursodesoxicólico) es el tratamiento farmacológico de primera línea. La alcachofa tiene efecto colerético documentado. Pérdida de peso rápida es factor de riesgo — usar UDCA profiláctico.",
-    "gut microbiota": "La microbiota depende de NOD2, FUT2 y genes de inmunidad innata. Los probióticos tienen mayor evidencia en SII y prevención de diarrea por antibióticos. En inmunosuprimidos pueden causar infecciones — PRECAUCIÓN.",
-}
 
 def get_description(key): return DESCRIPTIONS.get(key, f"Análisis basado en evidencia clínica de MSK, NCBI y PubMed para: {key.title()}")
 
@@ -1292,7 +1313,10 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], all
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.on_event("startup")
-async def startup(): init_db(); logger.info("🌿 NutriKen v2 iniciado")
+async def startup():
+    init_db()
+    load_local_databases()
+    logger.info("NutriKen v2.3 iniciado — bases de datos locales cargadas")
 
 @app.get("/")
 async def root(): return FileResponse("static/index.html")
