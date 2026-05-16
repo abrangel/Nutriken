@@ -1,0 +1,6 @@
+local_db/targetscan_db.pkl
+KENRYU_v1_38_FINAL_RESPALDO.zip
+__pycache__/
+*.pyc
+.env
+.venv

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KENRYU — Motor Científico</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Spectral:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+/* ========== ESTILOS DASHBOARD ELEGANTE v2 ========== */
+:root {
+  --bg:        #0a0c0f;
+  --bg1:       #101318;
+  --bg2:       #161b22;
+  --bg3:       #1e252f;
+  --border:    rgba(255,255,255,.07);
+  --border-md: rgba(255,255,255,.12);
+  --text:      #e8edf3;
+  --text-dim:  #7a8694;
+  --text-faint:#3d4857;
+  --gold:      #c8a96e;
+  --gold-dim:  rgba(200,169,110,.15);
+  --gold-glow: rgba(200,169,110,.08);
+  --teal:      #4fc3a1;
+  --teal-dim:  rgba(79,195,161,.12);
+  --red:       #e05c5c;
+  --red-dim:   rgba(224,92,92,.12);
+  --blue:      #6eaadc;
+  --blue-dim:  rgba(110,170,220,.12);
+  --r:         8px;
+  --r-lg:      14px;
+  --shadow:    0 8px 32px rgba(0,0,0,.45);
+  --font-serif: 'DM Serif Display', Georgia, serif;
+  --font-sans:  'DM Sans', system-ui, sans-serif;
+  --font-mono:  'DM Mono', 'Fira Code', monospace;
+
+  /* Professional Editor Tokens */
+  --ink: #0f0f0f; --ink-mid: #444; --ink-dim: #888; --ink-faint: #ccc;
+  --paper: #fafaf8; --page-bg: #e8e6e0; --accent: #1a3a6b; --accent-light: #e8eef7;
+  --accent-green: #0f5e3a; --danger: #8b1a1a; --border-sci: #d4d0c8;
+  --toolbar-bg: #1e1e1e; --toolbar-text: #d4d4d4; --toolbar-border: #333;
+  --toolbar-hover: #333; --toolbar-active: #444; --sidebar-bg: #1a1a1a;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-sans); font-size: 14px; display: flex; line-height: 1.6; }
+
+/* ── SIDEBAR ──────────────────────────────────────────── */
+.sidebar { width: 256px; min-width: 256px; background: var(--bg1); border-right: 1px solid var(--border); display: flex; flex-direction: column; height: 100vh; position: relative; z-index: 10; }
+.logo-area { padding: 28px 24px 20px; border-bottom: 1px solid var(--border); }
+.logo-wordmark { font-family: var(--font-serif); font-size: 22px; color: var(--gold); line-height: 1; }
+.logo-sub { font-size: 10px; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; margin-top: 6px; font-family: var(--font-mono); }
+.nav { padding: 12px 0; flex: 1; }
+.nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 20px; font-size: 13px; color: var(--text-dim); cursor: pointer; transition: all .15s; border-left: 2px solid transparent; user-select: none; }
+.nav-item i { width: 16px; text-align: center; font-size: 13px; }
+.nav-item:hover { background: var(--bg2); color: var(--text); }
+.nav-item.active { background: var(--gold-glow); color: var(--gold); border-left-color: var(--gold); }
+.sidebar-footer { padding: 16px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; }
+.btn-side { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 9px 14px; border-radius: var(--r); border: none; font-size: 12px; font-weight: 500; cursor: pointer; transition: all .15s; width: 100%; }
+.btn-side.pdf { background: rgba(224,92,92,.15); color: #e07070; border: 1px solid rgba(224,92,92,.2); }
+
+/* ── MAIN LAYOUT ──────────────────────────────────────── */
+.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; height: 100vh; }
+.topbar { display: flex; align-items: center; justify-content: space-between; padding: 0 28px; height: 56px; border-bottom: 1px solid var(--border); background: var(--bg1); flex-shrink: 0; }
+.topbar-title { font-family: var(--font-serif); font-size: 17px; color: var(--text); }
+.status-pill { display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 10px; color: var(--teal); padding: 6px 10px; background: var(--teal-dim); border-radius: 20px; border: 1px solid rgba(79,195,161,.15); }
+.pulse { width: 6px; height: 6px; background: var(--teal); border-radius: 50%; animation: pulse 2.2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.8)} }
+
+.view { flex: 1; overflow-y: auto; display: none; }
+.view.active { display: block; }
+.view-pad { padding: 28px; }
+
+/* ── DASHBOARD UI COMPONENTS ──────────────────────────── */
+.input-panel { background: var(--bg1); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 22px 24px; margin-bottom: 24px; }
+.input-label { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; display: block; }
+.input-row { display: flex; gap: 12px; align-items: flex-end; }
+.mirna-field { flex: 1; background: var(--bg); border: 1px solid var(--border-md); border-radius: var(--r); color: var(--gold); font-family: var(--font-mono); font-size: 12.5px; padding: 11px 14px; resize: none; height: 48px; line-height: 1.4; outline: none; transition: border-color .2s; }
+.select-field { background: var(--bg); border: 1px solid var(--border-md); border-radius: var(--r); color: var(--text-dim); font-size: 12px; padding: 0 12px; height: 48px; outline: none; min-width: 140px; appearance: none; cursor: pointer; }
+.btn-run { background: var(--gold); color: #0a0c0f; border: none; border-radius: var(--r); font-family: var(--font-sans); font-weight: 600; font-size: 13px; padding: 0 28px; height: 48px; cursor: pointer; transition: all .15s; }
+.btn-run:hover { background: #d9ba82; transform: translateY(-1px); }
+.btn-run:disabled { opacity: 0.6; cursor: not-allowed; }
+.terminal { background: var(--bg); border: 1px solid var(--border); border-radius: var(--r); font-family: var(--font-mono); font-size: 11.5px; padding: 14px 16px; height: 96px; overflow-y: auto; margin-bottom: 24px; color: var(--text-dim); }
+.log-line { display: flex; gap: 10px; margin-bottom: 3px; }
+.log-ts { color: var(--text-faint); font-size: 10px; }
+.log-msg.ok { color: var(--teal); }
+.log-msg.err { color: var(--red); }
+
+.dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.span2 { grid-column: span 2; }
+.card { background: var(--bg1); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
+.card-head { display: flex; align-items: center; justify-content: space-between; padding: 13px 18px; border-bottom: 1px solid var(--border); background: var(--bg2); }
+.card-title { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-dim); }
+.card-badge { font-family: var(--font-mono); font-size: 10px; padding: 2px 8px; border-radius: 20px; background: var(--gold-dim); color: var(--gold); }
+.card-body { padding: 18px; }
+.viz { min-height: 320px; display: flex; align-items: center; justify-content: center; }
+.viz img { width: 100%; border-radius: var(--r); }
+.genes-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+.gene-pill { padding: 4px 10px; background: var(--bg3); border: 1px solid var(--border-md); border-radius: 4px; font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); cursor: pointer; transition: all .12s; }
+.gene-pill:hover { background: var(--gold-dim); border-color: var(--gold); color: var(--gold); }
+
+/* ========== ESTILOS EDITOR PROFESIONAL INTEGRADOS ========== */
+#toolbar {
+  background: var(--toolbar-bg); border-bottom: 1px solid var(--toolbar-border);
+  display: flex; align-items: center; gap: 2px; padding: 6px 12px; flex-wrap: wrap; flex-shrink: 0;
+}
+.tb-group { display: flex; align-items: center; gap: 2px; padding: 0 8px; border-right: 1px solid var(--toolbar-border); }
+.tb-group:last-child { border-right: none; }
+.tb-btn { background: none; border: none; color: var(--toolbar-text); padding: 5px 9px; border-radius: 4px; cursor: pointer; font-size: 13px; font-family: 'IBM Plex Mono', monospace; display: flex; align-items: center; gap: 5px; transition: 0.15s; white-space: nowrap; }
+.tb-btn:hover { background: var(--toolbar-hover); }
+.tb-btn.active { background: var(--toolbar-active); color: #fff; }
+.tb-select { background: #2d2d2d; border: 1px solid var(--toolbar-border); color: var(--toolbar-text); padding: 4px 8px; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; cursor: pointer; }
+.tb-spacer { flex: 1; }
+.tb-export { background: var(--accent); color: white; border: none; padding: 6px 14px; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.15s; }
+.tb-export:hover { opacity: 0.9; }
+.tb-export-md { background: #4a1a6b; }
+
+#workspace { display: flex; flex: 1; overflow: hidden; height: calc(100vh - 103px); }
+#sidebar-panel { width: 260px; background: var(--sidebar-bg); border-right: 1px solid #3a3a3a; display: flex; flex-direction: column; flex-shrink: 0; }
+.panel-tabs { display: flex; border-bottom: 1px solid #3a3a3a; background: #1f1f1f; }
+.panel-tab { flex: 1; padding: 9px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #aaa; text-align: center; cursor: pointer; text-transform: uppercase; border-bottom: 2px solid transparent; }
+.panel-tab.active { color: #58a6ff; border-bottom-color: #58a6ff; background: #2a2a2a; }
+.panel-content { flex: 1; overflow-y: auto; padding: 12px; color: #e0e0e0; }
+.panel-section { margin-bottom: 20px; }
+.panel-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 9px; text-transform: uppercase; color: #aaa; margin-bottom: 8px; border-bottom: 1px solid #3a3a3a; padding-bottom: 4px; letter-spacing: 1px; }
+.outline-item { padding: 6px 8px; border-radius: 4px; cursor: pointer; font-size: 12px; color: #ccc; transition: 0.1s; margin-bottom: 2px; font-family: 'DM Sans', sans-serif; }
+.outline-item:hover { background: #3a3a3a; color: white; }
+.outline-item.active { background: #1a3a6b44; color: #58a6ff; }
+.prop-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.prop-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #ccc; min-width: 90px; }
+.prop-input { flex: 1; background: #2a2a2a; border: 1px solid #444; color: #eee; padding: 4px 7px; border-radius: 3px; font-size: 11px; }
+.color-chip { width: 18px; height: 18px; border-radius: 3px; cursor: pointer; border: 2px solid transparent; }
+.color-chip.selected { border-color: #58a6ff; }
+.insert-btn { background: #2a2a2a; border: 1px solid #444; color: #ddd; padding: 6px; border-radius: 4px; cursor: pointer; font-size: 11px; text-align: center; margin-bottom: 6px; transition: 0.1s; }
+.insert-btn:hover { border-color: #58a6ff; color: white; }
+
+#canvas {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 40px 20px;
+  background: var(--page-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.a4-page {
+  width: 210mm;
+  height: 297mm;                /* altura fija, no min-height */
+  overflow: hidden;            /* oculta lo que exceda */
+  background: var(--paper);
+  margin: 0 auto 32px;
+  box-shadow: 0 4px 32px var(--shadow);
+  border-radius: 2px;
+  position: relative;
+  page-break-after: always;    /* salto al imprimir */
+  font-family: 'Spectral', serif; 
+  color: var(--ink);
+}
+.a4-page:last-child {
+  page-break-after: avoid;
+}
+.page-inner { padding: 18mm 16mm 20mm; }
+.report-header { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 12px; margin-bottom: 24px; border-bottom: 2.5px solid var(--ink); }
+.report-title { font-size: 36px; font-weight: 600; line-height: 1; }
+.report-subtitle { font-size: 11px; color: var(--ink-dim); text-transform: uppercase; font-family: 'IBM Plex Mono', monospace; }
+.report-meta { text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ink-dim); line-height: 1.6; }
+.meta-id { font-size: 13px; font-weight: 600; color: var(--accent); }
+.report-section { margin-bottom: 28px; position: relative; }
+.section-actions { position: absolute; right: -36px; top: 0; display: flex; flex-direction: column; gap: 3px; opacity: 0; transition: 0.15s; z-index: 10; }
+.report-section:hover .section-actions { opacity: 1; }
+.section-act-btn { width: 26px; height: 26px; background: #1e1e1e; border: 1px solid #333; border-radius: 4px; color: #aaa; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+.section-act-btn.danger:hover { background: #5a1a1a; color: #f88; }
+.section-heading { font-family: 'IBM Plex Mono', monospace; font-size: 9px; text-transform: uppercase; color: var(--accent); border-bottom: 1px solid var(--border-sci); padding-bottom: 5px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.editable-block { font-size: 12.5px; line-height: 1.72; text-align: justify; outline: none; min-height: 1.72em; word-wrap: break-word; }
+.editable-block:empty:before { content: attr(data-placeholder); color: var(--ink-faint); font-style: italic; }
+.rep-table { width: 100%; border-collapse: collapse; font-size: 11px; margin: 8px 0; table-layout: fixed; word-break: break-word; }
+.rep-table th { background: var(--accent); color: white; padding: 7px 10px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 9px; }
+.rep-table td { padding: 8px 10px; border-bottom: 1px solid var(--border-sci); color: var(--ink); }
+.sci-table { width: 100%; border-collapse: collapse; color: var(--text); font-size: 12px; }
+.sci-table th { text-align: left; padding: 10px; color: var(--text-dim); font-family: var(--font-mono); font-size: 10px; border-bottom: 1px solid var(--border); }
+.sci-table td { padding: 12px 10px; border-bottom: 1px solid var(--border); }
+.source-tag { font-family: var(--font-mono); font-size: 9px; padding: 2px 6px; background: var(--bg3); border-radius: 3px; color: var(--gold); }
+.note-block { background: #fffde7; border-left: 4px solid #fbc02d; padding: 15px; margin: 15px 0; font-style: italic; }
+.quote-block { font-family: 'Spectral', serif; font-size: 18px; line-height: 1.5; color: var(--ink-mid); padding: 20px 40px; position: relative; border-top: 1px solid var(--border-sci); border-bottom: 1px solid var(--border-sci); margin: 25px 0; text-align: center; }
+.quote-block::before { content: "“"; font-size: 50px; color: var(--accent); position: absolute; left: 10px; top: -10px; opacity: 0.3; }
+.gene-block { border-left: 3px solid var(--accent); padding: 12px 14px; margin-bottom: 14px; background: var(--accent-light); border-radius: 0 4px 4px 0; }
+.gene-block-name { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--accent); }
+.gene-block-text { font-size: 11.5px; line-height: 1.65; color: var(--ink-mid); outline: none; }
+.page-footer { position: absolute; bottom: 10mm; left: 16mm; right: 16mm; border-top: 1px solid var(--border-sci); padding-top: 6px; display: flex; justify-content: space-between; font-size: 8px; color: var(--ink-faint); font-family: 'IBM Plex Mono', monospace; }
+.add-section-btn { display: flex; justify-content: center; padding: 8px; border: 1.5px dashed var(--border-sci); border-radius: 4px; color: var(--ink-faint); cursor: pointer; margin-top: 8px; width: 100%; background: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+.add-section-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+
+@media print {
+  /* Ocultar absolutamente todo lo que no sea el reporte */
+  .sidebar, .topbar, #toolbar, #sidebar-panel,
+  .section-actions, .add-section-btn, .status-pill, .gene-panel, #editor-empty {
+    display: none !important;
+  }
+
+  /* Reset total del viewport para que el reporte sea la raíz */
+  html, body {
+    background: white !important;
+    height: auto !important;
+    overflow: visible !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Eliminar paddings y alturas de contenedores padre */
+  .main, #view-report, #workspace, #canvas, #report-canvas-content {
+    display: block !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    background: white !important;
+    position: static !important;
+    width: 100% !important;
+  }
+
+  /* Configuración de la hoja A4 sin interferencias */
+  .a4-page {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;      /* ← Forzamos a ignorar el min-height de 297mm */
+    margin: 0 !important;
+    padding: 15mm 15mm 15mm !important; /* Margen real de impresión */
+    box-shadow: none !important;
+    border: none !important;
+    page-break-after: always !important;
+    page-break-before: avoid !important;
+    position: relative !important;
+    display: block !important;
+  }
+  .a4-page:last-child { page-break-after: avoid !important; }
+
+  .section-heading {
+    font-size: 11px !important;
+    color: #1a3a6b !important;
+    letter-spacing: 1px !important;
+  }
+
+  .page-inner { padding: 0 !important; }
+
+  @page {
+    size: A4;
+    margin: 0; /* Controlamos márgenes con el padding de .a4-page */
+  }
+
+  /* Permitir que las secciones se dividan si son muy largas */
+  .report-section {
+    page-break-inside: auto !important;
+    margin-bottom: 20px !important;
+    display: block !important;
+  }
+
+  /* Mantener bloques pequeños unidos */
+  .gene-block, tr, .viz-print {
+    page-break-inside: avoid !important;
+  }
+  
+  /* Asegurar que el texto fluya y no se oculte */
+  .editable-block, p {
+    page-break-inside: auto !important;
+    orphans: 3;
+    widows: 3;
+  }
+  
+  /* Asegurar que el texto sea legible y ocupe el ancho */
+  .editable-block {
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+    text-align: justify !important;
+  }
+
+  /* Estandarización de gráficos en impresión */
+  .viz-print {
+    width: 100% !important;
+    text-align: center !important;
+    margin-top: 20px !important;
+    page-break-inside: avoid;
+  }
+
+  .viz-print img {
+    max-width: 100% !important;
+    max-height: 9.5in !important;
+    height: auto !important;
+    border: 1px solid #eee !important;
+    object-fit: contain;
+  }
+}
+
+/* ── GENE PANEL ── */
+.gene-panel { position: fixed; right: 0; top: 0; bottom: 0; width: 340px; background: var(--bg1); border-left: 1px solid var(--border-md); box-shadow: -8px 0 40px rgba(0,0,0,.5); z-index: 200; transform: translateX(100%); transition: transform .25s ease; display: flex; flex-direction: column; overflow: hidden; }
+.gene-panel.open { transform: none; }
+.gene-panel-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-bottom: 1px solid var(--border); background: var(--bg2); }
+.gene-panel-name { font-family: var(--font-serif); font-size: 22px; color: var(--gold); }
+.gene-panel-body { flex: 1; overflow-y: auto; padding: 25px; }
+
+/* Soporte para exportación PDF limpia */
+.pdf-exporting .sidebar, 
+.pdf-exporting .topbar, 
+.pdf-exporting #toolbar, 
+.pdf-exporting #sidebar-panel,
+.pdf-exporting .section-actions, 
+.pdf-exporting .add-section-btn {
+  display: none !important;
+}
+.pdf-exporting #canvas { padding: 0 !important; background: white !important; }
+.pdf-exporting .a4-page { margin: 0 !important; box-shadow: none !important; }
+</style>
+</head>
+
+<body>
+
+  <aside class="sidebar">
+  <div class="logo-area">
+    <div class="logo-wordmark">KENRYU</div>
+    <div class="logo-sub">Cesar Manzo</div>
+  </div>
+  <nav class="nav">
+    <div class="nav-item active" id="nav-dash" onclick="switchView('dashboard')"><i class="fas fa-chart-line"></i> Panel de Análisis</div>
+    <div class="nav-item" id="nav-report" onclick="switchView('report')"><i class="fas fa-file-invoice"></i> Editor de Informe</div>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="status-pill"><div class="pulse"></div> SISTEMA ACTIVO</div>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <span class="topbar-title" id="view-title">Panel de Análisis</span>
+    <span class="topbar-meta">KENRYU SCIENTIFIC ENGINE</span>
+  </header>
+
+  <div class="view active" id="view-dashboard">
+    <div class="view-pad">
+      <div class="input-panel">
+        <div class="input-row">
+          <textarea class="mirna-field" id="mirna-input">hsa-miR-33a-5p, hsa-miR-144-3p, hsa-miR-758-3p, hsa-miR-106b-5p, hsa-miR-33b-5p</textarea>
+          <div style="display:flex; flex-direction:column; gap:5px;">
+            <div style="display:flex; gap:5px;">
+              <select class="select-field" id="pubmed-years"></select>
+              <select class="select-field" id="pubmed-month">
+                <option value="01">Enero</option><option value="02">Febrero</option><option value="03">Marzo</option><option value="04">Abril</option><option value="05">Mayo</option><option value="06">Junio</option><option value="07">Julio</option><option value="08">Agosto</option><option value="09">Septiembre</option><option value="10">Octubre</option><option value="11">Noviembre</option><option value="12">Diciembre</option>
+              </select>
+            </div>
+            <select class="select-field" id="consensus-mode" style="width:100%;">
+              <option value="strict">Consenso Estricto</option><option value="n-1">Consenso N-1</option><option value="n-2">Consenso N-2</option>
+            </select>
+          </div>
+          <button class="btn-run" onclick="analyzePro()"><i class="fas fa-play"></i> Ejecutar</button>
+        </div>
+      </div>
+      <div class="terminal" id="process-logs"></div>
+      <div class="dash-grid" id="results-grid" style="display:none;">
+        <div class="card"><div class="card-head"><span class="card-title">Identificación de Dianas</span></div><div class="card-body"><div class="viz" id="venn-container"></div></div></div>
+        <div class="card"><div class="card-head"><span class="card-title">Significancia Biológica</span></div><div class="card-body"><div class="viz" id="volcano-container"></div></div></div>
+        <div class="card span2"><div class="card-head"><span class="card-title">Biomarcadores Core</span><span class="card-badge" id="gene-count-badge"></span></div><div class="card-body"><div class="genes-wrap" id="core-genes-list"></div></div></div>
+        <div class="card span2"><div class="card-head"><span class="card-title">Interactoma Proteico</span></div><div class="card-body"><div class="viz" id="ppi-container" style="min-height:420px;"></div></div></div>
+        <div class="card span2"><div class="card-head"><span class="card-title">Enriquecimiento Funcional</span></div><div class="card-body" id="enrich-container" style="padding:18px;"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="view" id="view-report">
+    <div id="toolbar">
+      <div class="tb-group"><span class="tb-label" style="color:var(--gold); font-weight:600;">PRO EDITOR</span></div>
+      <div class="tb-group edit-only">
+        <button class="tb-btn" onclick="fmt('bold')">B</button>
+        <button class="tb-btn" onclick="fmt('italic')">I</button>
+        <button class="tb-btn" onclick="fmt('underline')">U</button>
+      </div>
+      <div class="tb-group edit-only">
+        <select class="tb-select" onchange="setFontSize(this.value)"><option>11px</option><option selected>12px</option><option>13px</option><option>14px</option><option>16px</option></select>
+      </div>
+      <div class="tb-group edit-only">
+        <button class="tb-btn" onclick="insertBlock('note')">✏️ Nota</button>
+        <button class="tb-btn" onclick="insertBlock('quote')">❝ Cita</button>
+        <button class="tb-btn" onclick="insertBlock('gene')">🧬 Gen</button>
+        <button class="tb-btn" onclick="insertBlock('divider')">— Sep.</button>
+      </div>
+      <div class="tb-group edit-only"><button class="tb-btn" onclick="addPage()">+ Página</button></div>
+      <div class="tb-group"><button class="tb-btn" id="preview-btn" onclick="togglePreview()">👁 Vista previa</button></div>
+      <div class="tb-spacer"></div>
+      <div class="tb-group">
+        <span id="save-status" style="margin-right:8px; font-size:10px; color:#666;">💾 Auto</span>
+        <button class="tb-export" onclick="exportText()">📄 .TXT</button>
+        <button class="tb-export tb-export-md" onclick="exportMarkdown()">↓ .MD</button>
+        <button class="tb-export" onclick="window.print()">⬇ PDF</button>
+      </div>
+    </div>
+    <div id="workspace">
+      <div id="sidebar-panel">
+        <div class="panel-tabs"><div class="panel-tab active" id="tab-outline" onclick="switchPanel('outline')">Esquema</div><div class="panel-tab" id="tab-insert" onclick="switchPanel('insert')">Insertar</div><div class="panel-tab" id="tab-props" onclick="switchPanel('props')">Propiedades</div></div>
+        <div class="panel-content" id="panel-outline">
+          <div class="panel-section"><div class="panel-section-title">Secciones del informe</div><div id="outline-list"></div></div>
+          <div class="panel-section"><div class="panel-section-title">Estadísticas</div><div id="doc-stats"></div></div>
+        </div>
+        <div class="panel-content" id="panel-insert" style="display:none">
+          <div class="panel-section"><div class="panel-section-title">Insertar bloque</div>
+            <div class="insert-btn" onclick="insertBlock('note')">📝 Nota manual</div>
+            <div class="insert-btn" onclick="insertBlock('quote')">❝ Cita textual</div>
+            <div class="insert-btn" onclick="insertBlock('gene')">🧬 Bloque gen</div>
+            <div class="insert-btn" onclick="addTableRow()">📊 Fila tabla</div>
+            <div class="insert-btn" onclick="insertBlock('divider')">— Separador</div>
+            <div class="insert-btn" onclick="addPage()">📄 Nueva página</div>
+          </div>
+        </div>
+        <div class="panel-content" id="panel-props" style="display:none">
+          <div class="panel-section"><div class="panel-section-title">Metadatos</div>
+            <div class="prop-row"><span class="prop-label">Institución</span><input class="prop-input" id="prop-inst" value="Universidad" oninput="updateMeta()"></div>
+            <div class="prop-row"><span class="prop-label">Fecha</span><input class="prop-input" id="prop-date" type="date" oninput="updateMeta()"></div>
+            <div class="prop-row"><span class="prop-label">Versión</span><input class="prop-input" id="prop-ver" value="1.0" oninput="updateMeta()"></div>
+          </div>
+          <div class="panel-section"><div class="panel-section-title">Color acento</div><div style="display:flex;gap:6px;"><div class="color-chip selected" style="background:#1a3a6b" onclick="setAccent('#1a3a6b','#e8eef7')"></div><div class="color-chip" style="background:#0f5e3a" onclick="setAccent('#0f5e3a','#e6f4ed')"></div><div class="color-chip" style="background:#8b1a1a" onclick="setAccent('#8b1a1a','#fef0f0')"></div></div></div>
+          <div class="panel-section"><div class="panel-section-title">Personalizar</div>
+            <div class="prop-row"><span class="prop-label">Papel</span><input type="color" id="paper-color" class="prop-input" value="#fafaf8" onchange="setPaperColor(this.value)"></div>
+            <div class="prop-row"><span class="prop-label">Texto</span><input type="color" id="ink-color" class="prop-input" value="#0f0f0f" onchange="setInkColor(this.value)"></div>
+          </div>
+        </div>
+      </div>
+      <div id="canvas">
+        <div id="editor-empty" style="padding:100px; text-align:center; color:var(--text-faint);"><i class="fas fa-file-signature" style="font-size:48px; opacity:0.2;"></i><p>Realice un análisis para habilitar el editor profesional.</p></div>
+        <div id="report-canvas-content" style="display:none;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="gene-panel" id="gene-panel">
+  <div class="gene-panel-head"><span id="gp-name">—</span><button onclick="closeGenePanel()">&times;</button></div>
+  <div class="gene-panel-body" id="gene-panel-body"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

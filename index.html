@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NutriKen — Plataforma Bioinformática Nutricional</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-icon">🧬</span>
+      <div>
+        <span class="logo-title">NutriKen</span>
+        <span class="logo-sub">Plataforma Bioinformática Nutricional</span>
+      </div>
+    </div>
+    <div class="header-badges">
+      <span class="badge">MSK Evidence</span>
+      <span class="badge">NCBI · KEGG</span>
+      <span class="badge">SNPedia</span>
+      <span class="badge badge-live">● Live</span>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <h1 class="hero-title">Bioinformática al alcance<br/>del nutricionista clínico</h1>
+    <p class="hero-sub">Ingresa una condición clínica, un gen o un suplemento — NutriKen consulta en tiempo real NCBI, KEGG, SNPedia y la base de evidencia del Memorial Sloan Kettering.</p>
+
+    <!-- TABS DE MÓDULOS -->
+    <div class="module-tabs">
+      <button class="tab-btn active" data-tab="clinical">
+        <span class="tab-icon">🩺</span>
+        <span>Módulo 1<br/><small>Condición Clínica</small></span>
+      </button>
+      <button class="tab-btn" data-tab="gene">
+        <span class="tab-icon">🔬</span>
+        <span>Módulo 2<br/><small>Análisis de Gen</small></span>
+      </button>
+      <button class="tab-btn" data-tab="nutrient">
+        <span class="tab-icon">🌿</span>
+        <span>Módulo 3<br/><small>Suplemento / Hierba</small></span>
+      </button>
+    </div>
+
+    <!-- PANEL: CONDICIÓN CLÍNICA -->
+    <div class="tab-panel active" id="tab-clinical">
+      <div class="search-card">
+        <p class="search-hint">Escribe en lenguaje natural — no necesitas saber bioinformática</p>
+        <div class="search-row">
+          <input type="text" id="clinical-input" class="search-input"
+            placeholder="ej: obesidad, diabetes, intolerancia a la lactosa, déficit vitamina D…"/>
+          <button class="search-btn" onclick="runClinical()">Analizar</button>
+        </div>
+        <div class="tag-row">
+          <span class="tag" onclick="fillAndRun('clinical','obesidad')">Obesidad</span>
+          <span class="tag" onclick="fillAndRun('clinical','diabetes')">Diabetes</span>
+          <span class="tag" onclick="fillAndRun('clinical','intolerancia lactosa')">Intolerancia lactosa</span>
+          <span class="tag" onclick="fillAndRun('clinical','deficit vitamina d')">Déficit Vitamina D</span>
+          <span class="tag" onclick="fillAndRun('clinical','deficit folato')">Déficit Folato</span>
+          <span class="tag" onclick="fillAndRun('clinical','microbiota')">Microbiota</span>
+          <span class="tag" onclick="fillAndRun('clinical','colesterol')">Colesterol</span>
+          <span class="tag" onclick="fillAndRun('clinical','inflamacion')">Inflamación</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL: GEN -->
+    <div class="tab-panel" id="tab-gene">
+      <div class="search-card">
+        <p class="search-hint">Ingresa uno o varios genes separados por coma</p>
+        <div class="search-row">
+          <input type="text" id="gene-input" class="search-input"
+            placeholder="ej: MTHFR, VDR, FTO, LCT, APOE…"/>
+          <button class="search-btn" onclick="runGene()">Analizar</button>
+        </div>
+        <div class="tag-row">
+          <span class="tag" onclick="fillAndRun('gene','MTHFR')">MTHFR</span>
+          <span class="tag" onclick="fillAndRun('gene','VDR')">VDR</span>
+          <span class="tag" onclick="fillAndRun('gene','FTO')">FTO</span>
+          <span class="tag" onclick="fillAndRun('gene','LCT')">LCT</span>
+          <span class="tag" onclick="fillAndRun('gene','APOE')">APOE</span>
+          <span class="tag" onclick="fillAndRun('gene','PPARG')">PPARG</span>
+          <span class="tag" onclick="fillAndRun('gene','TCF7L2')">TCF7L2</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL: SUPLEMENTO -->
+    <div class="tab-panel" id="tab-nutrient">
+      <div class="search-card">
+        <p class="search-hint">Busca cualquier hierba, vitamina o suplemento — datos directos de MSK</p>
+        <div class="search-row">
+          <input type="text" id="nutrient-input" class="search-input"
+            placeholder="ej: omega-3, vitamina D, berberina, cúrcuma, probióticos…"/>
+          <button class="search-btn" onclick="runNutrient()">Buscar</button>
+        </div>
+        <div class="tag-row">
+          <span class="tag" onclick="fillAndRun('nutrient','omega-3')">Omega-3</span>
+          <span class="tag" onclick="fillAndRun('nutrient','vitamin-d')">Vitamina D</span>
+          <span class="tag" onclick="fillAndRun('nutrient','berberine')">Berberina</span>
+          <span class="tag" onclick="fillAndRun('nutrient','turmeric')">Cúrcuma</span>
+          <span class="tag" onclick="fillAndRun('nutrient','probiotics')">Probióticos</span>
+          <span class="tag" onclick="fillAndRun('nutrient','magnesium')">Magnesio</span>
+          <span class="tag" onclick="fillAndRun('nutrient','green-tea')">Té Verde</span>
+          <span class="tag" onclick="fillAndRun('nutrient','garlic')">Ajo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOADING -->
+<div class="loading-bar" id="loading" style="display:none">
+  <div class="loading-inner">
+    <div class="spinner"></div>
+    <span id="loading-msg">Consultando bases de datos en tiempo real…</span>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<main class="results-area" id="results" style="display:none">
+  <div class="results-inner">
+
+    <!-- CONDITION HEADER -->
+    <div class="result-header" id="result-header"></div>
+
+    <!-- RISK ALERT -->
+    <div class="risk-alert" id="risk-alert" style="display:none">
+      <h3>⚠ Riesgos y Consideraciones Clínicas</h3>
+      <ul id="risk-list"></ul>
+    </div>
+
+    <!-- GRID PRINCIPAL -->
+    <div class="results-grid">
+
+      <!-- GENES -->
+      <div class="result-card" id="genes-card" style="display:none">
+        <div class="card-header">
+          <span class="card-icon">🔬</span>
+          <h2>Genes Involucrados</h2>
+          <span class="card-badge">NCBI</span>
+        </div>
+        <div id="genes-content"></div>
+      </div>
+
+      <!-- PATHWAY KEGG -->
+      <div class="result-card" id="pathway-card" style="display:none">
+        <div class="card-header">
+          <span class="card-icon">🗺</span>
+          <h2>Ruta Metabólica</h2>
+          <span class="card-badge">KEGG</span>
+        </div>
+        <div id="pathway-content"></div>
+      </div>
+
+    </div>
+
+    <!-- SUPLEMENTOS MSK -->
+    <div class="result-card full-width" id="supplements-card" style="display:none">
+      <div class="card-header">
+        <span class="card-icon">🌿</span>
+        <h2>Evidencia Clínica de Suplementos</h2>
+        <span class="card-badge">Memorial Sloan Kettering</span>
+      </div>
+      <div id="supplements-content"></div>
+    </div>
+
+    <!-- SUPLEMENTO ÚNICO (módulo 3) -->
+    <div class="result-card full-width" id="herb-card" style="display:none">
+      <div id="herb-content"></div>
+    </div>
+
+    <!-- CONDICIONES RELACIONADAS (módulo 2) -->
+    <div class="result-card full-width" id="conditions-card" style="display:none">
+      <div class="card-header">
+        <span class="card-icon">🩺</span>
+        <h2>Condiciones Clínicas Relacionadas</h2>
+      </div>
+      <div id="conditions-content"></div>
+    </div>
+
+    <!-- REFERENCIAS PUBMED -->
+    <div class="result-card full-width" id="refs-card" style="display:none">
+      <div class="card-header">
+        <span class="card-icon">📚</span>
+        <h2>Referencias Científicas</h2>
+        <span class="card-badge">PubMed · PMC</span>
+      </div>
+      <div id="refs-content"></div>
+    </div>
+
+    <!-- ENLACES EXTERNOS -->
+    <div class="external-links" id="external-links" style="display:none">
+      <h3>Explorar en bases de datos externas</h3>
+      <div id="ext-links-content"></div>
+    </div>
+
+    <!-- REPORTE PDF -->
+    <div class="report-actions" id="report-actions" style="display:none">
+      <button class="btn-report" onclick="generateReport()">📄 Descargar Reporte PDF</button>
+      <button class="btn-secondary" onclick="clearResults()">Nueva consulta</button>
+    </div>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <strong>NutriKen v1.0</strong>
+      <p>Plataforma bioinformática nutricional desarrollada por Cesar Manzo.<br/>
+      Basada en la arquitectura Kenryu.</p>
+    </div>
+    <div class="footer-col">
+      <strong>Fuentes de datos</strong>
+      <p>
+        <a href="https://www.mskcc.org/cancer-care/diagnosis-treatment/symptom-management/integrative-medicine/herbs" target="_blank">MSK About Herbs</a> ·
+        <a href="https://www.ncbi.nlm.nih.gov/" target="_blank">NCBI</a> ·
+        <a href="https://www.kegg.jp/" target="_blank">KEGG</a> ·
+        <a href="https://www.snpedia.com/" target="_blank">SNPedia</a> ·
+        <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank">PubMed</a>
+      </p>
+    </div>
+    <div class="footer-col">
+      <strong>Aviso clínico</strong>
+      <p>Esta plataforma es una herramienta educativa. La información no reemplaza el criterio clínico profesional.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span id="stats-display">Cargando estadísticas…</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
+
