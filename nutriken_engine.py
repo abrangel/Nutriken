@@ -413,6 +413,9 @@ class NutrientQuery(BaseModel):
 app = FastAPI(title="NutriKen - Plataforma Bioinformática Nutricional", version="1.0.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
+# Serve static files exactly like Kenryu
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 @app.on_event("startup")
 async def startup():
     init_db()
@@ -420,7 +423,15 @@ async def startup():
 
 @app.get("/")
 async def root():
-    return FileResponse(BASE_DIR / "index.html")
+    return FileResponse("static/index.html")
+
+@app.get("/script.js")
+async def get_script():
+    return FileResponse("static/script.js")
+
+@app.get("/style.css")
+async def get_style():
+    return FileResponse("static/style.css")
 
 @app.get("/health")
 async def health():
@@ -590,4 +601,5 @@ async def get_stats():
 
 if __name__ == "__main__":
     uvicorn.run("nutriken_engine:app", host="0.0.0.0", port=7860, reload=False)
+
 

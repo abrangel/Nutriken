@@ -1,548 +1,362 @@
-// Detección automática del Backend para Local y Cloud
-const API_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-  ? `http://localhost:${window.location.port || 3001}`
-  : '';  // En HuggingFace: rutas relativas (el mismo backend sirve el frontend)
+// ── GLOBALS ───────────────────────────────────────────────────────────────────
+let lastResult = null;
 
-let lastData = null;
-let pageCount = 1;
-let sectionCount = 4;
-let isPreview = false;
+// ── NAV ───────────────────────────────────────────────────────────────────────
+const VIEW_TITLES = {clinical:'Condición Clínica', gene:'Análisis de Gen', nutrient:'Suplemento / Hierba', report:'Editor de Informe'};
 
-// Poblar años dinámicamente desde 2001 hasta el actual
-function populateYearSelect() {
-  const select = document.getElementById('pubmed-years');
-  if (!select) return;
-  const currentYear = new Date().getFullYear();
-  let html = '';
-  for (let y = currentYear; y >= 2001; y--) {
-    html += `<option value="${y}">Año ${y}</option>`;
-  }
-  select.innerHTML = html;
+function switchView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('view-'+name).classList.add('active');
+  document.getElementById('nav-'+name).classList.add('active');
+  document.getElementById('view-title').textContent = VIEW_TITLES[name];
 }
 
-function switchView(v) {
-  document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-  
-  document.getElementById('view-' + v).classList.add('active');
-  const navId = v === 'dashboard' ? 'nav-dash' : 'nav-report';
-  const navElem = document.getElementById(navId);
-  if (navElem) navElem.classList.add('active');
-  
-  document.getElementById('view-title').textContent = v === 'dashboard' ? 'Panel de Análisis' : 'Editor de Informe Pro';
-  
-  if (v === 'report' && lastData && document.getElementById('report-canvas-content').innerHTML === '') initReportWithData(lastData);
+function qt(tab, val) {
+  switchView(tab);
+  document.getElementById(tab+'-input').value = val;
+  if (tab==='clinical') runClinical();
+  else if (tab==='gene') runGene();
+  else if (tab==='nutrient') runNutrient();
 }
 
-function addLog(msg, type = '') {
-  const log = document.getElementById('process-logs');
-  if (!log) return;
-  const d = document.createElement('div');
-  d.className = 'log-line';
-  const ts = new Date().toLocaleTimeString('es-ES', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
-  const cls = type === 'ok' ? 'ok' : (type === 'err' ? 'err' : '');
-  d.innerHTML = `<span class="log-ts">${ts}</span><span class="log-msg ${cls}">${msg}</span>`;
-  log.appendChild(d);
-  log.scrollTop = log.scrollHeight;
+// ── TERMINAL ──────────────────────────────────────────────────────────────────
+function log(tid, msg, type='ok') {
+  const t = document.getElementById(tid); if(!t) return;
+  const ts = new Date().toTimeString().slice(0,8);
+  const d = document.createElement('div'); d.className='log-line';
+  d.innerHTML=`<span class="log-ts">${ts}</span><span class="log-msg ${type}">${msg}</span>`;
+  t.appendChild(d); t.scrollTop = t.scrollHeight;
 }
 
-async function analyzePro() {
-  const btn = document.querySelector('.btn-run');
-  const input = document.getElementById('mirna-input').value;
-  const mirnas = input.split(',').map(m => m.trim()).filter(Boolean);
-  const mode = document.getElementById('consensus-mode').value;
-  const startYear = document.getElementById('pubmed-years').value;
-  const month = document.getElementById('pubmed-month').value;
-  
-  if (!mirnas.length) return alert("Ingrese al menos un miRNA.");
+// ── LOADER ────────────────────────────────────────────────────────────────────
+function showLoader(msg) {
+  document.getElementById('loader-msg').textContent = msg;
+  document.getElementById('loader').classList.remove('hidden');
+}
+function hideLoader() { document.getElementById('loader').classList.add('hidden'); }
 
-  btn.disabled = true;
-  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analizando...';
-  addLog(`Sincronizando motor para búsqueda desde ${startYear}...`, 'ok');
+// ── API ───────────────────────────────────────────────────────────────────────
+async function post(url, body) {
+  const r = await fetch(url, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)});
+  if (!r.ok) { const e = await r.json().catch(()=>({detail:r.statusText})); throw new Error(e.detail||'Error servidor'); }
+  return r.json();
+}
 
+// ── MÓDULO 1: CLÍNICO ─────────────────────────────────────────────────────────
+async function runClinical() {
+  const q = document.getElementById('clinical-input').value.trim(); if (!q) return;
+  const btn = document.getElementById('btn-clinical'); btn.disabled=true;
+  showLoader('Analizando condición clínica…');
+  log('term-clinical', `Consulta: "${q}"`, 'info');
   try {
-    const res = await fetch(`${API_URL}/api/v1/analyze`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({mirnas, years: parseInt(startYear), month: month, mode: mode})
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
-    const data = await res.json();
-    lastData = data;
-    renderDashboard(data);
-    
-    const withEvidence = (data.enrichment || []).filter(e => e.Evidence).length;
-    addLog(`✓ Análisis completo — ${data.common_genes.length} biomarcadores. PubMed: ${withEvidence} evidencias encontradas.`, 'ok');
-    
-    initReportWithData(data);
-  } catch (e) {
-    addLog(`✕ ERROR: ${e.message}`, 'err');
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fas fa-play"></i> Ejecutar';
+    const d = await post('/api/clinical', {query:q});
+    lastResult = d;
+    log('term-clinical', `Condición: ${d.condition}`, 'ok');
+    log('term-clinical', `Genes: ${(d.genes||[]).map(g=>g.symbol).join(', ')||'—'}`, 'ok');
+    log('term-clinical', `Suplementos MSK: ${(d.supplements||[]).map(s=>s.name).join(', ')||'—'}`, 'ok');
+    log('term-clinical', `Referencias PubMed: ${(d.references||[]).length}`, 'ok');
+    renderClinical(d); populateReport(d);
+  } catch(e) { log('term-clinical', `Error: ${e.message}`, 'err'); alert(e.message); }
+  finally { hideLoader(); btn.disabled=false; }
+}
+
+function renderClinical(d) {
+  document.getElementById('clinical-out').style.display='block';
+  // risks
+  const rw = document.getElementById('risk-box-wrap');
+  rw.innerHTML = d.risks && d.risks.length ? `
+    <div class="risk-box" style="margin-bottom:20px">
+      <div class="risk-title">⚠ Riesgos y Consideraciones Clínicas</div>
+      ${d.risks.map(r=>`<div class="risk-item">${r}</div>`).join('')}
+    </div>` : '';
+  // genes
+  if (d.genes && d.genes.length) {
+    show('c-genes');
+    document.getElementById('c-genes-body').innerHTML = d.genes.map(g=>`
+      <div class="gene-pill" onclick='openGP(${safeJSON(g)})'>
+        <span class="gene-sym">${g.symbol}</span>
+        <span class="gene-loc">Chr${g.chromosome||'?'} · ${g.location||''}</span>
+      </div>`).join('');
+  }
+  // pathway
+  if (d.pathway && d.pathway.name) {
+    show('c-pathway');
+    const chips = (d.pathway.genes||[]).slice(0,14).map(g=>`<span class="pg-tag">${g.symbol}</span>`).join('');
+    document.getElementById('c-pathway-body').innerHTML = `
+      <div class="pathway-box">
+        <div class="pathway-id">${d.pathway.id}</div>
+        <div class="pathway-name">${d.pathway.name}</div>
+        ${d.pathway.description?`<div class="pathway-desc">${d.pathway.description.slice(0,300)}…</div>`:''}
+        ${chips?`<div class="pathway-genes">${chips}</div>`:''}
+        <a class="ext-link teal" href="${d.pathway.kegg_url}" target="_blank"><i class="fas fa-external-link-alt"></i> Ver en KEGG</a>
+      </div>`;
+  }
+  // supplements
+  if (d.supplements && d.supplements.length) {
+    show('c-supps');
+    renderSuppTabs('c-supp-tabs','c-supp-panels', d.supplements);
+  }
+  // refs
+  if (d.references && d.references.length) {
+    show('c-refs');
+    document.getElementById('c-refs-body').innerHTML = d.references.map(r=>`
+      <tr><td>${r.title||'—'}</td><td>${r.authors||''} · ${r.journal||''} · ${r.year||''}</td>
+      <td><a class="ref-link" href="${r.url}" target="_blank">PMID ${r.pmid}</a></td></tr>`).join('');
   }
 }
 
-function renderDashboard(data) {
+// ── MÓDULO 2: GEN ─────────────────────────────────────────────────────────────
+async function runGene() {
+  const raw = document.getElementById('gene-input').value.trim(); if(!raw) return;
+  const genes = raw.split(',').map(g=>g.trim().toUpperCase()).filter(Boolean);
+  showLoader(`Consultando ${genes.length} gen(es)…`);
+  log('term-gene', `Genes: ${genes.join(', ')}`, 'info');
   try {
-    document.getElementById('results-grid').style.display = 'grid';
-    document.getElementById('gene-count-badge').textContent = `${data.common_genes ? data.common_genes.length : 0} genes`;
+    const d = await post('/api/gene', {genes});
+    lastResult = d;
+    log('term-gene', `Info NCBI: ${(d.genes_info||[]).length} genes`, 'ok');
+    log('term-gene', `Condiciones: ${(d.related_conditions||[]).length}`, 'ok');
+    renderGene(d);
+  } catch(e) { log('term-gene', `Error: ${e.message}`, 'err'); alert(e.message); }
+  finally { hideLoader(); }
+}
 
-    const sysColor = s => (s && (s.includes('Cardio') || s.includes('Metab'))) ? 'var(--red)'
-      : (s && s.includes('Neuro')) ? 'var(--blue)'
-      : (s && s.includes('Onco')) ? 'var(--gold)'
-      : 'var(--teal)';
-      
-    const genesEl = document.getElementById('core-genes-list');
-    if (genesEl && data.common_genes) {
-      genesEl.innerHTML = data.common_genes.map(g => {
-        const d = data.gene_details && data.gene_details[g];
-        const dot = sysColor(d && d.system);
-        return `<span class="gene-pill" onclick="openGenePanel('${g}')"><i class="fas fa-circle" style="font-size:5px;color:${dot};margin-right:5px;"></i>${g}</span>`;
-      }).join('');
-    }
-
-    const setImg = (id, b64) => {
-      const el = document.getElementById(id);
-      if (el) {
-        if (b64) el.innerHTML = `<img src="data:image/png;base64,${b64}">`;
-        else el.innerHTML = '<div style="color:var(--text-faint); font-size:11px; padding:40px;">Imagen no disponible.</div>';
-      }
-    };
-    setImg('venn-container', data.venn_plot);
-    setImg('volcano-container', data.volcano_plot);
-    setImg('ppi-container', data.ppi_plot);
-
-    const enEl = document.getElementById('enrich-container');
-    if (enEl) {
-      if (data.enrichment && data.enrichment.length) {
-        let html = `<table class="sci-table"><thead><tr><th>Ruta Biológica</th><th>Fuente</th><th>p-valor</th><th>PubMed</th></tr></thead><tbody>`;
-        data.enrichment.forEach(item => {
-          const pvalVal = (item.Pval !== undefined && item.Pval !== null) 
-            ? (typeof item.Pval === 'number' ? item.Pval.toExponential(2) : item.Pval)
-            : '—';
-          
-          // MÁXIMA ROBUSTEZ: Detectar ID en objeto, array o string directo
-          let pmid = null;
-          if (item.Evidence) {
-            if (Array.isArray(item.Evidence) && item.Evidence.length > 0) pmid = item.Evidence[0].id || item.Evidence[0];
-            else pmid = item.Evidence.id || item.Evidence;
-          }
-          
-          const pLink = pmid ? `<a href="https://pubmed.ncbi.nlm.nih.gov/${pmid}" target="_blank" style="color:var(--gold); font-family:var(--font-mono); font-size:10px; font-weight:600; text-decoration:none; border-bottom:1px solid var(--gold-dim);">PMID: ${pmid}</a>` : '<span style="color:var(--text-faint); font-size:10px;">Sin evidencia</span>';
-          
-          html += `<tr><td><span style="font-weight:500;">${item.Term || '—'}</span><br><small style="color:var(--text-dim);">${item.ScientificDesc || ''}</small></td>
-            <td><span class="source-tag">${item.Source || '—'}</span></td>
-            <td><span style="font-family:var(--font-mono); font-size:11px;">${pvalVal}</span></td>
-            <td>${pLink}</td></tr>`;
-        });
-        html += '</tbody></table>';
-        enEl.innerHTML = html;
-      } else {
-        enEl.innerHTML = '<div style="color:var(--text-faint); padding:20px; text-align:center;">Sin resultados de enriquecimiento funcional significativo.</div>';
-      }
-    }
-  } catch (err) {
-    console.error("Error renderizando dashboard:", err);
+function renderGene(d) {
+  document.getElementById('gene-out').style.display='block';
+  if (d.genes_info && d.genes_info.length) {
+    show('g-info');
+    document.getElementById('g-info-body').innerHTML = d.genes_info.map(g=>`
+      <div class="gene-pill" onclick='openGP(${safeJSON(g)})'>
+        <span class="gene-sym">${g.symbol}</span>
+        <span class="gene-loc">${g.name?g.name.slice(0,30)+'…':''}</span>
+      </div>`).join('');
+  }
+  if (d.related_conditions && d.related_conditions.length) {
+    show('g-cond');
+    document.getElementById('g-cond-body').innerHTML = d.related_conditions.map(c=>`
+      <div class="cond-item">
+        <div class="cond-name">${c.condition}</div>
+        <div class="cond-genes">${c.matching_genes.map(g=>`<span class="cond-gene-tag">${g}</span>`).join('')}</div>
+        ${c.risks.length?`<div class="cond-risk">⚠ ${c.risks[0]}</div>`:''}
+      </div>`).join('');
+  }
+  if (d.supplements && d.supplements.length) { show('g-supps'); renderSuppTabs('g-supp-tabs','g-supp-panels',d.supplements); }
+  if (d.references && d.references.length) {
+    show('g-refs');
+    document.getElementById('g-refs-body').innerHTML = d.references.map(r=>`
+      <tr><td>${r.title||'—'}</td><td>${r.journal||''} · ${r.year||''}</td>
+      <td><a class="ref-link" href="${r.url}" target="_blank">PMID ${r.pmid}</a></td></tr>`).join('');
   }
 }
 
-async function openGenePanel(gene) {
-  document.getElementById('gp-name').textContent = gene;
-  document.getElementById('gene-panel').classList.add('open');
-  const d = lastData?.gene_details?.[gene] || {full_name: gene, system:'Multisistémico', pathology:'Diana de alta confianza.', associated_routes:[]};
-  const score = d.confidence?.score || (gene === 'ABCA1' || gene === 'SCN1A' ? 92 : 85);
-  
+// ── MÓDULO 3: SUPLEMENTO ──────────────────────────────────────────────────────
+async function runNutrient() {
+  const nut = document.getElementById('nutrient-input').value.trim(); if(!nut) return;
+  showLoader(`Buscando "${nut}" en MSK…`);
+  log('term-nutrient', `Consultando MSK: ${nut}`, 'info');
+  try {
+    const d = await post('/api/nutrient', {nutrient:nut});
+    lastResult = d;
+    const h = d.msk_data;
+    log('term-nutrient', `Obtenido: ${h.name}`, 'ok');
+    if(h.scientific_name) log('term-nutrient', `Nombre científico: ${h.scientific_name}`, 'ok');
+    log('term-nutrient', `Referencias: ${(d.references||[]).length}`, 'ok');
+    renderNutrient(d);
+  } catch(e) { log('term-nutrient', `Error: ${e.message}`, 'err'); alert(e.message); }
+  finally { hideLoader(); }
+}
+
+function renderNutrient(d) {
+  const h = d.msk_data;
+  document.getElementById('nutrient-out').style.display='block';
+  document.getElementById('n-herb-title').textContent = h.name||d.nutrient;
+
+  const sections = [
+    {id:'benefits',          label:'Beneficios',       cls:''},
+    {id:'side_effects',      label:'Efectos Adversos', cls:'danger'},
+    {id:'warnings',          label:'Advertencias',     cls:'warn'},
+    {id:'drug_interactions', label:'Interacciones',    cls:'danger'},
+    {id:'mechanism_of_action',label:'Mecanismo',       cls:''},
+    {id:'clinical_summary',  label:'Resumen Clínico',  cls:''},
+  ].filter(s=>{ const v=h[s.id]; return v&&(Array.isArray(v)?v.length>0:v.length>10); });
+
+  let tabs = sections.map((s,i)=>`<div class="supp-tab ${i===0?'active':''}" onclick="nhTab(${i},this)">${s.label}</div>`).join('');
+
+  const headerBox = `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0 18px;border-bottom:1px solid var(--border);margin-bottom:16px">
+      <div>
+        <div style="font-family:var(--font-serif);font-size:20px;color:var(--gold)">${h.name||d.nutrient}</div>
+        ${h.scientific_name?`<div style="font-size:11px;color:var(--text-dim);font-style:italic;margin-top:3px">${h.scientific_name}</div>`:''}
+        ${h.common_names&&h.common_names.length?`<div style="font-size:10px;color:var(--text-faint);margin-top:2px">${h.common_names.join(' · ')}</div>`:''}
+      </div>
+      <div style="display:flex;gap:8px">
+        <a class="ext-link gold" href="${d.msk_url}" target="_blank"><i class="fas fa-external-link-alt"></i> MSK</a>
+        <a class="ext-link blue" href="https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(d.nutrient)}" target="_blank"><i class="fas fa-book"></i> PubMed</a>
+      </div>
+    </div>`;
+
+  let panels = sections.map((s,i)=>{
+    const v = h[s.id];
+    let inner = '';
+    if (Array.isArray(v)) {
+      inner = `<div class="supp-sec ${s.cls}"><div class="supp-sec-title">${s.label}</div><ul class="supp-list">${v.map(x=>`<li>${x}</li>`).join('')}</ul></div>`;
+    } else {
+      inner = `<div class="moa-box"><div class="moa-title">${s.label}</div><p class="supp-text">${v.slice(0,900)}${v.length>900?'…':''}</p></div>`;
+    }
+    return `<div class="supp-panel ${i===0?'active':''}" id="nh-panel-${i}">${inner}
+      ${h.url?`<div style="margin-top:14px"><a class="ext-link gold" href="${h.url}" target="_blank"><i class="fas fa-external-link-alt"></i> Ver ficha completa en MSK</a></div>`:''}
+    </div>`;
+  }).join('');
+
+  document.getElementById('n-herb-body').innerHTML = headerBox +
+    `<div class="supp-tabs" id="nh-tabs">${tabs}</div>` + panels;
+
+  if (d.references && d.references.length) {
+    show('n-refs');
+    document.getElementById('n-refs-body').innerHTML = d.references.map(r=>`
+      <tr><td>${r.title||'—'}</td><td>${r.journal||''} · ${r.year||''}</td>
+      <td><a class="ref-link" href="${r.url}" target="_blank">PMID ${r.pmid}</a></td></tr>`).join('');
+  }
+}
+
+function nhTab(i, el) {
+  document.querySelectorAll('#nh-tabs .supp-tab').forEach((t,j)=>t.classList.toggle('active',i===j));
+  document.querySelectorAll('[id^="nh-panel-"]').forEach((p,j)=>p.classList.toggle('active',i===j));
+}
+
+// ── SUPP TABS (shared) ────────────────────────────────────────────────────────
+function renderSuppTabs(tabsId, panelsId, supps) {
+  if (!supps||!supps.length) return;
+  document.getElementById(tabsId).innerHTML = supps.map((s,i)=>
+    `<div class="supp-tab ${i===0?'active':''}" onclick="swSupp('${tabsId}','${panelsId}',${i},this)">${s.name||'Sup.'+(i+1)}</div>`).join('');
+  document.getElementById(panelsId).innerHTML = supps.map((s,i)=>`
+    <div class="supp-panel ${i===0?'active':''}" id="${panelsId}-${i}">
+      <div class="supp-grid">
+        ${s.benefits&&s.benefits.length?`<div class="supp-sec"><div class="supp-sec-title">Beneficios</div><ul class="supp-list">${s.benefits.slice(0,7).map(b=>`<li>${b}</li>`).join('')}</ul></div>`:''}
+        ${s.side_effects&&s.side_effects.length?`<div class="supp-sec danger"><div class="supp-sec-title">Efectos Adversos</div><ul class="supp-list">${s.side_effects.slice(0,7).map(e=>`<li>${e}</li>`).join('')}</ul></div>`:''}
+        ${s.warnings&&s.warnings.length?`<div class="supp-sec warn"><div class="supp-sec-title">Advertencias</div><ul class="supp-list">${s.warnings.slice(0,5).map(w=>`<li>${w}</li>`).join('')}</ul></div>`:''}
+        ${s.drug_interactions&&s.drug_interactions.length?`<div class="supp-sec danger"><div class="supp-sec-title">Interacciones</div><ul class="supp-list">${s.drug_interactions.slice(0,5).map(x=>`<li>${x}</li>`).join('')}</ul></div>`:''}
+      </div>
+      ${s.mechanism_of_action?`<div class="moa-box" style="margin-top:14px"><div class="moa-title">Mecanismo de Acción</div><p class="supp-text">${s.mechanism_of_action.slice(0,500)}…</p></div>`:''}
+      ${s.url?`<div style="margin-top:14px"><a class="ext-link gold" href="${s.url}" target="_blank"><i class="fas fa-external-link-alt"></i> Ver en MSK</a></div>`:''}
+    </div>`).join('');
+}
+
+function swSupp(tabsId, panelsId, i, el) {
+  document.querySelectorAll(`#${tabsId} .supp-tab`).forEach((t,j)=>t.classList.toggle('active',i===j));
+  document.querySelectorAll(`#${panelsId} .supp-panel`).forEach((p,j)=>p.classList.toggle('active',i===j));
+}
+
+// ── GENE PANEL ────────────────────────────────────────────────────────────────
+function safeJSON(obj) { return JSON.stringify(obj).replace(/'/g,"&#39;"); }
+
+function openGP(gene) {
+  if (typeof gene === 'string') try { gene=JSON.parse(gene); } catch(e){}
+  document.getElementById('gp-name').textContent = gene.symbol||'—';
   document.getElementById('gene-panel-body').innerHTML = `
-    <div style="margin-bottom:20px;">
-      <small style="color:var(--text-faint); font-family:var(--font-mono); font-size:9px; letter-spacing:1.5px; text-transform:uppercase;">Identificación Genómica</small>
-      <div style="font-family:var(--font-serif); font-size:16px; color:var(--text-main); margin-top:4px;">${d.full_name}</div>
-    </div>
-    <div style="margin-bottom:20px;">
-      <small style="color:var(--text-faint); font-family:var(--font-mono); font-size:9px; letter-spacing:1.5px; text-transform:uppercase;">Sistema Fisiológico</small>
-      <div style="color:var(--gold); font-weight:600; font-size:13.5px; margin-top:4px;">${d.system}</div>
-    </div>
-    <div style="margin-bottom:20px;">
-      <small style="color:var(--text-faint); font-family:var(--font-mono); font-size:9px; letter-spacing:1.5px; text-transform:uppercase;">Rigor Científico</small>
-      <div style="display:flex; align-items:center; gap:12px; margin-top:8px;">
-        <div style="flex:1; height:7px; background:rgba(255,255,255,0.06); border-radius:10px; overflow:hidden; border:1px solid rgba(255,255,255,0.04);">
-          <div style="width:${score}%; height:100%; background:linear-gradient(90deg, #c8a96e, #f2d295); border-radius:10px; box-shadow:0 0 10px rgba(200,169,110,0.3);"></div>
-        </div>
-        <span style="font-family:var(--font-mono); font-size:11px; color:var(--gold); font-weight:800;">${score}%</span>
+    <div class="gp-field"><div class="gp-label">Nombre Completo</div><div class="gp-val">${gene.name||'—'}</div></div>
+    <div class="gp-field"><div class="gp-label">Localización</div><div class="gp-val gp-mono">Chr${gene.chromosome||'?'} · ${gene.location||'—'}</div></div>
+    ${gene.summary?`<div class="gp-field"><div class="gp-label">Función Biológica</div><div class="gp-summary">${gene.summary.slice(0,500)}…</div></div>`:''}
+    <div class="gp-field"><div class="gp-label">Explorar en</div>
+      <div class="gp-links">
+        <a class="ext-link gold" href="${gene.ncbi_url}" target="_blank"><i class="fas fa-external-link-alt"></i> NCBI Gene</a>
+        <a class="ext-link teal" href="https://www.snpedia.com/index.php/${gene.symbol}" target="_blank"><i class="fas fa-dna"></i> SNPedia</a>
+        <a class="ext-link blue" href="https://www.ensembl.org/Homo_sapiens/Gene/Summary?q=${gene.symbol}" target="_blank"><i class="fas fa-globe"></i> Ensembl</a>
+        <a class="ext-link" style="background:rgba(63,185,80,.1);border:1px solid rgba(63,185,80,.2);color:#3fb950" href="https://omim.org/search?index=entry&search=${gene.symbol}" target="_blank"><i class="fas fa-database"></i> OMIM</a>
       </div>
-    </div>
-    <div style="margin-bottom:20px; padding:15px; background:rgba(200,169,110,0.03); border-radius:8px; border-left:4px solid var(--gold);">
-      <small style="color:var(--text-faint); font-family:var(--font-mono); font-size:9px; letter-spacing:1.5px; text-transform:uppercase; display:block; margin-bottom:8px;">Relevancia Patológica Detallada</small>
-      <div style="font-family:'Spectral', serif; font-size:13.5px; text-align:justify; color:var(--text); line-height:1.7;">${d.pathology}</div>
-    </div>
-    <div style="margin-bottom:10px;">
-      <small style="color:var(--text-faint); font-family:var(--font-mono); font-size:9px; letter-spacing:1.5px; text-transform:uppercase;">Rutas Metabólicas de Consenso</small>
-      <div style="font-size:11.5px; color:var(--text-dim); line-height:1.7; margin-top:8px; font-style:italic;">
-        ${(d.associated_routes||[]).map(r => `<i class="fas fa-microscope" style="font-size:10px; margin-right:8px; color:var(--teal);"></i>${r}`).join('<br>')}
-      </div>
-    </div>
-    ${d.pmid ? `<div style="margin-top:25px; padding-top:15px; border-top:1px solid var(--border);"><a href="https://pubmed.ncbi.nlm.nih.gov/${d.pmid}" target="_blank" style="color:var(--teal); font-family:var(--font-mono); font-size:11px; text-decoration:none; display:flex; align-items:center; gap:8px; font-weight:600;"><i class="fas fa-book-medical"></i> VERIFICAR EVIDENCIA (PMID: ${d.pmid})</a></div>` : ''}
-  `;
+    </div>`;
+  document.getElementById('gene-panel').classList.add('open');
 }
 function closeGenePanel() { document.getElementById('gene-panel').classList.remove('open'); }
 
-/* ========== LÓGICA DEL EDITOR PROFESIONAL ========== */
-
-function romanize(n) {
-  const map = [[1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],[100,'C'],[90,'XC'],[50,'L'],[40,'XL'],[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']];
-  return map.reduce((acc,[v,r]) => { while (n >= v) { acc += r; n -= v; } return acc; }, '');
-}
-
-function fmt(cmd) { document.execCommand(cmd, false, null); }
-function setFontSize(size) {
-  document.execCommand('fontSize', false, '7');
-  document.querySelectorAll('font[size="7"]').forEach(el => { el.removeAttribute('size'); el.style.fontSize = size; });
-}
-
-function setAccent(color, light, ev) {
-  document.documentElement.style.setProperty('--accent', color);
-  document.documentElement.style.setProperty('--accent-light', light);
-  document.querySelectorAll('.color-chip').forEach(c => c.classList.remove('selected'));
-  if (ev && ev.target) ev.target.classList.add('selected');
-}
-
-function moveSection(id, dir) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  if (dir === 'up' && el.previousElementSibling && el.previousElementSibling.classList.contains('report-section')) {
-    el.parentNode.insertBefore(el, el.previousElementSibling);
-  } else if (dir === 'down' && el.nextElementSibling && el.nextElementSibling.classList.contains('report-section')) {
-    el.parentNode.insertBefore(el.nextElementSibling, el);
-  }
-  updateOutline();
-}
-
-window.addEventListener('beforeunload', (e) => {
-  if (lastData) { e.preventDefault(); e.returnValue = ''; }
-});
-
-function setPaperColor(color) { document.documentElement.style.setProperty('--paper', color); }
-function setInkColor(color) { document.documentElement.style.setProperty('--ink', color); }
-
+// ── EDITOR ────────────────────────────────────────────────────────────────────
+function fmt(cmd) { document.execCommand(cmd); }
 function switchPanel(name) {
-  ['outline','insert','props'].forEach(p => {
-    document.getElementById('panel-'+p).style.display = (p === name ? 'block' : 'none');
-    document.getElementById('tab-'+p).classList.toggle('active', p === name);
-  });
-  if (name === 'outline') updateOutline();
+  document.querySelectorAll('.panel-tab').forEach((t,i)=>t.classList.toggle('active', t.textContent.toLowerCase().startsWith(name)));
+  document.querySelectorAll('.panel-content').forEach(p=>{ p.classList.remove('active'); if(p.id==='panel-'+name) p.classList.add('active'); });
+}
+function addPage() {
+  const cc = document.getElementById('report-canvas-content');
+  const n = cc.querySelectorAll('.a4-page').length+1;
+  const p = document.createElement('div'); p.className='a4-page';
+  p.innerHTML=`<div class="page-inner"><div class="report-section"><div class="section-heading">Contenido adicional</div><div class="editable-block" contenteditable="true" data-placeholder="Escribe aquí…"></div></div><div class="page-footer"><span>NutriKen v1.0 — Cesar Manzo</span><span>MSK · NCBI · KEGG</span><span>Página ${n}</span></div></div>`;
+  cc.appendChild(p); p.scrollIntoView({behavior:'smooth'});
+}
+function insertBlock(type) {
+  const sel=window.getSelection(); if(!sel.rangeCount) return;
+  const range=sel.getRangeAt(0); let el;
+  if(type==='note'){el=document.createElement('div');el.style.cssText='background:#fffde7;border-left:4px solid #fbc02d;padding:12px;margin:12px 0;font-style:italic';el.contentEditable='true';el.textContent='Nota clínica…';}
+  else if(type==='gene'){el=document.createElement('div');el.className='gene-block';el.innerHTML='<div class="gene-block-name" contenteditable="true">GEN</div><div class="gene-block-text" contenteditable="true">Descripción…</div>';}
+  if(el) range.insertNode(el);
+}
+function exportText() {
+  const blob=new Blob([document.getElementById('report-canvas-content').innerText],{type:'text/plain'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`NutriKen_${Date.now()}.txt`;a.click();
+}
+function exportMarkdown() {
+  const txt=document.getElementById('report-canvas-content').innerText;
+  const md='# Informe NutriKen\n\n'+txt;
+  const blob=new Blob([md],{type:'text/markdown'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`NutriKen_${Date.now()}.md`;a.click();
 }
 
-function updateMeta() {
-  const inst = document.getElementById('prop-inst').value;
-  const ver = document.getElementById('prop-ver').value;
-  const dateElem = document.getElementById('prop-date').value;
-  document.querySelectorAll('.meta-inst-val').forEach(el => el.innerText = inst);
-  document.querySelectorAll('.meta-ver-val').forEach(el => el.innerText = 'v' + ver);
-  if (dateElem) {
-    const d = new Date(dateElem + 'T12:00:00');
-    const dateStr = d.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
-    document.querySelectorAll('.meta-date-val').forEach(el => el.innerText = dateStr);
-  }
+// ── POPULATE REPORT ───────────────────────────────────────────────────────────
+function populateReport(d) {
+  const cc=document.getElementById('report-canvas-content');
+  const ee=document.getElementById('editor-empty');
+  ee.style.display='none'; cc.style.display='block';
+  const now=new Date().toLocaleDateString('es-ES',{year:'numeric',month:'long',day:'numeric'});
+  const id='NK-'+Date.now().toString().slice(-6);
+  const genesHTML=(d.genes||[]).map(g=>`<div class="gene-block"><div class="gene-block-name">${g.symbol}</div><div class="gene-block-text">${g.name||''} — ${g.summary?g.summary.slice(0,180)+'…':''}</div></div>`).join('');
+  const suppsHTML=(d.supplements||[]).map(s=>`<p><strong>${s.name}</strong>${s.scientific_name?` <em>(${s.scientific_name})</em>`:''}</p>${s.benefits&&s.benefits.length?`<p style="font-size:11px;color:#555">Beneficios: ${s.benefits.slice(0,3).join('; ')}</p>`:''}`).join('<hr style="border:none;border-top:1px solid #ddd;margin:8px 0"/>');
+  const refsHTML=`<ol style="padding-left:18px;font-size:11px;line-height:1.8">${(d.references||[]).map(r=>`<li>${r.authors||''} (${r.year||''}). ${r.title||''}. <em>${r.journal||''}</em>. PMID: ${r.pmid}</li>`).join('')}</ol>`;
+  cc.innerHTML=`
+    <div class="a4-page" id="page-1"><div class="page-inner">
+      <div class="report-header">
+        <div><div class="report-title">NutriKen</div><div class="report-subtitle">Informe Bioinformático Nutricional</div></div>
+        <div class="report-meta"><div class="meta-id">${id}</div><div>${now}</div><div>Cesar Manzo</div></div>
+      </div>
+      <div class="report-section"><div class="section-heading">Consulta</div><div class="editable-block" contenteditable="true">${d.query||''}</div></div>
+      <div class="report-section"><div class="section-heading">Descripción Clínica</div><div class="editable-block" contenteditable="true">${d.description||''}</div></div>
+      <div class="report-section"><div class="section-heading">Genes Involucrados</div><div contenteditable="true">${genesHTML||'<p style="color:#aaa;font-style:italic">—</p>'}</div></div>
+      <div class="report-section"><div class="section-heading">Suplementos con Evidencia MSK</div><div contenteditable="true">${suppsHTML||'<p style="color:#aaa;font-style:italic">—</p>'}</div></div>
+      <div class="report-section"><div class="section-heading">Referencias Científicas</div><div contenteditable="true">${refsHTML}</div></div>
+      <div class="report-section"><div class="section-heading">Recomendación Nutricional</div><div class="editable-block" contenteditable="true" data-placeholder="Escribe aquí la recomendación nutricional personalizada…"></div></div>
+      <button class="add-section-btn" onclick="addPage()">+ Agregar página</button>
+      <div class="page-footer"><span>NutriKen v1.0 — Cesar Manzo</span><span>MSK · NCBI · KEGG · PubMed</span><span>Página 1</span></div>
+    </div></div>`;
+  updateOutline();
 }
 
 function updateOutline() {
-  const list = document.getElementById('outline-list');
-  const sections = document.querySelectorAll('.report-section');
-  if (!list) return;
-  list.innerHTML = '';
-  sections.forEach((sec, i) => {
-    const heading = sec.querySelector('.section-heading');
-    let text = heading ? heading.innerText.replace(/^\w+\.\s*/, '').trim() : ('Sección '+(i+1));
-    const div = document.createElement('div');
-    div.className = 'outline-item';
-    div.innerHTML = `<span style="margin-right:6px;color:#888;">${romanize(i+1)}</span> ${text}`;
-    div.onclick = () => sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    list.appendChild(div);
-  });
-  const allText = document.getElementById('report-canvas-content').innerText || '';
-  const words = allText.trim().split(/\s+/).filter(w=>w.length>0).length;
-  const chars = allText.replace(/\s/g,'').length;
-  document.getElementById('doc-stats').innerHTML = `Páginas: ${pageCount}<br>Palabras: ${words}<br>Caracteres: ${chars}`;
+  const sections = document.querySelectorAll('.section-heading');
+  const list = document.getElementById('outline-list'); if(!list) return;
+  list.innerHTML = Array.from(sections).map(s=>`<div class="outline-item" onclick="this.scrollIntoView()">${s.textContent}</div>`).join('');
 }
 
-function insertBlock(type) {
-  const activePage = document.querySelector('.a4-page:last-of-type .page-inner');
-  if (!activePage) return;
-  sectionCount++;
-  const id = `sec-${sectionCount}`;
-  let html = '';
-  if (type === 'note') {
-    html = `<div class="report-section note-block" id="${id}"><div class="editable-block" contenteditable="true" data-placeholder="Escriba su nota aquí..."></div><div class="section-actions"><button class="section-act-btn" onclick="moveSection('${id}','up')">↑</button><button class="section-act-btn" onclick="moveSection('${id}','down')">↓</button><button class="section-act-btn danger" onclick="removeSection('${id}')">✕</button></div></div>`;
-  } else if (type === 'quote') {
-    html = `<div class="report-section" id="${id}"><div class="quote-block editable-block" contenteditable="true">Texto de la cita...</div><div class="section-actions"><button class="section-act-btn danger" onclick="removeSection('${id}')">✕</button></div></div>`;
-  } else if (type === 'gene') {
-    html = `<div class="report-section gene-block" id="${id}"><div class="gene-block-name" contenteditable="true">NOMBRE_GEN</div><div class="gene-block-text" contenteditable="true">Descripción...</div><div class="section-actions"><button class="section-act-btn danger" onclick="removeSection('${id}')">✕</button></div></div>`;
-  } else if (type === 'divider') {
-    html = `<div class="report-section" id="${id}" style="margin:10px 0;"><hr style="border-top:1px solid var(--border-sci);"><div class="section-actions"><button class="section-act-btn danger" onclick="removeSection('${id}')">✕</button></div></div>`;
+// ── STATS ─────────────────────────────────────────────────────────────────────
+async function loadStats() {
+  try {
+    const r = await fetch('/api/stats'); if(!r.ok) return;
+    const s = await r.json();
+    document.getElementById('stats-line').textContent=`Hierbas: ${s.herbs_in_cache} · Genes: ${s.genes_in_cache} · Consultas: ${s.total_queries}`;
+  } catch(e){}
+}
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function show(id) { const e=document.getElementById(id); if(e) e.style.display=''; }
+
+// ── KEYBOARD ──────────────────────────────────────────────────────────────────
+document.addEventListener('keydown', e=>{
+  if(e.key==='Enter'&&!e.shiftKey) {
+    const a=document.activeElement;
+    if(a&&a.id==='clinical-input'){e.preventDefault();runClinical();}
+    if(a&&a.id==='gene-input'){e.preventDefault();runGene();}
+    if(a&&a.id==='nutrient-input'){e.preventDefault();runNutrient();}
   }
-  const addBtn = activePage.querySelector('.add-section-btn');
-  if (addBtn) addBtn.insertAdjacentHTML('beforebegin', html);
-  updateOutline();
-}
+  if(e.key==='Escape') closeGenePanel();
+});
 
-function addTableRow() {
-  const tbody = document.getElementById('bio-tbody');
-  if (tbody) tbody.insertAdjacentHTML('beforeend', `<tr><td style="font-weight:600;">NUEVO</td><td>Sistema</td><td style="font-style:italic;">Ruta</td><td style="text-align:justify;">Relevancia</td></tr>`);
-}
+window.addEventListener('load',()=>{ loadStats(); setInterval(loadStats,30000); });
 
-function addPage() {
-  pageCount++;
-  const canvas = document.getElementById('report-canvas-content');
-  const div = document.createElement('div');
-  div.className = 'a4-page';
-  div.id = `page-${pageCount}`;
-  div.innerHTML = `<div class="page-inner"><div class="report-header"><div><div class="report-title">INFORME</div><div class="report-subtitle">CONTINUACIÓN</div></div><div class="report-meta"><div class="meta-date-val"></div><div class="meta-inst-val"></div><div class="meta-ver-val"></div></div></div><button class="add-section-btn" onclick="addNewSection()">+ Agregar nueva sección</button></div><div class="page-footer"><span>KENRYU Bioinformatics Engine</span><span class="page-num">${pageCount}</span></div>`;
-  canvas.appendChild(div);
-  updateMeta();
-  updateOutline();
-}
-
-function addNewSection() {
-  sectionCount++;
-  const id = `sec-${sectionCount}`;
-  const html = `<div class="report-section" id="${id}"><div class="section-heading" contenteditable="true"><span class="s-num">${romanize(sectionCount)}.</span> Nueva sección</div><div class="editable-block" contenteditable="true">Escriba el contenido...</div><div class="section-actions"><button class="section-act-btn" onclick="moveSection('${id}','up')">↑</button><button class="section-act-btn" onclick="moveSection('${id}','down')">↓</button><button class="section-act-btn danger" onclick="removeSection('${id}')">✕</button></div></div>`;
-  event.target.insertAdjacentHTML('beforebegin', html);
-  updateOutline();
-}
-
-function removeSection(id) { if (confirm('¿Eliminar?')) { document.getElementById(id).remove(); updateOutline(); } }
-function togglePreview() { isPreview = !isPreview; document.body.classList.toggle('preview-mode', isPreview); document.getElementById('preview-btn').textContent = isPreview ? '✏️ Editar' : '👁 Vista previa'; }
-function exportText() { const blob = new Blob([document.getElementById('report-canvas-content').innerText], {type:'text/plain'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download='Reporte.txt'; a.click(); }
-function exportMarkdown() { const blob = new Blob(['# Reporte KENRYU\n\n' + document.getElementById('report-canvas-content').innerText], {type:'text/markdown'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download='Reporte.md'; a.click(); }
-
-function createNewPage() {
-  pageCount++;
-  const page = document.createElement('div');
-  page.className = 'a4-page';
-  page.id = `page-${pageCount}`;
-  const inner = document.createElement('div');
-  inner.className = 'page-inner';
-  page.appendChild(inner);
-  page.insertAdjacentHTML('beforeend', `<div class="page-footer"><span>KENRYU Bioinformatics Engine</span><span class="page-num">${pageCount}</span></div>`);
-  return page;
-}
-
-function paginateReport(sourceElement) {
-  const canvas = document.getElementById('report-canvas-content');
-  canvas.innerHTML = '';
-  pageCount = 0;
-
-  // Página temporal para medir
-  const testPage = document.createElement('div');
-  testPage.className = 'a4-page';
-  testPage.style.position = 'absolute';
-  testPage.style.visibility = 'hidden';
-  testPage.style.top = '-9999px';
-  document.body.appendChild(testPage);
-  const testInner = document.createElement('div');
-  testInner.className = 'page-inner';
-  testPage.appendChild(testInner);
-
-  const maxHeight = 880; // Altura útil reducida para evitar solapamiento con el pie de página
-
-  const children = Array.from(sourceElement.children);
-  let currentPage = createNewPage();
-  let currentInner = currentPage.querySelector('.page-inner');
-  canvas.appendChild(currentPage);
-  let currentHeight = 0;
-
-  children.forEach(child => {
-    // SOPORTE PARA SALTOS DE PÁGINA FORZADOS
-    if (child.classList.contains('force-page-break')) {
-      if (currentHeight > 0) {
-        currentPage = createNewPage();
-        currentInner = currentPage.querySelector('.page-inner');
-        canvas.appendChild(currentPage);
-        currentHeight = 0;
-      }
-      if (child.innerHTML.trim() === "") return; // Si es solo un marcador de salto
-    }
-
-    const clone = child.cloneNode(true);
-    testInner.appendChild(clone);
-    const childHeight = clone.offsetHeight + 20;
-
-    if (currentHeight + childHeight > maxHeight && currentHeight > 0) {
-      currentPage = createNewPage();
-      currentInner = currentPage.querySelector('.page-inner');
-      canvas.appendChild(currentPage);
-      currentHeight = 0;
-    }
-
-    currentInner.appendChild(child.cloneNode(true));
-    currentHeight += childHeight;
-    testInner.innerHTML = '';
-  });
-
-  document.body.removeChild(testPage);
-  updateMeta();
-  updateOutline();
-}
-
-function initReportWithData(data) {
-  document.getElementById('editor-empty').style.display = 'none';
-  const canvas = document.getElementById('report-canvas-content');
-  canvas.style.display = 'block';
-  pageCount = 0; sectionCount = 0;
-
-  const dateStr = new Date().toLocaleDateString('es-ES', {day:'numeric', month:'long', year:'numeric'});
-  const repId = 'KR-' + Math.random().toString(36).substr(2,6).toUpperCase();
-
-  const tempContainer = document.createElement('div');
-
-  // 1. PORTADA (CON SALTO FORZADO)
-  const cover = document.createElement('div');
-  cover.className = 'force-page-break';
-  cover.innerHTML = `
-    <div class="report-header" style="margin-top:40mm; border-bottom:3px solid #1a3a6b; padding-bottom:30px; margin-bottom: 20px;">
-      <div>
-        <div class="report-title" style="font-size:48px; color:#1a3a6b;">INFORME</div>
-        <div class="report-title" style="font-size:32px; font-weight:300; letter-spacing:8px;">BIOINFORMÁTICO</div>
-      </div>
-      <div class="report-meta">
-        <div class="meta-id" style="font-size:18px;">${repId}</div>
-        <div class="meta-date-val">${dateStr}</div>
-        <div class="meta-inst-val">Análisis Genómico Avanzado</div>
-        <div class="meta-ver-val">v1.38 (Stable)</div>
-      </div>
-    </div>
-    <div style="margin-top:60mm; text-align:center;">
-      <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#666; letter-spacing:2px; text-transform:uppercase;">Preparado para la interpretación clínica de microARNs</div>
-      <div style="margin-top:20px; font-size:14px; font-style:italic; color:#1a3a6b;">Convergencia Molecular y Silenciamiento Génico</div>
-    </div>`;
-  tempContainer.appendChild(cover);
-
-  // 2. SÍNTESIS ACADÉMICA (CON SALTO FORZADO AL INICIO)
-  const synthHead = document.createElement('div');
-  synthHead.className = 'report-section force-page-break';
-  synthHead.innerHTML = `<div class="section-heading"><span class="s-num">I.</span> Síntesis de investigación académica</div>`;
-  tempContainer.appendChild(synthHead);
-
-  const synthesisParagraphs = (data.scientific_synthesis || '').split('\n\n');
-  synthesisParagraphs.forEach(p => {
-    const pTag = document.createElement('p');
-    pTag.className = 'editable-block';
-    pTag.contentEditable = 'true';
-    pTag.style.cssText = "width:100%; font-family:'Spectral', serif; line-height:1.75; font-size:14px; text-align:justify; margin-bottom:18px;";
-    pTag.innerHTML = p.replace(/\n/g, '<br>');
-    tempContainer.appendChild(pTag);
-  });
-
-  // 2.1 CONTEXTO FUNCIONAL (DENTRO DE SECCIÓN I - SIN TÍTULO REDUNDANTE)
-  if (data.functional_context) {
-    const funcParagraphs = data.functional_context.split('\n\n');
-    funcParagraphs.forEach(p => {
-      if (p.trim() === "" || p.toLowerCase().includes("contexto funcional")) return;
-      const pTag = document.createElement('p');
-      pTag.className = 'editable-block';
-      pTag.contentEditable = 'true';
-      pTag.style.cssText = "width:100%; font-family:'Spectral', serif; line-height:1.75; font-size:13px; text-align:justify; margin-bottom:15px;";
-      pTag.innerHTML = p.replace(/\n/g, '<br>');
-      tempContainer.appendChild(pTag);
-    });
-  }
-
-  // 2.2 BIBLIOGRAFÍA (SECCIÓN FINAL DE INVESTIGACIÓN)
-  if (data.references_text) {
-    const refHead = document.createElement('div');
-    refHead.className = 'report-section force-page-break';
-    refHead.innerHTML = `<div class="section-heading"><span class="s-num">I.1</span> Bibliografía</div>`;
-    tempContainer.appendChild(refHead);
-
-    const refParagraphs = data.references_text.split('\n\n');
-    refParagraphs.forEach(p => {
-      if (p.trim() === "" || p.toLowerCase().startsWith("bibliografía") || p.toLowerCase().startsWith("referencias")) return;
-      const pTag = document.createElement('p');
-      pTag.className = 'editable-block';
-      pTag.contentEditable = 'true';
-      pTag.style.cssText = "width:100%; font-family:'Spectral', serif; line-height:1.45; font-size:11.5px; text-align:justify; margin-bottom:12px;";
-      
-      // Asegurar que las URLs sean hipervínculos reales
-      const linkedText = p.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color:#1a3a6b; text-decoration:underline;">$1</a>');
-      pTag.innerHTML = linkedText.replace(/\n/g, '<br>');
-      tempContainer.appendChild(pTag);
-    });
-  }
-
-  // 3. TABLA (SALTO FORZADO)
-  const tableSec = document.createElement('div');
-  tableSec.className = 'report-section force-page-break';
-  let tableRows = '';
-  data.common_genes.slice(0, 40).forEach(g => {
-    const d = (data.gene_details && data.gene_details[g]) || {system:'—', associated_routes:[], pathology:'—'};
-    const pathText = (d.pathology||'').length > 180 ? d.pathology.substring(0, 180) + '...' : (d.pathology||'—');
-    tableRows += `<tr><td style="font-weight:600; color:#1a3a6b; padding:8px;">${g}</td><td style="padding:8px;">${d.system||'—'}</td><td style="font-style:italic; padding:8px;">${(d.associated_routes||[]).slice(0,2).join('; ')||'—'}</td><td style="text-align:justify; padding:8px; font-size:11px;">${pathText}</td></tr>`;
-  });
-  tableSec.innerHTML = `
-    <div class="section-heading"><span class="s-num">II.</span> Panel de Biomarcadores Core Identificados</div>
-    <table class="rep-table" style="width:100%; border-collapse:collapse; margin-top:10px;"><thead style="background:#1a3a6b; color:white;"><tr><th style="padding:10px;">Gen Core</th><th style="padding:10px;">Sistema</th><th style="padding:10px;">Rutas Asociadas</th><th style="padding:10px;">Relevancia Patológica</th></tr></thead><tbody id="bio-tbody">${tableRows}</tbody></table>`;
-  tempContainer.appendChild(tableSec);
-
-  // 4. DETALLES POR GEN (SALTO FORZADO)
-  const detailHead = document.createElement('div');
-  detailHead.className = 'report-section force-page-break';
-  detailHead.innerHTML = `<div class="section-heading"><span class="s-num">III.</span> Traducción Patológica Detallada</div>`;
-  tempContainer.appendChild(detailHead);
-
-  data.common_genes.slice(0, 12).forEach(g => {
-    const d = (data.gene_details && data.gene_details[g]) || {system:'—', associated_routes:[], pathology:'—'};
-    const block = document.createElement('div');
-    block.className = 'report-section gene-block';
-    block.style.cssText = "margin-bottom:15px; padding:10px; border-left:3px solid #1a3a6b; background:#f9fbfc;";
-    block.innerHTML = `<div class="gene-block-name" style="font-weight:bold; color:#1a3a6b; border-bottom:1px solid #eee; padding-bottom:4px; margin-bottom:6px;">${g} — ${d.system||'—'}</div><div class="gene-block-text" contenteditable="true" style="font-size:12px; line-height:1.4; text-align:justify;">${(d.pathology||'—').replace(/\n/g, '<br>')}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:#1a3a6b; margin-top:6px;">Rutas: <i>${(d.associated_routes||[]).join(', ')||'—'}</i></div>`;
-    tempContainer.appendChild(block);
-  });
-
-  // 5. GRÁFICOS (SALTO FORZADO CON TAMAÑOS FIJOS PARA PDF)
-  const vizSec = document.createElement('div');
-  vizSec.className = 'report-section force-page-break';
-  const vennImg = data.venn_plot ? `<img src="data:image/png;base64,${data.venn_plot}" style="width:380px; height:300px; object-fit:contain; border:1px solid #eee; background:white; padding:10px; margin-bottom:10px;">` : '<div style="padding:40px; color:#999; border:1px dashed #ccc;">Gráfico no disponible</div>';
-  const volcanoImg = data.volcano_plot ? `<img src="data:image/png;base64,${data.volcano_plot}" style="width:480px; height:320px; object-fit:contain; border:1px solid #eee; background:white; padding:10px;">` : '<div style="padding:40px; color:#999; border:1px dashed #ccc;">Gráfico no disponible</div>';
-  
-  vizSec.innerHTML = `
-    <div class="section-heading"><span class="s-num">IV.</span> Evidencia Gráfica de Convergencia</div>
-    <div style="display:flex; flex-direction:column; align-items:center; gap:20px; margin-top:10px;">
-      <div class="viz-print" style="text-align:center;">
-        <div style="font-size:10px; font-weight:bold; color:#333; margin-bottom:5px;">IV.1 Diagrama de Co-regulación</div>
-        ${vennImg}
-      </div>
-      <div class="viz-print" style="text-align:center;">
-        <div style="font-size:10px; font-weight:bold; color:#333; margin-bottom:5px;">IV.2 Paisaje de Significancia Biológica</div>
-        ${volcanoImg}
-      </div>
-    </div>`;
-  tempContainer.appendChild(vizSec);
-
-  // 6. PPI (CON SALTO FORZADO)
-  const ppiSec = document.createElement('div');
-  ppiSec.className = 'report-section force-page-break';
-  const ppiImg = data.ppi_plot ? `<img src="data:image/png;base64,${data.ppi_plot}" style="width:85%; max-height:400px; object-fit:contain; border:1px solid #eee; box-shadow:0 2px 4px rgba(0,0,0,0.05);">` : '<div style="padding:40px; color:#999; border:1px dashed #ccc;">Interactoma no disponible</div>';
-  ppiSec.innerHTML = `
-    <div class="section-heading"><span class="s-num">V.</span> Interactoma Proteico (STRING-DB)</div>
-    <div class="viz-print" style="margin-top:10px; text-align:center;">${ppiImg}</div>`;
-  tempContainer.appendChild(ppiSec);
-
-  // Ejecutar paginación real
-  setTimeout(() => paginateReport(tempContainer), 100);
-}
-
-function init() {
-  console.log("KENRYU: Iniciando componentes...");
-  populateYearSelect();
-  const canvas = document.getElementById('report-canvas-content');
-  if (canvas) {
-    const observer = new MutationObserver(() => updateOutline());
-    observer.observe(canvas, { childList: true, subtree: true, characterData: true });
-  }
-}
-
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  init();
-}
