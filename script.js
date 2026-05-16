@@ -1,138 +1,120 @@
-// ── TABS ──────────────────────────────────────────────────────────────────────
-let currentTab = 'clinical';
+// ── GLOBALS ───────────────────────────────────────────────────────────────────
 let lastResult = null;
+const TITLES = {
+  clinical: 'Condición Clínica',
+  gene: 'Análisis de Gen',
+  nutrient: 'Suplemento / Hierba',
+  report: 'Editor de Informe'
+};
 
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    currentTab = btn.dataset.tab;
-    document.getElementById('tab-' + currentTab).classList.add('active');
-    clearResults();
-  });
-});
+// ── NAVIGATION ────────────────────────────────────────────────────────────────
+function switchView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('active');
+  document.getElementById('topbar-title').textContent = TITLES[name];
+}
 
-// ── FILL AND RUN ──────────────────────────────────────────────────────────────
-function fillAndRun(tab, value) {
-  // Switch tab if needed
-  if (tab !== currentTab) {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
-    document.getElementById('tab-' + tab).classList.add('active');
-    currentTab = tab;
-  }
+// ── QUICK TAG FILL ────────────────────────────────────────────────────────────
+function qt(tab, value) {
+  switchView(tab);
   document.getElementById(tab + '-input').value = value;
   if (tab === 'clinical') runClinical();
   else if (tab === 'gene') runGene();
   else if (tab === 'nutrient') runNutrient();
 }
 
-// ── API CALLS ─────────────────────────────────────────────────────────────────
+// ── TERMINAL LOG ──────────────────────────────────────────────────────────────
+function log(termId, msg, type = 'ok') {
+  const t = document.getElementById(termId);
+  if (!t) return;
+  const now = new Date();
+  const ts = now.toTimeString().slice(0,8);
+  const line = document.createElement('div');
+  line.className = 'log-line';
+  line.innerHTML = `<span class="log-ts">${ts}</span><span class="log-msg ${type}">${msg}</span>`;
+  t.appendChild(line);
+  t.scrollTop = t.scrollHeight;
+}
+
+// ── LOADING ───────────────────────────────────────────────────────────────────
+function showLoading(msg) {
+  document.getElementById('loading-msg').textContent = msg;
+  document.getElementById('loading').style.display = 'flex';
+}
+function hideLoading() {
+  document.getElementById('loading').style.display = 'none';
+}
+
+// ── API BASE ──────────────────────────────────────────────────────────────────
+const API = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost'
+  ? 'http://localhost:7860'
+  : '';
+
+async function apiPost(endpoint, body) {
+  const r = await fetch(API + endpoint, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(body)
+  });
+  if (!r.ok) {
+    const err = await r.json().catch(() => ({detail: r.statusText}));
+    throw new Error(err.detail || 'Error en el servidor');
+  }
+  return r.json();
+}
+
+// ── MÓDULO 1: CONDICIÓN CLÍNICA ───────────────────────────────────────────────
 async function runClinical() {
   const query = document.getElementById('clinical-input').value.trim();
   if (!query) return;
-  showLoading('Analizando condición clínica… consultando NCBI, KEGG y MSK…');
+
+  const btn = document.getElementById('btn-clinical');
+  btn.disabled = true;
+  showLoading('Analizando condición clínica…');
+  log('terminal-clinical', `Iniciando análisis: "${query}"`, 'info');
+  log('terminal-clinical', 'Consultando mapa clínico…', 'ok');
+
   try {
-    const res = await fetch('/api/clinical', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({query})
-    });
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.detail || 'Error en el servidor');
-    }
-    const data = await res.json();
+    const data = await apiPost('/api/clinical', {query});
     lastResult = data;
-    renderClinicalResult(data);
+    log('terminal-clinical', `Condición identificada: ${data.condition}`, 'ok');
+    log('terminal-clinical', `Genes encontrados: ${(data.genes||[]).map(g=>g.symbol).join(', ')||'—'}`, 'ok');
+    log('terminal-clinical', `Suplementos MSK: ${(data.supplements||[]).map(s=>s.name).join(', ')||'—'}`, 'ok');
+    log('terminal-clinical', `Referencias PubMed: ${(data.references||[]).length}`, 'ok');
+    renderClinical(data);
+    populateReport(data);
   } catch(e) {
-    showError(e.message);
+    log('terminal-clinical', `Error: ${e.message}`, 'err');
+    alert(e.message);
   } finally {
     hideLoading();
+    btn.disabled = false;
   }
 }
 
-async function runGene() {
-  const raw = document.getElementById('gene-input').value.trim();
-  if (!raw) return;
-  const genes = raw.split(',').map(g => g.trim().toUpperCase()).filter(Boolean);
-  showLoading(`Consultando ${genes.length} gen(es) en NCBI, SNPedia y Ensembl…`);
-  try {
-    const res = await fetch('/api/gene', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({genes})
-    });
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.detail || 'Error en el servidor');
-    }
-    const data = await res.json();
-    lastResult = data;
-    renderGeneResult(data);
-  } catch(e) {
-    showError(e.message);
-  } finally {
-    hideLoading();
-  }
-}
-
-async function runNutrient() {
-  const nutrient = document.getElementById('nutrient-input').value.trim();
-  if (!nutrient) return;
-  showLoading(`Buscando "${nutrient}" en MSK · KEGG · PubMed…`);
-  try {
-    const res = await fetch('/api/nutrient', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({nutrient})
-    });
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.detail || 'Error en el servidor');
-    }
-    const data = await res.json();
-    lastResult = data;
-    renderNutrientResult(data);
-  } catch(e) {
-    showError(e.message);
-  } finally {
-    hideLoading();
-  }
-}
-
-// ── RENDERERS ─────────────────────────────────────────────────────────────────
-
-function renderClinicalResult(data) {
-  // Header
-  document.getElementById('result-header').innerHTML = `
-    <h1>🩺 ${data.condition}</h1>
-    <p>${data.description}</p>
-  `;
+function renderClinical(data) {
+  document.getElementById('clinical-results').style.display = 'block';
 
   // Risks
   if (data.risks && data.risks.length) {
-    document.getElementById('risk-alert').style.display = 'block';
-    document.getElementById('risk-list').innerHTML =
-      data.risks.map(r => `<li>${r}</li>`).join('');
+    const riskEl = document.getElementById('risk-section');
+    riskEl.style.display = 'block';
+    riskEl.innerHTML = `
+      <div class="risk-box">
+        <div class="risk-box-title">⚠ Riesgos y Consideraciones Clínicas</div>
+        ${data.risks.map(r => `<div class="risk-item">${r}</div>`).join('')}
+      </div>`;
   }
 
   // Genes
   if (data.genes && data.genes.length) {
     document.getElementById('genes-card').style.display = 'block';
     document.getElementById('genes-content').innerHTML = data.genes.map(g => `
-      <div class="gene-item">
-        <div class="gene-symbol">${g.symbol}</div>
-        <div class="gene-name">${g.name || ''}</div>
-        <div class="gene-location">Chr ${g.chromosome || '?'} · ${g.location || ''}</div>
-        ${g.summary ? `<div class="gene-summary">${g.summary.slice(0, 220)}…</div>` : ''}
-        <div class="gene-links">
-          <a class="gene-link" href="${g.ncbi_url}" target="_blank">NCBI Gene</a>
-          <a class="gene-link" href="https://www.snpedia.com/index.php/${g.symbol}" target="_blank">SNPedia</a>
-          <a class="gene-link" href="https://www.ensembl.org/Homo_sapiens/Gene/Summary?q=${g.symbol}" target="_blank">Ensembl</a>
-        </div>
+      <div class="gene-pill" onclick="openGenePanel(${JSON.stringify(g).replace(/"/g,'&quot;')})">
+        <span class="gene-sym">${g.symbol}</span>
+        <span class="gene-chr">Chr ${g.chromosome||'?'} · ${g.location||''}</span>
       </div>
     `).join('');
   }
@@ -140,387 +122,405 @@ function renderClinicalResult(data) {
   // Pathway
   if (data.pathway && data.pathway.name) {
     document.getElementById('pathway-card').style.display = 'block';
-    const geneChips = (data.pathway.genes || []).slice(0, 16).map(g =>
+    const geneChips = (data.pathway.genes||[]).slice(0,14).map(g =>
       `<span class="pathway-gene-tag">${g.symbol}</span>`).join('');
     document.getElementById('pathway-content').innerHTML = `
       <div class="pathway-box">
         <div class="pathway-id">${data.pathway.id}</div>
         <div class="pathway-name">${data.pathway.name}</div>
-        ${data.pathway.description ? `<div class="pathway-desc">${data.pathway.description.slice(0,400)}…</div>` : ''}
-        ${geneChips ? `<div class="pathway-gene-list">${geneChips}</div>` : ''}
-        <a class="pathway-link" href="${data.pathway.kegg_url}" target="_blank">🗺 Ver ruta en KEGG →</a>
-      </div>
-    `;
+        ${data.pathway.description ? `<div class="pathway-desc">${data.pathway.description.slice(0,300)}…</div>` : ''}
+        ${geneChips ? `<div class="pathway-genes">${geneChips}</div>` : ''}
+        <a class="ext-btn" href="${data.pathway.kegg_url}" target="_blank">🗺 Ver en KEGG →</a>
+      </div>`;
   }
 
   // Supplements
-  renderSupplements(data.supplements || []);
-
-  // References
-  renderReferences(data.references || []);
-
-  // External links
-  const extLinks = (data.genes || []).map(g => `
-    <a class="ext-link" href="${g.ncbi_url}" target="_blank">🔗 NCBI: ${g.symbol}</a>
-    <a class="ext-link" href="https://www.snpedia.com/index.php/${g.symbol}" target="_blank">🧬 SNPedia: ${g.symbol}</a>
-  `).join('');
-  if (extLinks) {
-    document.getElementById('external-links').style.display = 'block';
-    document.getElementById('ext-links-content').innerHTML = `<div class="ext-links-grid">${extLinks}</div>`;
+  renderSuppTabs('supp-tabs', 'supp-panels', data.supplements || []);
+  if (data.supplements && data.supplements.length) {
+    document.getElementById('supps-card').style.display = 'block';
   }
 
-  showResults();
+  // References
+  if (data.references && data.references.length) {
+    document.getElementById('refs-card').style.display = 'block';
+    document.getElementById('refs-body').innerHTML = data.references.map(r => `
+      <tr>
+        <td>${r.title||'—'}</td>
+        <td>${r.authors||''} · ${r.journal||''} · ${r.year||''}</td>
+        <td><a class="ref-link" href="${r.url}" target="_blank">PubMed ${r.pmid}</a></td>
+      </tr>`).join('');
+  }
 }
 
-function renderGeneResult(data) {
-  // Header
-  document.getElementById('result-header').innerHTML = `
-    <h1>🔬 Análisis Genómico: ${data.genes_queried.join(', ')}</h1>
-    <p>Análisis de ${data.genes_queried.length} gen(es) — datos en tiempo real de NCBI · SNPedia · Ensembl</p>
-  `;
+// ── MÓDULO 2: GEN ─────────────────────────────────────────────────────────────
+async function runGene() {
+  const raw = document.getElementById('gene-input').value.trim();
+  if (!raw) return;
+  const genes = raw.split(',').map(g => g.trim().toUpperCase()).filter(Boolean);
+  showLoading(`Consultando ${genes.length} gen(es) en NCBI…`);
+  log('terminal-gene', `Genes: ${genes.join(', ')}`, 'info');
 
-  // Genes info
+  try {
+    const data = await apiPost('/api/gene', {genes});
+    lastResult = data;
+    log('terminal-gene', `Info NCBI obtenida: ${(data.genes_info||[]).length} genes`, 'ok');
+    log('terminal-gene', `Condiciones relacionadas: ${(data.related_conditions||[]).length}`, 'ok');
+    renderGene(data);
+  } catch(e) {
+    log('terminal-gene', `Error: ${e.message}`, 'err');
+    alert(e.message);
+  } finally {
+    hideLoading();
+  }
+}
+
+function renderGene(data) {
+  document.getElementById('gene-results').style.display = 'block';
+
+  // Gene pills
   if (data.genes_info && data.genes_info.length) {
-    document.getElementById('genes-card').style.display = 'block';
-    document.getElementById('genes-content').innerHTML = data.genes_info.map(g => `
-      <div class="gene-item">
-        <div class="gene-symbol">${g.symbol}</div>
-        <div class="gene-name">${g.name || ''}</div>
-        <div class="gene-location">Chr ${g.chromosome || '?'} · ${g.location || ''}</div>
-        ${g.summary ? `<div class="gene-summary">${g.summary.slice(0, 280)}…</div>` : ''}
-        <div class="gene-links">
-          <a class="gene-link" href="${g.ncbi_url}" target="_blank">NCBI Gene</a>
-          <a class="gene-link" href="https://www.snpedia.com/index.php/${g.symbol}" target="_blank">SNPedia</a>
-          <a class="gene-link" href="https://www.ensembl.org/Homo_sapiens/Gene/Summary?q=${g.symbol}" target="_blank">Ensembl</a>
-        </div>
+    document.getElementById('gene-info-card').style.display = 'block';
+    document.getElementById('gene-pills').innerHTML = data.genes_info.map(g => `
+      <div class="gene-pill" onclick="openGenePanel(${JSON.stringify(g).replace(/"/g,'&quot;')})">
+        <span class="gene-sym">${g.symbol}</span>
+        <span class="gene-chr">${g.name ? g.name.slice(0,28)+'…' : ''}</span>
       </div>
     `).join('');
   }
 
   // Related conditions
   if (data.related_conditions && data.related_conditions.length) {
-    document.getElementById('conditions-card').style.display = 'block';
-    document.getElementById('conditions-content').innerHTML = data.related_conditions.map(c => `
-      <div class="condition-item">
-        <div class="condition-name">${c.condition}</div>
-        <div class="condition-genes">
-          ${c.matching_genes.map(g => `<span class="cond-gene-tag">${g}</span>`).join('')}
-        </div>
-        ${c.risks.length ? `<div style="color:var(--amber-400);font-size:0.8rem;margin-top:6px;">⚠ ${c.risks[0]}</div>` : ''}
-      </div>
-    `).join('');
+    document.getElementById('cond-card').style.display = 'block';
+    document.getElementById('cond-content').innerHTML = data.related_conditions.map(c => `
+      <div class="cond-item">
+        <div class="cond-name">${c.condition}</div>
+        <div class="cond-genes">${c.matching_genes.map(g => `<span class="cond-gene-tag">${g}</span>`).join('')}</div>
+        ${c.risks.length ? `<div class="cond-risk">⚠ ${c.risks[0]}</div>` : ''}
+      </div>`).join('');
   }
 
   // Supplements
-  renderSupplements(data.supplements || []);
-
-  // References
-  renderReferences(data.references || []);
-
-  // External links
-  const extLinks = data.genes_queried.map(g => `
-    <a class="ext-link" href="https://www.ncbi.nlm.nih.gov/gene/?term=${g}+Homo+sapiens" target="_blank">🔗 NCBI: ${g}</a>
-    <a class="ext-link" href="https://www.snpedia.com/index.php/${g}" target="_blank">🧬 SNPedia: ${g}</a>
-    <a class="ext-link" href="https://www.ensembl.org/Homo_sapiens/Gene/Summary?q=${g}" target="_blank">🌐 Ensembl: ${g}</a>
-  `).join('');
-  document.getElementById('external-links').style.display = 'block';
-  document.getElementById('ext-links-content').innerHTML = `<div class="ext-links-grid">${extLinks}</div>`;
-
-  showResults();
-}
-
-function renderNutrientResult(data) {
-  const herb = data.msk_data;
-
-  document.getElementById('result-header').innerHTML = `
-    <h1>🌿 ${herb.name || data.nutrient}</h1>
-    ${herb.scientific_name ? `<p style="color:var(--teal-400);font-style:italic">${herb.scientific_name}</p>` : ''}
-    <p style="margin-top:8px">${herb.what_is_it ? herb.what_is_it.slice(0,300) + '…' : 'Datos disponibles abajo.'}</p>
-  `;
-
-  // Full herb detail card
-  document.getElementById('herb-card').style.display = 'block';
-  document.getElementById('herb-content').innerHTML = `
-    <div class="card-header">
-      <span class="card-icon">🌿</span>
-      <h2>Ficha Clínica Completa — MSK</h2>
-      <span class="card-badge">Memorial Sloan Kettering</span>
-    </div>
-    <div class="supp-detail-grid">
-      ${herb.benefits && herb.benefits.length ? `
-      <div class="supp-section">
-        <h4>Usos y Beneficios</h4>
-        <ul>${herb.benefits.map(b => `<li>${b}</li>`).join('')}</ul>
-      </div>` : ''}
-      ${herb.side_effects && herb.side_effects.length ? `
-      <div class="supp-section danger">
-        <h4>Efectos Adversos</h4>
-        <ul>${herb.side_effects.map(s => `<li>${s}</li>`).join('')}</ul>
-      </div>` : ''}
-      ${herb.warnings && herb.warnings.length ? `
-      <div class="supp-section warning">
-        <h4>Advertencias Clínicas</h4>
-        <ul>${herb.warnings.map(w => `<li>${w}</li>`).join('')}</ul>
-      </div>` : ''}
-      ${herb.drug_interactions && herb.drug_interactions.length ? `
-      <div class="supp-section danger">
-        <h4>Interacciones Farmacológicas</h4>
-        <ul>${herb.drug_interactions.map(d => `<li>${d}</li>`).join('')}</ul>
-      </div>` : ''}
-    </div>
-    ${herb.mechanism_of_action ? `
-    <div class="supp-section" style="margin-top:16px">
-      <h4>Mecanismo de Acción</h4>
-      <p>${herb.mechanism_of_action.slice(0, 600)}…</p>
-    </div>` : ''}
-    ${herb.clinical_summary ? `
-    <div class="supp-section" style="margin-top:12px">
-      <h4>Resumen Clínico (Para Profesionales)</h4>
-      <p>${herb.clinical_summary.slice(0, 800)}…</p>
-    </div>` : ''}
-    <a class="supp-msk-link" href="${data.msk_url}" target="_blank">📖 Ver ficha completa en MSK →</a>
-  `;
-
-  // Pathway if available
-  if (data.pathway && data.pathway.name) {
-    document.getElementById('pathway-card').style.display = 'block';
-    document.getElementById('pathway-content').innerHTML = `
-      <div class="pathway-box">
-        <div class="pathway-id">${data.pathway.id}</div>
-        <div class="pathway-name">${data.pathway.name}</div>
-        <a class="pathway-link" href="${data.pathway.kegg_url}" target="_blank">🗺 Ver en KEGG →</a>
-      </div>
-    `;
+  if (data.supplements && data.supplements.length) {
+    document.getElementById('gene-supps-card').style.display = 'block';
+    renderSuppTabs('gene-supp-tabs', 'gene-supp-panels', data.supplements);
   }
 
   // References
-  renderReferences(data.references || []);
-
-  // External links
-  document.getElementById('external-links').style.display = 'block';
-  document.getElementById('ext-links-content').innerHTML = `
-    <div class="ext-links-grid">
-      <a class="ext-link" href="${data.msk_url}" target="_blank">🌿 MSK Herbs</a>
-      <a class="ext-link" href="https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(data.nutrient)}" target="_blank">📚 PubMed</a>
-      <a class="ext-link" href="https://www.kegg.jp/kegg/compound/" target="_blank">🗺 KEGG Compound</a>
-    </div>
-  `;
-
-  showResults();
+  if (data.references && data.references.length) {
+    document.getElementById('gene-refs-card').style.display = 'block';
+    document.getElementById('gene-refs-body').innerHTML = data.references.map(r => `
+      <tr>
+        <td>${r.title||'—'}</td>
+        <td>${r.journal||''} · ${r.year||''}</td>
+        <td><a class="ref-link" href="${r.url}" target="_blank">PubMed ${r.pmid}</a></td>
+      </tr>`).join('');
+  }
 }
 
-function renderSupplements(supplements) {
-  if (!supplements || !supplements.length) return;
-  document.getElementById('supplements-card').style.display = 'block';
+// ── MÓDULO 3: SUPLEMENTO ──────────────────────────────────────────────────────
+async function runNutrient() {
+  const nutrient = document.getElementById('nutrient-input').value.trim();
+  if (!nutrient) return;
+  showLoading(`Buscando "${nutrient}" en MSK…`);
+  log('terminal-nutrient', `Consultando MSK: ${nutrient}`, 'info');
 
-  const tabs = supplements.map((s, i) =>
-    `<button class="supp-tab ${i===0?'active':''}" onclick="switchSupp(${i})">${s.name || s.slug}</button>`
+  try {
+    const data = await apiPost('/api/nutrient', {nutrient});
+    lastResult = data;
+    log('terminal-nutrient', `Datos MSK obtenidos: ${data.msk_data.name}`, 'ok');
+    if (data.msk_data.scientific_name)
+      log('terminal-nutrient', `Nombre científico: ${data.msk_data.scientific_name}`, 'ok');
+    log('terminal-nutrient', `Referencias PubMed: ${(data.references||[]).length}`, 'ok');
+    renderNutrient(data);
+  } catch(e) {
+    log('terminal-nutrient', `Error: ${e.message}`, 'err');
+    alert(e.message);
+  } finally {
+    hideLoading();
+  }
+}
+
+function renderNutrient(data) {
+  const herb = data.msk_data;
+  document.getElementById('nutrient-results').style.display = 'block';
+  document.getElementById('herb-card-title').textContent = herb.name || data.nutrient;
+
+  // Section tabs
+  const sections = [
+    {id:'benefits', label:'Beneficios'},
+    {id:'side_effects', label:'Efectos Adversos'},
+    {id:'warnings', label:'Advertencias'},
+    {id:'drug_interactions', label:'Interacciones'},
+    {id:'mechanism_of_action', label:'Mecanismo'},
+    {id:'clinical_summary', label:'Resumen Clínico'},
+  ].filter(s => {
+    const v = herb[s.id];
+    return v && (Array.isArray(v) ? v.length > 0 : v.length > 10);
+  });
+
+  document.getElementById('herb-tabs-header').innerHTML = sections.map((s,i) =>
+    `<div class="supp-tab ${i===0?'active':''}" onclick="switchHerbTab(${i},this)">${s.label}</div>`
   ).join('');
 
-  const panels = supplements.map((s, i) => `
-    <div class="supp-panel ${i===0?'active':''}" id="supp-panel-${i}">
-      <div class="supp-detail-grid">
+  document.getElementById('herb-main-content').innerHTML = sections.map((s,i) => {
+    const v = herb[s.id];
+    let content = '';
+    if (Array.isArray(v)) {
+      const cls = s.id === 'side_effects' || s.id === 'drug_interactions' ? 'danger' :
+                  s.id === 'warnings' ? 'warning' : '';
+      content = `<div class="supp-section ${cls}">
+        <ul class="supp-list">${v.map(x=>`<li>${x}</li>`).join('')}</ul>
+      </div>`;
+    } else {
+      const cls = s.id === 'clinical_summary' ? '' : '';
+      content = `<div class="supp-moa"><div class="supp-moa-title">${s.label}</div><p class="supp-text">${v.slice(0,900)}${v.length>900?'…':''}</p></div>`;
+    }
+    return `<div class="supp-panel ${i===0?'active':''}" id="herb-panel-${i}">${content}
+      ${herb.url ? `<div style="margin-top:14px"><a class="ext-btn gold" href="${herb.url}" target="_blank">📖 Ver ficha completa en MSK →</a></div>` : ''}
+    </div>`;
+  }).join('');
+
+  // Header info
+  const header = `
+    <div style="margin-bottom:16px; padding:14px 18px; background:var(--bg3); border-radius:var(--r); display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <div style="font-family:var(--font-serif);font-size:18px;color:var(--gold)">${herb.name||data.nutrient}</div>
+        ${herb.scientific_name ? `<div style="font-size:11px;color:var(--text-dim);font-style:italic;margin-top:2px">${herb.scientific_name}</div>` : ''}
+        ${herb.common_names && herb.common_names.length ? `<div style="font-size:10px;color:var(--text-faint);margin-top:2px">${herb.common_names.join(' · ')}</div>` : ''}
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a class="ext-btn" href="${data.msk_url}" target="_blank">MSK →</a>
+        <a class="ext-btn blue" href="https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(data.nutrient)}" target="_blank">PubMed →</a>
+      </div>
+    </div>`;
+
+  document.getElementById('herb-main-content').insertAdjacentHTML('afterbegin', header);
+
+  // References
+  if (data.references && data.references.length) {
+    document.getElementById('nutrient-refs-card').style.display = 'block';
+    document.getElementById('nutrient-refs-body').innerHTML = data.references.map(r => `
+      <tr>
+        <td>${r.title||'—'}</td>
+        <td>${r.journal||''} · ${r.year||''}</td>
+        <td><a class="ref-link" href="${r.url}" target="_blank">PubMed ${r.pmid}</a></td>
+      </tr>`).join('');
+  }
+}
+
+function switchHerbTab(idx, el) {
+  document.querySelectorAll('#herb-tabs-header .supp-tab').forEach((t,i) => t.classList.toggle('active', i===idx));
+  document.querySelectorAll('#herb-main-content .supp-panel').forEach((p,i) => p.classList.toggle('active', i===idx));
+}
+
+// ── SUPP TABS (shared) ────────────────────────────────────────────────────────
+function renderSuppTabs(tabsId, panelsId, supplements) {
+  if (!supplements || !supplements.length) return;
+  document.getElementById(tabsId).innerHTML = supplements.map((s,i) =>
+    `<div class="supp-tab ${i===0?'active':''}" onclick="switchSuppTab('${tabsId}','${panelsId}',${i},this)">${s.name||s.slug||'Suplemento '+(i+1)}</div>`
+  ).join('');
+
+  document.getElementById(panelsId).innerHTML = supplements.map((s,i) => `
+    <div class="supp-panel ${i===0?'active':''}" id="${panelsId}-${i}">
+      <div class="supp-grid">
         ${s.benefits && s.benefits.length ? `
         <div class="supp-section">
-          <h4>Beneficios</h4>
-          <ul>${s.benefits.slice(0,6).map(b => `<li>${b}</li>`).join('')}</ul>
+          <div class="supp-section-title">Beneficios</div>
+          <ul class="supp-list">${s.benefits.slice(0,7).map(b=>`<li>${b}</li>`).join('')}</ul>
         </div>` : ''}
         ${s.side_effects && s.side_effects.length ? `
         <div class="supp-section danger">
-          <h4>Efectos Adversos</h4>
-          <ul>${s.side_effects.slice(0,6).map(e => `<li>${e}</li>`).join('')}</ul>
+          <div class="supp-section-title">Efectos Adversos</div>
+          <ul class="supp-list">${s.side_effects.slice(0,7).map(e=>`<li>${e}</li>`).join('')}</ul>
         </div>` : ''}
         ${s.warnings && s.warnings.length ? `
         <div class="supp-section warning">
-          <h4>Advertencias</h4>
-          <ul>${s.warnings.slice(0,4).map(w => `<li>${w}</li>`).join('')}</ul>
+          <div class="supp-section-title">Advertencias</div>
+          <ul class="supp-list">${s.warnings.slice(0,5).map(w=>`<li>${w}</li>`).join('')}</ul>
         </div>` : ''}
         ${s.drug_interactions && s.drug_interactions.length ? `
         <div class="supp-section danger">
-          <h4>Interacciones</h4>
-          <ul>${s.drug_interactions.slice(0,4).map(d => `<li>${d}</li>`).join('')}</ul>
+          <div class="supp-section-title">Interacciones Farmacológicas</div>
+          <ul class="supp-list">${s.drug_interactions.slice(0,5).map(d=>`<li>${d}</li>`).join('')}</ul>
         </div>` : ''}
       </div>
       ${s.mechanism_of_action ? `
-      <div class="supp-section" style="margin-top:14px">
-        <h4>Mecanismo de Acción</h4>
-        <p>${s.mechanism_of_action.slice(0,400)}…</p>
+      <div class="supp-moa" style="margin-top:14px">
+        <div class="supp-moa-title">Mecanismo de Acción</div>
+        <p class="supp-text">${s.mechanism_of_action.slice(0,500)}…</p>
       </div>` : ''}
-      <a class="supp-msk-link" href="${s.url}" target="_blank">📖 Ver en MSK →</a>
-    </div>
-  `).join('');
-
-  document.getElementById('supplements-content').innerHTML = `
-    <div class="supp-tabs">${tabs}</div>
-    ${panels}
-  `;
-}
-
-function switchSupp(idx) {
-  document.querySelectorAll('.supp-tab').forEach((t, i) =>
-    t.classList.toggle('active', i === idx));
-  document.querySelectorAll('.supp-panel').forEach((p, i) =>
-    p.classList.toggle('active', i === idx));
-}
-
-function renderReferences(refs) {
-  if (!refs || !refs.length) return;
-  document.getElementById('refs-card').style.display = 'block';
-  document.getElementById('refs-content').innerHTML = refs.map(r => `
-    <div class="ref-item">
-      <div class="ref-title">${r.title || 'Sin título'}</div>
-      <div class="ref-meta">${r.authors || ''} · ${r.journal || ''} · ${r.year || ''}</div>
-      <a class="ref-link" href="${r.url}" target="_blank">PubMed ${r.pmid} →</a>
+      ${s.url ? `<div style="margin-top:14px"><a class="ext-btn gold" href="${s.url}" target="_blank">📖 Ver en MSK →</a></div>` : ''}
     </div>
   `).join('');
 }
 
-// ── UI HELPERS ────────────────────────────────────────────────────────────────
-function showLoading(msg) {
-  document.getElementById('loading-msg').textContent = msg;
-  document.getElementById('loading').style.display = 'flex';
-  document.getElementById('results').style.display = 'none';
-}
-function hideLoading() {
-  document.getElementById('loading').style.display = 'none';
-}
-function showResults() {
-  document.getElementById('results').style.display = 'block';
-  document.getElementById('report-actions').style.display = 'flex';
-  document.getElementById('results').scrollIntoView({behavior: 'smooth', block: 'start'});
-}
-function showError(msg) {
-  hideLoading();
-  document.getElementById('result-header').innerHTML = `
-    <h1 style="color:#f87171">Error</h1>
-    <p style="color:var(--gray-400)">${msg}</p>
-  `;
-  document.getElementById('results').style.display = 'block';
-  document.getElementById('report-actions').style.display = 'none';
-}
-function clearResults() {
-  document.getElementById('results').style.display = 'none';
-  ['genes-card','pathway-card','supplements-card','herb-card',
-   'conditions-card','refs-card','external-links','risk-alert','report-actions']
-    .forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.style.display = 'none';
-    });
-  lastResult = null;
+function switchSuppTab(tabsId, panelsId, idx, el) {
+  document.querySelectorAll(`#${tabsId} .supp-tab`).forEach((t,i) => t.classList.toggle('active', i===idx));
+  document.querySelectorAll(`#${panelsId} .supp-panel`).forEach((p,i) => p.classList.toggle('active', i===idx));
 }
 
-// ── REPORT PDF ────────────────────────────────────────────────────────────────
-function generateReport() {
-  if (!lastResult) return;
-  const content = buildReportHTML(lastResult);
-  const blob = new Blob([content], {type: 'text/html'});
-  const url = URL.createObjectURL(blob);
+// ── GENE DETAIL PANEL ─────────────────────────────────────────────────────────
+function openGenePanel(gene) {
+  if (typeof gene === 'string') gene = JSON.parse(gene.replace(/&quot;/g, '"'));
+  document.getElementById('gp-name').textContent = gene.symbol;
+  document.getElementById('gp-body').innerHTML = `
+    <div class="gp-field">
+      <div class="gp-label">Nombre Completo</div>
+      <div class="gp-value">${gene.name||'—'}</div>
+    </div>
+    <div class="gp-field">
+      <div class="gp-label">Localización</div>
+      <div class="gp-value mono">Chr ${gene.chromosome||'?'} · ${gene.location||'—'}</div>
+    </div>
+    ${gene.summary ? `
+    <div class="gp-field">
+      <div class="gp-label">Función Biológica</div>
+      <div class="gp-summary">${gene.summary.slice(0,600)}…</div>
+    </div>` : ''}
+    <div class="gp-field">
+      <div class="gp-label">Explorar en</div>
+      <div class="gp-links">
+        <a class="ext-btn gold" href="${gene.ncbi_url}" target="_blank">NCBI Gene →</a>
+        <a class="ext-btn" href="https://www.snpedia.com/index.php/${gene.symbol}" target="_blank">SNPedia →</a>
+        <a class="ext-btn blue" href="https://www.ensembl.org/Homo_sapiens/Gene/Summary?q=${gene.symbol}" target="_blank">Ensembl →</a>
+        <a class="ext-btn" style="background:var(--green-dim);border-color:rgba(63,185,80,.2);color:var(--green)" href="https://omim.org/search?index=entry&search=${gene.symbol}" target="_blank">OMIM →</a>
+      </div>
+    </div>
+  `;
+  document.getElementById('gene-detail-panel').classList.add('open');
+}
+function closeGenePanel() {
+  document.getElementById('gene-detail-panel').classList.remove('open');
+}
+
+// ── POPULATE REPORT ───────────────────────────────────────────────────────────
+function populateReport(data) {
+  const q = document.getElementById('report-query');
+  if (q) q.textContent = data.query || '';
+  const d = document.getElementById('report-desc');
+  if (d) d.textContent = data.description || '';
+
+  // Genes
+  const genesEl = document.getElementById('report-genes');
+  if (genesEl && data.genes && data.genes.length) {
+    genesEl.innerHTML = data.genes.map(g => `
+      <div class="gene-block">
+        <div class="gene-block-name">${g.symbol}</div>
+        <div class="gene-block-text">${g.name||''} — ${g.summary ? g.summary.slice(0,200)+'…' : ''}</div>
+      </div>`).join('');
+  }
+
+  // Supplements
+  const suppsEl = document.getElementById('report-supps');
+  if (suppsEl && data.supplements && data.supplements.length) {
+    suppsEl.innerHTML = data.supplements.map(s => `
+      <p><strong>${s.name}</strong>${s.scientific_name ? ` <em>(${s.scientific_name})</em>` : ''}</p>
+      ${s.benefits && s.benefits.length ? `<p style="font-size:11px;color:#555">Beneficios: ${s.benefits.slice(0,3).join('; ')}</p>` : ''}
+      ${s.side_effects && s.side_effects.length ? `<p style="font-size:11px;color:#8b1a1a">Efectos adversos: ${s.side_effects.slice(0,2).join('; ')}</p>` : ''}
+    `).join('<hr style="border:none;border-top:1px solid #ddd;margin:10px 0"/>');
+  }
+
+  // References
+  const refsEl = document.getElementById('report-refs');
+  if (refsEl && data.references && data.references.length) {
+    refsEl.innerHTML = `<ol style="padding-left:18px;font-size:11px;line-height:1.8">` +
+      data.references.map(r =>
+        `<li>${r.authors||''} (${r.year||''}). ${r.title||''}. <em>${r.journal||''}</em>. PMID: ${r.pmid}</li>`
+      ).join('') + '</ol>';
+  }
+
+  // Report date and ID
+  const dateEl = document.getElementById('report-date');
+  if (dateEl) dateEl.textContent = new Date().toLocaleDateString('es-ES', {year:'numeric',month:'long',day:'numeric'});
+  const idEl = document.getElementById('report-id');
+  if (idEl) idEl.textContent = 'NK-' + Date.now().toString().slice(-6);
+}
+
+// ── EDITOR FUNCTIONS ──────────────────────────────────────────────────────────
+function execCmd(cmd) { document.execCommand(cmd); }
+
+function addPage() {
+  const canvas = document.getElementById('report-canvas-content');
+  const pages = canvas.querySelectorAll('.a4-page');
+  const num = pages.length + 1;
+  const page = document.createElement('div');
+  page.className = 'a4-page';
+  page.id = 'page-' + num;
+  page.innerHTML = `
+    <div class="page-inner">
+      <div class="report-section">
+        <div class="section-heading">Contenido adicional</div>
+        <div class="editable-block" contenteditable="true" data-placeholder="Escribe aquí…"></div>
+      </div>
+      <div class="page-footer">
+        <span>NutriKen v1.0 — Cesar Manzo</span>
+        <span>MSK · NCBI · KEGG · PubMed</span>
+        <span>Página ${num}</span>
+      </div>
+    </div>`;
+  canvas.appendChild(page);
+  page.scrollIntoView({behavior:'smooth'});
+}
+
+function insertBlock(type) {
+  const sel = window.getSelection();
+  if (!sel.rangeCount) return;
+  const range = sel.getRangeAt(0);
+  let el;
+  if (type === 'note') {
+    el = document.createElement('div');
+    el.style.cssText = 'background:#fffde7;border-left:4px solid #fbc02d;padding:12px;margin:12px 0;font-style:italic;font-size:12px';
+    el.contentEditable = 'true';
+    el.textContent = 'Nota clínica…';
+  } else if (type === 'gene') {
+    el = document.createElement('div');
+    el.className = 'gene-block';
+    el.innerHTML = '<div class="gene-block-name" contenteditable="true">GEN</div><div class="gene-block-text" contenteditable="true">Descripción del gen…</div>';
+  } else if (type === 'table') {
+    el = document.createElement('table');
+    el.className = 'rep-table';
+    el.innerHTML = '<thead><tr><th>Columna 1</th><th>Columna 2</th><th>Columna 3</th></tr></thead><tbody><tr><td contenteditable="true">—</td><td contenteditable="true">—</td><td contenteditable="true">—</td></tr></tbody>';
+  }
+  if (el) { range.insertNode(el); }
+}
+
+function exportTXT() {
+  const canvas = document.getElementById('report-canvas-content');
+  const text = canvas.innerText;
+  const blob = new Blob([text], {type: 'text/plain'});
   const a = document.createElement('a');
-  a.href = url;
-  a.download = `NutriKen_Reporte_${Date.now()}.html`;
+  a.href = URL.createObjectURL(blob);
+  a.download = `NutriKen_Informe_${Date.now()}.txt`;
   a.click();
-  URL.revokeObjectURL(url);
 }
 
-function buildReportHTML(data) {
-  const now = new Date().toLocaleDateString('es-ES', {year:'numeric',month:'long',day:'numeric'});
-  const genes = (data.genes_info || data.genes || []);
-  const supplements = (data.supplements || (data.msk_data ? [data.msk_data] : []));
-  const references = data.references || [];
-  const condition = data.condition || (data.genes_queried ? data.genes_queried.join(', ') : data.nutrient);
-
-  return `<!DOCTYPE html>
-<html lang="es"><head><meta charset="UTF-8"/>
-<title>NutriKen — Reporte ${condition}</title>
-<style>
-  body{font-family:'Segoe UI',sans-serif;max-width:900px;margin:0 auto;padding:40px;color:#1a1a1a;line-height:1.6}
-  h1{color:#047857;border-bottom:3px solid #047857;padding-bottom:10px}
-  h2{color:#065f46;margin-top:30px}
-  h3{color:#047857}
-  .badge{background:#d1fae5;color:#065f46;padding:3px 10px;border-radius:20px;font-size:0.75rem;margin-right:6px}
-  .risk-box{background:#fee2e2;border-left:4px solid #ef4444;padding:12px 16px;border-radius:4px;margin:16px 0}
-  .gene-box{background:#f0fdf4;border:1px solid #bbf7d0;padding:14px;border-radius:8px;margin:10px 0}
-  .supp-box{background:#f0fdf4;border:1px solid #a7f3d0;padding:16px;border-radius:8px;margin:12px 0}
-  .ref-item{border-bottom:1px solid #e5e7eb;padding:10px 0}
-  .footer{margin-top:40px;padding-top:20px;border-top:2px solid #d1fae5;color:#6b7280;font-size:0.8rem}
-  a{color:#047857}
-</style></head><body>
-<h1>🧬 NutriKen — Reporte Clínico Nutricional</h1>
-<p><strong>Consulta:</strong> ${condition} &nbsp;|&nbsp; <strong>Fecha:</strong> ${now}</p>
-<p><span class="badge">MSK Evidence</span><span class="badge">NCBI</span><span class="badge">KEGG</span><span class="badge">PubMed</span></p>
-
-${data.description ? `<h2>Descripción</h2><p>${data.description}</p>` : ''}
-
-${data.risks && data.risks.length ? `
-<h2>⚠ Riesgos y Consideraciones</h2>
-<div class="risk-box"><ul>${data.risks.map(r=>`<li>${r}</li>`).join('')}</ul></div>` : ''}
-
-${genes.length ? `
-<h2>Genes Involucrados</h2>
-${genes.map(g=>`
-<div class="gene-box">
-  <strong>${g.symbol}</strong> — ${g.name || ''}<br/>
-  <small>Cromosoma: ${g.chromosome || '?'} · ${g.location || ''}</small><br/>
-  ${g.summary ? `<p>${g.summary.slice(0,300)}…</p>` : ''}
-  <a href="${g.ncbi_url}" target="_blank">NCBI Gene</a> |
-  <a href="https://www.snpedia.com/index.php/${g.symbol}" target="_blank">SNPedia</a> |
-  <a href="https://www.ensembl.org/Homo_sapiens/Gene/Summary?q=${g.symbol}" target="_blank">Ensembl</a>
-</div>`).join('')}` : ''}
-
-${supplements.length ? `
-<h2>Suplementos con Evidencia Clínica (MSK)</h2>
-${supplements.map(s=>`
-<div class="supp-box">
-  <h3>${s.name || ''} ${s.scientific_name ? `<em>(${s.scientific_name})</em>` : ''}</h3>
-  ${s.benefits && s.benefits.length ? `<p><strong>Beneficios:</strong></p><ul>${s.benefits.slice(0,5).map(b=>`<li>${b}</li>`).join('')}</ul>` : ''}
-  ${s.side_effects && s.side_effects.length ? `<p><strong>Efectos adversos:</strong></p><ul>${s.side_effects.slice(0,5).map(e=>`<li>${e}</li>`).join('')}</ul>` : ''}
-  ${s.drug_interactions && s.drug_interactions.length ? `<p><strong>Interacciones:</strong></p><ul>${s.drug_interactions.slice(0,3).map(d=>`<li>${d}</li>`).join('')}</ul>` : ''}
-  ${s.url ? `<a href="${s.url}" target="_blank">Ver ficha completa en MSK →</a>` : ''}
-</div>`).join('')}` : ''}
-
-${references.length ? `
-<h2>Referencias Científicas (PubMed)</h2>
-${references.map(r=>`
-<div class="ref-item">
-  <strong>${r.title}</strong><br/>
-  <small>${r.authors} · ${r.journal} · ${r.year}</small><br/>
-  <a href="${r.url}" target="_blank">PubMed ${r.pmid} →</a>
-</div>`).join('')}` : ''}
-
-<div class="footer">
-  <strong>NutriKen v1.0</strong> — Plataforma Bioinformática Nutricional · Desarrollado por Cesar Manzo<br/>
-  Fuentes: MSK About Herbs · NCBI eUtils · KEGG REST API · PubMed<br/>
-  <em>Este reporte es una herramienta educativa. No reemplaza el criterio clínico profesional.</em>
-</div>
-</body></html>`;
-}
-
-// ── ESTADÍSTICAS ──────────────────────────────────────────────────────────────
+// ── STATS ─────────────────────────────────────────────────────────────────────
 async function loadStats() {
   try {
-    const res = await fetch('/api/stats');
-    if (!res.ok) return;
-    const s = await res.json();
-    document.getElementById('stats-display').textContent =
-      `Hierbas en caché: ${s.herbs_in_cache} · Genes en caché: ${s.genes_in_cache} · Consultas totales: ${s.total_queries}`;
-  } catch(e) { /* silencioso */ }
+    const r = await fetch(API + '/api/stats');
+    if (!r.ok) return;
+    const s = await r.json();
+    document.getElementById('stats-mini').textContent =
+      `Hierbas: ${s.herbs_in_cache} · Genes: ${s.genes_in_cache} · Consultas: ${s.total_queries}`;
+  } catch(e) {}
 }
 
-// Enter key support
-['clinical-input','gene-input','nutrient-input'].forEach(id => {
-  const el = document.getElementById(id);
-  if (el) el.addEventListener('keypress', e => {
-    if (e.key === 'Enter') {
-      if (id === 'clinical-input') runClinical();
-      else if (id === 'gene-input') runGene();
-      else if (id === 'nutrient-input') runNutrient();
-    }
-  });
+// ── KEYBOARD SHORTCUTS ────────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    const ac = document.activeElement;
+    if (ac && ac.id === 'clinical-input') { e.preventDefault(); runClinical(); }
+    if (ac && ac.id === 'gene-input') { e.preventDefault(); runGene(); }
+    if (ac && ac.id === 'nutrient-input') { e.preventDefault(); runNutrient(); }
+  }
+  if (e.key === 'Escape') closeGenePanel();
 });
 
-// Init
+// ── INIT ──────────────────────────────────────────────────────────────────────
 window.addEventListener('load', () => {
   loadStats();
   setInterval(loadStats, 30000);
+  document.getElementById('report-date').textContent =
+    new Date().toLocaleDateString('es-ES', {year:'numeric',month:'long',day:'numeric'});
 });
 
