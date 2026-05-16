@@ -2,7 +2,7 @@
 title: NutriKen
 emoji: 🧬
 colorFrom: green
-colorTo: teal
+colorTo: blue
 sdk: docker
 app_port: 7860
 pinned: true
@@ -18,39 +18,15 @@ pinned: true
 ## Módulos
 
 ### 🩺 Módulo 1 — Condición Clínica
-Escribe "obesidad", "diabetes", "intolerancia a la lactosa" y obtén:
-- Genes involucrados (NCBI)
-- Ruta metabólica (KEGG)
-- Evidencia clínica de suplementos (MSK)
-- Riesgos y efectos adversos reales
-- Referencias PubMed
+Escribe "obesidad", "diabetes", "intolerancia a la lactosa" y obtén genes, rutas metabólicas, suplementos con evidencia MSK y referencias PubMed.
 
 ### 🔬 Módulo 2 — Análisis de Gen
-Ingresa MTHFR, VDR, FTO y obtén:
-- Ficha completa NCBI
-- Links a SNPedia y Ensembl
-- Condiciones clínicas relacionadas
+Ingresa MTHFR, VDR, FTO — ficha NCBI completa, SNPedia, Ensembl, condiciones relacionadas.
 
 ### 🌿 Módulo 3 — Suplemento / Hierba
-Búsqueda directa en MSK en tiempo real:
-- Mecanismo de acción
-- Efectos adversos y contraindicaciones
-- Interacciones farmacológicas
-- Resumen clínico para profesionales
+Datos en tiempo real de MSK: mecanismo de acción, efectos adversos, interacciones farmacológicas.
 
-## APIs Integradas
-
-| API | Función |
-|---|---|
-| MSK About Herbs | Evidencia clínica de suplementos |
-| NCBI eUtils | Información de genes |
-| KEGG REST API | Rutas metabólicas |
-| PubMed | Referencias científicas |
-
-## Arquitectura
-- Backend: FastAPI + Python 3.11
-- Caché: SQLite (crece con uso, sin costo)
-- Frontend: HTML/CSS/JS
-- Despliegue: Docker en Hugging Face Spaces
+## APIs
+MSK About Herbs · NCBI eUtils · KEGG REST API · PubMed · SNPedia · Ensembl
 
 *NutriKen v1.0 — Cesar Manzo | Basado en arquitectura Kenryu*
