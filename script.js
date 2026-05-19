@@ -1,4 +1,7 @@
 // ── GLOBALS ───────────────────────────────────────────────────────────────────
+const API_URL = window.location.hostname.includes('github.io') 
+  ? "https://kenryu007-nutriken.hf.space" 
+  : "";
 let lastResult = null;
 const GENE_STORE = new Map();
 let geneStoreIdx = 0;
@@ -50,7 +53,7 @@ function hideLoader() {
 
 // ── API ───────────────────────────────────────────────────────────────────────
 async function post(url, body) {
-  var r = await fetch(url, {
+  var r = await fetch(API_URL + url, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(body)
