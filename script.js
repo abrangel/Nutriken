@@ -203,12 +203,6 @@ function renderGene(d) {
     ).join('');
   }
   if (d.supplements) { show('g-supps'); renderSuppTabs('g-supp-tabs','g-supp-panels', d.supplements); }
-  if (d.references) {
-    show('g-refs');
-    document.getElementById('g-refs-body').innerHTML = d.references.map(r => 
-      `<tr><td>${r.title}</td><td>${r.journal} &middot; ${r.year}</td><td><a class="ref-link" href="${r.url}" target="_blank">PubMed</a></td></tr>`
-    ).join('');
-  }
 }
 
 // ── MODULO 3: SUPLEMENTO ──────────────────────────────────────────────────────
@@ -230,15 +224,8 @@ function renderNutrient(d) {
   document.getElementById('n-herb-title').textContent = h.name;
   document.getElementById('n-herb-body').innerHTML = `<div style="padding:15px; background:var(--bg3); border-radius:8px">
     <h3 style="color:var(--gold)">${h.name}</h3><p style="font-size:12px; margin-top:10px">${h.clinical_summary||''}</p></div>`;
-  if (d.references) {
-    show('n-refs');
-    document.getElementById('n-refs-body').innerHTML = d.references.map(r => 
-      `<tr><td>${r.title}</td><td>${r.authors} &middot; ${r.year}</td><td><a class="ref-link" href="${r.url}" target="_blank">PubMed</a></td></tr>`
-    ).join('');
-  }
 }
 
-// ── UTILS ─────────────────────────────────────────────────────────────────────
 function renderSuppTabs(tabsId, panelsId, supps) {
   if (!supps || !supps.length) return;
   document.getElementById(tabsId).innerHTML = supps.map(function(s,i) {
@@ -254,131 +241,83 @@ function swSupp(tabsId, panelsId, i) {
   document.querySelectorAll('#'+panelsId+' .supp-panel').forEach(function(p,j){ p.classList.toggle('active', i===j); });
 }
 
-// ── EDITOR ENGINE (KENRYU STYLE - FULL CONTENT & HYPERLINKS) ──────────────────
+// ── EDITOR ENGINE (KENRYU STYLE - DYNAMIC PAGINATION) ─────────────────────────
 function populateReportFull() {
   if (!lastResult) return;
   const d = lastResult;
   const date = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
   const id = 'NK-' + Math.random().toString(36).substr(2, 6).toUpperCase();
 
+  const template = document.getElementById('clinical-report-template');
   const preview = document.getElementById('report-web-preview');
   document.getElementById('editor-empty').style.display = 'none';
   preview.style.display = 'block';
-  preview.innerHTML = ''; 
 
-  // PAGE 1: PORTADA Y ANÁLISIS GENÓMICO
-  var p1 = document.createElement('div'); p1.className='a4-page';
-  p1.innerHTML = `<div class="page-inner">
-    <div class="report-header">
-      <div><div class="report-title">INFORME DE ANÁLISIS<br>BIOMÉDICO NUTRICIONAL</div><div style="color:#1a3a6b; font-weight:700; font-size:12px; margin-top:5px">PLATAFORMA DE PRECISIÓN NUTRIKEN</div></div>
-      <div class="report-meta"><div>EXPEDIENTE: <span class="meta-id-val">${id}</span></div><div>FECHA: ${date}</div><div>INVESTIGADOR: Cesar Manzo</div></div>
+  // Populate hidden template fields
+  document.getElementById('rep-id').innerText = id;
+  document.getElementById('rep-date').innerText = "Fecha: " + date;
+  document.getElementById('rep-summary').innerHTML = `<p>${d.description || 'Análisis molecular detallado.'}</p>`;
+  
+  document.getElementById('rep-genes').innerHTML = (d.genes || []).map(g => `
+    <div class="tarjeta-pdf">
+      <p style="margin:0; font-size:13px; color:#1a3a6b; font-weight:bold;">Biomarcador:</p>
+      <p style="margin:0; font-size:15px; color: black;"><b>mRNA: ${g.symbol}</b></p>
+      <p style="margin:5px 0; font-size:11.5px; color: black;">${g.name || ''}</p>
+      <p style="margin:0; font-size:11px; color:#1a3a6b;">
+        <a href="${g.ncbi_url}" target="_blank" style="color:#1a3a6b;">Ver Ficha NCBI</a> &middot; 
+        <a href="${g.ensembl_url}" target="_blank" style="color:#1a3a6b;">Ensembl</a>
+      </p>
     </div>
-    
-    <section class="report-section">
-      <div class="header-pdf">I. RESUMEN CLÍNICO EXPERTO</div>
-      <div class="editable-block" contenteditable="true">
-        <p>Este informe detalla la investigación bioinformática realizada para la consulta: <b>${d.query||'N/A'}</b>. El análisis integra datos de farmacogenómica, metabolismo molecular y evidencia clínica de suplementación.</p>
-        <p>${d.description||'Análisis detallado basado en bases de datos moleculares.'}</p>
-      </div>
-    </section>
+  `).join('') || '<p>Análisis genómico completado.</p>';
 
-    <section class="report-section">
-      <div class="header-pdf">II. PANEL DE BIOMARCADORES GENÓMICOS CORE</div>
-      <div class="editable-block" contenteditable="true">
-        <p style="font-size:10.5pt; color:#444">A continuación se presentan los genes clave identificados mediante el análisis de consenso. Estos biomarcadores regulan procesos críticos en la condición estudiada:</p>
-        ${(d.genes||[]).map(g => `
-          <div class="tarjeta-pdf">
-            <p style="margin:0; font-size:14px; color: black;"><b>Gen: ${g.symbol}</b></p>
-            <p style="margin:4px 0; font-size:11.5px; color: black;">${g.name || 'Información genómica indexada.'}</p>
-            <p style="margin:0; font-size:11px; color:#1a3a6b;">
-              <a href="${g.ncbi_url}" target="_blank" style="color:#1a3a6b; text-decoration:none">Ver Ficha NCBI: ${g.gene_id || 'N/A'}</a> &middot; 
-              <a href="${g.ensembl_url}" target="_blank" style="color:#1a3a6b; text-decoration:none">Ensembl</a>
-            </p>
-          </div>
-        `).join('') || '<p>Análisis de consenso genómico realizado sin detección de variantes críticas adicionales.</p>'}
-      </div>
-    </section>
-    <div class="page-footer"><span>ID: ${id}</span><span>Página 1</span></div>
-  </div>`;
-  preview.appendChild(p1);
+  const pathwayHTML = d.pathway && d.pathway.name ? `
+    <div class="tarjeta-pdf" style="border-left-color: #0d9488;">
+      <p style="margin:0; font-size:14px; color:#0f766e"><b>Ruta Metabólica: ${d.pathway.name}</b></p>
+      <p style="margin:8px 0; font-size:11.5px; color: black;">${d.pathway.description || 'Interconexión metabólica regulada.'}</p>
+      <p style="margin:0; font-size:11px"><a href="${d.pathway.kegg_url}" target="_blank" style="color:#0d9488">Explorar en KEGG</a></p>
+    </div>` : '<p>No se identificaron rutas específicas adicionales.</p>';
+  document.getElementById('rep-pathway').innerHTML = pathwayHTML;
 
-  // PAGE 2: RUTAS Y SUPLEMENTACIÓN
-  if (d.pathway || d.supplements) {
-    var p2 = document.createElement('div'); p2.className='a4-page';
-    var pathwayHTML = d.pathway && d.pathway.name ? `
-      <div class="tarjeta-pdf" style="border-left-color: #0d9488; background: #f0fdfa">
-        <p style="margin:0; font-size:14px; color:#0f766e"><b>Ruta Metabólica: ${d.pathway.name}</b></p>
-        <p style="margin:8px 0; font-size:11.5px; color: black;">${d.pathway.description || 'Proceso biológico regulado por los biomarcadores identificados.'}</p>
-        <p style="margin:0; font-size:11px"><a href="${d.pathway.kegg_url}" target="_blank" style="color:#0d9488">Explorar en base de datos KEGG</a></p>
-      </div>` : '';
+  const alertHTML = (d.drug_alerts || []).map(a => `<li><b style="color:#b91c1c;">${a.drug}</b> + ${a.herb}: ${a.alert}</li>`).join('') +
+                    (d.food_alerts || []).map(a => `<li><b style="color:#d97706;">${a.food}</b>: ${a.description}</li>`).join('');
+  document.getElementById('rep-interactions').innerHTML = alertHTML ? `<ul style="padding-left:25px">${alertHTML}</ul>` : '<p>No se detectaron interacciones críticas.</p>';
 
-    var suppHTML = (d.supplements || []).map(s => `
-      <div class="tarjeta-pdf" style="border-left-color: #15803d;">
-        <p style="margin:0; font-size:14px; color:#166534"><b>Suplementación: ${s.name}</b></p>
-        <p style="margin:8px 0; font-size:11.5px; color: black; line-height:1.5">${(s.clinical_summary || '').slice(0, 800)}...</p>
-        <p style="margin:0; font-size:11px"><a href="https://www.mskcc.org/cancer-care/integrative-medicine/herbs/${s.slug}" target="_blank" style="color:#15803d">Ver Evidencia Completa (MSKcc)</a></p>
-      </div>
-    `).join('');
+  document.getElementById('rep-supplements').innerHTML = (d.supplements || []).map(s => `
+    <div class="tarjeta-pdf" style="border-left-color: #15803d;">
+      <p style="margin:0; font-size:14px; color:#166534"><b>Suplemento: ${s.name}</b></p>
+      <p style="margin:8px 0; font-size:11.5px; color: black;">${(s.clinical_summary || '').slice(0, 800)}...</p>
+      <p style="margin:0; font-size:11px"><a href="https://www.mskcc.org/cancer-care/integrative-medicine/herbs/${s.slug}" target="_blank" style="color:#15803d">Ver Evidencia MSKcc</a></p>
+    </div>
+  `).join('') || '<p>Investigación de suplementos completada.</p>';
 
-    p2.innerHTML = `<div class="page-inner">
-      <div class="report-header"><div><div class="report-title" style="font-size:24px">ANÁLISIS METABÓLICO Y EVIDENCIA</div></div></div>
-      ${pathwayHTML ? `<section class="report-section"><div class="header-pdf">III. INTERCONEXIÓN METABÓLICA (KEGG)</div>${pathwayHTML}</section>` : ''}
-      <section class="report-section">
-        <div class="header-pdf">IV. EVIDENCIA CLÍNICA DE SUPLEMENTACIÓN</div>
-        <div class="editable-block" contenteditable="true">
-          <p style="font-size:10.5pt; color:#444">Investigación basada en el centro Memorial Sloan Kettering Cancer Center para asegurar la máxima seguridad y eficacia:</p>
-          ${suppHTML || '<p>No se identificaron suplementos específicos con grado de evidencia alto para esta fase.</p>'}
-        </div>
-      </section>
-      <div class="page-footer"><span>ID: ${id}</span><span>Página 2</span></div>
-    </div>`;
-    preview.appendChild(p2);
-  }
+  document.getElementById('rep-refs').innerHTML = `<ol style="padding-left:25px">${(d.references || []).map(r => `
+    <li style="margin-bottom:12px; font-size:10.5pt"><b>${r.authors}</b> (${r.year}). ${r.title}. <a href="${r.url}" target="_blank" style="color:#1f6feb;">PMID: ${r.pmid}</a></li>
+  `).join('')}</ol>` || '<p>Bibliografía científica indexada.</p>';
 
-  // PAGE 3: INTERACCIONES Y BIBLIOGRAFÍA
-  if (d.drug_alerts || d.references) {
-    var p3 = document.createElement('div'); p3.className='a4-page';
-    var alertHTML = (d.drug_alerts || []).map(a => `<li style="color:#b91c1c; margin-bottom:12px; font-size:11pt"><b>${a.drug}</b> + ${a.herb}: ${a.alert}</li>`).join('');
-    var refsHTML = (d.references || []).map(r => `
-      <li style="margin-bottom:12px; font-size:10.5pt; line-height:1.5">
-        <b>${r.authors}</b> (${r.year}). ${r.title}. <i>${r.journal||'Journal'}</i>. 
-        <a href="${r.url}" target="_blank" style="color:#1f6feb; text-decoration:none">PMID: ${r.pmid}</a>
-      </li>
-    `).join('');
-
-    p3.innerHTML = `<div class="page-inner">
-      <div class="report-header"><div><div class="report-title" style="font-size:24px">SEGURIDAD Y BIBLIOGRAFÍA</div></div></div>
-      ${alertHTML ? `<section class="report-section"><div class="header-pdf">V. ALERTAS DE INTERACCIÓN FARMACO-NUTRIENTE</div><ul style="padding-left:25px" contenteditable="true">${alertHTML}</ul></section>` : ''}
-      <section class="report-section">
-        <div class="header-pdf">VI. REFERENCIAS CIENTÍFICAS (PubMed / NCBI)</div>
-        <div class="editable-block" contenteditable="true"><ol style="padding-left:25px">${refsHTML}</ol></div>
-      </section>
-      <footer class="report-footer" style="margin-top:auto">
-        <p>Este informe clínico ha sido generado bajo criterios de medicina de precisión. Cesar Manzo.</p>
-      </footer>
-      <div class="page-footer"><span>ID: ${id}</span><span>Página 3</span></div>
-    </div>`;
-    preview.appendChild(p3);
-  }
+  // Sync to preview (this is what you see in the editor)
+  preview.innerHTML = template.innerHTML;
 }
 
 function exportToPDF() {
   if (!lastResult) return alert("Realice un análisis clínico primero.");
   const element = document.getElementById('report-web-preview');
+  
   const opt = {
-    margin: 0,
+    margin: [10, 5, 10, 5],
     filename: 'informe.pdf',
     image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+    html2canvas: { scale: 1.5, useCORS: true, letterRendering: true },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    pagebreak: { mode: 'css', after: '.a4-page' }
+    pagebreak: { mode: 'css', avoid: ['.tarjeta-pdf', 'section', 'li'] }
   };
+  
   html2pdf().set(opt).from(element).save();
 }
 
+// ── UTILS ─────────────────────────────────────────────────────────────────────
 async function loadStats() {
   try {
-    var r = await fetch('/api/stats');
+    var r = await fetch(API_URL + '/api/stats');
     if (!r.ok) return;
     var s = await r.json();
     document.getElementById('stats-line').textContent = `Hierbas: ${s.herbs_in_cache} - Genes: ${s.genes_in_cache} - Consultas: ${s.total_queries}`;
