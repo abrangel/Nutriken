@@ -127,38 +127,13 @@
           <span class="tag" onclick="qt('gene','FTO')">FTO</span>
           <span class="tag" onclick="qt('gene','LCT')">LCT</span>
           <span class="tag" onclick="qt('gene','APOE')">APOE</span>
-          <span class="tag" onclick="qt('gene','PPARG')">PPARG</span>
-          <span class="tag" onclick="qt('gene','TCF7L2')">TCF7L2</span>
         </div>
-      </div>
-      <div class="terminal" id="term-gene">
-        <div class="log-line"><span class="log-ts">00:00:00</span><span class="log-msg ok">Módulo genómico listo — NCBI · SNPedia · Ensembl en línea.</span></div>
       </div>
       <div id="gene-out" style="display:none">
         <div class="dash-grid">
           <div class="card span2" id="g-info" style="display:none">
             <div class="card-head"><span class="card-title">Información Genómica</span><span class="card-badge">NCBI Gene</span></div>
             <div class="card-body"><div class="genes-wrap" id="g-info-body"></div></div>
-          </div>
-          <div class="card" id="g-cond" style="display:none">
-            <div class="card-head"><span class="card-title">Condiciones Relacionadas</span><span class="card-badge teal">Mapa Clínico</span></div>
-            <div class="card-body" id="g-cond-body"></div>
-          </div>
-          <div class="card" id="g-supps" style="display:none">
-            <div class="card-head"><span class="card-title">Suplementos Relacionados</span><span class="card-badge">MSK</span></div>
-            <div class="card-body">
-              <div class="supp-tabs" id="g-supp-tabs"></div>
-              <div id="g-supp-panels"></div>
-            </div>
-          </div>
-          <div class="card span2" id="g-refs" style="display:none">
-            <div class="card-head"><span class="card-title">Referencias</span><span class="card-badge blue">PubMed</span></div>
-            <div class="card-body">
-              <table class="sci-table">
-                <thead><tr><th>Título</th><th>Revista · Año</th><th>Link</th></tr></thead>
-                <tbody id="g-refs-body"></tbody>
-              </table>
-            </div>
           </div>
         </div>
       </div>
@@ -170,36 +145,19 @@
     <div class="view-pad">
       <div class="input-panel">
         <span class="input-label">Suplemento / Hierba</span>
-        <div class="input-hint">Datos en tiempo real desde MSK — Memorial Sloan Kettering Cancer Center</div>   
+        <div class="input-hint">Datos en tiempo real desde MSK</div>   
         <div class="input-row">
           <input type="text" class="query-field" id="nutrient-input"
-            placeholder="ej: omega-3, vitamina D, berberina, cúrcuma, probióticos…">
+            placeholder="ej: omega-3, vitamina D, berberina, cúrcuma…">
           <button class="btn-run" onclick="runNutrient()">
             <i class="fas fa-play"></i> Buscar
           </button>
         </div>
       </div>
-      <div class="terminal" id="term-nutrient">
-        <div class="log-line"><span class="log-ts">00:00:00</span><span class="log-msg ok">Base MSK en línea — 307 hierbas y suplementos disponibles.</span></div>
-      </div>
       <div id="nutrient-out" style="display:none">
-        <div class="dash-grid">
-          <div class="card span2" id="n-herb">
-            <div class="card-head">
-              <span class="card-title" id="n-herb-title">Ficha Clínica</span>
-              <span class="card-badge">Memorial Sloan Kettering</span>
-            </div>
-            <div class="card-body" id="n-herb-body"></div>
-          </div>
-          <div class="card span2" id="n-refs" style="display:none">
-            <div class="card-head"><span class="card-title">Referencias</span><span class="card-badge blue">PubMed</span></div>
-            <div class="card-body">
-              <table class="sci-table">
-                <thead><tr><th>Título</th><th>Revista · Año</th><th>Link</th></tr></thead>
-                <tbody id="n-refs-body"></tbody>
-              </table>
-            </div>
-          </div>
+        <div class="card span2" id="n-herb">
+          <div class="card-head"><span class="card-title" id="n-herb-title">Ficha Clínica</span><span class="card-badge">MSK</span></div>
+          <div class="card-body" id="n-herb-body"></div>
         </div>
       </div>
     </div>
@@ -230,12 +188,30 @@
   </div>
 </div>
 
+<!-- HIDDEN TEMPLATE FOR REPORT GENERATION -->
+<div id="clinical-report-template" style="display:none">
+    <div style="border-bottom: 3px solid #000; padding-bottom: 10px; margin-bottom: 40px; display: flex; justify-content: space-between; align-items: baseline;">
+        <h1 style="margin:0; font-size: 32px; font-weight: 800; color: black;">INFORME</h1>
+        <div style="text-align: right; font-size: 11px; color: black;">
+            <p style="margin:0;">ID: <span id="rep-id"></span></p>
+            <p style="margin:0;" id="rep-date"></p>
+            <p style="margin:0; font-weight:bold; color:#1a3a6b;">NutriKen SaaS</p>
+        </div>
+    </div>
+    <section><h2 class="header-pdf">I. SÍNTESIS DE INVESTIGACIÓN NUTRICIONAL</h2><div id="rep-summary"></div></section>
+    <section><h2 class="header-pdf">II. PANEL DE BIOMARCADORES GENÓMICOS</h2><div id="rep-genes"></div></section>
+    <section><h2 class="header-pdf">III. RUTA METABÓLICA RELACIONADA (KEGG)</h2><div id="rep-pathway"></div></section>
+    <section><h2 class="header-pdf">IV. INTERACCIONES FARMACOLÓGICAS</h2><div id="rep-interactions"></div></section>
+    <section><h2 class="header-pdf">V. EVIDENCIA DE SUPLEMENTACIÓN (MSK)</h2><div id="rep-supplements"></div></section>
+    <section style="page-break-before: always; padding-top: 20px;"><h2 class="header-pdf">VI. BIBLIOGRAFÍA CIENTÍFICA (PubMed)</h2><div id="rep-refs"></div></section>
+    <footer class="report-footer" style="margin-top: 60px; border-top: 1px solid #eee; padding-top: 20px; font-size: 10px; text-align: center; color: #888;">
+        <p>Documento emitido por el sistema NUTRIKEN. Trazabilidad bioinformática verificada.</p>
+    </footer>
+</div>
+
 <!-- GENE PANEL -->
 <div class="gene-panel" id="gene-panel">
-  <div class="gene-panel-head">
-    <span class="gene-panel-name" id="gp-name">—</span>
-    <button class="btn-close" onclick="closeGenePanel()">×</button>
-  </div>
+  <div class="gene-panel-head"><span class="gene-panel-name" id="gp-name">—</span><button class="btn-close" onclick="closeGenePanel()">×</button></div>
   <div class="gene-panel-body" id="gene-panel-body"></div>
 </div>
 
