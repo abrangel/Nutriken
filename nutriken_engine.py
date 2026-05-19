@@ -2272,19 +2272,18 @@ class NutrientQuery(BaseModel):
 # ── APP ───────────────────────────────────────────────────────────────────────
 app = FastAPI(title="NutriKen", version="2.0.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
-app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.on_event("startup")
 async def startup(): init_db(); logger.info("🌿 NutriKen v2 iniciado")
 
 @app.get("/")
-async def root(): return FileResponse("static/index.html")
+async def root(): return FileResponse("index.html")
 
 @app.get("/script.js")
-async def js(): return FileResponse("static/script.js")
+async def js(): return FileResponse("script.js")
 
 @app.get("/style.css")
-async def css(): return FileResponse("static/style.css")
+async def css(): return FileResponse("style.css")
 
 @app.get("/health")
 async def health(): return {"status":"ok","version":"NutriKen 2.0"}
