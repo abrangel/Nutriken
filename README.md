@@ -1,3 +1,15 @@
+---
+title: NutriKen
+emoji: 🌿
+colorFrom: yellow
+colorTo: green
+sdk: docker
+app_port: 7860
+pinned: true
+license: mit
+short_description: Plataforma bioinformática nutricional clínica · 307 hierbas
+---
+
 <div align="center">
 
 <img src="https://capsule-render.vercel.app/api?type=waving&height=200&color=0:1a1d24,50:c8a96e,100:1a1d24&text=NUTRIKEN&fontColor=ffffff&fontSize=80&fontAlignY=40&desc=Plataforma%20Bioinform%C3%A1tica%20Nutricional&descAlignY=68&descSize=18&animation=fadeIn" alt="NutriKen banner" width="100%"/>
