@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends build-essential
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY nutriken_engine.py .
-COPY static/ ./static/
+COPY index.html script.js style.css ./
 RUN mkdir -p local_db && chmod 777 local_db
 EXPOSE 7860
 CMD ["uvicorn", "nutriken_engine:app", "--host", "0.0.0.0", "--port", "7860"]

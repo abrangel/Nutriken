@@ -9,6 +9,7 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel
 import uvicorn
 from bs4 import BeautifulSoup
+from fastapi.responses import Response
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
@@ -16,6 +17,51 @@ logger = logging.getLogger(__name__)
 BASE_DIR = Path(__file__).resolve().parent
 DB_PATH  = BASE_DIR / "local_db" / "nutriken_cache.db"
 Path("local_db").mkdir(exist_ok=True)
+
+# Supabase — base de datos persistente con 307+ hierbas en espanol
+SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://ewhcinmihogmusmldeds.supabase.co")
+SUPABASE_KEY = os.environ.get("SUPABASE_KEY", "sb_publishable_X7hVXnbUmyJGL0JbO0jpbw_Gw1dznI2")
+try:
+    from supabase import create_client, Client as _SBClient
+    _supabase: Optional[_SBClient] = create_client(SUPABASE_URL, SUPABASE_KEY)
+    logger.info(f"Supabase conectado: {SUPABASE_URL}")
+except Exception as e:
+    _supabase = None
+    logger.warning(f"Supabase no disponible: {e}")
+
+async def supabase_get_herb(slug):
+    """Consulta Supabase msk_herbs por slug. Devuelve None si no existe."""
+    if not _supabase: return None
+    try:
+        loop = asyncio.get_event_loop()
+        res = await loop.run_in_executor(
+            None,
+            lambda: _supabase.table("msk_herbs").select("*").eq("slug", slug).execute()
+        )
+        if res.data and len(res.data) > 0:
+            row = res.data[0]
+            for f in ("name","scientific_name","what_is_it","clinical_summary",
+                      "mechanism_of_action","adverse_reactions","contraindications","dosage","url"):
+                if row.get(f) is None: row[f] = ""
+            for f in ("common_names","benefits","drug_interactions","food_interactions",
+                      "side_effects","warnings"):
+                if row.get(f) is None: row[f] = []
+            row.setdefault("purported_uses", [])
+            row.setdefault("herb_interactions", [])
+            row.setdefault("drug_interactions_raw", " ".join(row.get("drug_interactions", [])))
+            # Como ya esta en espanol, copiar a campos _es para el frontend
+            for fld in ("clinical_summary","mechanism_of_action","what_is_it",
+                        "adverse_reactions","contraindications","dosage"):
+                row[f"{fld}_es"] = row.get(fld, "")
+            for fld in ("benefits","side_effects","warnings","drug_interactions",
+                        "food_interactions","purported_uses"):
+                row[f"{fld}_es"] = row.get(fld, [])
+            if not row.get("url"):
+                row["url"] = f"https://www.mskcc.org/cancer-care/integrative-medicine/herbs/{slug}"
+            return row
+    except Exception as e:
+        logger.warning(f"Supabase get_herb({slug}) fallo: {e}")
+    return None
 
 # ── TRADUCCIÓN ES→EN ──────────────────────────────────────────────────────────
 ES_EN = {
@@ -1972,9 +2018,20 @@ async def translate_to_en(text: str, client: httpx.AsyncClient) -> str:
 
 # ── MSK SCRAPER ───────────────────────────────────────────────────────────────
 async def fetch_msk_herb(slug: str, client: httpx.AsyncClient) -> dict:
-    cached = cache_get("herb_cache","slug", slug)
-    if cached: logger.info(f"💾 Cache MSK: {slug}"); return cached
+    # 1) Probar Supabase primero (datos pre-traducidos al espanol)
+    sb_data = await supabase_get_herb(slug)
+    if sb_data:
+        logger.info(f"Supabase hit: {slug}")
+        # Tambien guardamos en cache local para acceso aun mas rapido
+        try: cache_set("herb_cache","slug",slug,"name", sb_data.get("name",""), sb_data)
+        except Exception: pass
+        return sb_data
 
+    # 2) Cache local SQLite
+    cached = cache_get("herb_cache","slug", slug)
+    if cached: logger.info(f"Cache SQLite: {slug}"); return cached
+
+    # 3) Fallback: scraping MSK en vivo (solo si no esta en Supabase ni en SQLite)
     url = f"https://www.mskcc.org/cancer-care/integrative-medicine/herbs/{slug}"
     try:
         r = await client.get(url, timeout=15.0, follow_redirects=True)
@@ -2413,6 +2470,256 @@ async def nutrient_analysis(req: NutrientQuery):
     return {"nutrient":req.nutrient,"slug":slug,"msk_data":herb,"pathway":pathway,
             "references":refs,"msk_url":f"https://www.mskcc.org/cancer-care/integrative-medicine/herbs/{slug}",
             "timestamp":datetime.datetime.now().isoformat()}
+
+
+
+
+# ── ENDPOINT 4: GENERACION DE PDF (reportlab, layout A4 nativo) ──────────────
+class PDFReportRequest(BaseModel):
+    data: dict
+    report_id: str = ""
+    date: str = ""
+
+@app.post("/api/report-pdf")
+async def generate_pdf_report(req: PDFReportRequest):
+    """Genera un PDF A4 profesional con todo el texto del informe.
+    Usa reportlab (sin dependencias nativas, perfecto para HF Spaces Docker)."""
+    from reportlab.lib.pagesizes import A4
+    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_RIGHT, TA_CENTER
+    from reportlab.lib.units import mm
+    from reportlab.lib.colors import HexColor, black, white
+    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, Table, TableStyle, KeepTogether
+    from reportlab.platypus.flowables import HRFlowable
+    from io import BytesIO
+    import html as html_module
+    import re as re_module
+
+    d = req.data or {}
+    report_id = req.report_id or f"NK-{datetime.datetime.now().strftime('%H%M%S')}"
+    report_date = req.date or datetime.datetime.now().strftime("%d de %B de %Y")
+    condition = d.get("condition", "Consulta")
+
+    def _escape(text):
+        if not text: return ""
+        text = html_module.escape(str(text))
+        text = re_module.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", text)
+        return text
+
+    def _clean(text, max_len=None):
+        if not text: return ""
+        text = str(text).strip()
+        if max_len and len(text) > max_len:
+            text = text[:max_len].rstrip() + "..."
+        return _escape(text)
+
+    styles = getSampleStyleSheet()
+    NAVY = HexColor("#1a3a6b")
+    GRAY = HexColor("#555555")
+    LIGHT = HexColor("#f8f9fb")
+    TEAL = HexColor("#0d9488")
+    GREEN = HexColor("#15803d")
+    RED = HexColor("#b91c1c")
+    AMBER = HexColor("#d97706")
+
+    h_title = ParagraphStyle("Title", parent=styles["Heading1"], fontName="Helvetica-Bold", fontSize=22, textColor=black, spaceAfter=6, leading=24)
+    h_meta  = ParagraphStyle("Meta", parent=styles["Normal"], fontName="Helvetica", fontSize=9, textColor=GRAY, alignment=TA_RIGHT, leading=12)
+    h_section = ParagraphStyle("Section", parent=styles["Heading2"], fontName="Helvetica-Bold", fontSize=14, textColor=NAVY, spaceBefore=16, spaceAfter=8, leading=18)
+    body = ParagraphStyle("Body", parent=styles["Normal"], fontName="Helvetica", fontSize=10, textColor=black, alignment=TA_JUSTIFY, spaceAfter=6, leading=14)
+    body_small = ParagraphStyle("BodySmall", parent=body, fontSize=9, leading=12)
+    card_title = ParagraphStyle("CardTitle", parent=body, fontName="Helvetica-Bold", fontSize=11, textColor=NAVY, spaceAfter=4)
+    ref_style = ParagraphStyle("Ref", parent=body_small, leftIndent=18, firstLineIndent=-18, spaceAfter=8)
+
+    elements = []
+    header_data = [[
+        Paragraph("INFORME", h_title),
+        Paragraph(f"ID: <b>{_escape(report_id)}</b><br/>Fecha: {_escape(report_date)}<br/><font color='#1a3a6b'><b>NutriKen SaaS</b></font>", h_meta)
+    ]]
+    header_table = Table(header_data, colWidths=[110*mm, 60*mm])
+    header_table.setStyle(TableStyle([
+        ("VALIGN", (0,0), (-1,-1), "BOTTOM"),
+        ("LINEBELOW", (0,0), (-1,0), 1.5, black),
+        ("BOTTOMPADDING", (0,0), (-1,-1), 8),
+    ]))
+    elements.append(header_table)
+    elements.append(Spacer(1, 12))
+
+    # I. SINTESIS
+    elements.append(Paragraph("I. SINTESIS DE INVESTIGACION NUTRICIONAL", h_section))
+    elements.append(HRFlowable(width="100%", thickness=1, color=NAVY, spaceAfter=10))
+    desc = d.get("description") or "Analisis molecular detallado."
+    paragraphs = desc.split("\n\n")
+    for p in paragraphs:
+        p = p.strip()
+        if not p: continue
+        if p.startswith("•") or "\n• " in p or "\n•" in p:
+            lines = [ln.lstrip("• ").strip() for ln in p.split("\n") if ln.strip()]
+            bullet_html = "<br/>".join(f"&bull; {_escape(ln)}" for ln in lines)
+            elements.append(Paragraph(bullet_html, body))
+        else:
+            p_clean = _escape(p).replace("\n", "<br/>")
+            elements.append(Paragraph(p_clean, body))
+        elements.append(Spacer(1, 4))
+
+    # II. BIOMARCADORES
+    elements.append(Paragraph("II. PANEL DE BIOMARCADORES GENOMICOS", h_section))
+    elements.append(HRFlowable(width="100%", thickness=1, color=NAVY, spaceAfter=10))
+    genes = d.get("genes", [])
+    if genes:
+        for g in genes:
+            sym = _escape(g.get("symbol", ""))
+            name = _escape(g.get("name", ""))
+            ncbi = g.get("ncbi_url", "")
+            ensembl = g.get("ensembl_url", "")
+            card = [
+                [Paragraph(f"<b>Biomarcador: {sym}</b>", card_title)],
+                [Paragraph(_escape(name), body_small)],
+                [Paragraph(f'<font color="#1a3a6b"><link href="{ncbi}">Ficha NCBI</link> &middot; <link href="{ensembl}">Ensembl</link></font>', body_small)]
+            ]
+            t = Table(card, colWidths=[170*mm])
+            t.setStyle(TableStyle([
+                ("BACKGROUND", (0,0), (-1,-1), LIGHT),
+                ("LINEBEFORE", (0,0), (0,-1), 3, NAVY),
+                ("LEFTPADDING", (0,0), (-1,-1), 12), ("RIGHTPADDING", (0,0), (-1,-1), 12),
+                ("TOPPADDING", (0,0), (-1,-1), 6), ("BOTTOMPADDING", (0,0), (-1,-1), 6),
+            ]))
+            elements.append(t)
+            elements.append(Spacer(1, 8))
+    else:
+        elements.append(Paragraph("No se identificaron biomarcadores especificos para esta condicion.", body_small))
+
+    # III. RUTA
+    elements.append(Paragraph("III. RUTA METABOLICA RELACIONADA (KEGG)", h_section))
+    elements.append(HRFlowable(width="100%", thickness=1, color=NAVY, spaceAfter=10))
+    pw = d.get("pathway") or {}
+    if pw.get("name"):
+        pw_card = [
+            [Paragraph(f"<b>Ruta Metabolica: {_escape(pw.get('name', ''))}</b>", ParagraphStyle("PwTitle", parent=card_title, textColor=TEAL))],
+            [Paragraph(_clean(pw.get("description", ""), 600), body_small)],
+            [Paragraph(f'<font color="#0d9488"><link href="{pw.get("kegg_url","")}">Explorar en KEGG</link></font>', body_small)]
+        ]
+        t = Table(pw_card, colWidths=[170*mm])
+        t.setStyle(TableStyle([
+            ("BACKGROUND", (0,0), (-1,-1), LIGHT),
+            ("LINEBEFORE", (0,0), (0,-1), 3, TEAL),
+            ("LEFTPADDING", (0,0), (-1,-1), 12), ("RIGHTPADDING", (0,0), (-1,-1), 12),
+            ("TOPPADDING", (0,0), (-1,-1), 6), ("BOTTOMPADDING", (0,0), (-1,-1), 6),
+        ]))
+        elements.append(t)
+    else:
+        elements.append(Paragraph("No se identificaron rutas especificas adicionales.", body_small))
+
+    # IV. INTERACCIONES
+    elements.append(Paragraph("IV. INTERACCIONES FARMACOLOGICAS", h_section))
+    elements.append(HRFlowable(width="100%", thickness=1, color=NAVY, spaceAfter=10))
+
+    def _sev_color(tone):
+        return {"crit": RED, "warn": AMBER, "info": NAVY}.get(tone, NAVY)
+    def _sev_label(tone):
+        return {"crit": "CRITICA", "warn": "PRECAUCION", "info": "MONITOREAR"}.get(tone, "MONITOREAR")
+
+    all_ix = list(d.get("drug_alerts", [])) + list(d.get("food_alerts", []))
+    if all_ix:
+        for a in all_ix:
+            tone = a.get("severity_tone", "info")
+            color = _sev_color(tone)
+            left = a.get("drug") or a.get("food") or ""
+            right = a.get("herb", "")
+            mech = a.get("mechanism") or a.get("description") or a.get("alert") or "-"
+            rec = a.get("recommendation", "-")
+            sev_lbl = _sev_label(tone)
+            header_row = Table(
+                [[Paragraph(f"<b>{_escape(left)}</b> &harr; <b>{_escape(right)}</b>", card_title),
+                  Paragraph(f'<font color="#{color.hexval()[2:].upper()}"><b>{sev_lbl}</b></font>', body_small)]],
+                colWidths=[120*mm, 50*mm]
+            )
+            header_row.setStyle(TableStyle([
+                ("VALIGN", (0,0), (-1,-1), "TOP"),
+                ("ALIGN", (1,0), (1,0), "RIGHT"),
+                ("LEFTPADDING", (0,0), (-1,-1), 0), ("RIGHTPADDING", (0,0), (-1,-1), 0),
+            ]))
+            ix_card = [
+                [header_row],
+                [Paragraph(f"<b>Mecanismo:</b> {_escape(mech)}", body_small)],
+                [Paragraph(f"<b>Recomendacion:</b> {_escape(rec)}", body_small)]
+            ]
+            t = Table(ix_card, colWidths=[170*mm])
+            t.setStyle(TableStyle([
+                ("BACKGROUND", (0,0), (-1,-1), LIGHT),
+                ("LINEBEFORE", (0,0), (0,-1), 3, color),
+                ("LEFTPADDING", (0,0), (-1,-1), 12), ("RIGHTPADDING", (0,0), (-1,-1), 12),
+                ("TOPPADDING", (0,0), (-1,-1), 6), ("BOTTOMPADDING", (0,0), (-1,-1), 6),
+            ]))
+            elements.append(KeepTogether(t))
+            elements.append(Spacer(1, 8))
+    else:
+        elements.append(Paragraph("No se detectaron interacciones criticas en este perfil.", body_small))
+
+    # V. SUPLEMENTOS
+    elements.append(Paragraph("V. EVIDENCIA DE SUPLEMENTACION (MSKCC)", h_section))
+    elements.append(HRFlowable(width="100%", thickness=1, color=NAVY, spaceAfter=10))
+    supplements = d.get("supplements", [])
+    if supplements:
+        for s in supplements:
+            name = _escape(s.get("name", ""))
+            sci = _escape(s.get("scientific_name", ""))
+            cs = _clean(s.get("clinical_summary_es") or s.get("clinical_summary", ""), 700)
+            moa = _clean(s.get("mechanism_of_action_es") or s.get("mechanism_of_action", ""), 500)
+            uses_list = (s.get("purported_uses_es") or s.get("purported_uses")
+                         or s.get("benefits_es") or s.get("benefits") or [])
+            uses_list = [u for u in uses_list if not re_module.search(r"(used to|usado para):?$", u, re_module.IGNORECASE)][:5]
+            uses = _escape(", ".join(uses_list))
+            warns_list = s.get("warnings_es") or s.get("warnings") or [""]
+            warning = _escape(warns_list[0]) if warns_list and warns_list[0] else ""
+            slug = s.get("slug", "")
+            title_html = f"<b>{name}</b>" + (f" <i><font size='9' color='#666666'>- {sci}</font></i>" if sci else "")
+            rows = [[Paragraph(title_html, ParagraphStyle("SuppT", parent=card_title, textColor=GREEN))]]
+            if cs:   rows.append([Paragraph(f"<b>Resumen clinico:</b> {cs}", body_small)])
+            if moa:  rows.append([Paragraph(f"<b>Mecanismo:</b> {moa}", body_small)])
+            if uses: rows.append([Paragraph(f"<b>Usos respaldados:</b> {uses}", body_small)])
+            if warning: rows.append([Paragraph(f"<font color='#b45309'><b>Advertencia:</b> {warning}</font>", body_small)])
+            if slug: rows.append([Paragraph(f'<font color="#15803d"><link href="https://www.mskcc.org/cancer-care/integrative-medicine/herbs/{slug}">Ficha completa en MSKCC</link></font>', body_small)])
+            t = Table(rows, colWidths=[170*mm])
+            t.setStyle(TableStyle([
+                ("BACKGROUND", (0,0), (-1,-1), LIGHT),
+                ("LINEBEFORE", (0,0), (0,-1), 3, GREEN),
+                ("LEFTPADDING", (0,0), (-1,-1), 12), ("RIGHTPADDING", (0,0), (-1,-1), 12),
+                ("TOPPADDING", (0,0), (-1,-1), 5), ("BOTTOMPADDING", (0,0), (-1,-1), 5),
+            ]))
+            elements.append(KeepTogether(t))
+            elements.append(Spacer(1, 10))
+
+    # VI. BIBLIOGRAFIA
+    elements.append(PageBreak())
+    elements.append(Paragraph("VI. BIBLIOGRAFIA CIENTIFICA (Vancouver)", h_section))
+    elements.append(HRFlowable(width="100%", thickness=1, color=NAVY, spaceAfter=10))
+    refs = d.get("references", [])
+    if refs:
+        for i, r in enumerate(refs, 1):
+            authors = _escape(r.get("authors", "Autores no especificados"))
+            title = _escape((r.get("title", "") or "").rstrip("."))
+            journal = _escape(r.get("journal", ""))
+            year = _escape(r.get("year", ""))
+            pmid = r.get("pmid", "")
+            url = r.get("url", "")
+            ref_html = f"<b>{i}.</b> <b>{authors}</b> {title}."
+            if journal: ref_html += f" <i>{journal}</i>."
+            if year: ref_html += f" {year}."
+            if pmid: ref_html += f' <font color="#1a3a6b"><link href="{url}">PMID: {_escape(pmid)}</link></font>.'
+            elements.append(Paragraph(ref_html, ref_style))
+
+    buffer = BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=A4,
+        leftMargin=18*mm, rightMargin=18*mm, topMargin=18*mm, bottomMargin=18*mm,
+        title=f"Informe NutriKen - {condition}", author="NutriKen")
+    doc.build(elements)
+    pdf_bytes = buffer.getvalue()
+    buffer.close()
+
+    cond_slug = re_module.sub(r"[^a-z0-9]+", "-", condition.lower()).strip("-")
+    filename = f"nutriken-{cond_slug}-{report_id}.pdf"
+    return Response(content=pdf_bytes, media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'})
 
 
 # ── STATS ─────────────────────────────────────────────────────────────────────
