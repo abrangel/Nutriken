@@ -401,32 +401,38 @@ body { background: var(--bg); color: var(--text); font-family: var(--font-sans);
 }
 
 /* Indicador "hay más abajo" — sticky hint en la parte inferior */
-.scroll-hint {
-  position: sticky;
-  bottom: 0;
-  left: 50%;
-  z-index: 50;
-  display: none;
-  width: 220px;
-  margin: -52px auto 0 auto;
-  padding: 10px 18px;
-  text-align: center;
-  background: linear-gradient(180deg, transparent 0%, rgba(20,23,29,.95) 60%, var(--gold) 100%);
-  background: var(--bg1);
-  border: 1px solid var(--gold);
-  border-radius: 24px;
-  color: var(--gold);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  pointer-events: none;
-  box-shadow: 0 6px 20px rgba(0,0,0,.4);
-  animation: hintPulse 1.8s ease-in-out infinite;
-}
-.scroll-hint.show { display: block; }
-.scroll-hint i { margin-right: 6px; }
 @keyframes hintPulse {
   0%, 100% { transform: translateY(0); opacity: .85; }
   50% { transform: translateY(-4px); opacity: 1; }
+}
+
+/* ═══ DESCRIPCIÓN AMPLIADA DE LA CONDICIÓN CLÍNICA ═══ */
+#risk-box-wrap > div:first-child {
+  padding: 22px 26px !important;
+  margin-bottom: 22px !important;
+}
+#risk-box-wrap .md-content {
+  font-size: 13.5px !important;
+  line-height: 1.75 !important;
+}
+#risk-box-wrap .md-content p {
+  margin: 0 0 14px 0;
+}
+#risk-box-wrap .md-content p:last-child { margin-bottom: 0; }
+#risk-box-wrap .md-content strong {
+  color: var(--gold);
+  font-weight: 600;
+}
+#risk-box-wrap .md-bullets {
+  margin: 10px 0 16px 0;
+  padding-left: 22px;
+}
+#risk-box-wrap .md-bullets li {
+  font-size: 13px;
+  line-height: 1.7;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+#risk-box-wrap .md-bullets li strong {
+  color: var(--teal);
 }
