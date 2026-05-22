@@ -2236,27 +2236,80 @@ def analyze_interactions(herbs: list, drugs: list) -> dict:
         di_list = herb.get("drug_interactions",[])
         fi_list = herb.get("food_interactions",[])
 
-        # Drug interactions
+        # Drug interactions — con severidad y mecanismo
         for drug in drugs:
             dl = drug.lower()
             if dl in di_raw and dl not in seen_drugs:
                 for line in di_list:
                     if dl in line.lower():
+                        line_lower = line.lower()
+                        CRIT_TERMS = ["contraindicat","avoid","do not","bleeding","hemorrhag","toxicity","serotonin syndrome","liver damage","hepatotoxic"]
+                        WARN_TERMS = ["caution","increase","inhibit","induce","may interact","reduce levels","interfere","monitor closely"]
+                        if any(w in line_lower for w in CRIT_TERMS):
+                            tone, label = "crit", "Crítica"
+                        elif any(w in line_lower for w in WARN_TERMS):
+                            tone, label = "warn", "Precaución"
+                        else:
+                            tone, label = "info", "Monitorear"
+                        if "cyp3a4" in line_lower:
+                            mech = "Modulación de CYP3A4 — altera el metabolismo hepático del fármaco"
+                        elif "cyp2c9" in line_lower:
+                            mech = "Modulación de CYP2C9 — afecta metabolismo de anticoagulantes/AINEs"
+                        elif "bleeding" in line_lower or "anticoagul" in line_lower or "platelet" in line_lower:
+                            mech = "Efecto aditivo sobre la coagulación — riesgo hemorrágico"
+                        elif "glucose" in line_lower or "hypoglyc" in line_lower or "insulin" in line_lower:
+                            mech = "Efecto aditivo sobre la glucemia — riesgo de hipoglucemia"
+                        elif "blood pressure" in line_lower or "hypotens" in line_lower:
+                            mech = "Efecto aditivo sobre la presión arterial"
+                        elif "absorption" in line_lower:
+                            mech = "Alteración de la absorción intestinal del fármaco"
+                        elif "liver" in line_lower or "hepat" in line_lower:
+                            mech = "Posible toxicidad hepática aditiva"
+                        else:
+                            mech = "Interacción farmacocinética/farmacodinámica documentada por MSK"
+                        if tone == "crit":
+                            rec = f"Evitar el uso concomitante de {hname} con {drug} salvo indicación médica expresa."
+                        elif tone == "warn":
+                            rec = f"Vigilar de cerca: declarar el uso de {hname} y monitorizar respuesta a {drug}."
+                        else:
+                            rec = "Monitorizar parámetros clínicos relevantes durante el uso concomitante."
                         drug_alerts.append({
                             "drug": drug, "herb": hname, "alert": line,
                             "source": herb.get("url",""),
-                            "severity": "⚠ PRECAUCIÓN" if any(w in line.lower() for w in
-                                ["avoid","caution","increase","toxic","inhibit","serious","severe","bleeding"]) else "ℹ MONITOREAR"
+                            "severity_tone": tone,
+                            "severity_label": label,
+                            "mechanism": mech,
+                            "recommendation": rec,
+                            "severity": ("⚠ " + label.upper()) if tone != "info" else "ℹ MONITOREAR",
                         })
                         seen_drugs.add(dl)
                         break
 
-        # Food interactions from herb data
+        # Food interactions from herb data — con severidad
         all_text = " ".join(di_list + fi_list + [herb.get("clinical_summary","")[:300]])
         for food_kw, food_desc in food_keywords.items():
             if food_kw in all_text.lower() and food_kw not in seen_foods:
-                food_alerts.append({"food": food_kw.title(), "herb": hname,
-                                    "description": food_desc, "source": herb.get("url","")})
+                fl = food_desc.lower()
+                if any(w in fl for w in ["aumenta", "toxic", "daño", "no usar", "contraindicad"]):
+                    tone, label = "warn", "Precaución"
+                else:
+                    tone, label = "info", "Monitorear"
+                if "cyp3a4" in fl:
+                    rec = "Suspender el consumo del alimento durante el tratamiento farmacológico."
+                elif "absorción" in fl or "absorcion" in fl:
+                    rec = "Separar la ingesta del alimento y el fármaco por al menos 2 horas."
+                elif "hepático" in fl or "hepatico" in fl:
+                    rec = "Monitorizar transaminasas si el consumo es frecuente."
+                else:
+                    rec = "Informar al paciente sobre el potencial de interacción."
+                food_alerts.append({
+                    "food": food_kw.title(), "herb": hname,
+                    "description": food_desc, "source": herb.get("url",""),
+                    "severity_tone": tone,
+                    "severity_label": label,
+                    "mechanism": food_desc,
+                    "recommendation": rec,
+                })
                 seen_foods.add(food_kw)
 
     return {"drug_alerts": drug_alerts, "food_alerts": food_alerts}

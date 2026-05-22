@@ -6,8 +6,8 @@
 <title>NUTRIKEN — Plataforma Bioinformática Nutricional</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Spectral:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<link rel="stylesheet" href="style.css?v=b6">
 </head>
 <body>
 
@@ -49,10 +49,10 @@
     <div class="view-pad">
       <div class="input-panel">
         <span class="input-label">Consulta Clínica</span>
-        <div class="input-hint">Escribe en lenguaje natural — sin necesidad de conocer bioinformática</div>     
+        <div class="input-hint">Escribe en lenguaje natural — sin necesidad de conocer bioinformática</div>
         <div class="input-row">
           <input type="text" class="query-field" id="clinical-input"
-            placeholder="ej: obesidad, diabetes, intolerancia a la lactosa, déficit vitamina D…">
+            placeholder="ej: obesidad, hipertensión, diabetes, déficit vitamina D…">
           <button class="btn-run" id="btn-clinical" onclick="runClinical()">
             <i class="fas fa-play"></i> Analizar
           </button>
@@ -61,13 +61,18 @@
           <span class="tag" onclick="qt('clinical','obesidad')">Obesidad</span>
           <span class="tag" onclick="qt('clinical','perdida de peso')">Pérdida de peso</span>
           <span class="tag" onclick="qt('clinical','diabetes')">Diabetes</span>
+          <span class="tag" onclick="qt('clinical','hipertension')">Hipertensión</span>
+          <span class="tag" onclick="qt('clinical','colesterol')">Colesterol</span>
+          <span class="tag" onclick="qt('clinical','trigliceridos')">Triglicéridos</span>
+          <span class="tag" onclick="qt('clinical','higado graso')">Hígado graso</span>
+          <span class="tag" onclick="qt('clinical','calculos biliares')">Cálculos biliares</span>
           <span class="tag" onclick="qt('clinical','intolerancia lactosa')">Intolerancia lactosa</span>
           <span class="tag" onclick="qt('clinical','enfermedad celiaca')">Enfermedad celíaca</span>
           <span class="tag" onclick="qt('clinical','deficit vitamina d')">Déficit Vit. D</span>
           <span class="tag" onclick="qt('clinical','deficit folato')">Déficit Folato</span>
           <span class="tag" onclick="qt('clinical','deficit b12')">Déficit B12</span>
+          <span class="tag" onclick="qt('clinical','omega-3')">Omega-3</span>
           <span class="tag" onclick="qt('clinical','microbiota')">Microbiota</span>
-          <span class="tag" onclick="qt('clinical','colesterol')">Colesterol</span>
           <span class="tag" onclick="qt('clinical','inflamacion')">Inflamación</span>
         </div>
       </div>
@@ -135,6 +140,17 @@
             <div class="card-head"><span class="card-title">Información Genómica</span><span class="card-badge">NCBI Gene</span></div>
             <div class="card-body"><div class="genes-wrap" id="g-info-body"></div></div>
           </div>
+          <div class="card" id="g-cond" style="display:none">
+            <div class="card-head"><span class="card-title">Condiciones relacionadas</span></div>
+            <div class="card-body" id="g-cond-body"></div>
+          </div>
+          <div class="card span2" id="g-supps" style="display:none">
+            <div class="card-head"><span class="card-title">Suplementos relevantes</span><span class="card-badge">MSK</span></div>
+            <div class="card-body">
+              <div class="supp-tabs" id="g-supp-tabs"></div>
+              <div id="g-supp-panels"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -145,7 +161,7 @@
     <div class="view-pad">
       <div class="input-panel">
         <span class="input-label">Suplemento / Hierba</span>
-        <div class="input-hint">Datos en tiempo real desde MSK</div>   
+        <div class="input-hint">Datos en tiempo real desde MSK</div>
         <div class="input-row">
           <input type="text" class="query-field" id="nutrient-input"
             placeholder="ej: omega-3, vitamina D, berberina, cúrcuma…">
@@ -163,25 +179,52 @@
     </div>
   </div>
 
-  <!-- VIEW: EDITOR -->
-  <div class="view" id="view-report" style="background:#525659">
-    <div id="toolbar">
-      <div class="tb-group"><span style="color:var(--gold);font-weight:600;font-size:12px;font-family:'IBM Plex Mono',monospace">PRO EDITOR</span></div>
-      <div class="tb-spacer"></div>
-      <button class="tb-export" onclick="exportToPDF()" style="background:#1f6feb"><i class="fas fa-file-pdf"></i> DESCARGAR INFORME PDF</button>
-    </div>
-    <div id="workspace" style="display:flex; height: calc(100vh - 100px); overflow:hidden">
-      <div id="sidebar-panel" style="width:240px; background:#1a1a1a; border-right:1px solid #333; padding:20px; flex-shrink:0">
-        <div class="panel-section">
-          <div class="panel-section-title" style="color:var(--gold); font-size:10px; text-transform:uppercase; margin-bottom:10px">Estructura A4</div>
-          <p style="font-size:11px; color:#aaa; line-height:1.4">El informe se genera automáticamente en múltiples páginas siguiendo el formato científico de Bioinformática.</p>
+  <!-- VIEW: EDITOR — estilo Kenryu -->
+  <div class="view" id="view-report">
+    <div id="report-toolbar">
+      <div class="rt-brand">
+        <i class="fas fa-file-medical-alt"></i>
+        <div class="rt-brand-text">
+          <div class="rt-brand-title">NUTRIKEN Editor</div>
+          <div class="rt-brand-sub">Informe clínico nutricional</div>
         </div>
       </div>
-      <div id="canvas" style="flex:1; overflow-y:auto; padding:40px 0; display:flex; flex-direction:column; align-items:center">
-        <div id="editor-empty" style="color:white; text-align:center; margin-top:100px">
-          <i class="fas fa-file-medical-alt" style="font-size:48px; opacity:0.3"></i>
-          <p>Realice un análisis clínico para generar el reporte profesional.</p>
+      <div class="rt-meta" id="rt-meta">Esperando análisis…</div>
+      <div class="rt-actions">
+        <button class="rt-btn rt-btn-secondary" onclick="exportToMDZip()" title="Descargar paquete .zip con Markdown + JSON">
+          <i class="fas fa-file-archive"></i> Markdown (.zip)
+        </button>
+        <button class="rt-btn rt-btn-primary" onclick="exportToPDF()" title="Generar PDF de calidad clínica desde el servidor">
+          <i class="fas fa-file-pdf"></i> Descargar PDF
+        </button>
+      </div>
+    </div>
+
+    <div id="report-workspace">
+      <aside id="report-sidebar">
+        <div class="rep-side-section">
+          <div class="rep-side-title">Estructura del informe</div>
+          <ol class="rep-toc">
+            <li><span class="rep-toc-rom">I.</span> Síntesis de investigación</li>
+            <li><span class="rep-toc-rom">II.</span> Biomarcadores genómicos</li>
+            <li><span class="rep-toc-rom">III.</span> Ruta metabólica KEGG</li>
+            <li><span class="rep-toc-rom">IV.</span> Interacciones farmacológicas</li>
+            <li><span class="rep-toc-rom">V.</span> Evidencia de suplementación</li>
+            <li><span class="rep-toc-rom">VI.</span> Bibliografía (Vancouver)</li>
+          </ol>
         </div>
+        <div class="rep-side-section">
+          <div class="rep-side-title">Paginación</div>
+          <p class="rep-side-note">El informe se pagina automáticamente en formato A4. Las tarjetas (biomarcadores, suplementos, interacciones) no se cortan entre páginas.</p>
+        </div>
+      </aside>
+
+      <div id="report-canvas">
+        <div id="editor-empty">
+          <i class="fas fa-file-medical-alt"></i>
+          <p>Realice un análisis clínico para generar el informe profesional.</p>
+        </div>
+        <div id="report-canvas-content"></div>
         <div id="report-web-preview" style="display:none"></div>
       </div>
     </div>
@@ -190,23 +233,20 @@
 
 <!-- HIDDEN TEMPLATE FOR REPORT GENERATION -->
 <div id="clinical-report-template" style="display:none">
-    <div style="border-bottom: 3px solid #000; padding-bottom: 10px; margin-bottom: 40px; display: flex; justify-content: space-between; align-items: baseline;">
-        <h1 style="margin:0; font-size: 32px; font-weight: 800; color: black;">INFORME</h1>
-        <div style="text-align: right; font-size: 11px; color: black;">
-            <p style="margin:0;">ID: <span id="rep-id"></span></p>
-            <p style="margin:0;" id="rep-date"></p>
-            <p style="margin:0; font-weight:bold; color:#1a3a6b;">NutriKen SaaS</p>
+    <div class="rep-header">
+        <h1 class="rep-h1">INFORME CLÍNICO NUTRICIONAL</h1>
+        <div class="rep-header-meta">
+            <p style="margin:0">ID: <span id="rep-id"></span></p>
+            <p style="margin:0" id="rep-date"></p>
+            <p style="margin:0;font-weight:bold;color:#1a3a6b">NutriKen Bioinformatics</p>
         </div>
     </div>
-    <section><h2 class="header-pdf">I. SÍNTESIS DE INVESTIGACIÓN NUTRICIONAL</h2><div id="rep-summary"></div></section>
+    <section><h2 class="header-pdf">I. SÍNTESIS DE INVESTIGACIÓN NUTRICIONAL</h2><div id="rep-summary" class="md-content"></div></section>
     <section><h2 class="header-pdf">II. PANEL DE BIOMARCADORES GENÓMICOS</h2><div id="rep-genes"></div></section>
     <section><h2 class="header-pdf">III. RUTA METABÓLICA RELACIONADA (KEGG)</h2><div id="rep-pathway"></div></section>
     <section><h2 class="header-pdf">IV. INTERACCIONES FARMACOLÓGICAS</h2><div id="rep-interactions"></div></section>
     <section><h2 class="header-pdf">V. EVIDENCIA DE SUPLEMENTACIÓN (MSK)</h2><div id="rep-supplements"></div></section>
-    <section style="page-break-before: always; padding-top: 20px;"><h2 class="header-pdf">VI. BIBLIOGRAFÍA CIENTÍFICA (PubMed)</h2><div id="rep-refs"></div></section>
-    <footer class="report-footer" style="margin-top: 60px; border-top: 1px solid #eee; padding-top: 20px; font-size: 10px; text-align: center; color: #888;">
-        <p>Documento emitido por el sistema NUTRIKEN. Trazabilidad bioinformática verificada.</p>
-    </footer>
+    <section><h2 class="header-pdf">VI. BIBLIOGRAFÍA CIENTÍFICA (VANCOUVER)</h2><div id="rep-refs"></div></section>
 </div>
 
 <!-- GENE PANEL -->
@@ -221,6 +261,7 @@
   <span class="loader-msg" id="loader-msg">Consultando bases de datos…</span>
 </div>
 
-<script src="script.js"></script>
+<script src="script.js?v=b6"></script>
 </body>
 </html>
+
