@@ -368,3 +368,11 @@ body { background: var(--bg); color: var(--text); font-family: var(--font-sans);
 .supp-audience .supp-card-sec { border-left: 2px solid transparent; }
 .supp-aud-patient .supp-card-sec { border-left-color: rgba(200,169,110,.12); }
 .supp-aud-pro .supp-card-sec     { border-left-color: rgba(79,195,161,.12); }
+
+/* Pestañas ocultas en módulo nutrient (sólo 1 hierba, no necesita tabs) */
+#n-supp-tabs[style*="display:none"] + #n-supp-panels .supp-panel { display: block; padding: 0; }
+#n-supp-panels .supp-panel { padding: 0 !important; }
+#n-herb-body .pathway-box { background: var(--bg1); border: 1px solid var(--border); padding: 14px 18px; border-radius: 10px; }
+#n-herb-body .pathway-id { font-family: var(--font-mono); font-size: 10px; color: var(--teal); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+#n-herb-body .pathway-name { font-family: var(--font-serif); font-size: 16px; color: var(--gold); margin-bottom: 6px; }
+#n-herb-body .pathway-desc { font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 8px 0; }

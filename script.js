@@ -251,12 +251,56 @@ async function runNutrient() {
   finally { hideLoader(); }
 }
 function renderNutrient(d) {
-  var h = d.msk_data;
+  var h = d.msk_data || {};
   document.getElementById('nutrient-out').style.display = 'block';
-  document.getElementById('n-herb-title').textContent = h.name;
-  document.getElementById('n-herb-body').innerHTML = '<div style="padding:15px; background:var(--bg3); border-radius:8px">' +
-    '<h3 style="color:var(--gold)">' + h.name + '</h3>' +
-    '<p style="font-size:12px; margin-top:10px">' + (_es(h, 'clinical_summary') || '') + '</p></div>';
+  document.getElementById('n-herb-title').textContent = h.name || d.nutrient || 'Ficha clínica';
+
+  // Asegurar que el slug y url se propagan al renderizador
+  if (!h.slug && d.slug) h.slug = d.slug;
+  if (!h.url && d.msk_url) h.url = d.msk_url;
+
+  // Preparar contenedores para la tarjeta detallada (reutiliza renderSuppTabs)
+  var body = document.getElementById('n-herb-body');
+  body.innerHTML = '<div class="supp-tabs" id="n-supp-tabs" style="display:none"></div>' +
+                   '<div id="n-supp-panels"></div>';
+
+  // Render con la tarjeta completa (igual que en el módulo Condición Clínica)
+  renderSuppTabs('n-supp-tabs', 'n-supp-panels', [h]);
+
+  // Si hay ruta KEGG asociada, mostrarla debajo
+  if (d.pathway && d.pathway.name) {
+    body.insertAdjacentHTML('beforeend',
+      '<div class="pathway-box" style="margin-top:18px">' +
+      '<div class="pathway-id">' + (d.pathway.id || '') + '</div>' +
+      '<div class="pathway-name">' + d.pathway.name + '</div>' +
+      (d.pathway.description ? '<p class="pathway-desc">' + d.pathway.description.slice(0, 400) + '...</p>' : '') +
+      '<a class="ext-link teal" href="' + d.pathway.kegg_url + '" target="_blank">Ver en KEGG</a>' +
+      '</div>');
+  }
+
+  // Referencias científicas si vinieron
+  if (d.references && d.references.length) {
+    var refsHTML = '<div class="card" style="margin-top:18px">' +
+      '<div class="card-head"><span class="card-title">Referencias científicas</span><span class="card-badge blue">PubMed</span></div>' +
+      '<div class="card-body"><table class="sci-table"><thead><tr><th>Título</th><th>Autores · Revista · Año</th><th>Link</th></tr></thead><tbody>' +
+      d.references.map(function(r) {
+        return '<tr><td>' + r.title + '</td><td>' + r.authors + ' · ' + r.journal + ' · ' + r.year + '</td><td><a class="ref-link" href="' + r.url + '" target="_blank">PMID ' + r.pmid + '</a></td></tr>';
+      }).join('') + '</tbody></table></div></div>';
+    body.insertAdjacentHTML('beforeend', refsHTML);
+  }
+
+  // Hacer este resultado disponible para el editor de informe (como en clinical)
+  lastResult = {
+    condition: h.name || d.nutrient,
+    query: d.nutrient,
+    description: _es(h, 'clinical_summary') || _es(h, 'what_is_it') || '',
+    supplements: [h],
+    references: d.references || [],
+    pathway: d.pathway || {},
+    drug_alerts: [],
+    food_alerts: [],
+    genes: []
+  };
 }
 
 // ── BLOQUE 4: INTERACCIONES CONTEXTUALIZADAS ─────────────────────────────────
