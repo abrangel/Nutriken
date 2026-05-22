@@ -951,6 +951,40 @@ function pickHerb(slug, name) {
   };
 })();
 
+
+// ── INDICADOR DE SCROLL "hay más abajo" ──────────────────────────────────────
+function updateScrollHint(viewId) {
+  const v = document.getElementById('view-' + viewId);
+  const hint = document.getElementById('hint-view-' + viewId);
+  if (!v || !hint) return;
+  const moreBelow = (v.scrollHeight - v.scrollTop - v.clientHeight) > 40;
+  hint.classList.toggle('show', moreBelow);
+}
+
+function setupScrollHints() {
+  ['clinical', 'gene', 'nutrient'].forEach(function(viewId) {
+    const v = document.getElementById('view-' + viewId);
+    if (!v) return;
+    v.addEventListener('scroll', function() { updateScrollHint(viewId); });
+    // Tambien chequear cuando el contenido cambia
+    new MutationObserver(function() { setTimeout(function() { updateScrollHint(viewId); }, 200); })
+      .observe(v, { childList: true, subtree: true });
+    // Chequeo inicial
+    setTimeout(function() { updateScrollHint(viewId); }, 100);
+  });
+}
+
+window.addEventListener('load', setupScrollHints);
+// Tambien re-chequear al cambiar de vista
+(function() {
+  const _orig = window.switchView;
+  if (typeof _orig !== 'function') return;
+  window.switchView = function(name) {
+    _orig(name);
+    setTimeout(function() { updateScrollHint(name); }, 50);
+  };
+})();
+
 // Stubs de compatibilidad
 function fmt(cmd) { document.execCommand(cmd); }
 function switchPanel(name) {
