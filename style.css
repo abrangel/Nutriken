@@ -340,3 +340,31 @@ body { background: var(--bg); color: var(--text); font-family: var(--font-sans);
 .hb-item:hover .hb-item-name { color: var(--gold); }
 .hb-item-sci { font-size: 10.5px; color: var(--text-faint); font-style: italic; }
 .hb-empty { grid-column: 1/-1; padding: 40px 20px; text-align: center; color: var(--text-faint); font-size: 13px; font-style: italic; }
+
+/* ═══ TARJETA DE SUPLEMENTO — SECCIONES POR AUDIENCIA (PACIENTE / PROFESIONAL) ═══ */
+.supp-common { display: block; font-size: 11px; color: var(--text-faint); margin-top: 3px; }
+.supp-common::before { content: ''; }
+
+.supp-audience { border-top: 1px solid var(--border); margin-top: 6px; }
+.supp-audience:first-of-type { margin-top: 0; border-top: none; }
+
+.supp-aud-head {
+  display: flex; align-items: center; gap: 9px;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.8px; text-transform: uppercase;
+  padding: 12px 18px;
+  color: #14171d;
+  background: linear-gradient(90deg, rgba(200,169,110,.92) 0%, rgba(200,169,110,.55) 100%);
+  font-weight: 700;
+}
+.supp-aud-pro .supp-aud-head {
+  background: linear-gradient(90deg, rgba(79,195,161,.85) 0%, rgba(79,195,161,.45) 100%);
+}
+.supp-aud-head i { font-size: 12px; }
+
+/* Iconos dentro de los headers de subsección */
+.supp-h i { margin-right: 6px; font-size: 11px; opacity: .8; }
+
+/* Las secciones dentro de un audience block se ven igual pero con borde izq sutil */
+.supp-audience .supp-card-sec { border-left: 2px solid transparent; }
+.supp-aud-patient .supp-card-sec { border-left-color: rgba(200,169,110,.12); }
+.supp-aud-pro .supp-card-sec     { border-left-color: rgba(79,195,161,.12); }

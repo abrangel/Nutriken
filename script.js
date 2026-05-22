@@ -327,38 +327,88 @@ function renderList(items, max) {
 
 function renderSuppTabs(tabsId, panelsId, supps) {
   if (!supps || !supps.length) return;
+
   document.getElementById(tabsId).innerHTML = supps.map(function(s,i) {
     return '<div class="supp-tab' + (i===0?' active':'') + '" onclick="swSupp(\'' + tabsId + '\',\'' + panelsId + '\',' + i + ')">' + (s.name||'Sup.') + '</div>';
   }).join('');
 
   document.getElementById(panelsId).innerHTML = supps.map(function(s,i) {
     const ev = gradeEvidence(s);
-    const sci = s.scientific_name ? '<span class="supp-sci">' + s.scientific_name + '</span>' : '';
-    const summary = _es(s, 'clinical_summary') || _es(s, 'what_is_it') || 'Sin datos disponibles.';
-    const moa = _es(s, 'mechanism_of_action');
-    const uses = (s.purported_uses_es && s.purported_uses_es.length) ? s.purported_uses_es : (s.purported_uses || []);
-    const benefits = ((s.benefits_es && s.benefits_es.length) ? s.benefits_es : (s.benefits || []))
-                      .filter(function(b) { return !b.match(/(used to|usado para):?$/i); });
-    const sideEff = ((s.side_effects_es && s.side_effects_es.length) ? s.side_effects_es : (s.side_effects || []))
-                      .filter(function(b) { return !b.match(/(include|incluir):?$/i); });
-    const warnings = (s.warnings_es && s.warnings_es.length) ? s.warnings_es : (s.warnings || []);
-    const dosage = _es(s, 'dosage');
-    const adverse = _es(s, 'adverse_reactions');
-    const contra = _es(s, 'contraindications');
-    const interactionsRaw = (s.drug_interactions_es && s.drug_interactions_es.length) ? s.drug_interactions_es : (s.drug_interactions || []);
-    const interactions = interactionsRaw.map(parseInteraction);
-    const initialIx = interactions.slice(0, 5);
-    const restIx = interactions.slice(5);
 
-    let sections = '';
-    sections += '<div class="supp-card-sec"><h4 class="supp-h">Resumen clínico</h4><p class="supp-text">' + summary + '</p></div>';
-    if (moa) sections += '<div class="supp-card-sec"><h4 class="supp-h">Mecanismo de acción</h4><p class="supp-text">' + moa + '</p></div>';
-    if (uses.length || benefits.length) {
-      const usesList = uses.length ? uses : benefits;
-      sections += '<div class="supp-card-sec"><h4 class="supp-h">Usos respaldados</h4>' + renderList(usesList, 8) + '</div>';
+    // ── Recolectar TODOS los campos disponibles ─────────────────────────────
+    const sci = s.scientific_name || '';
+    const commonNames = (s.common_names && Array.isArray(s.common_names) && s.common_names.length)
+                        ? s.common_names : [];
+    const whatIsIt   = _es(s, 'what_is_it');
+    const summary    = _es(s, 'clinical_summary');
+    const moa        = _es(s, 'mechanism_of_action');
+    const dosage     = _es(s, 'dosage');
+    const adverse    = _es(s, 'adverse_reactions');
+    const contra     = _es(s, 'contraindications');
+
+    const uses     = (s.purported_uses_es && s.purported_uses_es.length) ? s.purported_uses_es : (s.purported_uses || []);
+    const benefits = (s.benefits_es && s.benefits_es.length) ? s.benefits_es : (s.benefits || []);
+    const sideEff  = (s.side_effects_es && s.side_effects_es.length) ? s.side_effects_es : (s.side_effects || []);
+    const warnings = (s.warnings_es && s.warnings_es.length) ? s.warnings_es : (s.warnings || []);
+    const foodIx   = (s.food_interactions_es && s.food_interactions_es.length) ? s.food_interactions_es : (s.food_interactions || []);
+    const drugIxRaw= (s.drug_interactions_es && s.drug_interactions_es.length) ? s.drug_interactions_es : (s.drug_interactions || []);
+    const drugIx   = drugIxRaw.map(parseInteraction);
+
+    // ── Filtros suaves: descartar líneas que SOLO son títulos de subsección ─
+    // (cosas como "include:", "Advertencias para el paciente:", "usado para:")
+    function looksLikeSubheader(line) {
+      if (!line) return true;
+      const t = line.trim();
+      if (t.length < 4) return true;
+      // Solo descartamos si termina con ":" Y es corta (es un encabezado de subsección)
+      if (t.endsWith(':') && t.length < 60) return true;
+      // Patrones específicos de basura conocida
+      if (/^(include|incluir|used to|usado para|side effects|efectos secundarios|warnings|advertencias)\s*:?\s*$/i.test(t)) return true;
+      return false;
     }
-    if (dosage) sections += '<div class="supp-card-sec"><h4 class="supp-h">Dosis estudiadas</h4><p class="supp-text">' + dosage + '</p></div>';
-    if (interactions.length) {
+    const benefitsClean = benefits.filter(function(x) { return !looksLikeSubheader(x); });
+    const sideEffClean  = sideEff.filter(function(x) { return !looksLikeSubheader(x); });
+    const warningsClean = warnings.filter(function(x) { return !looksLikeSubheader(x); });
+    const usesClean     = uses.filter(function(x) { return !looksLikeSubheader(x); });
+    const foodIxClean   = foodIx.filter(function(x) { return !looksLikeSubheader(x); });
+
+    // ── Construir bloques (sólo si tienen contenido real) ──────────────────
+    let patientHTML = '';
+    if (whatIsIt) {
+      patientHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-info-circle"></i> ¿Qué es?</h4><p class="supp-text">' + whatIsIt + '</p></div>';
+    }
+    if (benefitsClean.length) {
+      patientHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-check-circle"></i> Usos y beneficios potenciales</h4>' + renderList(benefitsClean, 12) + '</div>';
+    }
+    if (sideEffClean.length) {
+      patientHTML += '<div class="supp-card-sec supp-warn"><h4 class="supp-h supp-h-warn"><i class="fas fa-exclamation-triangle"></i> Efectos secundarios</h4>' + renderList(sideEffClean, 14) + '</div>';
+    }
+    if (warningsClean.length) {
+      patientHTML += '<div class="supp-card-sec supp-warn-crit"><h4 class="supp-h supp-h-warn"><i class="fas fa-shield-alt"></i> ¿Qué más debe saber?</h4>' + renderList(warningsClean, 14) + '</div>';
+    }
+
+    let proHTML = '';
+    if (summary) {
+      proHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-stethoscope"></i> Resumen clínico</h4><p class="supp-text">' + summary + '</p></div>';
+    }
+    if (usesClean.length) {
+      proHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-flask"></i> Usos clínicos respaldados</h4>' + renderList(usesClean, 12) + '</div>';
+    }
+    if (moa) {
+      proHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-atom"></i> Mecanismo de acción</h4><p class="supp-text">' + moa + '</p></div>';
+    }
+    if (dosage) {
+      proHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-prescription-bottle"></i> Dosis estudiadas</h4><p class="supp-text">' + dosage + '</p></div>';
+    }
+    if (contra) {
+      proHTML += '<div class="supp-card-sec supp-warn"><h4 class="supp-h supp-h-warn"><i class="fas fa-ban"></i> Contraindicaciones</h4><p class="supp-text">' + contra + '</p></div>';
+    }
+    if (adverse) {
+      proHTML += '<div class="supp-card-sec supp-warn"><h4 class="supp-h supp-h-warn"><i class="fas fa-notes-medical"></i> Reacciones adversas</h4><p class="supp-text">' + adverse + '</p></div>';
+    }
+    if (drugIx.length) {
+      const initialIx = drugIx.slice(0, 6);
+      const restIx = drugIx.slice(6);
       const ixHTML = initialIx.map(function(ix) {
         return '<div class="supp-ix-row">' + (ix.drug ? '<span class="supp-ix-drug">' + ix.drug + '</span>' : '') + '<span class="supp-ix-detail">' + ix.detail + '</span></div>';
       }).join('');
@@ -366,25 +416,41 @@ function renderSuppTabs(tabsId, panelsId, supps) {
         restIx.map(function(ix) {
           return '<div class="supp-ix-row">' + (ix.drug ? '<span class="supp-ix-drug">' + ix.drug + '</span>' : '') + '<span class="supp-ix-detail">' + ix.detail + '</span></div>';
         }).join('') + '</details>' : '';
-      sections += '<div class="supp-card-sec"><h4 class="supp-h">Interacciones con fármacos <span class="supp-count">(' + interactions.length + ')</span></h4><div class="supp-ix-list">' + ixHTML + restHTML + '</div></div>';
+      proHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-capsules"></i> Interacciones hierba–fármaco <span class="supp-count">(' + drugIx.length + ')</span></h4><div class="supp-ix-list">' + ixHTML + restHTML + '</div></div>';
     }
-    if (adverse || contra || sideEff.length) {
-      sections += '<div class="supp-card-sec supp-warn"><h4 class="supp-h supp-h-warn">Seguridad y efectos adversos</h4>';
-      if (adverse) sections += '<p class="supp-text">' + adverse + '</p>';
-      if (sideEff.length) sections += renderList(sideEff, 6);
-      if (contra) sections += '<p class="supp-text"><b>Contraindicaciones:</b> ' + contra + '</p>';
-      sections += '</div>';
+    if (foodIxClean.length) {
+      proHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-utensils"></i> Interacciones con alimentos</h4>' + renderList(foodIxClean, 10) + '</div>';
     }
-    if (warnings.length) {
-      sections += '<div class="supp-card-sec supp-warn-crit"><h4 class="supp-h supp-h-warn">Advertencias críticas</h4>' + renderList(warnings, 6) + '</div>';
+
+    // ── Header (nombre + sci + nombres comunes + chip de evidencia) ────────
+    const cnHTML = commonNames.length
+                   ? '<span class="supp-common">También: ' + commonNames.slice(0,5).join(' · ') + '</span>'
+                   : '';
+    const sciHTML = sci ? '<span class="supp-sci">' + sci + '</span>' : '';
+
+    // ── Wrapper de sección por audiencia ───────────────────────────────────
+    let sections = '';
+    if (patientHTML) {
+      sections += '<div class="supp-audience supp-aud-patient">' +
+                  '<div class="supp-aud-head"><i class="fas fa-user"></i> Para pacientes</div>' +
+                  patientHTML + '</div>';
     }
+    if (proHTML) {
+      sections += '<div class="supp-audience supp-aud-pro">' +
+                  '<div class="supp-aud-head"><i class="fas fa-user-md"></i> Para profesionales de la salud</div>' +
+                  proHTML + '</div>';
+    }
+    if (!patientHTML && !proHTML) {
+      sections = '<div class="supp-card-sec"><p class="supp-text">Sin datos disponibles.</p></div>';
+    }
+
     const mskUrl = s.url || ('https://www.mskcc.org/cancer-care/integrative-medicine/herbs/' + (s.slug || ''));
-    sections += '<div class="supp-card-foot"><a href="' + mskUrl + '" target="_blank" class="supp-link">Ficha completa en MSKCC</a></div>';
+    sections += '<div class="supp-card-foot"><a href="' + mskUrl + '" target="_blank" class="supp-link"><i class="fas fa-external-link-alt"></i> Ficha completa en MSKCC</a></div>';
 
     return '<div class="supp-panel' + (i===0?' active':'') + '" id="' + panelsId + '-' + i + '">' +
       '<div class="supp-card">' +
       '<div class="supp-card-head">' +
-      '<div class="supp-card-title"><h3>' + (s.name || 'Suplemento') + '</h3>' + sci + '</div>' +
+      '<div class="supp-card-title"><h3>' + (s.name || 'Suplemento') + '</h3>' + sciHTML + cnHTML + '</div>' +
       '<span class="supp-chip supp-chip-' + ev.tone + '">' + ev.label + '</span>' +
       '</div>' + sections + '</div></div>';
   }).join('');
