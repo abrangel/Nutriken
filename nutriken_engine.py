@@ -19,27 +19,34 @@ DB_PATH  = BASE_DIR / "local_db" / "nutriken_cache.db"
 Path("local_db").mkdir(exist_ok=True)
 
 # Supabase — base de datos persistente con 307+ hierbas en espanol
+# Usamos el REST API directo (httpx) porque la nueva key sb_publishable_xxx no es
+# compatible con el cliente Python supabase 2.3.4 (que espera formato JWT antiguo).
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://ewhcinmihogmusmldeds.supabase.co")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY", "sb_publishable_X7hVXnbUmyJGL0JbO0jpbw_Gw1dznI2")
-try:
-    from supabase import create_client, Client as _SBClient
-    _supabase: Optional[_SBClient] = create_client(SUPABASE_URL, SUPABASE_KEY)
-    logger.info(f"Supabase conectado: {SUPABASE_URL}")
-except Exception as e:
-    _supabase = None
-    logger.warning(f"Supabase no disponible: {e}")
+SUPABASE_REST = f"{SUPABASE_URL}/rest/v1"
+SUPABASE_HEADERS = {
+    "apikey": SUPABASE_KEY,
+    "Authorization": f"Bearer {SUPABASE_KEY}",
+}
+logger.info(f"Supabase REST: {SUPABASE_URL}")
 
 async def supabase_get_herb(slug):
-    """Consulta Supabase msk_herbs por slug. Devuelve None si no existe."""
-    if not _supabase: return None
+    """Consulta Supabase msk_herbs por slug via REST API. Devuelve None si no existe."""
+    if not SUPABASE_URL or not SUPABASE_KEY: return None
     try:
-        loop = asyncio.get_event_loop()
-        res = await loop.run_in_executor(
-            None,
-            lambda: _supabase.table("msk_herbs").select("*").eq("slug", slug).execute()
-        )
-        if res.data and len(res.data) > 0:
-            row = res.data[0]
+        async with httpx.AsyncClient(timeout=8.0) as client:
+            r = await client.get(
+                f"{SUPABASE_REST}/msk_herbs",
+                params={"slug": f"eq.{slug}", "select": "*", "limit": "1"},
+                headers=SUPABASE_HEADERS,
+            )
+            if r.status_code != 200:
+                logger.warning(f"Supabase {slug}: HTTP {r.status_code} {r.text[:120]}")
+                return None
+            data = r.json()
+            if not data or len(data) == 0:
+                return None
+            row = data[0]
             for f in ("name","scientific_name","what_is_it","clinical_summary",
                       "mechanism_of_action","adverse_reactions","contraindications","dosage","url"):
                 if row.get(f) is None: row[f] = ""
