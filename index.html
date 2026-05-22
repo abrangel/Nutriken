@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Spectral:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<link rel="stylesheet" href="style.css?v=b6">
+<link rel="stylesheet" href="style.css?v=b7">
 </head>
 <body>
 
@@ -161,7 +161,7 @@
     <div class="view-pad">
       <div class="input-panel">
         <span class="input-label">Suplemento / Hierba</span>
-        <div class="input-hint">Datos en tiempo real desde MSK</div>
+        <div class="input-hint">Datos en tiempo real desde MSK · 307 hierbas indexadas</div>
         <div class="input-row">
           <input type="text" class="query-field" id="nutrient-input"
             placeholder="ej: omega-3, vitamina D, berberina, cúrcuma…">
@@ -170,6 +170,20 @@
           </button>
         </div>
       </div>
+
+      <!-- NAVEGADOR ALFABÉTICO A–Z -->
+      <div class="herb-browser" id="herb-browser">
+        <div class="hb-head">
+          <span class="hb-title"><i class="fas fa-book"></i> Catálogo alfabético</span>
+          <input type="text" class="hb-filter" id="hb-filter" placeholder="Filtrar por nombre…" oninput="filterHerbsLetter()">
+          <span class="hb-count" id="hb-count">Cargando…</span>
+        </div>
+        <div class="hb-letters" id="hb-letters"></div>
+        <div class="hb-list" id="hb-list">
+          <div class="hb-empty">Selecciona una letra para ver las hierbas disponibles.</div>
+        </div>
+      </div>
+
       <div id="nutrient-out" style="display:none">
         <div class="card span2" id="n-herb">
           <div class="card-head"><span class="card-title" id="n-herb-title">Ficha Clínica</span><span class="card-badge">MSK</span></div>
@@ -261,7 +275,10 @@
   <span class="loader-msg" id="loader-msg">Consultando bases de datos…</span>
 </div>
 
-<script src="script.js?v=b6"></script>
+<script src="script.js?v=b7"></script>
 </body>
 </html>
+
+/bin/bash: line 5: /tmp/hermes-snap-64c8112850e0.sh: Operation not supported
+/bin/bash: line 6: /tmp/hermes-cwd-64c8112850e0.txt: Operation not supported
 

@@ -2795,6 +2795,56 @@ async def stats():
             "recent_queries":[{"query":r[0],"type":r[1],"time":r[2]} for r in recent]}
 
 
+# ── INDICE A-Z DE HIERBAS (desde Supabase, cacheado en memoria) ───────────────
+_HERBS_INDEX_CACHE = {"data": None, "ts": 0}
+
+@app.get("/api/herbs-index")
+async def herbs_index():
+    """Devuelve todas las hierbas de Supabase agrupadas por letra inicial.
+    Cacheado 30 min en memoria."""
+    import time as _t
+    now = _t.time()
+    if _HERBS_INDEX_CACHE["data"] and (now - _HERBS_INDEX_CACHE["ts"] < 1800):
+        return _HERBS_INDEX_CACHE["data"]
+
+    try:
+        async with httpx.AsyncClient(timeout=20.0) as client:
+            r = await client.get(
+                f"{SUPABASE_REST}/msk_herbs",
+                params={"select": "slug,name,scientific_name", "order": "name.asc", "limit": "500"},
+                headers=SUPABASE_HEADERS,
+            )
+            r.raise_for_status()
+            rows = r.json()
+    except Exception as e:
+        logger.error(f"herbs-index Supabase error: {e}")
+        return {"total": 0, "by_letter": {}, "letters": [], "error": str(e)}
+
+    from collections import defaultdict
+    by_letter = defaultdict(list)
+    for row in rows:
+        name = (row.get("name") or "").strip()
+        if not name:
+            continue
+        first = name[0].upper()
+        letter = first if first.isalpha() else "#"
+        by_letter[letter].append({
+            "slug": row.get("slug", ""),
+            "name": name,
+            "scientific_name": row.get("scientific_name", "") or "",
+        })
+
+    letters = sorted(by_letter.keys(), key=lambda x: (x == "#", x))
+    result = {
+        "total": len(rows),
+        "letters": letters,
+        "by_letter": dict(by_letter),
+    }
+    _HERBS_INDEX_CACHE["data"] = result
+    _HERBS_INDEX_CACHE["ts"] = now
+    return result
+
+
 if __name__ == "__main__":
     uvicorn.run("nutriken_engine:app", host="0.0.0.0", port=7860, reload=False)
 

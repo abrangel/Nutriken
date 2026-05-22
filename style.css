@@ -311,3 +311,32 @@ body { background: var(--bg); color: var(--text); font-family: var(--font-sans);
   .a4-page { box-shadow: none !important; page-break-after: always; margin: 0 !important; }
   .a4-page:last-child { page-break-after: auto; }
 }
+
+/* ═══ NAVEGADOR ALFABÉTICO DE HIERBAS ═══ */
+.herb-browser { background: var(--bg1); border: 1px solid var(--border); border-radius: 10px; margin: 18px 0; overflow: hidden; }
+.hb-head { display: flex; align-items: center; gap: 14px; padding: 13px 18px; background: linear-gradient(180deg, var(--bg2) 0%, var(--bg1) 100%); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+.hb-title { font-family: var(--font-serif); font-size: 14px; color: var(--gold); display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
+.hb-title i { color: var(--gold); }
+.hb-filter { flex: 1; min-width: 180px; background: var(--bg3); border: 1px solid var(--border); color: var(--text); padding: 8px 12px; border-radius: 6px; font-family: var(--font-sans); font-size: 12px; outline: none; transition: border-color .15s ease; }
+.hb-filter:focus { border-color: var(--gold); }
+.hb-count { font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase; }
+
+.hb-letters { display: flex; flex-wrap: wrap; gap: 4px; padding: 12px 18px; background: var(--bg2); border-bottom: 1px solid var(--border); }
+.hb-letter { position: relative; min-width: 32px; height: 32px; padding: 0 6px; background: var(--bg1); color: var(--text-dim); border: 1px solid var(--border); border-radius: 5px; font-family: var(--font-mono); font-size: 12px; font-weight: 600; cursor: pointer; transition: all .15s ease; display: inline-flex; align-items: center; justify-content: center; }
+.hb-letter:hover:not(:disabled) { background: rgba(200,169,110,.1); border-color: var(--gold); color: var(--gold); transform: translateY(-1px); }
+.hb-letter.active { background: var(--gold); color: #14171d; border-color: var(--gold); }
+.hb-letter.active .hb-letter-n { background: rgba(20,23,29,.25); color: #14171d; }
+.hb-letter.disabled, .hb-letter:disabled { opacity: .25; cursor: not-allowed; }
+.hb-letter-n { position: absolute; top: -5px; right: -5px; min-width: 16px; height: 14px; padding: 0 3px; background: var(--teal); color: var(--bg1); border-radius: 7px; font-size: 8px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
+
+.hb-list { padding: 14px 18px; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; max-height: 380px; overflow-y: auto; }
+.hb-list::-webkit-scrollbar { width: 8px; }
+.hb-list::-webkit-scrollbar-track { background: var(--bg2); }
+.hb-list::-webkit-scrollbar-thumb { background: var(--border-md); border-radius: 4px; }
+.hb-list::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+.hb-item { background: var(--bg2); border: 1px solid var(--border); border-left: 3px solid var(--teal); border-radius: 6px; padding: 10px 12px; cursor: pointer; transition: all .15s ease; text-align: left; display: flex; flex-direction: column; gap: 3px; font-family: var(--font-sans); }
+.hb-item:hover { background: var(--bg3); border-left-color: var(--gold); transform: translateX(2px); box-shadow: 0 2px 8px rgba(0,0,0,.2); }
+.hb-item-name { font-size: 13px; color: var(--text); font-weight: 500; }
+.hb-item:hover .hb-item-name { color: var(--gold); }
+.hb-item-sci { font-size: 10.5px; color: var(--text-faint); font-style: italic; }
+.hb-empty { grid-column: 1/-1; padding: 40px 20px; text-align: center; color: var(--text-faint); font-size: 13px; font-style: italic; }

@@ -740,6 +740,107 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeGenePanel();
 });
 
+
+// ══ NAVEGADOR ALFABETICO DE HIERBAS A-Z ══════════════════════════════════════
+let HERBS_INDEX = null;
+let HERBS_CURRENT_LETTER = null;
+
+async function loadHerbsIndex() {
+  if (HERBS_INDEX) return HERBS_INDEX;
+  try {
+    const r = await fetch(API_URL + '/api/herbs-index');
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    HERBS_INDEX = await r.json();
+    return HERBS_INDEX;
+  } catch (e) {
+    console.error('herbs-index error:', e);
+    return null;
+  }
+}
+
+async function initHerbBrowser() {
+  const lettersBox = document.getElementById('hb-letters');
+  const countBox = document.getElementById('hb-count');
+  if (!lettersBox || lettersBox.children.length) return;
+  countBox.textContent = 'Cargando…';
+
+  const data = await loadHerbsIndex();
+  if (!data || !data.letters) {
+    countBox.textContent = 'Error al cargar';
+    return;
+  }
+
+  const ALL = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  let html = '';
+  ALL.forEach(function(L) {
+    const available = data.letters.indexOf(L) !== -1;
+    const count = available ? (data.by_letter[L] || []).length : 0;
+    html += '<button class="hb-letter' + (available ? '' : ' disabled') + '" ' +
+            (available ? 'onclick="selectHerbLetter(\'' + L + '\')"' : 'disabled') + '>' +
+            L + (available ? '<span class="hb-letter-n">' + count + '</span>' : '') +
+            '</button>';
+  });
+  if (data.letters.indexOf('#') !== -1) {
+    const count = (data.by_letter['#'] || []).length;
+    html += '<button class="hb-letter" onclick="selectHerbLetter(\'#\')">#<span class="hb-letter-n">' + count + '</span></button>';
+  }
+  lettersBox.innerHTML = html;
+  countBox.textContent = data.total + ' hierbas disponibles';
+
+  // Auto-select first available letter
+  if (data.letters.length) selectHerbLetter(data.letters[0]);
+}
+
+function selectHerbLetter(letter) {
+  HERBS_CURRENT_LETTER = letter;
+  document.querySelectorAll('.hb-letter').forEach(function(b) {
+    b.classList.toggle('active', b.textContent.replace(/\d+/g, '').trim() === letter);
+  });
+  renderHerbList(letter, document.getElementById('hb-filter').value);
+}
+
+function renderHerbList(letter, filter) {
+  const list = document.getElementById('hb-list');
+  if (!HERBS_INDEX || !letter) return;
+  let herbs = HERBS_INDEX.by_letter[letter] || [];
+  filter = (filter || '').trim().toLowerCase();
+  if (filter) {
+    herbs = herbs.filter(function(h) {
+      return (h.name || '').toLowerCase().indexOf(filter) !== -1 ||
+             (h.scientific_name || '').toLowerCase().indexOf(filter) !== -1;
+    });
+  }
+  if (!herbs.length) {
+    list.innerHTML = '<div class="hb-empty">' + (filter ? 'Ninguna hierba con "' + filter + '"' : 'Sin resultados') + '</div>';
+    return;
+  }
+  list.innerHTML = herbs.map(function(h) {
+    const sci = h.scientific_name ? '<span class="hb-item-sci">' + h.scientific_name + '</span>' : '';
+    return '<button class="hb-item" onclick="pickHerb(\'' + (h.slug || '').replace(/\W/g,'') + '\', \'' + (h.name || '').replace(/\'/g, "\\'") + '\')">' +
+           '<span class="hb-item-name">' + h.name + '</span>' + sci + '</button>';
+  }).join('');
+}
+
+function filterHerbsLetter() {
+  if (!HERBS_CURRENT_LETTER) return;
+  renderHerbList(HERBS_CURRENT_LETTER, document.getElementById('hb-filter').value);
+}
+
+function pickHerb(slug, name) {
+  document.getElementById('nutrient-input').value = name;
+  runNutrient();
+}
+
+// Inicializar el navegador la primera vez que el usuario entra al modulo nutrient
+(function hookSwitchView() {
+  if (typeof switchView !== 'function') { setTimeout(hookSwitchView, 50); return; }
+  const _orig = switchView;
+  window.switchView = function(name) {
+    _orig(name);
+    if (name === 'nutrient') initHerbBrowser();
+  };
+})();
+
 // Stubs de compatibilidad
 function fmt(cmd) { document.execCommand(cmd); }
 function switchPanel(name) {
