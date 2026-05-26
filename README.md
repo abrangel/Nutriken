@@ -239,10 +239,12 @@ export SUPABASE_KEY="sb_publishable_xxxxxxxxxxxx"
 # 4. Launch the server
 python nutriken_engine.py
 # → http://localhost:7860
-Deploy to Hugging Face Spaces
+```
+
+### Deploy to Hugging Face Spaces
 The included Dockerfile works out-of-the-box. Just create a Docker Space, connect this repo, and publish:
 
-dockerfile
+```dockerfile
 FROM python:3.11-slim
 WORKDIR /app
 COPY requirements.txt ./
@@ -250,15 +252,21 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY nutriken_engine.py index.html script.js style.css ./
 EXPOSE 7860
 CMD ["python", "nutriken_engine.py"]
-🔌 API
-POST /api/clinical
+```
+---
+
+##🔌 API
+
+### POST /api/clinical
 Analyzes a clinical condition in natural language (Spanish or English).
 
-json
+```json
 { "query": "obesity" }
+```
+
 Response:
 
-json
+```json
 {
   "condition": "Obesity",
   "description": "**Clinical overview.** Obesity is a chronic disease...",
@@ -269,136 +277,166 @@ json
   "food_alerts": [...],
   "references": [/* 6 PubMed refs */]
 }
-POST /api/gene
+```
+
+### POST /api/gene
 Genomic analysis (one or more comma-separated genes).
 
-json
+```json
 { "genes": ["MTHFR", "VDR", "FTO"] }
-POST /api/nutrient
+```
+
+### POST /api/nutrient
 Complete profile of a supplement or herb.
 
-json
+```json
 { "nutrient": "berberine" }
-GET /api/herbs-index
+```
+
+### GET /api/herbs-index
 Returns the 307 herbs grouped alphabetically. Cached for 30 minutes.
 
-json
+```json
 {
   "total": 307,
   "letters": ["A", "B", "C", ..., "Z", "#"],
   "by_letter": { "A": [{"slug": "acai-berry", "name": "Acai Berry", ...}, ...] }
 }
-POST /api/report-pdf
+```
+
+### POST /api/report-pdf
 Generates an A4 clinical PDF from the result of any previous endpoint.
 
-json
+```json
 {
   "data": { /* full response from /api/clinical */ },
   "report_id": "NK-ABC123",
   "date": "May 22, 2026"
 }
+```
+
 Response: application/pdf (multi-page, Vancouver bibliography).
 
-GET /api/stats
+### GET /api/stats
 Real-time usage statistics.
 
-GET /health
+### GET /health
 Health check for monitoring.
 
-🗄️ Databases
-Supabase — msk_herbs table (307 rows in Spanish)
-Column	Type	Description
-slug	TEXT (PK)	URL-friendly identifier (green-tea, milk-thistle…)
-name	TEXT	Common name
-scientific_name	TEXT	Scientific name (binomial)
-common_names	JSONB	List of alternative names
-what_is_it	TEXT	Patient-friendly description
-clinical_summary	TEXT	Technical clinical summary
-mechanism_of_action	TEXT	Molecular mechanism of action
-purported_uses	JSONB	Supported clinical uses
-benefits	JSONB	Potential benefits (patient language)
-dosage	TEXT	Studied doses
-adverse_reactions	TEXT	Adverse reactions
-contraindications	TEXT	Contraindications
-drug_interactions	JSONB	List of herb–drug interactions
-food_interactions	JSONB	Food interactions
-side_effects	JSONB	Side effects
-warnings	JSONB	Critical warnings
-url	TEXT	Link to original MSK monograph
-Full schema is in supabase_schema.sql.
+---
 
-Local SQLite cache (nutriken.db)
-herb_cache — cached MSK responses
+## 🗄️ Databases
+### Supabase — msk_herbs table (307 rows in Spanish)
 
-gene_cache — cached NCBI/Ensembl records
+| Column | Type | Description |
+|---|---|---|
+| `slug` | TEXT (PK) | URL-friendly identifier (`green-tea`, `milk-thistle`…) |
+| `name` | TEXT | Common name |
+| `scientific_name` | TEXT | Scientific name (binomial) |
+| `common_names` | JSONB | List of alternative names |
+| `what_is_it` | TEXT | Description for patients |
+| `clinical_summary` | TEXT | Technical clinical summary |
+| `mechanism_of_action` | TEXT | Molecular mechanism of action |
+| `purported_uses` | JSONB | Supported clinical uses |
+| `benefits` | JSONB | Potential benefits (patient language) |
+| `dosage` | TEXT | Studied doses |
+| `adverse_reactions` | TEXT | Adverse reactions |
+| `contraindications` | TEXT | Contraindications |
+| `drug_interactions` | JSONB | List of herb–drug interactions |
+| `food_interactions` | JSONB | Food interactions |
+| `side_effects` | JSONB | Side effects |
+| `warnings` | JSONB | Critical warnings |
+| `url` | TEXT | Link to original MSK monograph |
 
-query_log — query audit log
+The full schema is in [`supabase_schema.sql`](supabase_schema.sql).
 
-🎯 Clinical Use Examples
-Scenario	NutriKen Output
-Patient with obesity loses 2 kg/week	Automatic alert: rapid loss → risk of gallstones. Suggests prophylactic UDCA 300–600 mg/day.
-Patient takes atorvastatin and drinks grapefruit juice	Critical alert: CYP3A4 inhibition → AUC × 2.5 → risk of myopathy/rhabdomyolysis. Suggests switching to rosuvastatin or pravastatin.
-Patient with diabetes starts berberine	Alert: additive effect with metformin/insulin → risk of hypoglycemia. Monitor capillary glucose.
-Patient with MTHFR C677T heterozygous	Suggests L-methylfolate (active form) instead of standard folic acid. Pair with B12.
-Strict vegan on metformin	Alert: frequent B12 deficiency. Recommends cyanocobalamin 1000 µg/day oral.
-Pre-bariatric surgery patient	Prophylactic UDCA 300–600 mg/day during rapid loss phase. Baseline micronutrient supplementation.
-📊 Current Engine Capabilities
-text
+### Local SQLite cache (`nutriken.db`)
+- `herb_cache` — cached MSK responses
+- `gene_cache` — cached NCBI/Ensembl records
+- `query_log` — query audit log
+
+---
+
+## 🎯 Clinical Use Examples
+
+| Scenario | NutriKen Output |
+|---|---|
+| **Patient with obesity loses 2 kg/week** | Automatic alert: rapid loss → risk of gallstones. Suggests prophylactic UDCA 300-600 mg/day. |
+| **Patient takes atorvastatin and drinks grapefruit juice** | Critical alert: CYP3A4 inhibition → AUC × 2.5 → risk of myopathy/rhabdomyolysis. Suggests switching to rosuvastatin or pravastatin. |
+| **Patient with diabetes starts berberine** | Alert: additive effect with metformin/insulin → risk of hypoglycemia. Monitor capillary glucose. |
+| **Patient with MTHFR C677T heterozygous** | Suggests L-methylfolate (active form) instead of standard folic acid. Pair with B12. |
+| **Strict vegan on metformin** | Alert: frequent B12 deficiency. Recommends cyanocobalamin 1000 µg/day oral. |
+| **Pre-bariatric surgery patient** | Prophylactic UDCA 300-600 mg/day during rapid loss phase. Baseline micronutrient supplementation. |
+
+---
+
+## 📊 Current Engine Capabilities
 ┌─────────────────────────────────────────────────┐
-│  18 clinical conditions with extensive analysis │
-│  307 herbs indexed in Spanish                   │
-│  100+ genes with verified ENSG                  │
-│  592 herb–drug interactions (EMA/HMPC)          │
-│  1,642 gene–chemical relationships (PharmGKB)   │
-│  Live access to NCBI, Ensembl, KEGG, PubMed     │
+│ 18 clinical conditions with extensive analysis  │
+│ 307 herbs indexed in Spanish                    │
+│ 100+ genes with verified ENSG                   │
+│ 592 herb–drug interactions (EMA/HMPC)           │
+│ 1,642 gene–chemical relationships (PharmGKB)    │
+│ Live access to NCBI, Ensembl, KEGG, PubMed      │
 └─────────────────────────────────────────────────┘
-Clinical Conditions with Deep Analysis
-Obesity · Weight loss · Triglycerides · Cholesterol · Atorvastatin/Statins · Silymarin · Fatty liver · Inflammation · Hypertension · Diabetes · Gallstones · Gut microbiota · Lactose intolerance · Celiac disease · Vitamin D deficiency · Folate deficiency (MTHFR) · B12 deficiency
 
-👨‍⚕️ Author
-<table> <tr> <td valign="top">
-César Manzo
+text
+
+### Clinical Conditions with Deep Analysis
+
+`Obesity` · `Weight loss` · `Triglycerides` · `Cholesterol` · `Atorvastatin/Statins` · `Silymarin` · `Fatty liver` · `Inflammation` · `Hypertension` · `Diabetes` · `Gallstones` · `Gut microbiota` · `Lactose intolerance` · `Celiac disease` · `Vitamin D deficiency` · `Folate deficiency (MTHFR)` · `B12 deficiency`
+
+---
+
+## 👨‍⚕️ Author
+
+<table>
+<tr>
+<td valign="top">
+
+**César Manzo**
 Creator and lead architect of Kenryu and NutriKen
 
-🏥 Clinical bioinformatics
+- 🏥 Clinical bioinformatics
+- 🧬 Applied nutritional genomics
+- 💊 Nutritional pharmacology
+- 📊 Professional clinical interfaces
 
-🧬 Applied nutritional genomics
+</td>
+<td valign="top">
 
-💊 Nutritional pharmacology
+**Connected to the Kenryu project**
+- Same development team
+- Same visual identity (gold/teal · dark mode · A4 editor)
+- Same philosophy: accessible bioinformatics for professionals without advanced technical training
 
-📊 Professional clinical interfaces
+</td>
+</tr>
+</table>
 
-</td> <td valign="top">
-Connected to the Kenryu project
+---
 
-Same development team
+## 📜 License
 
-Same visual identity (gold/teal · dark mode · A4 editor)
+This project is available under the **MIT License** for academic and research use. For clinical production use, please consult the author.
 
-Same philosophy: accessible bioinformatics for professionals without advanced technical training
+**Medical disclaimer:** NutriKen is a clinical decision support tool. It does not replace professional judgment or individual patient evaluation. The evidence shown comes from public sources (MSK, NCBI, PubMed) and must be verified by the healthcare professional before any intervention.
 
-</td> </tr> </table>
-📜 License
-This project is available under the MIT License for academic and research use. For clinical production use, please consult the author.
+---
 
-Medical disclaimer: NutriKen is a clinical decision support tool. It does not replace professional judgment or individual patient evaluation. The evidence shown comes from public sources (MSK, NCBI, PubMed) and must be verified by the healthcare professional before any intervention.
+## 🤝 Contributing
 
-🤝 Contributing
 Contributions are welcome, especially in:
 
-Translations of additional MSK monographs
-
-Clinical validation of condition descriptions
-
-New drug interactions documented in literature
-
-UI/UX improvements
-
-Backend performance optimizations
+- **Translations** of additional MSK monographs
+- **Clinical validation** of condition descriptions
+- **New drug interactions** documented in literature
+- **UI/UX improvements**
+- **Backend performance optimizations**
 
 To contribute:
 
-bash
+```bash
 1. Fork the repo
 2. Create a feature branch: git checkout -b feature/my-improvement
 3. Commit: git commit -m "feat: clear description"
@@ -408,4 +446,4 @@ bash
 <sub>Built with clinical care and bioinformatic curiosity · Cesar Manzo · 2026</sub>
 
 
-<a href="https://abrangel.github.io/Nutriken/"> <img src="https://img.shields.io/badge/▶_LIVE_DEMO-c8a96e?style=for-the-badge&logoColor=white" alt="Live demo"/> </a></div> ```
+<a href="https://abrangel.github.io/Nutriken/"> <img src="https://img.shields.io/badge/▶_OPEN_LIVE_DEMO-c8a96e?style=for-the-badge&logoColor=white" alt="Live demo"/> </a></div> ```
