@@ -371,6 +371,8 @@ The full schema is in [`supabase_schema.sql`](supabase_schema.sql).
 ---
 
 ## 📊 Current Engine Capabilities
+
+```
 ┌─────────────────────────────────────────────────┐
 │ 18 clinical conditions with extensive analysis  │
 │ 307 herbs indexed in Spanish                    │
@@ -379,8 +381,7 @@ The full schema is in [`supabase_schema.sql`](supabase_schema.sql).
 │ 1,642 gene–chemical relationships (PharmGKB)    │
 │ Live access to NCBI, Ensembl, KEGG, PubMed      │
 └─────────────────────────────────────────────────┘
-
-text
+```
 
 ### Clinical Conditions with Deep Analysis
 
@@ -442,8 +443,18 @@ To contribute:
 3. Commit: git commit -m "feat: clear description"
 4. Push: git push origin feature/my-improvement
 5. Open a Pull Request
+```
+
+```
 <div align="center">
 <sub>Built with clinical care and bioinformatic curiosity · Cesar Manzo · 2026</sub>
 
+<br/>
 
-<a href="https://abrangel.github.io/Nutriken/"> <img src="https://img.shields.io/badge/▶_OPEN_LIVE_DEMO-c8a96e?style=for-the-badge&logoColor=white" alt="Live demo"/> </a></div> ```
+<a href="https://abrangel.github.io/Nutriken/">
+  <img src="https://img.shields.io/badge/▶_OPEN_LIVE_DEMO-c8a96e?style=for-the-badge&logoColor=white" alt="Live demo"/>
+</a>
+
+</div>
+
+
