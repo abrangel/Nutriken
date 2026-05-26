@@ -445,7 +445,7 @@ To contribute:
 5. Open a Pull Request
 ```
 
-```
+---
 <div align="center">
 <sub>Built with clinical care and bioinformatic curiosity · Cesar Manzo · 2026</sub>
 
