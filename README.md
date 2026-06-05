@@ -116,6 +116,15 @@ Unlike generic web search engines, NutriKen delivers:
   </tr>
 </table>
 
+#### 🧬 Real-World Genomic Analysis Scenario (Genomics vs. Variant-Level)
+The clinical engine resolves both broad phenotypic natural language terms and specific Single Nucleotide Polymorphisms (SNPs) synchronously, mapping the entire biological cascade without hardcoded limits:
+
+* **User Input:** `rs9939609` (The high-risk genetic variant for adiposity)
+* **Dynamic Locus Resolution:** Automatically maps to FTO (Chr16 · ENSG00000140718)
+* **Polygenic Network Expansion:** Interrogates co-expression and triggers cascading parallel lookups for interacting nodes: MC4R, LEP, LEPR, and PPARG.
+* **Functional Annotation:** Integrates directly with KEGG Pathway hsa04920 (Adipocytokine signaling pathway - Homo sapiens).
+* **Clinical Output:** Generates targeted MSK-backed supplement evidence with quantified effect magnitudes and custom multi-page A4 print layout.
+
 ### 🎨 Professional Design
 
 - **Dark theme** with gold (#C8A96E) and teal (#4FC3A1) accents — palette inspired by premium medical interfaces
