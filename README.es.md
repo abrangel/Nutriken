@@ -123,7 +123,15 @@ NutriKen está diseñado para la educación clínica y el apoyo a la toma de dec
 - **Responsive grid** y scroll dorado visible
 
 ---
+#### 🧬 Escenario de análisis genómico en el mundo real (Genómica frente a nivel de variante)
+El motor clínico resuelve simultáneamente tanto términos fenotípicos generales expresados ​​en lenguaje natural como polimorfismos de nucleótido único (SNP) específicos, mapeando toda la cascada biológica sin limitaciones preprogramadas:
 
+* **Entrada del usuario:** `rs9939609` (Variante genética de alto riesgo asociada a la adiposidad).
+* **Resolución dinámica del locus:** Mapeo automático al gen FTO (Cromosoma 16 · ENSG00000140718).
+* **Expansión de la red poligénica:** Analiza la coexpresión y activa búsquedas paralelas en cascada para los nodos interactuantes: MC4R, LEP, LEPR y PPARG.
+* **Anotación funcional:** Integración directa con la ruta KEGG hsa04920 (Vía de señalización de adipocitoquinas - *Homo sapiens*).
+* **Resultado clínico:** Generación de evidencia específica sobre suplementos (respaldada por datos musculoesqueléticos/MSK) con magnitudes de efecto cuantificadas y un diseño de impresión personalizado en formato A4 de varias páginas.
+  
 ## 🏗️ Arquitectura
 
 ```
