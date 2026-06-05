@@ -40,7 +40,11 @@
 </div>
 
 ---
+## ⚠️ Medical Disclaimer & Safety Note
+NutriKen is intended for clinical education and decision support. It does not replace professional medical judgment, individualized patient evaluation, local clinical guidelines, or review by a qualified healthcare professional. The evidence shown by the system is sourced from public databases (MSKCC, NCBI, PubMed) and must be rigorously verified by the clinician before any therapeutic or nutritional intervention. 
 
+* **Data Privacy:** The platform operates as a decision-support utility and does not store or process patient-identifiable information (PII) or protected health information (PHI).
+* **Infrastructure Note:** Hosted on Hugging Face Spaces.
 ## 📋 Overview
 
 **NutriKen** is a clinical nutritional bioinformatics platform designed for nutritionists, physicians, clinical pharmacists, and health educators. It integrates **clinical evidence from Memorial Sloan Kettering Cancer Center (MSK)**, **NCBI Gene**, **Ensembl**, **KEGG Pathway**, and **PubMed/PMC** into a single engine that generates professional reports regarding the relationship between supplements, drugs, genes, and clinical conditions.
