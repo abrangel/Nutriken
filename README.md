@@ -1,7 +1,7 @@
 <div align="center">
 
 <p align="center">
-  <a href="README.es.md">🇪🇸 Leer en Español</a> | 🇬🇧 <b>Read in English</b>
+  <a href="README.es.md">🇪🇸 Leer en Español</a> &nbsp;|&nbsp; 🇬🇧 <b>Read in English</b>
 </p>
 
 <img src="https://capsule-render.vercel.app/api?type=waving&height=200&color=0:1a1d24,50:c8a96e,100:1a1d24&text=NUTRIKEN&fontColor=ffffff&fontSize=80&fontAlignY=40&desc=Clinical%20Nutritional%20Bioinformatics%20Platform&descAlignY=68&descSize=18&animation=fadeIn" alt="NutriKen banner" width="100%"/>
@@ -11,22 +11,35 @@
   <em>Genomic Analysis · MSK Evidence · Pharmacological Interactions · Professional Clinical Reports</em>
 </p>
 
+<!-- ACTION BADGES -->
 <p align="center">
-  <a href="https://kenryu007-nutriken.hf.space"><img src="https://img.shields.io/badge/Demo-Hugging%20Face%20Space-c8a96e?style=for-the-badge&logo=huggingface&logoColor=white" alt="Demo"/></a>
-  <a href="#%EF%B8%8F-tech-stack"><img src="https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/></a>
-  <a href="#%EF%B8%8F-tech-stack"><img src="https://img.shields.io/badge/FastAPI-0.109-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI"/></a>
-  <a href="https://supabase.com"><img src="https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase"/></a>
+  <a href="https://kenryu007-nutriken.hf.space" target="_blank">
+    <img src="https://img.shields.io/badge/%F0%9F%A4%97%20Live%20Demo-Hugging%20Face-c8a96e?style=for-the-badge" alt="Demo"/>
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://www.bestpractices.dev/projects/13117" target="_blank">
+    <img src="https://www.bestpractices.dev/projects/13117/badge" alt="OpenSSF Best Practices" />
+  </a>
 </p>
 
+<!-- TECH BADGES -->
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&logo=python&logoColor=white&labelColor=1a1d24"/>
+  <img src="https://img.shields.io/badge/FastAPI-0.109-009688?style=flat-square&logo=fastapi&logoColor=white&labelColor=1a1d24"/>
+  <img src="https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?style=flat-square&logo=supabase&logoColor=white&labelColor=1a1d24"/>
+  <img src="https://img.shields.io/badge/License-MIT-brightgreen?style=flat-square&labelColor=1a1d24"/>
+</p>
+
+<!-- DATA METRICS -->
 <p align="center">
   <img src="https://img.shields.io/badge/indexed%20herbs-307-c8a96e?style=flat-square&labelColor=1a1d24" alt="307 herbs"/>
   <img src="https://img.shields.io/badge/clinical%20conditions-18-4fc3a1?style=flat-square&labelColor=1a1d24" alt="18 conditions"/>
   <img src="https://img.shields.io/badge/indexed%20genes-100%2B-6eaadc?style=flat-square&labelColor=1a1d24" alt="100+ genes"/>
   <img src="https://img.shields.io/badge/herb--drug%20interactions-592-f5a623?style=flat-square&labelColor=1a1d24" alt="592 interactions"/>
   <img src="https://img.shields.io/badge/gene--chemical%20relations-1642-c8a96e?style=flat-square&labelColor=1a1d24" alt="1642 relations"/>
-  <img src="https://img.shields.io/badge/language-English-005b9f?style=flat-square&labelColor=1a1d24" alt="English"/>
 </p>
 
+<!-- NAVIGATION -->
 <p align="center">
   <a href="#-overview"><b>Overview</b></a> ·
   <a href="#-key-features"><b>Features</b></a> ·
@@ -38,7 +51,6 @@
 </p>
 
 </div>
-<img width="191" height="20" alt="image" src="https://github.com/user-attachments/assets/9719c4e3-563b-46a2-9c1f-3d2dc48e253b" />
 
 ---
 ## ⚠️ Medical Disclaimer & Safety Note
