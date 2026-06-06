@@ -38,6 +38,7 @@
 </p>
 
 </div>
+<img width="191" height="20" alt="image" src="https://github.com/user-attachments/assets/9719c4e3-563b-46a2-9c1f-3d2dc48e253b" />
 
 ---
 ## ⚠️ Medical Disclaimer & Safety Note
