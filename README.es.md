@@ -55,8 +55,9 @@ A diferencia de buscadores web genéricos, NutriKen entrega:
 ## ⚠️ Descargo de responsabilidad médica y nota de seguridad
 NutriKen está diseñado para la educación clínica y el apoyo a la toma de decisiones. No sustituye el criterio médico profesional, la evaluación individualizada del paciente, las guías clínicas locales ni la revisión por parte de un profesional de la salud cualificado. La evidencia presentada por el sistema proviene de bases de datos públicas (MSKCC, NCBI, PubMed) y debe ser verificada rigurosamente por el clínico antes de cualquier intervención terapéutica o nutricional.
 
+* **Estado normativo:** NutriKen es exclusivamente para **uso en investigación (RUO)**. No está destinado a procedimientos diagnósticos ni terapéuticos.
 * **Privacidad de datos:** La plataforma funciona como una herramienta de apoyo a la toma de decisiones y no almacena ni procesa información de identificación personal (PII) ni información de salud protegida (PHI).
-* **Nota sobre la infraestructura:** Alojado en Hugging Face Spaces.
+* **Nota sobre la infraestructura:** Implementado y alojado en Hugging Face Spaces.
   
 ## ✨ Características principales
 
