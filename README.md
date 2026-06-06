@@ -17,6 +17,10 @@
     <img src="https://img.shields.io/badge/%F0%9F%A4%97%20Live%20Demo-Hugging%20Face-c8a96e?style=for-the-badge" alt="Demo"/>
   </a>
   &nbsp;&nbsp;
+  <a href="https://doi.org/10.5281/zenodo.20565257" target="_blank">
+    <img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20565257-blue?style=for-the-badge" alt="DOI" />
+  </a>
+  &nbsp;&nbsp;
   <a href="https://www.bestpractices.dev/projects/13117" target="_blank">
     <img src="https://www.bestpractices.dev/projects/13117/badge" alt="OpenSSF Best Practices" />
   </a>
