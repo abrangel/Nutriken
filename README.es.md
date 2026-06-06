@@ -1,5 +1,9 @@
 <div align="center">
 
+<p align="center">
+  <b>🇪🇸 Leer en Español</b> &nbsp;|&nbsp; <a href="README.md">🇬🇧 Read in English</a>
+</p>
+
 <img src="https://capsule-render.vercel.app/api?type=waving&height=200&color=0:1a1d24,50:c8a96e,100:1a1d24&text=NUTRIKEN&fontColor=ffffff&fontSize=80&fontAlignY=40&desc=Plataforma%20Bioinform%C3%A1tica%20Nutricional&descAlignY=68&descSize=18&animation=fadeIn" alt="NutriKen banner" width="100%"/>
 
 <p align="center">
@@ -7,13 +11,30 @@
   <em>Análisis genómico · Evidencia MSK · Interacciones farmacológicas · Informes clínicos profesionales</em>
 </p>
 
+<!-- BOTONES DE ACCIÓN -->
 <p align="center">
-  <a href="https://kenryu007-nutriken.hf.space"><img src="https://img.shields.io/badge/Demo-Hugging%20Face%20Space-c8a96e?style=for-the-badge&logo=huggingface&logoColor=white" alt="Demo"/></a>
-  <a href="#-stack-tecnol%C3%B3gico"><img src="https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/></a>
-  <a href="#-stack-tecnol%C3%B3gico"><img src="https://img.shields.io/badge/FastAPI-0.109-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI"/></a>
-  <a href="https://supabase.com"><img src="https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase"/></a>
+  <a href="https://kenryu007-nutriken.hf.space" target="_blank">
+    <img src="https://img.shields.io/badge/%F0%9F%A4%97%20Demo%20En%20Vivo-Hugging%20Face-c8a96e?style=for-the-badge" alt="Demo"/>
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://doi.org/10.5281/zenodo.20565257" target="_blank">
+    <img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20565257-blue?style=for-the-badge" alt="DOI" />
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://www.bestpractices.dev/projects/13117" target="_blank">
+    <img src="https://www.bestpractices.dev/projects/13117/badge" alt="OpenSSF Best Practices" />
+  </a>
 </p>
 
+<!-- MEDALLAS TECNOLÓGICAS -->
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&logo=python&logoColor=white&labelColor=1a1d24"/>
+  <img src="https://img.shields.io/badge/FastAPI-0.109-009688?style=flat-square&logo=fastapi&logoColor=white&labelColor=1a1d24"/>
+  <img src="https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?style=flat-square&logo=supabase&logoColor=white&labelColor=1a1d24"/>
+  <img src="https://img.shields.io/badge/Licencia-MIT-brightgreen?style=flat-square&labelColor=1a1d24"/>
+</p>
+
+<!-- MÉTRICAS DE LA PLATAFORMA -->
 <p align="center">
   <img src="https://img.shields.io/badge/hierbas%20indexadas-307-c8a96e?style=flat-square&labelColor=1a1d24" alt="307 hierbas"/>
   <img src="https://img.shields.io/badge/condiciones%20cl%C3%ADnicas-18-4fc3a1?style=flat-square&labelColor=1a1d24" alt="18 condiciones"/>
@@ -23,6 +44,7 @@
   <img src="https://img.shields.io/badge/idioma-Espa%C3%B1ol-e63946?style=flat-square&labelColor=1a1d24" alt="Español"/>
 </p>
 
+<!-- MENÚ DE NAVEGACIÓN -->
 <p align="center">
   <a href="#-resumen"><b>Resumen</b></a> ·
   <a href="#-caracter%C3%ADsticas-principales"><b>Características</b></a> ·
