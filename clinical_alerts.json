@@ -1,0 +1,9 @@
+{
+  "interaction_alert": {
+    "compound_1": "Ginkgo Biloba",
+    "compound_2": "Warfarin",
+    "mechanism": "Ginkgo Biloba extract inhibits Cytochrome P450 2C9 (CYP2C9) and acts as a Platelet-Activating Factor (PAF) antagonist. When combined with Warfarin, it significantly prolongs INR and increases hemorrhagic risk.",
+    "patient_narrative": "Do not take Ginkgo Biloba with your blood thinner (Warfarin). Ginkgo changes how your blood clots and can cause severe, unexpected bleeding.",
+    "source": "EMA/HMPC Guidelines"
+  }
+}
