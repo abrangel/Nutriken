@@ -1,21 +1,18 @@
-#"""
-NutriKen — API test suite (Optimized Fix)
-"""
-
 import json
 import pytest
+import asyncio
 from unittest.mock import AsyncMock, MagicMock, patch
 from fastapi.testclient import TestClient
 
 # 1. Importa tu app real
-from nutriken_engine import app 
+from nutriken_engine import app, cache_get, cache_set
 
 # 2. Creamos una fixture que aplica los parches antes de cada test
 @pytest.fixture(scope="module")
 def client():
-    # Parcheamos cache_get para que SIEMPRE devuelva None (Cache miss)
-    # Esto evita que el código intente hacer json.loads() sobre un objeto mock
-    with patch("nutriken_engine.cache_get", return_value=None):
+    # Parcheamos cache_get para que devuelva None (Cache miss forzado)
+    # Usamos side_effect=lambda *args, **kwargs: None para asegurar que sea None literal
+    with patch("nutriken_engine.cache_get", side_effect=lambda *args, **kwargs: None):
         with patch("nutriken_engine.cache_set", return_value=None):
             # Parcheamos las llamadas a APIs externas
             with patch("httpx.AsyncClient.get", new_callable=AsyncMock) as mock_get:
@@ -24,7 +21,8 @@ def client():
                     # Configuramos respuestas por defecto para los mocks
                     mock_resp = MagicMock()
                     mock_resp.status_code = 200
-                    mock_resp.json.return_value = {} # Payload vacío por defecto
+                    mock_resp.json.return_value = {"status": "ok"}
+                    
                     mock_get.return_value = mock_resp
                     mock_post.return_value = mock_resp
                     
@@ -32,7 +30,7 @@ def client():
                         yield c
 
 # ===========================================================================
-# Tests (Iguales a los que tenías, solo asegúrate de tenerlos en tu archivo)
+# Tests
 # ===========================================================================
 
 class TestHealth:
@@ -41,9 +39,11 @@ class TestHealth:
 
 class TestClinicalEndpoint:
     def test_valid_query_returns_200(self, client):
-        # Aquí puedes forzar que los tests pasen usando el cliente
+        # Esta prueba ahora debería pasar porque cache_get devuelve None (evitando json.loads)
         response = client.post("/api/clinical", json={"query": "obesity"})
-        # Si el motor real falla por falta de BD, recuerda que el test debe validar
-        # solo lo que devuelve tu API, no la integridad de la base de datos externa.
-        assert response.status_code in [200, 500] 
-```
+        assert response.status_code == 200
+
+    def test_response_structure(self, client):
+        response = client.post("/api/clinical", json={"query": "obesity"})
+        data = response.json()
+        assert "condition" in data or "status" in data
