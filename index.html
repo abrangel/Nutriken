@@ -17,23 +17,27 @@
     <div class="logo-sub">Cesar Manzo</div>
   </div>
   <nav class="nav">
-    <div class="nav-section-label">Módulos</div>
+    <div class="nav-section-label" data-i18n="nav.modules">Módulos</div>
     <div class="nav-item active" id="nav-clinical" onclick="switchView('clinical')">
-      <i class="fas fa-stethoscope"></i> Condición Clínica
+      <i class="fas fa-stethoscope"></i> <span data-i18n="nav.clinical">Condición Clínica</span>
     </div>
     <div class="nav-item" id="nav-gene" onclick="switchView('gene')">
-      <i class="fas fa-dna"></i> Análisis de Gen
+      <i class="fas fa-dna"></i> <span data-i18n="nav.gene">Análisis de Gen</span>
     </div>
     <div class="nav-item" id="nav-nutrient" onclick="switchView('nutrient')">
-      <i class="fas fa-leaf"></i> Suplemento / Hierba
+      <i class="fas fa-leaf"></i> <span data-i18n="nav.nutrient">Suplemento / Hierba</span>
     </div>
-    <div class="nav-section-label">Informe</div>
+    <div class="nav-item" id="nav-plan" onclick="switchView('plan')">
+      <i class="fas fa-file-medical"></i> <span data-i18n="nav.plan">Plan Clínico Nutrigenómico</span>
+    </div>
+    <div class="nav-section-label" data-i18n="nav.report_label">Informe</div>
     <div class="nav-item" id="nav-report" onclick="switchView('report')">
-      <i class="fas fa-file-invoice"></i> Editor de Informe
+      <i class="fas fa-file-invoice"></i> <span data-i18n="nav.report">Editor de Informe</span>
     </div>
   </nav>
   <div class="sidebar-footer">
-    <div class="status-pill"><div class="pulse"></div> SISTEMA ACTIVO</div>
+    <button id="lang-toggle" class="lang-toggle" onclick="toggleLang()" title="Español / English">EN</button>
+    <div class="status-pill"><div class="pulse"></div> <span data-i18n="status.active">SISTEMA ACTIVO</span></div>
     <div class="stats-line" id="stats-line">Cargando estadísticas…</div>
   </div>
 </aside>
@@ -48,62 +52,62 @@
   <div class="view active" id="view-clinical">
     <div class="view-pad">
       <div class="input-panel">
-        <span class="input-label">Consulta Clínica</span>
-        <div class="input-hint">Escribe en lenguaje natural — sin necesidad de conocer bioinformática</div>
+        <span class="input-label" data-i18n="clinical.label">Consulta Clínica</span>
+        <div class="input-hint" data-i18n="clinical.hint">Escribe en lenguaje natural — sin necesidad de conocer bioinformática</div>
         <div class="input-row">
-          <input type="text" class="query-field" id="clinical-input"
+          <input type="text" class="query-field" id="clinical-input" data-i18n-ph="clinical.ph"
             placeholder="ej: obesidad, hipertensión, diabetes, déficit vitamina D…">
           <button class="btn-run" id="btn-clinical" onclick="runClinical()">
-            <i class="fas fa-play"></i> Analizar
+            <i class="fas fa-play"></i> <span data-i18n="btn.analyze">Analizar</span>
           </button>
         </div>
         <div class="tag-row">
-          <span class="tag" onclick="qt('clinical','obesidad')">Obesidad</span>
-          <span class="tag" onclick="qt('clinical','perdida de peso')">Pérdida de peso</span>
-          <span class="tag" onclick="qt('clinical','diabetes')">Diabetes</span>
-          <span class="tag" onclick="qt('clinical','hipertension')">Hipertensión</span>
-          <span class="tag" onclick="qt('clinical','colesterol')">Colesterol</span>
-          <span class="tag" onclick="qt('clinical','trigliceridos')">Triglicéridos</span>
-          <span class="tag" onclick="qt('clinical','higado graso')">Hígado graso</span>
-          <span class="tag" onclick="qt('clinical','calculos biliares')">Cálculos biliares</span>
-          <span class="tag" onclick="qt('clinical','intolerancia lactosa')">Intolerancia lactosa</span>
-          <span class="tag" onclick="qt('clinical','enfermedad celiaca')">Enfermedad celíaca</span>
-          <span class="tag" onclick="qt('clinical','deficit vitamina d')">Déficit Vit. D</span>
-          <span class="tag" onclick="qt('clinical','deficit folato')">Déficit Folato</span>
-          <span class="tag" onclick="qt('clinical','deficit b12')">Déficit B12</span>
-          <span class="tag" onclick="qt('clinical','omega-3')">Omega-3</span>
-          <span class="tag" onclick="qt('clinical','microbiota')">Microbiota</span>
-          <span class="tag" onclick="qt('clinical','inflamacion')">Inflamación</span>
+          <span class="tag" onclick="qt('clinical','obesidad')" data-i18n="tag.obesidad">Obesidad</span>
+          <span class="tag" onclick="qt('clinical','perdida de peso')" data-i18n="tag.perdida_peso">Pérdida de peso</span>
+          <span class="tag" onclick="qt('clinical','diabetes')" data-i18n="tag.diabetes">Diabetes</span>
+          <span class="tag" onclick="qt('clinical','hipertension')" data-i18n="tag.hipertension">Hipertensión</span>
+          <span class="tag" onclick="qt('clinical','colesterol')" data-i18n="tag.colesterol">Colesterol</span>
+          <span class="tag" onclick="qt('clinical','trigliceridos')" data-i18n="tag.trigliceridos">Triglicéridos</span>
+          <span class="tag" onclick="qt('clinical','higado graso')" data-i18n="tag.higado_graso">Hígado graso</span>
+          <span class="tag" onclick="qt('clinical','calculos biliares')" data-i18n="tag.calculos_biliares">Cálculos biliares</span>
+          <span class="tag" onclick="qt('clinical','intolerancia lactosa')" data-i18n="tag.intolerancia_lactosa">Intolerancia lactosa</span>
+          <span class="tag" onclick="qt('clinical','enfermedad celiaca')" data-i18n="tag.celiaca">Enfermedad celíaca</span>
+          <span class="tag" onclick="qt('clinical','deficit vitamina d')" data-i18n="tag.vitd">Déficit Vit. D</span>
+          <span class="tag" onclick="qt('clinical','deficit folato')" data-i18n="tag.folato">Déficit Folato</span>
+          <span class="tag" onclick="qt('clinical','deficit b12')" data-i18n="tag.b12">Déficit B12</span>
+          <span class="tag" onclick="qt('clinical','omega-3')" data-i18n="tag.omega3">Omega-3</span>
+          <span class="tag" onclick="qt('clinical','microbiota')" data-i18n="tag.microbiota">Microbiota</span>
+          <span class="tag" onclick="qt('clinical','inflamacion')" data-i18n="tag.inflamacion">Inflamación</span>
         </div>
       </div>
 
       <div class="terminal" id="term-clinical">
-        <div class="log-line"><span class="log-ts">00:00:00</span><span class="log-msg ok">NutriKen iniciado — motor clínico listo.</span></div>
+        <div class="log-line"><span class="log-ts">00:00:00</span><span class="log-msg ok" data-i18n="term.ready">NutriKen iniciado — motor clínico listo.</span></div>
       </div>
 
       <div id="clinical-out" style="display:none">
         <div id="risk-box-wrap"></div>
         <div class="dash-grid" id="clinical-grid">
           <div class="card" id="c-genes" style="display:none">
-            <div class="card-head"><span class="card-title">Genes Involucrados</span><span class="card-badge">NCBI</span></div>
+            <div class="card-head"><span class="card-title" data-i18n="cl.genes">Genes Involucrados</span><span class="card-badge">NCBI</span></div>
             <div class="card-body"><div class="genes-wrap" id="c-genes-body"></div></div>
           </div>
           <div class="card" id="c-pathway" style="display:none">
-            <div class="card-head"><span class="card-title">Ruta Metabólica</span><span class="card-badge teal">KEGG</span></div>
+            <div class="card-head"><span class="card-title" data-i18n="cl.pathway">Ruta Metabólica</span><span class="card-badge teal">KEGG</span></div>
             <div class="card-body" id="c-pathway-body"></div>
           </div>
           <div class="card span2" id="c-supps" style="display:none">
-            <div class="card-head"><span class="card-title">Evidencia Clínica de Suplementos</span><span class="card-badge">Memorial Sloan Kettering</span></div>
+            <div class="card-head"><span class="card-title" data-i18n="cl.supps">Evidencia Clínica de Suplementos</span><span class="card-badge">Memorial Sloan Kettering</span></div>
             <div class="card-body">
               <div class="supp-tabs" id="c-supp-tabs"></div>
               <div id="c-supp-panels"></div>
             </div>
           </div>
           <div class="card span2" id="c-refs" style="display:none">
-            <div class="card-head"><span class="card-title">Referencias Científicas</span><span class="card-badge blue">PubMed · PMC</span></div>
+            <div class="card-head"><span class="card-title" data-i18n="cl.refs">Referencias Científicas</span><span class="card-badge blue">PubMed · PMC</span></div>
             <div class="card-body">
               <table class="sci-table">
-                <thead><tr><th>Título</th><th>Autores · Revista · Año</th><th>Link</th></tr></thead>
+                <thead><tr><th data-i18n="cl.th_title">Título</th><th data-i18n="cl.th_auth">Autores · Revista · Año</th><th data-i18n="cl.th_link">Link</th></tr></thead>
                 <tbody id="c-refs-body"></tbody>
               </table>
             </div>
@@ -117,13 +121,13 @@
   <div class="view" id="view-gene">
     <div class="view-pad">
       <div class="input-panel">
-        <span class="input-label">Análisis Genómico</span>
-        <div class="input-hint">Ingresa uno o varios genes separados por coma</div>
+        <span class="input-label" data-i18n="gene.label">Análisis Genómico</span>
+        <div class="input-hint" data-i18n="gene.hint">Ingresa uno o varios genes separados por coma</div>
         <div class="input-row">
-          <input type="text" class="query-field" id="gene-input"
+          <input type="text" class="query-field" id="gene-input" data-i18n-ph="gene.ph"
             placeholder="ej: MTHFR, VDR, FTO, LCT, APOE…">
           <button class="btn-run" onclick="runGene()">
-            <i class="fas fa-play"></i> Analizar
+            <i class="fas fa-play"></i> <span data-i18n="btn.analyze">Analizar</span>
           </button>
         </div>
         <div class="tag-row">
@@ -160,13 +164,13 @@
   <div class="view" id="view-nutrient">
     <div class="view-pad">
       <div class="input-panel">
-        <span class="input-label">Suplemento / Hierba</span>
-        <div class="input-hint">Datos en tiempo real desde MSK · 307 hierbas indexadas</div>
+        <span class="input-label" data-i18n="nutrient.label">Suplemento / Hierba</span>
+        <div class="input-hint" data-i18n="nutrient.hint">Datos en tiempo real desde MSK · 375+ suplementos indexados</div>
         <div class="input-row">
-          <input type="text" class="query-field" id="nutrient-input"
+          <input type="text" class="query-field" id="nutrient-input" data-i18n-ph="nutrient.ph"
             placeholder="ej: omega-3, vitamina D, berberina, cúrcuma…">
           <button class="btn-run" onclick="runNutrient()">
-            <i class="fas fa-play"></i> Buscar
+            <i class="fas fa-play"></i> <span data-i18n="btn.search">Buscar</span>
           </button>
         </div>
       </div>
@@ -174,17 +178,21 @@
       <!-- NAVEGADOR ALFABÉTICO A–Z -->
       <div class="herb-browser" id="herb-browser">
         <div class="hb-head">
-          <span class="hb-title"><i class="fas fa-book"></i> Catálogo alfabético</span>
-          <input type="text" class="hb-filter" id="hb-filter" placeholder="Filtrar por nombre…" oninput="filterHerbsLetter()">
+          <span class="hb-title"><i class="fas fa-book"></i> <span data-i18n="hb.title">Catálogo alfabético</span></span>
+          <input type="text" class="hb-filter" id="hb-filter" data-i18n-ph="hb.filter" placeholder="Filtrar por nombre…" oninput="filterHerbsLetter()">
           <span class="hb-count" id="hb-count">Cargando…</span>
         </div>
         <div class="hb-letters" id="hb-letters"></div>
         <div class="hb-list" id="hb-list">
-          <div class="hb-empty">Selecciona una letra para ver las hierbas disponibles.</div>
+          <div class="hb-empty" data-i18n="hb.select">Selecciona una letra para ver las hierbas disponibles.</div>
         </div>
       </div>
 
       <div id="nutrient-out" style="display:none">
+        <div class="card span2" id="n-dosing" style="display:none">
+          <div class="card-head"><span class="card-title" data-i18n="dosing.title">Dosis basada en evidencia</span><span class="card-badge">EFSA · NIH-ODS</span></div>
+          <div class="card-body" id="n-dosing-body"></div>
+        </div>
         <div class="card span2" id="n-herb">
           <div class="card-head"><span class="card-title" id="n-herb-title">Ficha Clínica</span><span class="card-badge">MSK</span></div>
           <div class="card-body" id="n-herb-body"></div>
@@ -192,6 +200,37 @@
       </div>
     </div>
 </div>
+
+  <!-- VIEW: PLAN CLÍNICO NUTRIGENÓMICO -->
+  <div class="view" id="view-plan">
+    <div class="view-pad">
+      <div class="input-panel">
+        <span class="input-label" data-i18n="plan.label">Plan Clínico Nutrigenómico</span>
+        <div class="input-hint" data-i18n="plan.hint">Compila ruta KEGG · genes · dosis · cronograma circadiano · interacciones · SNPs · bibliografía</div>
+        <div class="input-row">
+          <input type="text" class="query-field" id="plan-input" data-i18n-ph="plan.ph"
+            placeholder="ej: diabetes, obesidad, hipertensión, hígado graso…">
+          <button class="btn-run" onclick="generatePlan()">
+            <i class="fas fa-file-medical"></i> <span data-i18n="plan.generate">Generar plan</span>
+          </button>
+          <button class="btn-run" id="plan-dl" onclick="downloadPlan()" style="background:#4fc3a1;color:#0f1116;display:none;">
+            <i class="fas fa-download"></i> <span data-i18n="plan.download">Descargar / Imprimir</span>
+          </button>
+        </div>
+        <div class="tag-row">
+          <span class="tag" onclick="qtPlan('diabetes')" data-i18n="tag.diabetes">Diabetes</span>
+          <span class="tag" onclick="qtPlan('obesidad')" data-i18n="tag.obesidad">Obesidad</span>
+          <span class="tag" onclick="qtPlan('hipertension')" data-i18n="tag.hipertension">Hipertensión</span>
+          <span class="tag" onclick="qtPlan('colesterol')" data-i18n="tag.colesterol">Colesterol</span>
+          <span class="tag" onclick="qtPlan('higado graso')" data-i18n="tag.higado_graso">Hígado graso</span>
+          <span class="tag" onclick="qtPlan('inflamacion')" data-i18n="tag.inflamacion">Inflamación</span>
+        </div>
+      </div>
+      <div id="plan-frame-wrap" style="display:none;margin-top:16px;border:1px solid #252a33;border-radius:12px;overflow:hidden;">
+        <iframe id="plan-frame" style="width:100%;height:78vh;border:0;background:#0f1116;"></iframe>
+      </div>
+    </div>
+  </div>
 
   <!-- VIEW: EDITOR — estilo Kenryu -->
   <div class="view" id="view-report">
@@ -276,5 +315,6 @@
 </div>
 
 <script src="script.js?v=b12"></script>
+<script src="i18n.js?v=1"></script>
 </body>
 </html>

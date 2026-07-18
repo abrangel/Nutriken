@@ -36,7 +36,7 @@
 
 <!-- MÉTRICAS DE LA PLATAFORMA -->
 <p align="center">
-  <img src="https://img.shields.io/badge/hierbas%20indexadas-307-c8a96e?style=flat-square&labelColor=1a1d24" alt="307 hierbas"/>
+  <img src="https://img.shields.io/badge/suplementos%20indexados-558-c8a96e?style=flat-square&labelColor=1a1d24" alt="307 hierbas"/>
   <img src="https://img.shields.io/badge/condiciones%20cl%C3%ADnicas-18-4fc3a1?style=flat-square&labelColor=1a1d24" alt="18 condiciones"/>
   <img src="https://img.shields.io/badge/genes%20indexados-100%2B-6eaadc?style=flat-square&labelColor=1a1d24" alt="100+ genes"/>
   <img src="https://img.shields.io/badge/interacciones%20farmaco--hierba-592-f5a623?style=flat-square&labelColor=1a1d24" alt="592 interacciones"/>
@@ -81,6 +81,54 @@ NutriKen está diseñado para la educación clínica y el apoyo a la toma de dec
 * **Privacidad de datos:** La plataforma funciona como una herramienta de apoyo a la toma de decisiones y no almacena ni procesa información de identificación personal (PII) ni información de salud protegida (PHI).
 * **Nota sobre la infraestructura:** Implementado y alojado en Hugging Face Spaces.
   
+## 🆕 Novedades (v2.1 — para revisión JOSS)
+
+Esta versión amplía sustancialmente el alcance académico y la trazabilidad científica
+de NutriKen. Todos los datos empaquetados provienen de fuentes abiertas/redistribuibles
+(ver [`DATA_SOURCES.md`](DATA_SOURCES.md)); las fuentes con licencia (DrugBank) se
+consultan en tiempo de ejecución con la clave del propio usuario y no se almacenan.
+
+**Nuevo: módulo Plan Clínico Nutrigenómico.** Para una condición clínica, el motor
+compila un plan completo y auto-contenido (HTML exportable) con seis pestañas:
+**cronograma** circadiano diario, **mecanismos + dosis**, **fármacos + timing
+(cronoterapia)**, **nutrigenética / SNPs**, **interacciones** y **resultados esperados**
+con **bibliografía Vancouver** numerada. Cada intervención liga su mecanismo al nodo de la
+ruta KEGG, el SNP concreto, la dosis práctica, el fundamento farmacocinético ("por qué a
+esa hora") y las contraindicaciones con fisiopatología. **15 condiciones clínicas** llevan
+overlays expertos curados (diabetes, obesidad, hipertensión, colesterol, triglicéridos,
+hígado graso, inflamación, microbiota, enfermedad celíaca, folato/déficits, pérdida de
+peso, intolerancia a la lactosa, cálculos biliares, terapia con estatinas, silimarina).
+
+**Nuevo: base de dosis basada en evidencia** (`local_db/supplement_dosing.json`) — 110
+suplementos/hierbas, bilingüe, cada uno con dosis estándar/terapéutica, forma, horario,
+límite superior, nivel de evidencia, interacciones y **seguridad/horario** (suspensión
+prequirúrgica, riesgo de sangrado, precaución en quimio, separación de fármacos),
+enriquecidos con **PMIDs de PubMed** y **CID de PubChem** reales.
+
+**Nuevo: procedencia científica de las 307 hierbas MSK** (`local_db/herbs_evidence.json`)
+— referencias reales de PubMed (288 con PMIDs) + identificadores PubChem, mostradas tanto
+en el módulo Suplemento como en la búsqueda por enfermedad.
+
+**Nuevo: índice botánico desde LOTUS (CC0)** (`local_db/botanical_index.json`) — **193
+plantas medicinales/nutricionales → 32.068 pares planta–fitoquímico** con enlaces
+SMILES/Wikidata. El catálogo indexado creció de **307 → 558** entradas.
+
+**Nuevo: base de cronoterapia de fármacos** (`local_db/drug_timing.json`) — 17 fármacos
+con horario óptimo, fundamento fisiológico y avisos (p. ej. simvastatina de noche,
+metotrexato semanal, antihipertensivo vespertino en no-dippers).
+
+**Nuevo: integración opcional con DrugBank** (`drugbank_client.py`) — en tiempo de
+ejecución con tu propio `DRUGBANK_TOKEN`; no se descarga ni se sube dato licenciado alguno
+(limpio para JOSS).
+
+**Otros:** localización completa **inglés/español** de la interfaz, el contenido clínico
+y las monografías de hierbas (el contenido de MSK se sirve en su inglés nativo al elegir
+EN); un programador interno de mantenimiento; y scripts reproducibles en `scripts/`
+(`build_dosing_db.py`, `enrich_evidence.py`, `enrich_herbs.py`, `scrape_botanical.py`,
+`build_drug_timing.py`, `build_overlays.py`).
+
+---
+
 ## ✨ Características principales
 
 ### 🔬 Cuatro módulos clínicos

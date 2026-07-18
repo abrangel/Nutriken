@@ -36,7 +36,7 @@
 
 <!-- DATA METRICS -->
 <p align="center">
-  <img src="https://img.shields.io/badge/indexed%20herbs-307-c8a96e?style=flat-square&labelColor=1a1d24" alt="307 herbs"/>
+  <img src="https://img.shields.io/badge/indexed%20supplements-558-c8a96e?style=flat-square&labelColor=1a1d24" alt="307 herbs"/>
   <img src="https://img.shields.io/badge/clinical%20conditions-18-4fc3a1?style=flat-square&labelColor=1a1d24" alt="18 conditions"/>
   <img src="https://img.shields.io/badge/indexed%20genes-100%2B-6eaadc?style=flat-square&labelColor=1a1d24" alt="100+ genes"/>
   <img src="https://img.shields.io/badge/herb--drug%20interactions-592-f5a623?style=flat-square&labelColor=1a1d24" alt="592 interactions"/>
@@ -77,6 +77,53 @@ Unlike generic web search engines, NutriKen delivers:
 - **Scientific bibliography indexed in Vancouver style**
 
 > 🌐 **Live Production Demo:** [kenryu007-nutriken.hf.space](https://kenryu007-nutriken.hf.space)
+
+---
+
+## 🆕 Recent Enhancements (v2.1 — for JOSS review)
+
+This release substantially expands the scholarly scope and scientific traceability
+of NutriKen. All bundled data comes from open/redistributable sources (see
+[`DATA_SOURCES.md`](DATA_SOURCES.md)); licensed sources (DrugBank) are queried at
+runtime with the user's own key and never stored.
+
+**New: Nutrigenomic Clinical Plan module.** For a clinical condition, the engine now
+compiles a complete, self-contained plan (exportable HTML) with six tabs: circadian
+**daily schedule**, **mechanisms + dosing**, **drugs + timing (chronotherapy)**,
+**nutrigenetics / SNPs**, **interactions**, and **expected outcomes** with a numbered
+**Vancouver bibliography**. Each intervention links its mechanism to the relevant KEGG
+pathway node, the specific SNP, practical dosing, pharmacokinetic rationale ("why at this
+time"), and pathophysiology-based contraindications. **15 clinical conditions** ship with
+expert curated overlays (diabetes, obesity, hypertension, cholesterol, triglycerides,
+fatty liver, inflammation, gut microbiota, celiac disease, folate/deficiencies, weight
+loss, lactose intolerance, gallstones, statin therapy, silymarin).
+
+**New: Evidence-based dosing database** (`local_db/supplement_dosing.json`) — 110
+supplements/herbs, bilingual, each with standard/therapeutic dose, form, timing, upper
+limit, evidence level, interactions and **safety/timing** (perioperative washout,
+bleeding risk, chemo caution, drug-separation), enriched with real **PubMed PMIDs** and
+**PubChem CIDs**.
+
+**New: scientific provenance for all 307 MSK herbs** (`local_db/herbs_evidence.json`) —
+real PubMed references (288 with PMIDs) + PubChem identifiers, surfaced both in the
+Supplement module and in the disease search.
+
+**New: botanical index from LOTUS (CC0)** (`local_db/botanical_index.json`) — **193
+medicinal/nutritional plants → 32,068 plant–phytochemical pairs** with SMILES/Wikidata
+links. The indexed catalog grew from **307 → 558** entries.
+
+**New: drug chronotherapy database** (`local_db/drug_timing.json`) — 17 drugs with
+optimal timing, physiological rationale and warnings (e.g. simvastatin at night, weekly
+methotrexate, evening antihypertensive in non-dippers).
+
+**New: optional DrugBank integration** (`drugbank_client.py`) — runtime, bring-your-own
+`DRUGBANK_TOKEN`; no licensed data is downloaded or committed (JOSS-clean).
+
+**Other:** full **English/Spanish** localization of UI, clinical content and herb
+monographs (MSK content served in its native English when EN is selected); an internal
+keep-warm scheduler; and reproducible ingestion scripts under `scripts/`
+(`build_dosing_db.py`, `enrich_evidence.py`, `enrich_herbs.py`, `scrape_botanical.py`,
+`build_drug_timing.py`, `build_overlays.py`).
 
 ---
 

@@ -7,7 +7,7 @@ const GENE_STORE = new Map();
 let geneStoreIdx = 0;
 const VIEW_TITLES = {
   clinical:'Condición Clínica', gene:'Análisis de Gen',
-  nutrient:'Suplemento / Hierba', report:'Editor de Informe'
+  nutrient:'Suplemento / Hierba', plan:'Plan Clínico Nutrigenómico', report:'Editor de Informe'
 };
 
 // ── MARKDOWN RENDERER LIGERO ──────────────────────────────────────────────────
@@ -47,6 +47,9 @@ function renderMarkdown(text) {
   return merged.join('');
 }
 
+// Helper de idioma para mensajes dinámicos del terminal
+function _LG() { return (typeof getLang === 'function') ? getLang() : 'es'; }
+
 // Helper: prefiere campo en español si existe
 function _es(obj, field) {
   if (!obj) return '';
@@ -61,7 +64,7 @@ function switchView(name) {
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('view-'+name).classList.add('active');
   document.getElementById('nav-'+name).classList.add('active');
-  document.getElementById('view-title').textContent = VIEW_TITLES[name];
+  document.getElementById('view-title').textContent = (window.VIEW_TITLES || VIEW_TITLES)[name];
   if (name === 'report' && lastResult) populateReportFull();
 }
 
@@ -166,10 +169,10 @@ async function runClinical() {
   if (!q) return;
   var btn = document.getElementById('btn-clinical');
   btn.disabled = true;
-  showLoader('Analizando...');
-  log('term-clinical', 'Consulta: "'+q+'"', 'info');
+  showLoader(_LG()==='en'?'Analyzing...':'Analizando...');
+  log('term-clinical', (_LG()==='en'?'Query: "':'Consulta: "')+q+'"', 'info');
   try {
-    var d = await post('/api/clinical', {query: q});
+    var d = await post('/api/clinical', {query: q, lang: (typeof getLang==='function'?getLang():'es')});
     lastResult = d;
     renderClinical(d);
     populateReportFull();
@@ -184,10 +187,10 @@ function renderClinical(d) {
     '<div class="md-content" style="font-size:13px;color:var(--text-dim);line-height:1.7">' + renderMarkdown(d.description || '') + '</div></div>';
 
   if (d.drug_alerts && d.drug_alerts.length) {
-    html += renderInteractionsBlock('Interacciones fármaco-suplemento', d.drug_alerts, 'drug');
+    html += renderInteractionsBlock((typeof nkT==='function'?nkT('cl.drug_ix'):'Interacciones fármaco-suplemento'), d.drug_alerts, 'drug');
   }
   if (d.food_alerts && d.food_alerts.length) {
-    html += renderInteractionsBlock('Interacciones con alimentos', d.food_alerts, 'food');
+    html += renderInteractionsBlock((typeof nkT==='function'?nkT('cl.food_ix'):'Interacciones con alimentos'), d.food_alerts, 'food');
   }
   rw.innerHTML = html;
 
@@ -199,7 +202,7 @@ function renderClinical(d) {
       '<div class="pathway-id">' + d.pathway.id + '</div>' +
       '<div class="pathway-name">' + d.pathway.name + '</div>' +
       '<p class="pathway-desc">' + (d.pathway.description||'').slice(0,400) + '...</p>' +
-      '<a class="ext-link teal" href="' + d.pathway.kegg_url + '" target="_blank">Ver en KEGG</a>' +
+      '<a class="ext-link teal" href="' + d.pathway.kegg_url + '" target="_blank">' + (typeof nkT==='function'?nkT('cl.kegg_link'):'Ver en KEGG') + '</a>' +
       '</div>';
   }
   if (d.supplements) { show('c-supps'); renderSuppTabs('c-supp-tabs','c-supp-panels', d.supplements); }
@@ -216,7 +219,7 @@ async function runGene() {
   var raw = document.getElementById('gene-input').value.trim();
   if (!raw) return;
   var genes = raw.split(',').map(function(g){ return g.trim().toUpperCase(); }).filter(Boolean);
-  showLoader('Consultando genes...');
+  showLoader(_LG()==='en'?'Querying genes...':'Consultando genes...');
   log('term-gene', 'Genes: '+genes.join(', '), 'info');
   try {
     var d = await post('/api/gene', {genes: genes});
@@ -241,13 +244,29 @@ function renderGene(d) {
 async function runNutrient() {
   var nut = document.getElementById('nutrient-input').value.trim();
   if (!nut) return;
-  showLoader('Buscando...');
-  log('term-nutrient', 'Buscando: '+nut, 'info');
+  showLoader(_LG()==='en'?'Searching...':'Buscando...');
+  log('term-nutrient', (_LG()==='en'?'Searching: ':'Buscando: ')+nut, 'info');
   try {
-    var d = await post('/api/nutrient', {nutrient: nut});
+    var d = await post('/api/nutrient', {nutrient: nut, lang: (typeof getLang==='function'?getLang():'es')});
     lastResult = d;
     renderNutrient(d);
-  } catch(e) { log('term-nutrient', 'Error: '+e.message, 'err'); }
+  } catch(e) {
+    log('term-nutrient', 'MSK: '+e.message+' — buscando dosis…', 'info');
+    // Aunque MSK no tenga ficha, mostrar la DOSIS si existe en la base local
+    try {
+      var lang = (typeof getLang==='function') ? getLang() : 'es';
+      var dz = await (await fetch(API_URL + '/api/dosing?q=' + encodeURIComponent(nut) + '&lang=' + lang)).json();
+      if (dz && dz.found) {
+        document.getElementById('nutrient-out').style.display = 'block';
+        document.getElementById('n-herb-title').textContent = (dz.dosing['name_'+lang]||dz.dosing.name||nut);
+        document.getElementById('n-herb-body').innerHTML = '';
+        renderDosing(dz.dosing);
+        log('term-nutrient', 'Dosis encontrada en base local.', 'ok');
+      } else {
+        log('term-nutrient', 'Sin ficha MSK ni dosis para: '+nut, 'err');
+      }
+    } catch(e2) { log('term-nutrient', 'Error: '+e.message, 'err'); }
+  }
   finally { hideLoader(); }
 }
 function renderNutrient(d) {
@@ -258,6 +277,13 @@ function renderNutrient(d) {
   // Asegurar que el slug y url se propagan al renderizador
   if (!h.slug && d.slug) h.slug = d.slug;
   if (!h.url && d.msk_url) h.url = d.msk_url;
+
+  // Tarjeta de DOSIS basada en evidencia (cuánto tomar realmente)
+  renderDosing(d.dosing);
+  // Evidencia científica (PubMed) para CUALQUIER hierba del catálogo (307)
+  renderHerbEvidence(d.herb_evidence, d.dosing);
+  // Fitoquímicos de la planta desde LOTUS (CC0) — escala botánica masiva
+  renderBotanical(d.botanical);
 
   // Preparar contenedores para la tarjeta detallada (reutiliza renderSuppTabs)
   var body = document.getElementById('n-herb-body');
@@ -350,9 +376,10 @@ function gradeEvidence(s) {
   const score = (cs > 1500 ? 2 : cs > 600 ? 1 : 0) +
                 (moa > 800 ? 2 : moa > 300 ? 1 : 0) +
                 (di > 8 ? 1 : 0);
-  if (score >= 4) return { label: 'Evidencia alta', tone: 'high' };
-  if (score >= 2) return { label: 'Evidencia media', tone: 'mid' };
-  return { label: 'Evidencia limitada', tone: 'low' };
+  var _lg = (typeof getLang === 'function') ? getLang() : 'es';
+  if (score >= 4) return { label: _lg==='en'?'High evidence':'Evidencia alta', tone: 'high' };
+  if (score >= 2) return { label: _lg==='en'?'Moderate evidence':'Evidencia media', tone: 'mid' };
+  return { label: _lg==='en'?'Limited evidence':'Evidencia limitada', tone: 'low' };
 }
 
 function parseInteraction(raw) {
@@ -371,6 +398,8 @@ function renderList(items, max) {
 
 function renderSuppTabs(tabsId, panelsId, supps) {
   if (!supps || !supps.length) return;
+  var _L = (typeof getLang === 'function') ? getLang() : 'es';
+  function TT(es, en) { return _L === 'en' ? en : es; }
 
   document.getElementById(tabsId).innerHTML = supps.map(function(s,i) {
     return '<div class="supp-tab' + (i===0?' active':'') + '" onclick="swSupp(\'' + tabsId + '\',\'' + panelsId + '\',' + i + ')">' + (s.name||'Sup.') + '</div>';
@@ -419,36 +448,36 @@ function renderSuppTabs(tabsId, panelsId, supps) {
     // ── Construir bloques (sólo si tienen contenido real) ──────────────────
     let patientHTML = '';
     if (whatIsIt) {
-      patientHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-info-circle"></i> ¿Qué es?</h4><p class="supp-text">' + whatIsIt + '</p></div>';
+      patientHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-info-circle"></i> ' + TT('¿Qué es?','What is it?') + '</h4><p class="supp-text">' + whatIsIt + '</p></div>';
     }
     if (benefitsClean.length) {
-      patientHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-check-circle"></i> Usos y beneficios potenciales</h4>' + renderList(benefitsClean, 12) + '</div>';
+      patientHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-check-circle"></i> ' + TT('Usos y beneficios potenciales','Potential uses and benefits') + '</h4>' + renderList(benefitsClean, 12) + '</div>';
     }
     if (sideEffClean.length) {
-      patientHTML += '<div class="supp-card-sec supp-warn"><h4 class="supp-h supp-h-warn"><i class="fas fa-exclamation-triangle"></i> Efectos secundarios</h4>' + renderList(sideEffClean, 14) + '</div>';
+      patientHTML += '<div class="supp-card-sec supp-warn"><h4 class="supp-h supp-h-warn"><i class="fas fa-exclamation-triangle"></i> ' + TT('Efectos secundarios','Side effects') + '</h4>' + renderList(sideEffClean, 14) + '</div>';
     }
     if (warningsClean.length) {
-      patientHTML += '<div class="supp-card-sec supp-warn-crit"><h4 class="supp-h supp-h-warn"><i class="fas fa-shield-alt"></i> ¿Qué más debe saber?</h4>' + renderList(warningsClean, 14) + '</div>';
+      patientHTML += '<div class="supp-card-sec supp-warn-crit"><h4 class="supp-h supp-h-warn"><i class="fas fa-shield-alt"></i> ' + TT('¿Qué más debe saber?','What else should you know?') + '</h4>' + renderList(warningsClean, 14) + '</div>';
     }
 
     let proHTML = '';
     if (summary) {
-      proHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-stethoscope"></i> Resumen clínico</h4><p class="supp-text">' + summary + '</p></div>';
+      proHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-stethoscope"></i> ' + TT('Resumen clínico','Clinical summary') + '</h4><p class="supp-text">' + summary + '</p></div>';
     }
     if (usesClean.length) {
-      proHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-flask"></i> Usos clínicos respaldados</h4>' + renderList(usesClean, 12) + '</div>';
+      proHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-flask"></i> ' + TT('Usos clínicos respaldados','Supported clinical uses') + '</h4>' + renderList(usesClean, 12) + '</div>';
     }
     if (moa) {
-      proHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-atom"></i> Mecanismo de acción</h4><p class="supp-text">' + moa + '</p></div>';
+      proHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-atom"></i> ' + TT('Mecanismo de acción','Mechanism of action') + '</h4><p class="supp-text">' + moa + '</p></div>';
     }
     if (dosage) {
-      proHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-prescription-bottle"></i> Dosis estudiadas</h4><p class="supp-text">' + dosage + '</p></div>';
+      proHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-prescription-bottle"></i> ' + TT('Dosis estudiadas','Studied doses') + '</h4><p class="supp-text">' + dosage + '</p></div>';
     }
     if (contra) {
-      proHTML += '<div class="supp-card-sec supp-warn"><h4 class="supp-h supp-h-warn"><i class="fas fa-ban"></i> Contraindicaciones</h4><p class="supp-text">' + contra + '</p></div>';
+      proHTML += '<div class="supp-card-sec supp-warn"><h4 class="supp-h supp-h-warn"><i class="fas fa-ban"></i> ' + TT('Contraindicaciones','Contraindications') + '</h4><p class="supp-text">' + contra + '</p></div>';
     }
     if (adverse) {
-      proHTML += '<div class="supp-card-sec supp-warn"><h4 class="supp-h supp-h-warn"><i class="fas fa-notes-medical"></i> Reacciones adversas</h4><p class="supp-text">' + adverse + '</p></div>';
+      proHTML += '<div class="supp-card-sec supp-warn"><h4 class="supp-h supp-h-warn"><i class="fas fa-notes-medical"></i> ' + TT('Reacciones adversas','Adverse reactions') + '</h4><p class="supp-text">' + adverse + '</p></div>';
     }
     if (drugIx.length) {
       const initialIx = drugIx.slice(0, 6);
@@ -456,19 +485,30 @@ function renderSuppTabs(tabsId, panelsId, supps) {
       const ixHTML = initialIx.map(function(ix) {
         return '<div class="supp-ix-row">' + (ix.drug ? '<span class="supp-ix-drug">' + ix.drug + '</span>' : '') + '<span class="supp-ix-detail">' + ix.detail + '</span></div>';
       }).join('');
-      const restHTML = restIx.length ? '<details class="supp-more"><summary>Ver ' + restIx.length + ' interacciones más</summary>' +
+      const restHTML = restIx.length ? '<details class="supp-more"><summary>' + TT('Ver ' + restIx.length + ' interacciones más','See ' + restIx.length + ' more interactions') + '</summary>' +
         restIx.map(function(ix) {
           return '<div class="supp-ix-row">' + (ix.drug ? '<span class="supp-ix-drug">' + ix.drug + '</span>' : '') + '<span class="supp-ix-detail">' + ix.detail + '</span></div>';
         }).join('') + '</details>' : '';
-      proHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-capsules"></i> Interacciones hierba–fármaco <span class="supp-count">(' + drugIx.length + ')</span></h4><div class="supp-ix-list">' + ixHTML + restHTML + '</div></div>';
+      proHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-capsules"></i> ' + TT('Interacciones hierba–fármaco','Herb–drug interactions') + ' <span class="supp-count">(' + drugIx.length + ')</span></h4><div class="supp-ix-list">' + ixHTML + restHTML + '</div></div>';
     }
     if (foodIxClean.length) {
-      proHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-utensils"></i> Interacciones con alimentos</h4>' + renderList(foodIxClean, 10) + '</div>';
+      proHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-utensils"></i> ' + TT('Interacciones con alimentos','Food interactions') + '</h4>' + renderList(foodIxClean, 10) + '</div>';
+    }
+    // Evidencia científica enriquecida (PubMed/PubChem) — refleja el enriquecimiento de las 307
+    var evz = s.herb_evidence;
+    if (evz && (evz.pubmed_pmids || evz.reference)) {
+      var evH = '';
+      if (evz.reference) evH += '<p class="supp-text">' + evz.reference + '</p>';
+      if (evz.pubmed_pmids && evz.pubmed_pmids.length)
+        evH += '<div style="font-size:12px;margin-top:4px;"><strong>PMID:</strong> ' +
+          evz.pubmed_pmids.slice(0,5).map(function(p){return '<a href="https://pubmed.ncbi.nlm.nih.gov/'+p+'" target="_blank" style="color:var(--teal);">'+p+'</a>';}).join(' · ') + '</div>';
+      if (evz.pubchem_cid) evH += '<div style="font-size:11px;margin-top:3px;color:var(--text-faint);">PubChem CID: <a href="https://pubchem.ncbi.nlm.nih.gov/compound/'+evz.pubchem_cid+'" target="_blank" style="color:var(--text-faint);">'+evz.pubchem_cid+'</a></div>';
+      proHTML += '<div class="supp-card-sec"><h4 class="supp-h"><i class="fas fa-book-medical"></i> ' + TT('Evidencia científica (PubMed)','Scientific evidence (PubMed)') + '</h4>' + evH + '</div>';
     }
 
     // ── Header (nombre + sci + nombres comunes + chip de evidencia) ────────
     const cnHTML = commonNames.length
-                   ? '<span class="supp-common">También: ' + commonNames.slice(0,5).join(' · ') + '</span>'
+                   ? '<span class="supp-common">' + TT('También: ','Also: ') + commonNames.slice(0,5).join(' · ') + '</span>'
                    : '';
     const sciHTML = sci ? '<span class="supp-sci">' + sci + '</span>' : '';
 
@@ -476,12 +516,12 @@ function renderSuppTabs(tabsId, panelsId, supps) {
     let sections = '';
     if (patientHTML) {
       sections += '<div class="supp-audience supp-aud-patient">' +
-                  '<div class="supp-aud-head"><i class="fas fa-user"></i> Para pacientes</div>' +
+                  '<div class="supp-aud-head"><i class="fas fa-user"></i> ' + TT('Para pacientes','For patients') + '</div>' +
                   patientHTML + '</div>';
     }
     if (proHTML) {
       sections += '<div class="supp-audience supp-aud-pro">' +
-                  '<div class="supp-aud-head"><i class="fas fa-user-md"></i> Para profesionales de la salud</div>' +
+                  '<div class="supp-aud-head"><i class="fas fa-user-md"></i> ' + TT('Para profesionales de la salud','For healthcare professionals') + '</div>' +
                   proHTML + '</div>';
     }
     if (!patientHTML && !proHTML) {
@@ -895,7 +935,7 @@ async function initHerbBrowser() {
     html += '<button class="hb-letter" onclick="selectHerbLetter(\'#\')">#<span class="hb-letter-n">' + count + '</span></button>';
   }
   lettersBox.innerHTML = html;
-  countBox.textContent = data.total + ' hierbas disponibles';
+  countBox.textContent = data.total + (typeof getLang==='function' && getLang()==='en' ? ' herbs available' : ' hierbas disponibles');
 
   // Auto-select first available letter
   if (data.letters.length) selectHerbLetter(data.letters[0]);
@@ -963,5 +1003,132 @@ function insertBlock() {}
 function addPage() {}
 function exportText() {}
 function exportMarkdown() {}
-function populateReport() { populateReportFull(); }
 
+// ── PLAN CLÍNICO (módulo): genera el plan compilado dentro de la app ─────────
+let _lastPlanUrl = '';
+function _planUrl() {
+  var q = (document.getElementById('plan-input').value || '').trim();
+  if (!q) { document.getElementById('plan-input').focus(); return ''; }
+  var lang = (typeof getLang === 'function') ? getLang() : 'es';
+  return API_URL + '/api/plan/export?q=' + encodeURIComponent(q) + '&lang=' + lang;
+}
+function generatePlan() {
+  var url = _planUrl();
+  if (!url) return;
+  _lastPlanUrl = url;
+  document.getElementById('plan-frame').src = url;
+  document.getElementById('plan-frame-wrap').style.display = 'block';
+  document.getElementById('plan-dl').style.display = '';
+}
+function qtPlan(q) {
+  document.getElementById('plan-input').value = q;
+  generatePlan();
+}
+function downloadPlan() {
+  if (_lastPlanUrl) window.open(_lastPlanUrl, '_blank');
+}
+
+// ── DOSIS basada en evidencia (bilingüe ES/EN) ──────────────────────────────
+function renderDosing(dose) {
+  var card = document.getElementById('n-dosing');
+  var body = document.getElementById('n-dosing-body');
+  if (!card || !body) return;
+  if (!dose) { card.style.display = 'none'; body.innerHTML = ''; return; }
+  var lang = (typeof getLang === 'function') ? getLang() : 'es';
+  var T = (typeof nkT === 'function') ? nkT : function (k) { return k; };
+  function pick(base) { return dose[base + '_' + lang] || dose[base + '_es'] || dose[base] || '—'; }
+  var rows = [
+    [T('dosing.standard'), dose.standard_dose || '—'],
+    [T('dosing.therapeutic'), dose.therapeutic_dose || '—'],
+    [T('dosing.form'), pick('form')],
+    [T('dosing.timing'), pick('timing')],
+    [T('dosing.ul'), dose.upper_limit || '—'],
+    [T('dosing.evidence'), dose.evidence || '—'],
+    [T('dosing.interactions'), pick('interactions')]
+  ];
+  var html = '<div class="dosing-name" style="font-weight:600;font-size:1.05rem;margin-bottom:10px;">' +
+             (dose['name_' + lang] || dose.name || '') +
+             ' <span style="color:#8892a0;font-weight:400;font-size:.85rem;">· ' + pick('category') + '</span></div>';
+  html += '<table class="sci-table" style="width:100%;border-collapse:collapse;">';
+  rows.forEach(function (r) {
+    html += '<tr><td style="padding:6px 10px;color:#8892a0;white-space:nowrap;vertical-align:top;font-weight:600;">' +
+            r[0] + '</td><td style="padding:6px 10px;">' + r[1] + '</td></tr>';
+  });
+  html += '</table>';
+  html += '<div style="margin-top:12px;padding:10px 12px;background:rgba(200,169,110,.08);border-left:3px solid #c8a96e;border-radius:6px;font-size:.9rem;line-height:1.5;">' +
+          '<strong>' + T('dosing.notes') + ':</strong> ' + pick('notes') + '</div>';
+  // Seguridad / horario (cirugía, quimio, separación de fármacos)
+  var s = dose.safety;
+  if (s) {
+    var warns = [];
+    if (s.stop_days_before_surgery)
+      warns.push((lang === 'en' ? '🔪 Stop ' + s.stop_days_before_surgery + ' days before surgery' : '🔪 Suspender ' + s.stop_days_before_surgery + ' días antes de cirugía') + (s.bleeding_risk ? (lang === 'en' ? ' (bleeding risk)' : ' (riesgo de sangrado)') : ''));
+    else if (s.bleeding_risk)
+      warns.push(lang === 'en' ? '🩸 Bleeding risk with anticoagulants/antiplatelets' : '🩸 Riesgo de sangrado con anticoagulantes/antiplaquetarios');
+    if (s['separate_from_' + lang] || s.separate_from_es) warns.push('⏱️ ' + (s['separate_from_' + lang] || s.separate_from_es));
+    if (s['oncology_caution_' + lang] || s.oncology_caution_es) warns.push('☢️ ' + (s['oncology_caution_' + lang] || s.oncology_caution_es));
+    if (s['note_' + lang] || s.note_es) warns.push('⚠️ ' + (s['note_' + lang] || s.note_es));
+    if (warns.length) {
+      html += '<div style="margin-top:10px;padding:10px 12px;background:rgba(227,74,95,.09);border-left:3px solid #e34a5f;border-radius:6px;font-size:.85rem;line-height:1.6;">' +
+              '<strong>' + (lang === 'en' ? 'Safety & timing' : 'Seguridad y horario') + ':</strong><br>' +
+              warns.join('<br>') + '</div>';
+    }
+  }
+  body.innerHTML = html;
+  card.style.display = 'block';
+  // Referencias científicas (PubMed) — provenance para uso clínico/JOSS
+  var refBlock = '';
+  if (dose.reference) refBlock += '<div style="margin-top:10px;font-size:.82rem;"><strong>' + (lang==='en'?'Reference':'Referencia') + ':</strong> ' + dose.reference + '</div>';
+  if (dose.pubmed_pmids && dose.pubmed_pmids.length) {
+    refBlock += '<div style="margin-top:6px;font-size:.78rem;"><strong>PMID:</strong> ' +
+      dose.pubmed_pmids.slice(0,5).map(function(p){return '<a href="https://pubmed.ncbi.nlm.nih.gov/'+p+'" target="_blank" style="color:#4fc3a1;">'+p+'</a>';}).join(' · ') + '</div>';
+  }
+  if (dose.pubchem_cid) refBlock += '<div style="margin-top:4px;font-size:.75rem;color:#8892a0;">PubChem CID: <a href="https://pubchem.ncbi.nlm.nih.gov/compound/'+dose.pubchem_cid+'" target="_blank" style="color:#8892a0;">'+dose.pubchem_cid+'</a></div>';
+  if (refBlock) body.innerHTML += '<div style="margin-top:12px;padding:10px 12px;background:rgba(79,195,161,.07);border-left:3px solid #4fc3a1;border-radius:6px;">' + refBlock + '</div>';
+}
+// ── Evidencia científica por hierba (307) — PubMed, para JOSS/uso clínico ────
+function renderHerbEvidence(ev, dosing) {
+  if (!ev || (!ev.pubmed_pmids && !ev.reference)) return;
+  var card = document.getElementById('n-dosing');
+  var body = document.getElementById('n-dosing-body');
+  if (!card || !body) return;
+  var lang = (typeof getLang === 'function') ? getLang() : 'es';
+  var h = '';
+  if (!dosing) {
+    // No hay dosis curada, pero sí evidencia: mostrar encabezado
+    h += '<div style="font-weight:600;font-size:1.02rem;margin-bottom:8px;">' + (ev.name || '') +
+         (ev.scientific_name ? ' <span style="color:#8892a0;font-weight:400;font-size:.82rem;">· ' + ev.scientific_name + '</span>' : '') + '</div>';
+  }
+  h += '<div style="margin-top:6px;padding:10px 12px;background:rgba(79,195,161,.07);border-left:3px solid #4fc3a1;border-radius:6px;">';
+  h += '<strong style="font-size:.85rem;">' + (lang === 'en' ? 'Scientific evidence (PubMed)' : 'Evidencia científica (PubMed)') + '</strong>';
+  if (ev.reference) h += '<div style="margin-top:6px;font-size:.82rem;">' + ev.reference + '</div>';
+  if (ev.pubmed_pmids && ev.pubmed_pmids.length)
+    h += '<div style="margin-top:6px;font-size:.78rem;"><strong>PMID:</strong> ' +
+         ev.pubmed_pmids.slice(0,5).map(function(p){return '<a href="https://pubmed.ncbi.nlm.nih.gov/'+p+'" target="_blank" style="color:#4fc3a1;">'+p+'</a>';}).join(' · ') + '</div>';
+  if (ev.pubchem_cid) h += '<div style="margin-top:4px;font-size:.75rem;color:#8892a0;">PubChem CID: <a href="https://pubchem.ncbi.nlm.nih.gov/compound/'+ev.pubchem_cid+'" target="_blank" style="color:#8892a0;">'+ev.pubchem_cid+'</a></div>';
+  h += '</div>';
+  if (!dosing) { body.innerHTML = h; card.style.display = 'block'; }
+  else { body.innerHTML += h; }
+}
+// ── Fitoquímicos de la planta (LOTUS, CC0) — escala botánica masiva ─────────
+function renderBotanical(bot) {
+  if (!bot || !bot.compound_count) return;
+  var card = document.getElementById('n-dosing');
+  var body = document.getElementById('n-dosing-body');
+  if (!card || !body) return;
+  var lang = (typeof getLang === 'function') ? getLang() : 'es';
+  var comps = (bot.compounds || []).slice(0, 12).map(function(c) {
+    var wd = c.wikidata_id ? '<a href="'+c.wikidata_id+'" target="_blank" style="color:var(--teal);">'+(c.lotus_id||'LOTUS')+'</a>' : (c.lotus_id||'');
+    return '<div style="font-size:11px;color:var(--text-dim);border-bottom:1px solid var(--border);padding:3px 0;">' +
+           wd + (c.smiles ? ' <span style="color:var(--text-faint);font-family:var(--font-mono);">'+ c.smiles.slice(0,42) +'</span>' : '') + '</div>';
+  }).join('');
+  var h = '<div style="margin-top:10px;padding:10px 12px;background:rgba(21,128,61,.07);border-left:3px solid #15803d;border-radius:6px;">' +
+    '<strong style="font-size:.85rem;">' + (lang==='en'?'Phytochemicals (LOTUS)':'Fitoquímicos (LOTUS)') + '</strong> ' +
+    '<span style="color:var(--text-faint);font-size:.78rem;">· ' + bot.compound_count + (lang==='en'?' compounds':' compuestos') + '</span>' +
+    '<div style="margin-top:6px;">' + comps + '</div>' +
+    '<a href="'+ (bot.lotus_query||'#') +'" target="_blank" style="color:var(--teal);font-size:.75rem;">' + (lang==='en'?'View all on LOTUS':'Ver todo en LOTUS') + '</a>' +
+    '<div style="color:var(--text-faint);font-size:.7rem;margin-top:3px;">' + (bot.source||'') + '</div></div>';
+  if (card.style.display !== 'block') { body.innerHTML = h; card.style.display = 'block'; }
+  else { body.innerHTML += h; }
+}
+function populateReport() { populateReportFull(); }

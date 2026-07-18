@@ -1,0 +1,4151 @@
+{
+ "5-htp-01": {
+  "slug": "5-htp-01",
+  "name": "5 Htp 01",
+  "scientific_name": "(2S)-2-amino-3-(5-hydroxy-1H-indol-3-yl) propanoic acid; H-Trp(5-OH)-OH",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "40871615",
+   "39707487",
+   "8444719",
+   "37801460"
+  ],
+  "reference": "Bordano V et al. Balancing the Cellular Inflammatory-Homeostatic Axis Through Natural Ingredient Supplementation. Nutrients 2025. PMID 40871615"
+ },
+ "714x": {
+  "slug": "714x",
+  "name": "714X",
+  "scientific_name": "Trimethylaminohydroxybicycloheptane chloride",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "39541030",
+   "31726891",
+   "23585506",
+   "2191260"
+  ],
+  "reference": "Georgaki MN et al. Chromium supplementation and type 2 diabetes mellitus: an extensive systematic review. Environ Geochem Health 2024. PMID 39541030"
+ },
+ "acai-berry": {
+  "slug": "acai-berry",
+  "name": "Acai Berry",
+  "scientific_name": "Euterpe oleraceae",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "28024540",
+   "29389624",
+   "36240164",
+   "36844472"
+  ],
+  "reference": "Cantu-Jungles TM et al. Extraction and characterization of pectins from primary cell walls of edible açaí (Euterpe oleraceae) berries, fruits of a monocotyledon palm. Carbohydr Polym 2017. PMID 28024540"
+ },
+ "agaricus": {
+  "slug": "agaricus",
+  "name": "Agaricus",
+  "scientific_name": "Agaricus blazei Murrill",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "22021691",
+   "22010847",
+   "28103773",
+   "35910346"
+  ],
+  "reference": "Chang JB et al. Carbon tetrachloride-induced hepatotoxicity and its amelioration by Agaricus blazei Murrill extract in a mouse model. In Vivo 2011. PMID 22021691"
+ },
+ "ahcc": {
+  "slug": "ahcc",
+  "name": "Ahcc",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "35814366",
+   "31484389",
+   "32867338",
+   "27930578"
+  ],
+  "reference": "Smith JA et al. AHCC(®) Supplementation to Support Immune Function to Clear Persistent Human Papillomavirus Infections. Front Oncol 2022. PMID 35814366"
+ },
+ "alfalfa": {
+  "slug": "alfalfa",
+  "name": "Alfalfa",
+  "scientific_name": "Medicago sativa",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "16244143",
+   "38103848",
+   "30924988",
+   "32553683"
+  ],
+  "reference": "Rommens CM et al. Plant-derived transfer DNAs. Plant Physiol 2005. PMID 16244143"
+ },
+ "aloe-vera": {
+  "slug": "aloe-vera",
+  "name": "Aloe Vera",
+  "scientific_name": "Aloe vera, Aloe barbadensis, Aloe capensis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "21402139"
+  ],
+  "reference": "Mulaudzi RB et al. Antimicrobial properties and phenolic contents of medicinal plants used by the Venda people for conditions related to venereal diseases. J Ethnopharmacol 2011. PMID 21402139"
+ },
+ "alpha-lipoic-acid": {
+  "slug": "alpha-lipoic-acid",
+  "name": "Alpha Lipoic Acid",
+  "scientific_name": "1,2-dithiolane-3-pentanoic acid",
+  "pubchem_cid": 864,
+  "inchikey": "AGBQKNBQESQNJD-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "19664690",
+   "36293457",
+   "38644711",
+   "37654090"
+  ],
+  "reference": "Shay KP et al. Alpha-lipoic acid as a dietary supplement: molecular mechanisms and therapeutic potential. Biochim Biophys Acta 2009. PMID 19664690"
+ },
+ "american-pawpaw": {
+  "slug": "american-pawpaw",
+  "name": "American Pawpaw",
+  "scientific_name": "Asimina triloba",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "1593281",
+   "40618909",
+   "40869040",
+   "22130466"
+  ],
+  "reference": "Zhao G et al. Additional bioactive compounds and trilobacin, a novel highly cytotoxic acetogenin, from the bark of Asimina triloba. J Nat Prod 1992. PMID 1593281"
+ },
+ "amygdalin": {
+  "slug": "amygdalin",
+  "name": "Amygdalin",
+  "scientific_name": "D-mandelonitrile-b-D-glucosido-6-b-D-glucoside",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "25918920",
+   "34705167",
+   "29872744",
+   "22071824"
+  ],
+  "reference": "Milazzo S et al. Laetrile treatment for cancer. Cochrane Database Syst Rev 2015. PMID 25918920"
+ },
+ "andrographis": {
+  "slug": "andrographis",
+  "name": "Andrographis",
+  "scientific_name": "Andrographis paniculata",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37821383",
+   "34818697",
+   "30040451",
+   "39760215"
+  ],
+  "reference": "Okonogi R et al. Efficacy of Andrographis paniculata spray in acute pharyngitis: A randomized controlled trial. Drug Discov Ther 2023. PMID 37821383"
+ },
+ "antineoplastons": {
+  "slug": "antineoplastons",
+  "name": "Antineoplastons",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "10377942",
+   "25552063",
+   "24718705",
+   "16484713"
+  ],
+  "reference": "Burzynski SR Efficacy of antineoplastons A10 and AS2-1. Mayo Clin Proc 1999. PMID 10377942"
+ },
+ "apple-cider-vinegar": {
+  "slug": "apple-cider-vinegar",
+  "name": "Apple Cider Vinegar",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "34187442",
+   "38028980",
+   "39949546",
+   "41010525"
+  ],
+  "reference": "Hadi A et al. The effect of apple cider vinegar on lipid profiles and glycemic parameters: a systematic review and meta-analysis of randomized clinical trials. BMC Complement Med Ther 2021. PMID 34187442"
+ },
+ "arginine": {
+  "slug": "arginine",
+  "name": "Arginine",
+  "scientific_name": "2-amino-5-guanidinovaleric acid",
+  "pubchem_cid": 6322,
+  "inchikey": "ODKSFYDXXFIFQN-BYPYZUCNSA-N",
+  "pubmed_pmids": [
+   "11264451",
+   "21574873"
+  ],
+  "reference": "Böger RH et al. The clinical pharmacology of L-arginine. Annu Rev Pharmacol Toxicol 2001. PMID 11264451"
+ },
+ "arginmax": {
+  "slug": "arginmax",
+  "name": "Arginmax",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "33801678",
+   "15186659",
+   "16959660",
+   "26287032"
+  ],
+  "reference": "Cieri-Hutcherson NE et al. Systematic Review of l-Arginine for the Treatment of Hypoactive Sexual Desire Disorder and Related Conditions in Women. Pharmacy (Basel) 2021. PMID 33801678"
+ },
+ "arnica": {
+  "slug": "arnica",
+  "name": "Arnica",
+  "scientific_name": "Arnica montana",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37011124",
+   "30000888",
+   "11795090",
+   "14587681"
+  ],
+  "reference": " Arnica Montana.  2012. PMID 37011124"
+ },
+ "artemisia-annua": {
+  "slug": "artemisia-annua",
+  "name": "Artemisia Annua",
+  "scientific_name": "Artemisia annua",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "16612385",
+   "36879291",
+   "37478537",
+   "36422347"
+  ],
+  "reference": "Ro DK et al. Production of the antimalarial drug precursor artemisinic acid in engineered yeast. Nature 2006. PMID 16612385"
+ },
+ "ashwagandha": {
+  "slug": "ashwagandha",
+  "name": "Ashwagandha",
+  "scientific_name": "Withania somnifera",
+  "pubchem_cid": 161671,
+  "inchikey": "SASUFNRGCZMRFD-JCUIILOWSA-N",
+  "pubmed_pmids": [
+   "36017529",
+   "34254920",
+   "37740662",
+   "34649336"
+  ],
+  "reference": "Akhgarjand C et al. Does Ashwagandha supplementation have a beneficial effect on the management of anxiety and stress? A systematic review and meta-analysis of randomized controlled trials. Phytother Res 2022. PMID 36017529"
+ },
+ "astragalus": {
+  "slug": "astragalus",
+  "name": "Astragalus",
+  "scientific_name": "Astragalus membranaceus, Astragalus mongholicus Bunge",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37446131",
+   "36587879",
+   "39217653",
+   "40668649"
+  ],
+  "reference": "D'Avino D et al. Beneficial Effects of Astragalus membranaceus (Fisch.) Bunge Extract in Controlling Inflammatory Response and Preventing Asthma Features. Int J Mol Sci 2023. PMID 37446131"
+ },
+ "avlimil": {
+  "slug": "avlimil",
+  "name": "Avlimil",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "17919800",
+   "18815740"
+  ],
+  "reference": "Ju YH et al. A dietary supplement for female sexual dysfunction, Avlimil, stimulates the growth of estrogen-dependent breast tumors (MCF-7) implanted in ovariectomized athymic nude mice. Food Chem Toxicol 2008. PMID 17919800"
+ },
+ "ayurveda": {
+  "slug": "ayurveda",
+  "name": "Ayurveda",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "26395129",
+   "27117114",
+   "34071454",
+   "38732539"
+  ],
+  "reference": "Pandit S et al. Clinical evaluation of purified Shilajit on testosterone levels in healthy volunteers. Andrologia 2016. PMID 26395129"
+ },
+ "ban-xia-bai-zhu-tian-ma-tang": {
+  "slug": "ban-xia-bai-zhu-tian-ma-tang",
+  "name": "Ban Xia Bai Zhu Tian Ma Tang",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": []
+ },
+ "ban-xia-xie-xin-tang": {
+  "slug": "ban-xia-xie-xin-tang",
+  "name": "Ban Xia Xie Xin Tang",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": []
+ },
+ "bao-he-wan": {
+  "slug": "bao-he-wan",
+  "name": "Bao He Wan",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": []
+ },
+ "berberine": {
+  "slug": "berberine",
+  "name": "Berberine",
+  "scientific_name": "",
+  "pubchem_cid": 2353,
+  "inchikey": "YBHILYKTIRIUTE-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "18442638",
+   "32353823",
+   "30637820",
+   "38659110"
+  ],
+  "reference": "Yin J et al. Efficacy of berberine in patients with type 2 diabetes mellitus. Metabolism 2008. PMID 18442638"
+ },
+ "beta-carotene": {
+  "slug": "beta-carotene",
+  "name": "Beta Carotene",
+  "scientific_name": "",
+  "pubchem_cid": 5280489,
+  "inchikey": "OENHQHLEOONYIE-JLTXGRSLSA-N",
+  "pubmed_pmids": [
+   "11594942",
+   "35653117",
+   "23732711",
+   "35727271"
+  ],
+  "reference": "Age-Related Eye Disease Study Research Group A randomized, placebo-controlled, clinical trial of high-dose supplementation with vitamins C and E, beta carotene, and zinc for age-related macular degeneration and vision loss: AREDS report no. 8. Arch Ophthalmol 2001. PMID 11594942"
+ },
+ "beta-elemene": {
+  "slug": "beta-elemene",
+  "name": "Beta Elemene",
+  "scientific_name": "Ethenyl-1-methyl-2,4-bis(1-methyl ethenyl) cyclohexane",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "38992404"
+  ],
+  "reference": "Tao Y et al. Ethnobotany, phytochemistry, pharmacology and quality control of Peucedanum decursivum (Miq.) Maxim: A critical review. J Ethnopharmacol 2024. PMID 38992404"
+ },
+ "bilberry-fruit": {
+  "slug": "bilberry-fruit",
+  "name": "Bilberry Fruit",
+  "scientific_name": "Vaccinium myrtillus, Vaccinium uliginosum, Vaccinium smallii, Vaccinium arctostaphylos, Vaccinium cespitosum",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "30000885",
+   "35385209",
+   "35847049",
+   "39064646"
+  ],
+  "reference": " Bilberry.  2006. PMID 30000885"
+ },
+ "bioresonance-therapy": {
+  "slug": "bioresonance-therapy",
+  "name": "Bioresonance Therapy",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "25231565",
+   "9066509",
+   "30402601",
+   "10077720"
+  ],
+  "reference": "Pihtili A et al. Evidence for the efficacy of a bioresonance method in smoking cessation: a pilot study. Forsch Komplementmed 2014. PMID 25231565"
+ },
+ "biotin": {
+  "slug": "biotin",
+  "name": "Biotin",
+  "scientific_name": "Cis-hexahydro-2-oxo-1H-thieno[3,4-d]-imidazole-4-valeric acid",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "39275211",
+   "36728680",
+   "38659110",
+   "32585000"
+  ],
+  "reference": "Sleiman C et al. Garlic and Hypertension: Efficacy, Mechanism of Action, and Clinical Implications. Nutrients 2024. PMID 39275211"
+ },
+ "bitter-melon": {
+  "slug": "bitter-melon",
+  "name": "Bitter Melon",
+  "scientific_name": "Momordica charantia",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "32951763",
+   "37111272",
+   "12625217",
+   "37009042"
+  ],
+  "reference": "Kim SK et al. Hypoglycemic efficacy and safety of Momordica charantia (bitter melon) in patients with type 2 diabetes mellitus. Complement Ther Med 2020. PMID 32951763"
+ },
+ "black-cohosh": {
+  "slug": "black-cohosh",
+  "name": "Black Cohosh",
+  "scientific_name": "Cimicifuga racemosa",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "38764923",
+   "27677719",
+   "33164294",
+   "29403626"
+  ],
+  "reference": "Hedaoo K et al. Exploring the Efficacy and Safety of Black Cohosh (Cimicifuga racemosa) in Menopausal Symptom Management. J Midlife Health 2024. PMID 38764923"
+ },
+ "bladder-wrack": {
+  "slug": "bladder-wrack",
+  "name": "Bladder Wrack",
+  "scientific_name": "Fucus vesiculosus",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "30000910",
+   "33573121",
+   "38567250",
+   "39958388"
+  ],
+  "reference": " Seaweed.  2006. PMID 30000910"
+ },
+ "bloodroot": {
+  "slug": "bloodroot",
+  "name": "Bloodroot",
+  "scientific_name": "Sanguinaria canadensis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "27618894",
+   "2207852",
+   "2700895",
+   "27671816"
+  ],
+  "reference": "Croaker A et al. Sanguinaria canadensis: Traditional Medicine, Phytochemical Composition, Biological Activities and Current Uses. Int J Mol Sci 2016. PMID 27618894"
+ },
+ "blue-green-algae": {
+  "slug": "blue-green-algae",
+  "name": "Blue Green Algae",
+  "scientific_name": "Spirulina sp., Aphanizomenon flos-aquae",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "23064102",
+   "23036452"
+  ],
+  "reference": "Heussner AH et al. Toxin content and cytotoxicity of algal dietary supplements. Toxicol Appl Pharmacol 2012. PMID 23064102"
+ },
+ "borage": {
+  "slug": "borage",
+  "name": "Borage",
+  "scientific_name": "Borago officinalis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "30000849",
+   "28210282",
+   "31179342",
+   "30704105"
+  ],
+  "reference": " Borage.  2006. PMID 30000849"
+ },
+ "boswellia": {
+  "slug": "boswellia",
+  "name": "Boswellia",
+  "scientific_name": "Boswellia serrata",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "27117114",
+   "32680575",
+   "39125311",
+   "29018060"
+  ],
+  "reference": "Al-Yasiry AR et al. Frankincense--therapeutic properties. Postepy Hig Med Dosw (Online) 2016. PMID 27117114"
+ },
+ "bovine-cartilage": {
+  "slug": "bovine-cartilage",
+  "name": "Bovine Cartilage",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "36410637",
+   "30000915",
+   "40158651",
+   "37737465"
+  ],
+  "reference": "Wu X et al. Dysregulated energy metabolism impairs chondrocyte function in osteoarthritis. Osteoarthritis Cartilage 2023. PMID 36410637"
+ },
+ "bovine-colostrum": {
+  "slug": "bovine-colostrum",
+  "name": "Bovine Colostrum",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "33477653",
+   "38039960",
+   "39972597",
+   "10102661"
+  ],
+  "reference": "Playford RJ et al. Bovine Colostrum: Its Constituents and Uses. Nutrients 2021. PMID 33477653"
+ },
+ "broccoli-sprouts": {
+  "slug": "broccoli-sprouts",
+  "name": "Broccoli Sprouts",
+  "scientific_name": "Brassica oleracea L. var. italica Plenck",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "30448794",
+   "35820316",
+   "41876569"
+  ],
+  "reference": "Devyatkina NM Effect of brassica oleracea extract on the erythron state during chronic yttrium salt intake. Wiad Lek 2018. PMID 30448794"
+ },
+ "bromelain": {
+  "slug": "bromelain",
+  "name": "Bromelain",
+  "scientific_name": "Sulphydryl proteolytic enzyme, cysteine-proteinase",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37650738",
+   "36194974",
+   "11966457",
+   "1572083"
+  ],
+  "reference": "Kumar V et al. Bromelain: a review of its mechanisms, pharmacological effects and potential applications. Food Funct 2023. PMID 37650738"
+ },
+ "bu-zhong-yi-qi-tang": {
+  "slug": "bu-zhong-yi-qi-tang",
+  "name": "Bu Zhong Yi Qi Tang",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "40946819",
+   "22564357",
+   "36304166",
+   "30608425"
+  ],
+  "reference": "Zhou Y et al. Bu Zhong Yi Qi Tang targets key monocyte-associated genes to enhance sepsis therapy. J Ethnopharmacol 2026. PMID 40946819"
+ },
+ "budwig-diet-01": {
+  "slug": "budwig-diet-01",
+  "name": "Budwig Diet 01",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": []
+ },
+ "bupleurum": {
+  "slug": "bupleurum",
+  "name": "Bupleurum",
+  "scientific_name": "Bupleurum chinense, Bupleurum scorzoneraefolium, Bupleurum falcatum, Radix Bupleuri",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "38675471",
+   "36506504",
+   "30466994",
+   "16937920"
+  ],
+  "reference": "Ran S et al. Bupleurum in Treatment of Depression Disorder: A Comprehensive Review. Pharmaceuticals (Basel) 2024. PMID 38675471"
+ },
+ "burdock": {
+  "slug": "burdock",
+  "name": "Burdock",
+  "scientific_name": "Arctium lappa, Arctium majus",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "31998584",
+   "39396403",
+   "37559241",
+   "36516694"
+  ],
+  "reference": "Food Safety Commission of Japan Flubenziamide (Pesticides). Food Saf (Tokyo) 2019. PMID 31998584"
+ },
+ "butcher-broom": {
+  "slug": "butcher-broom",
+  "name": "Butcher Broom",
+  "scientific_name": "Ruscus aculeatus",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "40348378",
+   "39419127",
+   "26928296",
+   "28225220"
+  ],
+  "reference": "Gloviczki ML et al. The role of venoactive compounds in the treatment of chronic venous disease. J Vasc Surg Venous Lymphat Disord 2025. PMID 40348378"
+ },
+ "butterbur": {
+  "slug": "butterbur",
+  "name": "Butterbur",
+  "scientific_name": "Petasites hybridus",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "39853578",
+   "30725845",
+   "30627973",
+   "28527067"
+  ],
+  "reference": "Tepper SJ et al. Nutraceuticals and Headache 2024: Riboflavin, Coenzyme Q10, Feverfew, Magnesium, Melatonin, and Butterbur. Curr Pain Headache Rep 2025. PMID 39853578"
+ },
+ "caat": {
+  "slug": "caat",
+  "name": "Caat",
+  "scientific_name": "",
+  "pubchem_cid": 18831,
+  "inchikey": "FVFVNNKYKYZTJU-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "37422975",
+   "26536287",
+   "30633307",
+   "31890748"
+  ],
+  "reference": "Schmeisser S et al. New approach methodologies in human regulatory toxicology - Not if, but how and when! Environ Int 2023. PMID 37422975"
+ },
+ "calcium": {
+  "slug": "calcium",
+  "name": "Calcium",
+  "scientific_name": "",
+  "pubchem_cid": 5460341,
+  "inchikey": "OYPRJOBELJOOCE-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "39937345",
+   "38691368",
+   "40259289",
+   "17507729"
+  ],
+  "reference": "Reid IR Calcium Supplementation- Efficacy and Safety. Curr Osteoporos Rep 2025. PMID 39937345"
+ },
+ "calcium-glucarate": {
+  "slug": "calcium-glucarate",
+  "name": "Calcium Glucarate",
+  "scientific_name": "D-Glucaric acid salt",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "18772850",
+   "36270861",
+   "8185680",
+   "29078076"
+  ],
+  "reference": "Zółtaszek R et al. [The biological role of D-glucaric acid and its derivatives: potential use in medicine]. Postepy Hig Med Dosw (Online) 2008. PMID 18772850"
+ },
+ "calendula": {
+  "slug": "calendula",
+  "name": "Calendula",
+  "scientific_name": "Calendula officinalis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "31145533",
+   "30000917",
+   "30000869",
+   "30000892"
+  ],
+  "reference": "Givol O et al. A systematic review of Calendula officinalis extract for wound healing. Wound Repair Regen 2019. PMID 31145533"
+ },
+ "camu-camu": {
+  "slug": "camu-camu",
+  "name": "Camu Camu",
+  "scientific_name": "Myrciaria dubia",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "35031549",
+   "29389624",
+   "40781374",
+   "36240164"
+  ],
+  "reference": "Messaoudene M et al. A Natural Polyphenol Exerts Antitumor Activity and Circumvents Anti-PD-1 Resistance through Effects on the Gut Microbiota. Cancer Discov 2022. PMID 35031549"
+ },
+ "cancell": {
+  "slug": "cancell",
+  "name": "Cancell",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "40009500",
+   "37181409",
+   "35563759",
+   "38604812"
+  ],
+  "reference": "Zeidner JF et al. Magrolimab plus azacitidine vs physician's choice for untreated TP53-mutated acute myeloid leukemia: the ENHANCE-2 study. Blood 2025. PMID 40009500"
+ },
+ "cannabis": {
+  "slug": "cannabis",
+  "name": "Cannabis",
+  "scientific_name": "Cannabis sativa",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "35617670",
+   "41296368",
+   "37648266",
+   "37283486"
+  ],
+  "reference": "Silva EAD Junior et al. Evaluation of the efficacy and safety of cannabidiol-rich cannabis extract in children with autism spectrum disorder: randomized, double-blind, and placebo-controlled clinical trial. Trends Psychiatry Psychother 2024. PMID 35617670"
+ },
+ "capsaicin": {
+  "slug": "capsaicin",
+  "name": "Capsaicin",
+  "scientific_name": "8-methyl-N-vanillyl-6-nonenamide",
+  "pubchem_cid": 1548943,
+  "inchikey": "YKPUWZUDDOIDPM-SOFGYWHQSA-N",
+  "pubmed_pmids": [
+   "27746370",
+   "27485456",
+   "24941673",
+   "24550030"
+  ],
+  "reference": "Simpson DM et al. Capsaicin 8% Patch in Painful Diabetic Peripheral Neuropathy: A Randomized, Double-Blind, Placebo-Controlled Study. J Pain 2017. PMID 27746370"
+ },
+ "carnitine": {
+  "slug": "carnitine",
+  "name": "Carnitine",
+  "scientific_name": "Beta-hydroxy-gamma-trimethyl-amino-butyric acid",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "39275211",
+   "36728680",
+   "38659110",
+   "32585000"
+  ],
+  "reference": "Sleiman C et al. Garlic and Hypertension: Efficacy, Mechanism of Action, and Clinical Implications. Nutrients 2024. PMID 39275211"
+ },
+ "cascara": {
+  "slug": "cascara",
+  "name": "Cascara",
+  "scientific_name": "Rhamnus purshiana",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "30000918",
+   "39964315",
+   "39357699",
+   "30269306"
+  ],
+  "reference": " Buckthorn.  2006. PMID 30000918"
+ },
+ "castor-oil": {
+  "slug": "castor-oil",
+  "name": "Castor Oil",
+  "scientific_name": "Ricinus communis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "33164294",
+   "30000935",
+   "33037703",
+   "14579548"
+  ],
+  "reference": "Bernstein N et al. Is it safe to consume traditional medicinal plants during pregnancy? Phytother Res 2021. PMID 33164294"
+ },
+ "cat-claw": {
+  "slug": "cat-claw",
+  "name": "Cat Claw",
+  "scientific_name": "Uncaria tomentosa",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "33917843",
+   "32764275",
+   "23597204",
+   "39598486"
+  ],
+  "reference": "Gregory J et al. Neuroprotective Herbs for the Management of Alzheimer's Disease. Biomolecules 2021. PMID 33917843"
+ },
+ "cayenne": {
+  "slug": "cayenne",
+  "name": "Cayenne",
+  "scientific_name": "Capsicum frutescens, Capsicum annuum",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "25536022",
+   "41915647",
+   "16625605",
+   "17365137"
+  ],
+  "reference": "Oltean H et al. Herbal medicine for low-back pain. Cochrane Database Syst Rev 2014. PMID 25536022"
+ },
+ "cellect": {
+  "slug": "cellect",
+  "name": "Cellect",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37069359",
+   "32160294",
+   "34971577",
+   "37112688"
+  ],
+  "reference": "Crees ZD et al. Motixafortide and G-CSF to mobilize hematopoietic stem cells for autologous transplantation in multiple myeloma: a randomized phase 3 trial. Nat Med 2023. PMID 37069359"
+ },
+ "cellfood": {
+  "slug": "cellfood",
+  "name": "Cellfood",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "26404567",
+   "31662796",
+   "18157288",
+   "24016597"
+  ],
+  "reference": "Fulgenzi A et al. Efficacy of chelation therapy to remove aluminium intoxication. J Inorg Biochem 2015. PMID 26404567"
+ },
+ "cesium-chloride": {
+  "slug": "cesium-chloride",
+  "name": "Cesium Chloride",
+  "scientific_name": "",
+  "pubchem_cid": 24293,
+  "inchikey": "AIYUHDOJVYHVIT-UHFFFAOYSA-M",
+  "pubmed_pmids": [
+   "40387925",
+   "32624528",
+   "41333671",
+   "35293222"
+  ],
+  "reference": "Hirohata K et al. Use of cesium chloride density gradient ultracentrifugation for the purification and characterization of recombinant adeno-associated virus. Eur Biophys J 2025. PMID 40387925"
+ },
+ "chaga-mushroom": {
+  "slug": "chaga-mushroom",
+  "name": "Chaga Mushroom",
+  "scientific_name": "Inonotus obliquus",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "38873567",
+   "31238558",
+   "32400796",
+   "34933121"
+  ],
+  "reference": "Nieman DC et al. Beet supplementation mitigates post-exercise inflammation. Front Nutr 2024. PMID 38873567"
+ },
+ "chai-hu-shu-gan-san": {
+  "slug": "chai-hu-shu-gan-san",
+  "name": "Chai Hu Shu Gan San",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": []
+ },
+ "chamomile-german": {
+  "slug": "chamomile-german",
+  "name": "Chamomile German",
+  "scientific_name": "Matricaria recutita, Chamomilla recutita, Matricaria chamomilla",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "39106912",
+   "27000311",
+   "30000867",
+   "19593179"
+  ],
+  "reference": "Kazemi A et al. Effects of chamomile (Matricaria chamomilla L.) on sleep: A systematic review and meta-analysis of clinical trials. Complement Ther Med 2024. PMID 39106912"
+ },
+ "chaparral": {
+  "slug": "chaparral",
+  "name": "Chaparral",
+  "scientific_name": "Larrea tridentate, Larrea divaricata",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "34307603",
+   "10948380",
+   "9129552",
+   "10030529"
+  ],
+  "reference": "Ballotin VR et al. Herb-induced liver injury: Systematic review and meta-analysis. World J Clin Cases 2021. PMID 34307603"
+ },
+ "chasteberry": {
+  "slug": "chasteberry",
+  "name": "Chasteberry",
+  "scientific_name": "Vitex agnus castus",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "23136064",
+   "29063202",
+   "31780016",
+   "27677719"
+  ],
+  "reference": "van Die MD et al. Vitex agnus-castus extracts for female reproductive disorders: a systematic review of clinical trials. Planta Med 2013. PMID 23136064"
+ },
+ "cheezheng-pain-relieving-plaster": {
+  "slug": "cheezheng-pain-relieving-plaster",
+  "name": "Cheezheng Pain Relieving Plaster",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "32237461",
+   "32880472",
+   "34015584",
+   "31359704"
+  ],
+  "reference": "Yang SH et al. [Systematic review on clinical efficacy and safety of Cheezheng Pain Relieving Plaster for soft tissue injury]. Zhongguo Zhong Yao Za Zhi 2020. PMID 32237461"
+ },
+ "chia": {
+  "slug": "chia",
+  "name": "Chia",
+  "scientific_name": "Salvia hispanica",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "39917132",
+   "29452425",
+   "34378609",
+   "39299654"
+  ],
+  "reference": "Patel M et al. A Clinical Evaluation of the Safety, Efficacy, and Tolerability of the Soulflower Rosemary Redensyl Hair Growth Serum, Tetragain™, in Healthy Female Subjects for the Treatment of Alopecia: Promoting Hair Growth and Reducing Gray Hair. Cureus 2025. PMID 39917132"
+ },
+ "chinese-asparagus": {
+  "slug": "chinese-asparagus",
+  "name": "Chinese Asparagus",
+  "scientific_name": "Asparagus cochinchinensis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "41072677",
+   "30310406",
+   "28747969",
+   "38376424"
+  ],
+  "reference": "Xia Y et al. Structural characteristics of a fructan-type polysaccharide from Asparagus cochinchinensis rhizome and its anti-osteosarcoma activity mediated via macrophage polarization. Int J Biol Macromol 2025. PMID 41072677"
+ },
+ "chitosan": {
+  "slug": "chitosan",
+  "name": "Chitosan",
+  "scientific_name": "Deacetylated chitin bipolymer",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "32478963",
+   "36479472",
+   "36838951",
+   "33352826"
+  ],
+  "reference": "Tan CSS et al. Warfarin and food, herbal or dietary supplement interactions: A systematic review. Br J Clin Pharmacol 2021. PMID 32478963"
+ },
+ "cholesterol-spinach": {
+  "slug": "cholesterol-spinach",
+  "name": "Cholesterol Spinach",
+  "scientific_name": "Gynura nepalensis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "27593219",
+   "35684412"
+  ],
+  "reference": "Yu BW et al. Chlorogenic acid analogues from Gynura nepalensis protect H9c2 cardiomyoblasts against H(2)O(2)-induced apoptosis. Acta Pharmacol Sin 2016. PMID 27593219"
+ },
+ "chromium": {
+  "slug": "chromium",
+  "name": "Chromium",
+  "scientific_name": "",
+  "pubchem_cid": 23976,
+  "inchikey": "VYZAMTAEIAYCRO-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "35011044",
+   "30855110",
+   "21951331",
+   "39541030"
+  ],
+  "reference": "Iatcu CO et al. Gut Microbiota and Complications of Type-2 Diabetes. Nutrients 2021. PMID 35011044"
+ },
+ "chrysanthemum": {
+  "slug": "chrysanthemum",
+  "name": "Chrysanthemum",
+  "scientific_name": "Chrysanthemum morifolium, Chrysanthemum sinense, Chrysanthemum japonense, Chrysanthemum zawadskii Chrysanthemum indicum, Chrysanthemum zawadskii, Chrysanthemum boreale, Chrysanthemum coronarium",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "30000921",
+   "30000888",
+   "30000917",
+   "40311590"
+  ],
+  "reference": " Feverfew.  2006. PMID 30000921"
+ },
+ "cinnamon": {
+  "slug": "cinnamon",
+  "name": "Cinnamon",
+  "scientific_name": "Cinnamomum zeylanicum, Cinnamomum aromaticum, Cinnamomum loureiroi, Cinnamomum burmannii",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37818728",
+   "29605574",
+   "27000311",
+   "32603204"
+  ],
+  "reference": "Moridpour AH et al. The effect of cinnamon supplementation on glycemic control in patients with type 2 diabetes mellitus: An updated systematic review and dose-response meta-analysis of randomized controlled trials. Phytother Res 2024. PMID 37818728"
+ },
+ "coenzyme-q10": {
+  "slug": "coenzyme-q10",
+  "name": "Coenzyme Q10",
+  "scientific_name": "2,3 dimethoxy-5 methyl-6-decaprenyl benzoquinone",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "12923074",
+   "32020421",
+   "16162972",
+   "15044103"
+  ],
+  "reference": "Jauslin ML et al. Mitochondria-targeted antioxidants protect Friedreich Ataxia fibroblasts from endogenous oxidative stress more effectively than untargeted antioxidants. FASEB J 2003. PMID 12923074"
+ },
+ "collagen": {
+  "slug": "collagen",
+  "name": "Collagen",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "33742704",
+   "30681787",
+   "36986062",
+   "26822714"
+  ],
+  "reference": "de Miranda RB et al. Effects of hydrolyzed collagen supplementation on skin aging: a systematic review and meta-analysis. Int J Dermatol 2021. PMID 33742704"
+ },
+ "colloidal-silver": {
+  "slug": "colloidal-silver",
+  "name": "Colloidal Silver",
+  "scientific_name": "",
+  "pubchem_cid": 23954,
+  "inchikey": "BQCADISMDOOEFD-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "38696892",
+   "36729280",
+   "36525217",
+   "24231525"
+  ],
+  "reference": "Caetano JVB et al. Non-antibiotic antimicrobial agents for chronic rhinosinusitis: a narrative review. Braz J Otorhinolaryngol 2024. PMID 38696892"
+ },
+ "comfrey": {
+  "slug": "comfrey",
+  "name": "Comfrey",
+  "scientific_name": "Symphytum officinale",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "30000832",
+   "41993578",
+   "22359388",
+   "11276298"
+  ],
+  "reference": " Comfrey.  2006. PMID 30000832"
+ },
+ "conjugated-linoleic-acid": {
+  "slug": "conjugated-linoleic-acid",
+  "name": "Conjugated Linoleic Acid",
+  "scientific_name": "cis-9,trans-11 conjugated linoleic acid; trans-10,cis-12 conjugated linoleic acid",
+  "pubchem_cid": 5280644,
+  "inchikey": "JBYXPOFIGCOSSB-GOJKSUSPSA-N",
+  "pubmed_pmids": [
+   "31124166",
+   "19923377",
+   "30562023",
+   "19364109"
+  ],
+  "reference": "Chai BK et al. Cis-9, Trans-11 Conjugated Linoleic Acid Reduces Phosphoenolpyruvate Carboxykinase Expression and Hepatic Glucose Production in HepG2 Cells. Lipids 2019. PMID 31124166"
+ },
+ "convolvulis-arvensis": {
+  "slug": "convolvulis-arvensis",
+  "name": "Convolvulis Arvensis",
+  "scientific_name": "Convolvulis arvensis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "30000936",
+   "31878007",
+   "26793308",
+   "38666029"
+  ],
+  "reference": " Black Seed.  2006. PMID 30000936"
+ },
+ "coral-calcium": {
+  "slug": "coral-calcium",
+  "name": "Coral Calcium",
+  "scientific_name": "Goniopora species, Porites species",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "22452728",
+   "24985222",
+   "40590161",
+   "19184588"
+  ],
+  "reference": "Kim SK et al. Applications of calcium and its supplement derived from marine organisms. Crit Rev Food Sci Nutr 2012. PMID 22452728"
+ },
+ "cordyceps": {
+  "slug": "cordyceps",
+  "name": "Cordyceps",
+  "scientific_name": "Ophiocordyceps sinensis (renamed 2007), Cordyceps sinensis, Sphaeria sinensis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37373268",
+   "36304597",
+   "35889330",
+   "22593927"
+  ],
+  "reference": "Gariboldi MB et al. Anti-Cancer Potential of Edible/Medicinal Mushrooms in Breast Cancer. Int J Mol Sci 2023. PMID 37373268"
+ },
+ "coriolus-versicolor": {
+  "slug": "coriolus-versicolor",
+  "name": "Coriolus Versicolor",
+  "scientific_name": "Coriolus versicolor, Trametes versicolor, Polyporus versicolor, Polystictus versicolor",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "33746195",
+   "32466253",
+   "32697746",
+   "41507892"
+  ],
+  "reference": "Serrano L et al. Efficacy of a Coriolus versicolor-Based Vaginal Gel in Women With Human Papillomavirus-Dependent Cervical Lesions: The PALOMA Study. J Low Genit Tract Dis 2021. PMID 33746195"
+ },
+ "cranberry": {
+  "slug": "cranberry",
+  "name": "Cranberry",
+  "scientific_name": "Vaccinium macrocarpon",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37068952",
+   "27677719",
+   "34473789",
+   "32752183"
+  ],
+  "reference": "Williams G et al. Cranberries for preventing urinary tract infections. Cochrane Database Syst Rev 2023. PMID 37068952"
+ },
+ "creatine-01": {
+  "slug": "creatine-01",
+  "name": "Creatine 01",
+  "scientific_name": "2-[Carbamimidoyl(methyl)amino]acetic acid",
+  "pubchem_cid": 586,
+  "inchikey": "CVSVTCORWBXHQV-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "30000913",
+   "8748324",
+   "35337080",
+   "30179610"
+  ],
+  "reference": " Creatine.  2006. PMID 30000913"
+ },
+ "croton-lechleri": {
+  "slug": "croton-lechleri",
+  "name": "Croton Lechleri",
+  "scientific_name": "Croton lechleri",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "14736360",
+   "28280300",
+   "39275010",
+   "15507372"
+  ],
+  "reference": "Jones K Review of sangre de drago (Croton lechleri)--a South American tree sap in the treatment of diarrhea, inflammation, insect bites, viral infections, and wounds: traditional uses to clinical research. J Altern Complement Med 2003. PMID 14736360"
+ },
+ "d-limonene": {
+  "slug": "d-limonene",
+  "name": "D Limonene",
+  "scientific_name": "p-mentha-1,8-diene",
+  "pubchem_cid": 22311,
+  "inchikey": "XMGQYMWWDOXHJM-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "1154797",
+   "969565",
+   "27713382",
+   "27087084"
+  ],
+  "reference": "Ariyoshi T et al. Studies on the metabolism of d-Limonene (p-Mentha-1,8-diene). III. Effects of d-Limonene on the lipids and drug-metabolizing enzymes in rat livers. Xenobiotica 1975. PMID 1154797"
+ },
+ "damiana": {
+  "slug": "damiana",
+  "name": "Damiana",
+  "scientific_name": "Turnera diffusa, Turnera aphrodisiaca",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "21369434",
+   "16635964",
+   "11424516",
+   "25878948"
+  ],
+  "reference": "Kumar S et al. Pharmacological evaluation of Bioactive Principle of Turnera aphrodisiaca. Indian J Pharm Sci 2008. PMID 21369434"
+ },
+ "dandelion": {
+  "slug": "dandelion",
+  "name": "Dandelion",
+  "scientific_name": "Taraxacum mongolicum, Taraxacum officinale",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "40393639",
+   "25858507",
+   "40724851",
+   "39408297"
+  ],
+  "reference": "Chen L et al. Taraxacum mongolicum total triterpenoids and taraxasterol ameliorate benign prostatic hyperplasia by inhibiting androgen levels, inflammatory responses, and epithelial-mesenchymal transition via the TGFβ1/Smad signalling pathway. J Ethnopharmacol 2025. PMID 40393639"
+ },
+ "dang-gui-bu-xue-tang": {
+  "slug": "dang-gui-bu-xue-tang",
+  "name": "Dang Gui Bu Xue Tang",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": []
+ },
+ "dehydroepiandrosterone": {
+  "slug": "dehydroepiandrosterone",
+  "name": "Dehydroepiandrosterone",
+  "scientific_name": "5-androsten-3 beta-ol-17-one, 3 beta-hydroxy-5-androsten-17-one",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "8943803",
+   "2147013",
+   "1456887",
+   "8848460"
+  ],
+  "reference": "Loria RM et al. Regulation of the immune response by dehydroepiandrosterone and its metabolites. J Endocrinol 1996. PMID 8943803"
+ },
+ "devil-claw": {
+  "slug": "devil-claw",
+  "name": "Devil Claw",
+  "scientific_name": "Harpagophytum procumbens",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "17212570",
+   "15022177",
+   "31273865",
+   "39519204"
+  ],
+  "reference": "Brien S et al. Devil's Claw (Harpagophytum procumbens) as a treatment for osteoarthritis: a review of efficacy and safety. J Altern Complement Med 2006. PMID 17212570"
+ },
+ "di-bella-multitherapy": {
+  "slug": "di-bella-multitherapy",
+  "name": "Di Bella Multitherapy",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "26859589",
+   "22635078"
+  ],
+  "reference": "Di Bella L et al. Solution of retinoids in vitamin E in the Di Bella Method biological multitherapy. Neuro Endocrinol Lett 2015. PMID 26859589"
+ },
+ "diindolylmethane": {
+  "slug": "diindolylmethane",
+  "name": "Diindolylmethane",
+  "scientific_name": "3,3'-diindolylmethane",
+  "pubchem_cid": 3071,
+  "inchikey": "VFTRKSBEFQDZKX-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "37216760",
+   "27447608",
+   "40841315",
+   "41390010"
+  ],
+  "reference": "Yang L et al. 3, 3'-diindolylmethane enhances macrophage efferocytosis and subsequently relieves visceral pain via the AhR/Nrf2/Arg-1-mediated arginine metabolism pathway. Phytomedicine 2023. PMID 37216760"
+ },
+ "dimethylglycine": {
+  "slug": "dimethylglycine",
+  "name": "Dimethylglycine",
+  "scientific_name": "N,N-dimethylglycine",
+  "pubchem_cid": 673,
+  "inchikey": "FFDGPVCHZBVARC-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "2463912",
+   "34823458",
+   "33622389",
+   "29267114"
+  ],
+  "reference": "Gascon G et al. N,N dimethylglycine and epilepsy. Epilepsia 1989. PMID 2463912"
+ },
+ "dimethylsulfoxide": {
+  "slug": "dimethylsulfoxide",
+  "name": "Dimethylsulfoxide",
+  "scientific_name": "",
+  "pubchem_cid": 679,
+  "inchikey": "IAZDPXIOMUYVGZ-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "28300758",
+   "778517",
+   "33507555",
+   "40561485"
+  ],
+  "reference": "Butawan M et al. Methylsulfonylmethane: Applications and Safety of a Novel Dietary Supplement. Nutrients 2017. PMID 28300758"
+ },
+ "dong-quai": {
+  "slug": "dong-quai",
+  "name": "Dong Quai",
+  "scientific_name": "Angelica sinensis",
+  "pubchem_cid": 161671,
+  "inchikey": "SASUFNRGCZMRFD-JCUIILOWSA-N",
+  "pubmed_pmids": [
+   "27677719",
+   "40620463",
+   "37791782",
+   "30000896"
+  ],
+  "reference": "Dietz BM et al. Botanicals and Their Bioactive Phytochemicals for Women's Health. Pharmacol Rev 2016. PMID 27677719"
+ },
+ "echinacea": {
+  "slug": "echinacea",
+  "name": "Echinacea",
+  "scientific_name": "Echinacea purpurea, Echinacea angustifolia, Echinacea pallida",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "28762712",
+   "30000869",
+   "36364865",
+   "18258644"
+  ],
+  "reference": "Asher GN et al. Common Herbal Dietary Supplement-Drug Interactions. Am Fam Physician 2017. PMID 28762712"
+ },
+ "elderberry-01": {
+  "slug": "elderberry-01",
+  "name": "Elderberry 01",
+  "scientific_name": "Sambucus nigra",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "30670267",
+   "30000895",
+   "27023596",
+   "40620463"
+  ],
+  "reference": "Hawkins J et al. Black elderberry (Sambucus nigra) supplementation effectively treats upper respiratory symptoms: A meta-analysis of randomized, controlled clinical trials. Complement Ther Med 2019. PMID 30670267"
+ },
+ "ellagic-acid": {
+  "slug": "ellagic-acid",
+  "name": "Ellagic Acid",
+  "scientific_name": "",
+  "pubchem_cid": 5281855,
+  "inchikey": "AFSDNFLWKVMVRB-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "30466006",
+   "17976666",
+   "41308394",
+   "37175181"
+  ],
+  "reference": "Ding X et al. Ellagic acid ameliorates oxidative stress and insulin resistance in high glucose-treated HepG2 cells via miR-223/keap1-Nrf2 pathway. Biomed Pharmacother 2019. PMID 30466006"
+ },
+ "emblica-officinalis": {
+  "slug": "emblica-officinalis",
+  "name": "Emblica Officinalis",
+  "scientific_name": "Emblica officinalis, Phyllanthus emblica L.",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "36635908",
+   "37296402",
+   "29526236",
+   "40085988"
+  ],
+  "reference": "Wang X et al. Agent in Urgent Need of Clinical Practice: Corilagin. Mini Rev Med Chem 2023. PMID 36635908"
+ },
+ "ephedra": {
+  "slug": "ephedra",
+  "name": "Ephedra",
+  "scientific_name": "Ephedra sinica, Ephedra equisetina",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "36479472",
+   "23597204",
+   "15154280",
+   "34166735"
+  ],
+  "reference": "Bonetti G et al. Dietary supplements for obesity. J Prev Med Hyg 2022. PMID 36479472"
+ },
+ "epimedium": {
+  "slug": "epimedium",
+  "name": "Epimedium",
+  "scientific_name": "Epimedium sagittatum, Epimedium grandiflorum, Epimedium brevicornum",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37331450",
+   "37660725",
+   "38462913",
+   "38202790"
+  ],
+  "reference": "Deng L et al. Icariside Ⅱ attenuates bleomycin-induced pulmonary fibrosis by modulating macrophage polarization. J Ethnopharmacol 2023. PMID 37331450"
+ },
+ "essiac": {
+  "slug": "essiac",
+  "name": "Essiac",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "17640165",
+   "11365626",
+   "10641040",
+   "19476742"
+  ],
+  "reference": "Eberding A et al. Evaluation of the antiproliferative effects of Essiac on in vitro and in vivo models of prostate cancer compared to paclitaxel. Nutr Cancer 2007. PMID 17640165"
+ },
+ "evening-primrose-oil": {
+  "slug": "evening-primrose-oil",
+  "name": "Evening Primrose Oil",
+  "scientific_name": "Oenothera biennis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "29403626",
+   "30000954",
+   "34957578",
+   "7816407"
+  ],
+  "reference": "Kargozar R et al. A review of effective herbal medicines in controlling menopausal symptoms. Electron Physician 2017. PMID 29403626"
+ },
+ "fenugreek": {
+  "slug": "fenugreek",
+  "name": "Fenugreek",
+  "scientific_name": "Trigonella foenum-graecum",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37257051",
+   "38628109",
+   "27677719",
+   "33164294"
+  ],
+  "reference": "Luo W et al. Integration of molecular docking, molecular dynamics and network pharmacology to explore the multi-target pharmacology of fenugreek against diabetes. J Cell Mol Med 2023. PMID 37257051"
+ },
+ "feverfew": {
+  "slug": "feverfew",
+  "name": "Feverfew",
+  "scientific_name": "Tanacetum parthenium",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "32310327",
+   "30000921",
+   "39265445",
+   "11276299"
+  ],
+  "reference": "Lopresti AL et al. Herbal treatments for migraine: A systematic review of randomised-controlled studies. Phytother Res 2020. PMID 32310327"
+ },
+ "flaxseed": {
+  "slug": "flaxseed",
+  "name": "Flaxseed",
+  "scientific_name": "Linum usitatissimum",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "31130604",
+   "30000955",
+   "40260281",
+   "38992480"
+  ],
+  "reference": "Parikh M et al. Dietary Flaxseed as a Strategy for Improving Human Health. Nutrients 2019. PMID 31130604"
+ },
+ "folate": {
+  "slug": "folate",
+  "name": "Folate",
+  "scientific_name": "Pteroylglutamic acid",
+  "pubchem_cid": 135398658,
+  "inchikey": "OVBPIULPVIDEAO-LBPRGKRZSA-N",
+  "pubmed_pmids": [
+   "39145520",
+   "26198451",
+   "37526714",
+   "30873598"
+  ],
+  "reference": "Finkelstein JL et al. Daily oral iron supplementation during pregnancy. Cochrane Database Syst Rev 2024. PMID 39145520"
+ },
+ "forskolin": {
+  "slug": "forskolin",
+  "name": "Forskolin",
+  "scientific_name": "Coleus forskohlii",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "36479472",
+   "30000934",
+   "23023353",
+   "22131759"
+  ],
+  "reference": "Bonetti G et al. Dietary supplements for obesity. J Prev Med Hyg 2022. PMID 36479472"
+ },
+ "fucoidan": {
+  "slug": "fucoidan",
+  "name": "Fucoidan",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "26347522",
+   "31030745",
+   "31601041",
+   "25081084"
+  ],
+  "reference": "Kusaykin MI et al. Fucoidanases. Glycobiology 2016. PMID 26347522"
+ },
+ "garcinia-gummi-gutta": {
+  "slug": "garcinia-gummi-gutta",
+  "name": "Garcinia Gummi Gutta",
+  "scientific_name": "Garcinia gummi-gutta, Garcinia cambogia",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "35893931",
+   "41262061",
+   "25732350",
+   "29734675"
+  ],
+  "reference": "Mena-García A et al. Quality Evaluation of Dietary Supplements for Weight Loss Based on Garcinia cambogia. Nutrients 2022. PMID 35893931"
+ },
+ "garlic": {
+  "slug": "garlic",
+  "name": "Garlic",
+  "scientific_name": "Allium sativum",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "39275211",
+   "38659110",
+   "34443625",
+   "39696836"
+  ],
+  "reference": "Sleiman C et al. Garlic and Hypertension: Efficacy, Mechanism of Action, and Clinical Implications. Nutrients 2024. PMID 39275211"
+ },
+ "gcp": {
+  "slug": "gcp",
+  "name": "Gcp",
+  "scientific_name": "",
+  "pubchem_cid": 135398731,
+  "inchikey": "PHBDHXOBFUBCJD-KQYNXXCUSA-N",
+  "pubmed_pmids": [
+   "41345848",
+   "41310560",
+   "39025755",
+   "22795078"
+  ],
+  "reference": "Wuyts WA et al. Design of an open-label extension trial of nerandomilast (BI 1015550) in patients with idiopathic pulmonary fibrosis and progressive pulmonary fibrosis (FIBRONEER™-ON). BMC Pulm Med 2025. PMID 41345848"
+ },
+ "ge-gen-huang-qin-huang-lian-tang": {
+  "slug": "ge-gen-huang-qin-huang-lian-tang",
+  "name": "Ge Gen Huang Qin Huang Lian Tang",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": []
+ },
+ "germanium": {
+  "slug": "germanium",
+  "name": "Germanium",
+  "scientific_name": "",
+  "pubchem_cid": 6326954,
+  "inchikey": "GNPVGFCGXDBREM-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "9237323",
+   "36651511",
+   "1726409",
+   "3043151"
+  ],
+  "reference": "Tao SH et al. Hazard assessment of germanium supplements. Regul Toxicol Pharmacol 1997. PMID 9237323"
+ },
+ "gerson-regimen": {
+  "slug": "gerson-regimen",
+  "name": "Gerson Regimen",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "33979178",
+   "34043428",
+   "36600653",
+   "38423748"
+  ],
+  "reference": "Sarnaik AA et al. Lifileucel, a Tumor-Infiltrating Lymphocyte Therapy, in Metastatic Melanoma. J Clin Oncol 2021. PMID 33979178"
+ },
+ "ginger": {
+  "slug": "ginger",
+  "name": "Ginger",
+  "scientific_name": "Zingiber officinale, Zingiberis rhizoma",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37033930",
+   "30000845",
+   "11710709",
+   "32312261"
+  ],
+  "reference": "Long Z et al. Efficacy and safety of dietary polyphenols in rheumatoid arthritis: A systematic review and meta-analysis of 47 randomized controlled trials. Front Immunol 2023. PMID 37033930"
+ },
+ "ginkgo": {
+  "slug": "ginkgo",
+  "name": "Ginkgo",
+  "scientific_name": "Ginkgo biloba",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "32478963",
+   "31376068",
+   "25114079",
+   "13678141"
+  ],
+  "reference": "Tan CSS et al. Warfarin and food, herbal or dietary supplement interactions: A systematic review. Br J Clin Pharmacol 2021. PMID 32478963"
+ },
+ "ginseng-american": {
+  "slug": "ginseng-american",
+  "name": "Ginseng American",
+  "scientific_name": "Panax quinquefolius",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "29624410",
+   "30000873",
+   "11276295",
+   "40093323"
+  ],
+  "reference": "Arring NM et al. Ginseng as a Treatment for Fatigue: A Systematic Review. J Altern Complement Med 2018. PMID 29624410"
+ },
+ "ginseng-asian": {
+  "slug": "ginseng-asian",
+  "name": "Ginseng Asian",
+  "scientific_name": "Panax ginseng",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "33127555",
+   "37959659",
+   "39474788",
+   "14596440"
+  ],
+  "reference": "Liu H et al. Chemical constituents of Panax ginseng and Panax notoginseng explain why they differ in therapeutic efficacy. Pharmacol Res 2020. PMID 33127555"
+ },
+ "glehnia": {
+  "slug": "glehnia",
+  "name": "Glehnia",
+  "scientific_name": "Glehnia littoralis, Radix Glehniae",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "20093788",
+   "15234766",
+   "26745047",
+   "40259214"
+  ],
+  "reference": "Yoon T et al. Anti-inflammatory activity of methylene chloride fraction from Glehnia littoralis extract via suppression of NF-kappa B and mitogen-activated protein kinase activity. J Pharmacol Sci 2010. PMID 20093788"
+ },
+ "glucosamine": {
+  "slug": "glucosamine",
+  "name": "Glucosamine",
+  "scientific_name": "2-Amino-2-deoxyglucose",
+  "pubchem_cid": 441477,
+  "inchikey": "MSWZFWKMSRAUBD-QZABAPFNSA-N",
+  "pubmed_pmids": [
+   "36142319",
+   "29018060",
+   "26822714",
+   "18756654"
+  ],
+  "reference": "Barbeau-Grégoire M et al. A 2022 Systematic Review and Meta-Analysis of Enriched Therapeutic Diets and Nutraceuticals in Canine and Feline Osteoarthritis. Int J Mol Sci 2022. PMID 36142319"
+ },
+ "glutamine": {
+  "slug": "glutamine",
+  "name": "Glutamine",
+  "scientific_name": "",
+  "pubchem_cid": 5961,
+  "inchikey": "ZDXPYRJPNDTMRX-VKHMYHEASA-N",
+  "pubmed_pmids": [
+   "34444657",
+   "32512833",
+   "30108163",
+   "39397201"
+  ],
+  "reference": "Arribas-López E et al. The Effect of Amino Acids on Wound Healing: A Systematic Review and Meta-Analysis on Arginine and Glutamine. Nutrients 2021. PMID 34444657"
+ },
+ "glyconutrients": {
+  "slug": "glyconutrients",
+  "name": "Glyconutrients",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "17855741",
+   "19425467",
+   "17113489",
+   "38628678"
+  ],
+  "reference": "Schnaar RL et al. A \"glyconutrient sham\". Glycobiology 2008. PMID 17855741"
+ },
+ "goldenseal": {
+  "slug": "goldenseal",
+  "name": "Goldenseal",
+  "scientific_name": "Hydrastis canadensis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "33164294",
+   "30000926",
+   "32683037",
+   "36707434"
+  ],
+  "reference": "Bernstein N et al. Is it safe to consume traditional medicinal plants during pregnancy? Phytother Res 2021. PMID 33164294"
+ },
+ "gotu-kola": {
+  "slug": "gotu-kola",
+  "name": "Gotu Kola",
+  "scientific_name": "Centella asiatica, Hydrocotyle asiatica",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "39233460",
+   "39458583",
+   "33917843",
+   "33141449"
+  ],
+  "reference": "Chan LKW et al. Cosmeceuticals in photoaging: A review. Skin Res Technol 2024. PMID 39233460"
+ },
+ "grape-seed": {
+  "slug": "grape-seed",
+  "name": "Grape Seed",
+  "scientific_name": "Vitis vinifera, Vitis coignetiae, Vitis rotundifolia",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "31521398",
+   "34067538",
+   "31713941",
+   "35693751"
+  ],
+  "reference": "Román GC et al. Mediterranean diet: The role of long-chain ω-3 fatty acids in fish; polyphenols in fruits, vegetables, cereals, coffee, tea, cacao and wine; probiotics and vitamins in prevention of stroke, age-related cognitive decline, and Alzheimer disease. Rev Neurol (Paris) 2019. PMID 31521398"
+ },
+ "graviola": {
+  "slug": "graviola",
+  "name": "Graviola",
+  "scientific_name": "Annona muricata",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "36139697",
+   "35485570",
+   "31659754",
+   "39204442"
+  ],
+  "reference": "Ilango S et al. A Review on Annona muricata and Its Anticancer Activity. Cancers (Basel) 2022. PMID 36139697"
+ },
+ "green-tea": {
+  "slug": "green-tea",
+  "name": "Green Tea",
+  "scientific_name": "Camellia sinensis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "28899506",
+   "40314930",
+   "39748104",
+   "32118296"
+  ],
+  "reference": "Mancini E et al. Green tea effects on cognition, mood and human brain function: A systematic review. Phytomedicine 2017. PMID 28899506"
+ },
+ "guarana": {
+  "slug": "guarana",
+  "name": "Guarana",
+  "scientific_name": "Paullinia cupana",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "34755935",
+   "37898479",
+   "38931247",
+   "34146166"
+  ],
+  "reference": "Torres EAFS et al. Effects of the consumption of guarana on human health: A narrative review. Compr Rev Food Sci Food Saf 2022. PMID 34755935"
+ },
+ "guggul": {
+  "slug": "guggul",
+  "name": "Guggul",
+  "scientific_name": "Commiphora mukul",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "34071454",
+   "37301302",
+   "40517691",
+   "20857519"
+  ],
+  "reference": "Gyawali D et al. A Systematic Review and Meta-Analysis of Ayurvedic Herbal Preparations for Hypercholesterolemia. Medicina (Kaunas) 2021. PMID 34071454"
+ },
+ "gui-pi-tang": {
+  "slug": "gui-pi-tang",
+  "name": "Gui Pi Tang",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": []
+ },
+ "hawthorn": {
+  "slug": "hawthorn",
+  "name": "Hawthorn",
+  "scientific_name": "Crataegus monogyna, Crataegus oxyacantha",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "27655074",
+   "11887407",
+   "26656228",
+   "32679591"
+  ],
+  "reference": "Orhan IE Phytochemical and Pharmacological Activity Profile of Crataegus oxyacantha L. (Hawthorn) - A Cardiotonic Herb. Curr Med Chem 2018. PMID 27655074"
+ },
+ "hmb": {
+  "slug": "hmb",
+  "name": "Hmb",
+  "scientific_name": "Beta-hydroxy-beta-methylbutyrate",
+  "pubchem_cid": 6950804,
+  "inchikey": "AXFYFNCPONWUHW-UHFFFAOYSA-M",
+  "pubmed_pmids": [
+   "34234088",
+   "36081299",
+   "39699070",
+   "35301826"
+  ],
+  "reference": "Hall M et al. Creatine Supplementation: An Update. Curr Sports Med Rep 2021. PMID 34234088"
+ },
+ "homeopathy": {
+  "slug": "homeopathy",
+  "name": "Homeopathy",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "29543325",
+   "11795090",
+   "37805577",
+   "17004404"
+  ],
+  "reference": "Baandrup L et al. Pharmacological interventions for benzodiazepine discontinuation in chronic benzodiazepine users. Cochrane Database Syst Rev 2018. PMID 29543325"
+ },
+ "hoodia": {
+  "slug": "hoodia",
+  "name": "Hoodia",
+  "scientific_name": "Hoodia gordonii",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "36479472",
+   "38256784",
+   "18804523",
+   "25453380"
+  ],
+  "reference": "Bonetti G et al. Dietary supplements for obesity. J Prev Med Hyg 2022. PMID 36479472"
+ },
+ "hops": {
+  "slug": "hops",
+  "name": "Hops",
+  "scientific_name": "Humulus lupulus L.",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37101856",
+   "35102364",
+   "36781111",
+   "41453548"
+  ],
+  "reference": "Vahedpoorfard Z et al. Effect of Humulus lupulus L. (Hop) on Postmenopausal Sexual Dysfunction: A Randomized Clinical Trial. Int J Clin Pract 2023. PMID 37101856"
+ },
+ "horse-chestnut": {
+  "slug": "horse-chestnut",
+  "name": "Horse Chestnut",
+  "scientific_name": "Aesculus hippocastanum",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "38471319",
+   "32649293",
+   "39419127",
+   "36293500"
+  ],
+  "reference": "Xu S et al. Esculin inhibits hepatic stellate cell activation and CCl(4)-induced liver fibrosis by activating the Nrf2/GPX4 signaling pathway. Phytomedicine 2024. PMID 38471319"
+ },
+ "hoxsey-herbal-therapy": {
+  "slug": "hoxsey-herbal-therapy",
+  "name": "Hoxsey Herbal Therapy",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": []
+ },
+ "huang-qi-gui-zhi-wu-wu-tang": {
+  "slug": "huang-qi-gui-zhi-wu-wu-tang",
+  "name": "Huang Qi Gui Zhi Wu Wu Tang",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": []
+ },
+ "huanglian": {
+  "slug": "huanglian",
+  "name": "Huanglian",
+  "scientific_name": "Coptis chinensis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "32335802",
+   "38170849",
+   "39293583",
+   "34333328"
+  ],
+  "reference": "Song D et al. Biological properties and clinical applications of berberine. Front Med 2020. PMID 32335802"
+ },
+ "huperzia-serrata": {
+  "slug": "huperzia-serrata",
+  "name": "Huperzia Serrata",
+  "scientific_name": "Huperzia serrata, Lycopodium serratum",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "39571762",
+   "38697240",
+   "27086593",
+   "21639405"
+  ],
+  "reference": "Chu Z et al. Pharmacology, phytochemistry, and traditional uses of Huperzia serrata (Thunb. ex Murray) Trev. Fitoterapia 2025. PMID 39571762"
+ },
+ "hydrazine-sulfate": {
+  "slug": "hydrazine-sulfate",
+  "name": "Hydrazine Sulfate",
+  "scientific_name": "",
+  "pubchem_cid": 24842,
+  "inchikey": "ZGCHATBSUIJLRL-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "35642431",
+   "3104888",
+   "7773579",
+   "37220791"
+  ],
+  "reference": "Wiedemeyer WR et al. ABBV-011, A Novel, Calicheamicin-Based Antibody-Drug Conjugate, Targets SEZ6 to Eradicate Small Cell Lung Cancer Tumors. Mol Cancer Ther 2022. PMID 35642431"
+ },
+ "indirubin": {
+  "slug": "indirubin",
+  "name": "Indirubin",
+  "scientific_name": "Indigofera tinctoria, Indigo naturalis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "27718095",
+   "39216686",
+   "31838180",
+   "12685829"
+  ],
+  "reference": "Lai JL et al. Indirubin Inhibits LPS-Induced Inflammation via TLR4 Abrogation Mediated by the NF-kB and MAPK Signaling Pathways. Inflammation 2017. PMID 27718095"
+ },
+ "indole-3-carbinol": {
+  "slug": "indole-3-carbinol",
+  "name": "Indole 3 Carbinol",
+  "scientific_name": "Indole-3-Methanol, 1H-Indole-3-methanol",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "39846173",
+   "39905483",
+   "41771153",
+   "10668477"
+  ],
+  "reference": "Tang X et al. NEDD4-Mediated GSNOR Degradation Aggravates Cardiac Hypertrophy and Dysfunction. Circ Res 2025. PMID 39846173"
+ },
+ "inositol-hexaphosphate": {
+  "slug": "inositol-hexaphosphate",
+  "name": "Inositol Hexaphosphate",
+  "scientific_name": "Inositol-1,2,3,4,5,6-hexakisphosphate",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "2239091",
+   "8520206",
+   "37325852",
+   "12941382"
+  ],
+  "reference": "Przylipiak AF et al. Action and formation of inositol bisphosphate and inositol trisphosphate in rat anterior pituitary cells. Acta Endocrinol (Copenh) 1990. PMID 2239091"
+ },
+ "insulin-potentiation-therapy": {
+  "slug": "insulin-potentiation-therapy",
+  "name": "Insulin Potentiation Therapy",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "36050763",
+   "39991851",
+   "37513562",
+   "31426593"
+  ],
+  "reference": "Nauck MA et al. Tirzepatide, a dual GIP/GLP-1 receptor co-agonist for the treatment of type 2 diabetes with unmatched effectiveness regrading glycaemic control and body weight reduction. Cardiovasc Diabetol 2022. PMID 36050763"
+ },
+ "irvingia-gabonensis": {
+  "slug": "irvingia-gabonensis",
+  "name": "Irvingia Gabonensis",
+  "scientific_name": "Irvingia gabonensis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "36479472",
+   "23419021",
+   "31855111",
+   "36364907"
+  ],
+  "reference": "Bonetti G et al. Dietary supplements for obesity. J Prev Med Hyg 2022. PMID 36479472"
+ },
+ "isatis-leaf": {
+  "slug": "isatis-leaf",
+  "name": "Isatis Leaf",
+  "scientific_name": "Isatidis baphicacanthi, Isatis tinctoria, Isatis indigotica, Folium isatidis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "33779758",
+   "34572971",
+   "35795852",
+   "38384949"
+  ],
+  "reference": "Chen Q et al. Isatis indigotica: a review of phytochemistry, pharmacological activities and clinical applications. J Pharm Pharmacol 2021. PMID 33779758"
+ },
+ "isatis-root": {
+  "slug": "isatis-root",
+  "name": "Isatis Root",
+  "scientific_name": "Radix isatidis baphicacanthi, Isatis tinctoria, Isatis indigotica",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "33779758",
+   "37567423",
+   "35009980",
+   "31635774"
+  ],
+  "reference": "Chen Q et al. Isatis indigotica: a review of phytochemistry, pharmacological activities and clinical applications. J Pharm Pharmacol 2021. PMID 33779758"
+ },
+ "ji-chuan-jian": {
+  "slug": "ji-chuan-jian",
+  "name": "Ji Chuan Jian",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": []
+ },
+ "juice-plus": {
+  "slug": "juice-plus",
+  "name": "Juice Plus",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "31864419",
+   "37462346",
+   "17825405",
+   "19947351"
+  ],
+  "reference": "Jäger R et al. International Society of Sports Nutrition Position Stand: Probiotics. J Int Soc Sports Nutr 2019. PMID 31864419"
+ },
+ "kava": {
+  "slug": "kava",
+  "name": "Kava",
+  "scientific_name": "Piper methysticum",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "35311615",
+   "28762712",
+   "35378276",
+   "29575228"
+  ],
+  "reference": "Sarris J et al. Clinician guidelines for the treatment of psychiatric disorders with nutraceuticals and phytoceuticals: The World Federation of Societies of Biological Psychiatry (WFSBP) and Canadian Network for Mood and Anxiety Treatments (CANMAT) Taskforce. World J Biol Psychiatry 2022. PMID 35311615"
+ },
+ "kombucha": {
+  "slug": "kombucha",
+  "name": "Kombucha",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "38602651",
+   "40411688",
+   "39738315",
+   "39339787"
+  ],
+  "reference": "Massoud R et al. Kombucha as a Health-Beneficial Drink for Human Health. Plant Foods Hum Nutr 2024. PMID 38602651"
+ },
+ "kratom": {
+  "slug": "kratom",
+  "name": "Kratom",
+  "scientific_name": "Mitragyna speciosa",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "31999896",
+   "38217374",
+   "26511390",
+   "31591097"
+  ],
+  "reference": "Sethi R et al. Kratom (Mitragyna speciosa): Friend or Foe? Prim Care Companion CNS Disord 2020. PMID 31999896"
+ },
+ "kudzu": {
+  "slug": "kudzu",
+  "name": "Kudzu",
+  "scientific_name": "Pueraria mirifica, Pueraria thunbergiana, Pueraria lobata, Pueraria montana, Radix puerariae",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "27677719",
+   "40714420",
+   "38828197",
+   "21315814"
+  ],
+  "reference": "Dietz BM et al. Botanicals and Their Bioactive Phytochemicals for Women's Health. Pharmacol Rev 2016. PMID 27677719"
+ },
+ "l-theanine": {
+  "slug": "l-theanine",
+  "name": "L Theanine",
+  "scientific_name": "",
+  "pubchem_cid": 439378,
+  "inchikey": "DATAGRPVKZEWHA-YFKPBYRVSA-N",
+  "pubmed_pmids": [
+   "31623400",
+   "18296328",
+   "18681988",
+   "30707852"
+  ],
+  "reference": "Hidese S et al. Effects of L-Theanine Administration on Stress-Related Symptoms and Cognitive Functions in Healthy Adults: A Randomized Controlled Trial. Nutrients 2019. PMID 31623400"
+ },
+ "lavender": {
+  "slug": "lavender",
+  "name": "Lavender",
+  "scientific_name": "Lavandula angustifolia",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "28511598",
+   "39654196",
+   "30000925",
+   "33454232"
+  ],
+  "reference": "Kasper S et al. Silexan in anxiety disorders: Clinical data and pharmacological background. World J Biol Psychiatry 2018. PMID 28511598"
+ },
+ "lemongrass": {
+  "slug": "lemongrass",
+  "name": "Lemongrass",
+  "scientific_name": "Cymbopogon citratus, Cymbopogon flexuosus",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "31489661"
+  ],
+  "reference": "Farooq S et al. Scrutinizing antioxidant interactions between green tea and some medicinal plants commonly used as herbal teas. J Food Biochem 2019. PMID 31489661"
+ },
+ "lentinan": {
+  "slug": "lentinan",
+  "name": "Lentinan",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "33276307",
+   "38108068",
+   "38621414",
+   "10460691"
+  ],
+  "reference": "Motta F et al. Mushrooms and immunity. J Autoimmun 2021. PMID 33276307"
+ },
+ "leucine": {
+  "slug": "leucine",
+  "name": "Leucine",
+  "scientific_name": "2-Amino-4-methylpentanoic acid",
+  "pubchem_cid": 857,
+  "inchikey": "ROHFNLRQFUQHCH-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "39275211",
+   "36728680",
+   "38659110",
+   "32585000"
+  ],
+  "reference": "Sleiman C et al. Garlic and Hypertension: Efficacy, Mechanism of Action, and Clinical Implications. Nutrients 2024. PMID 39275211"
+ },
+ "licorice": {
+  "slug": "licorice",
+  "name": "Licorice",
+  "scientific_name": "Glycyrrhiza glabra, Glycyrrhiza uralensis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "40413479",
+   "39625590",
+   "40350052",
+   "27650551"
+  ],
+  "reference": "Kim YR et al. Effectiveness of Glycyrrhiza uralensis extract on periodontal pathogens: a randomized controlled clinical trial. BMC Oral Health 2025. PMID 40413479"
+ },
+ "ligustrum-lucidum": {
+  "slug": "ligustrum-lucidum",
+  "name": "Ligustrum Lucidum",
+  "scientific_name": "Ligustrum lucidum",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "36775079",
+   "36465462",
+   "35551489",
+   "40782766"
+  ],
+  "reference": "Hu YY et al. Jinfeng pills ameliorate premature ovarian insufficiency induced by cyclophosphamide in rats and correlate to modulating IL-17A/IL-6 axis and MEK/ERK signals. J Ethnopharmacol 2023. PMID 36775079"
+ },
+ "ling-gui-zhu-gan-tang": {
+  "slug": "ling-gui-zhu-gan-tang",
+  "name": "Ling Gui Zhu Gan Tang",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "33312223",
+   "37698150",
+   "15889518"
+  ],
+  "reference": "Wang X et al. Ling-Gui-Zhu-Gan Decoction Protects H9c2 Cells against H(2)O(2)-Induced Oxidative Injury via Regulation of the Nrf2/Keap1/HO-1 Signaling Pathway. Evid Based Complement Alternat Med 2020. PMID 33312223"
+ },
+ "lions-mane-mushroom": {
+  "slug": "lions-mane-mushroom",
+  "name": "Lions Mane Mushroom",
+  "scientific_name": "Hericium erinaceus",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37958943",
+   "18844328",
+   "38004235",
+   "31413233"
+  ],
+  "reference": "Szućko-Kociuba I et al. Neurotrophic and Neuroprotective Effects of Hericium erinaceus. Int J Mol Sci 2023. PMID 37958943"
+ },
+ "liu-wei-di-huang-wan": {
+  "slug": "liu-wei-di-huang-wan",
+  "name": "Liu Wei Di Huang Wan",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "34457016",
+   "20723593",
+   "22208477",
+   "32855636"
+  ],
+  "reference": "Chen HH et al. Liu Wei Di Huang Wan and the Delay of Insulin Use in Patients with Type 2 Diabetes in Taiwan: A Nationwide Study. Evid Based Complement Alternat Med 2021. PMID 34457016"
+ },
+ "livingston-wheeler-therapy": {
+  "slug": "livingston-wheeler-therapy",
+  "name": "Livingston Wheeler Therapy",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "30415628",
+   "38363577",
+   "42240165",
+   "24450891"
+  ],
+  "reference": "Bhatt DL et al. Cardiovascular Risk Reduction with Icosapent Ethyl for Hypertriglyceridemia. N Engl J Med 2019. PMID 30415628"
+ },
+ "lobelia": {
+  "slug": "lobelia",
+  "name": "Lobelia",
+  "scientific_name": "Lobelia inflata, Lobelia berlandieri, Lobelia cardinalis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "9679323",
+   "37144780",
+   "34550291",
+   "17612524"
+  ],
+  "reference": "Philipov S et al. Phytochemical study and antiinflammatory properties of Lobelia laxiflora L. Z Naturforsch C J Biosci 1998. PMID 9679323"
+ },
+ "low-dose-naltrexone": {
+  "slug": "low-dose-naltrexone",
+  "name": "Low Dose Naltrexone",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "32845365",
+   "29885638",
+   "29377216",
+   "40962192"
+  ],
+  "reference": "Kim PS et al. Low-Dose Naltrexone for Chronic Pain: Update and Systemic Review. Curr Pain Headache Rep 2020. PMID 32845365"
+ },
+ "lutein": {
+  "slug": "lutein",
+  "name": "Lutein",
+  "scientific_name": "",
+  "pubchem_cid": 5281243,
+  "inchikey": "KBPHJBAIARWVSC-RGZFRNHPSA-N",
+  "pubmed_pmids": [
+   "23644932",
+   "32526861",
+   "37702300",
+   "38363462"
+  ],
+  "reference": "Age-Related Eye Disease Study 2 Research Group Lutein + zeaxanthin and omega-3 fatty acids for age-related macular degeneration: the Age-Related Eye Disease Study 2 (AREDS2) randomized clinical trial. JAMA 2013. PMID 23644932"
+ },
+ "lycium": {
+  "slug": "lycium",
+  "name": "Lycium",
+  "scientific_name": "Lycium barbarum, Lycium chinense, Lycium europeaum",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "38061697",
+   "39889999",
+   "39089544",
+   "39640061"
+  ],
+  "reference": "Li ZY et al. Lycium barbarum polysaccharide alleviates DSS-induced chronic ulcerative colitis by restoring intestinal barrier function and modulating gut microbiota. Ann Med 2023. PMID 38061697"
+ },
+ "lycopene": {
+  "slug": "lycopene",
+  "name": "Lycopene",
+  "scientific_name": "",
+  "pubchem_cid": 446925,
+  "inchikey": "OAIJSZIZWZSQBC-GYZMGTAESA-N",
+  "pubmed_pmids": [
+   "38935105",
+   "36606553",
+   "24188663",
+   "40806357"
+  ],
+  "reference": "Wylenzek F et al. A systematic review on the impact of nutrition and possible supplementation on the deficiency of vitamin complexes, iron, omega-3-fatty acids, and lycopene in relation to increased morbidity in women after menopause. Arch Gynecol Obstet 2024. PMID 38935105"
+ },
+ "maca": {
+  "slug": "maca",
+  "name": "Maca",
+  "scientific_name": "Lepidium meyenii, Lepidium peruvianum",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "38398854",
+   "23674962",
+   "26508907",
+   "28811221"
+  ],
+  "reference": "Minich DM et al. Not All Maca Is Created Equal: A Review of Colors, Nutrition, Phytochemicals, and Clinical Uses. Nutrients 2024. PMID 38398854"
+ },
+ "magnesium": {
+  "slug": "magnesium",
+  "name": "Magnesium",
+  "scientific_name": "",
+  "pubchem_cid": 5462224,
+  "inchikey": "FYYHWMGAXLPEAU-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "26404370",
+   "32972636",
+   "34111673",
+   "28392498"
+  ],
+  "reference": "Gröber U et al. Magnesium in Prevention and Therapy. Nutrients 2015. PMID 26404370"
+ },
+ "magnet-therapy": {
+  "slug": "magnet-therapy",
+  "name": "Magnet Therapy",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "39106167",
+   "16399710",
+   "29616493",
+   "12242851"
+  ],
+  "reference": "Estevinho MM et al. Efficacy and safety of probiotics in IBD: An overview of systematic reviews and updated meta-analysis of randomized controlled trials. United European Gastroenterol J 2024. PMID 39106167"
+ },
+ "magnolia-officinalis": {
+  "slug": "magnolia-officinalis",
+  "name": "Magnolia Officinalis",
+  "scientific_name": "Magnolia officinalis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "34907394",
+   "34526366",
+   "39853578",
+   "36161554"
+  ],
+  "reference": "Sforzini L et al. A Delphi-method-based consensus guideline for definition of treatment-resistant depression for clinical trials. Mol Psychiatry 2022. PMID 34907394"
+ },
+ "maitake": {
+  "slug": "maitake",
+  "name": "Maitake",
+  "scientific_name": "Grifola frondosa",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37373268",
+   "40370689",
+   "10460691",
+   "35215289"
+  ],
+  "reference": "Gariboldi MB et al. Anti-Cancer Potential of Edible/Medicinal Mushrooms in Breast Cancer. Int J Mol Sci 2023. PMID 37373268"
+ },
+ "mangosteen": {
+  "slug": "mangosteen",
+  "name": "Mangosteen",
+  "scientific_name": "Garcinia mangostana",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "40637133",
+   "32280205",
+   "35369604",
+   "41392558"
+  ],
+  "reference": "Dean OM et al. The efficacy of adjunctive Garcinia mangostana Linn. (mangosteen) pericarp extract for bipolar depression: 24-week randomised controlled trial. Br J Psychiatry 2025. PMID 40637133"
+ },
+ "manuka-honey": {
+  "slug": "manuka-honey",
+  "name": "Manuka Honey",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "35950413",
+   "36088149",
+   "40410721",
+   "33142845"
+  ],
+  "reference": "Hu J et al. Efficacy and safety of manuka honey for dry eye. Clin Exp Optom 2023. PMID 35950413"
+ },
+ "maroon-bush": {
+  "slug": "maroon-bush",
+  "name": "Maroon Bush",
+  "scientific_name": "Scaevola spinescens",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "2519685"
+  ],
+  "reference": "Rozendaal JA et al. Efficacy of mosquito nets treated with permethrin in Suriname. Med Vet Entomol 1989. PMID 2519685"
+ },
+ "mate": {
+  "slug": "mate",
+  "name": "Mate",
+  "scientific_name": "Ilex paraguariensis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "18034743",
+   "40263915",
+   "37892529",
+   "34835962"
+  ],
+  "reference": "Heck CI et al. Yerba Mate Tea (Ilex paraguariensis): a comprehensive review on chemistry, health implications, and technological considerations. J Food Sci 2007. PMID 18034743"
+ },
+ "mazirenwan": {
+  "slug": "mazirenwan",
+  "name": "Mazirenwan",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "33486266",
+   "29654915",
+   "32038247",
+   "30109589"
+  ],
+  "reference": "Yang M et al. Herbal formula MaZiRenWan (Hemp Seed Pill) for constipation: A systematic review with meta-analysis. Phytomedicine 2021. PMID 33486266"
+ },
+ "mediterranean-diet": {
+  "slug": "mediterranean-diet",
+  "name": "Mediterranean Diet",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "28684083",
+   "25447615",
+   "38251061",
+   "28545937"
+  ],
+  "reference": "Guasch-Ferré M et al. The PREDIMED trial, Mediterranean diet and health outcomes: How strong is the evidence? Nutr Metab Cardiovasc Dis 2017. PMID 28684083"
+ },
+ "melatonin": {
+  "slug": "melatonin",
+  "name": "Melatonin",
+  "scientific_name": "N-acetyl-methoxytryptamine",
+  "pubchem_cid": 88503195,
+  "inchikey": "VQIPHLRTEXJFLG-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "36235587",
+   "35843245",
+   "38888087",
+   "33417003"
+  ],
+  "reference": "Minich DM et al. Is Melatonin the \"Next Vitamin D\"?: A Review of Emerging Science, Clinical Uses, Safety, and Dietary Supplements. Nutrients 2022. PMID 36235587"
+ },
+ "mgn-3": {
+  "slug": "mgn-3",
+  "name": "Mgn 3",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "34836388",
+   "38542792",
+   "29037071",
+   "31489525"
+  ],
+  "reference": "Elsaid AF et al. Dietary Supplementation with Biobran/MGN-3 Increases Innate Resistance and Reduces the Incidence of Influenza-like Illnesses in Elderly Subjects: A Randomized, Double-Blind, Placebo-Controlled Pilot Clinical Trial. Nutrients 2021. PMID 34836388"
+ },
+ "micom": {
+  "slug": "micom",
+  "name": "Micom",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37428227",
+   "41415232",
+   "38156051",
+   "35111162"
+  ],
+  "reference": "Paul A [Mind-body medicine in pain management]. Schmerz 2023. PMID 37428227"
+ },
+ "milk-thistle": {
+  "slug": "milk-thistle",
+  "name": "Milk Thistle",
+  "scientific_name": "Silybum marianum, Carduus marianum",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "28762712",
+   "30080294",
+   "20564545",
+   "27677719"
+  ],
+  "reference": "Asher GN et al. Common Herbal Dietary Supplement-Drug Interactions. Am Fam Physician 2017. PMID 28762712"
+ },
+ "mistletoe-european": {
+  "slug": "mistletoe-european",
+  "name": "Mistletoe European",
+  "scientific_name": "Viscum album, Viscum coloratum",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "34044077",
+   "10211936",
+   "36154312",
+   "34402277"
+  ],
+  "reference": "Song C et al. Exploring the resources of the genus Viscum for potential therapeutic applications. J Ethnopharmacol 2021. PMID 34044077"
+ },
+ "moringa-oleifera": {
+  "slug": "moringa-oleifera",
+  "name": "Moringa Oleifera",
+  "scientific_name": "Moringa oleifera",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "25808883",
+   "25374169",
+   "34207664",
+   "35010932"
+  ],
+  "reference": "Stohs SJ et al. Review of the Safety and Efficacy of Moringa oleifera. Phytother Res 2015. PMID 25808883"
+ },
+ "myrrh": {
+  "slug": "myrrh",
+  "name": "Myrrh",
+  "scientific_name": "Commiphora molmol",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "34071454",
+   "31354857",
+   "35807634",
+   "40517691"
+  ],
+  "reference": "Gyawali D et al. A Systematic Review and Meta-Analysis of Ayurvedic Herbal Preparations for Hypercholesterolemia. Medicina (Kaunas) 2021. PMID 34071454"
+ },
+ "n-acetylcysteine": {
+  "slug": "n-acetylcysteine",
+  "name": "N Acetylcysteine",
+  "scientific_name": "N-Acetylcysteine",
+  "pubchem_cid": 12035,
+  "inchikey": "PWKSKIMOESPYIA-BYPYZUCNSA-N",
+  "pubmed_pmids": [
+   "35975308",
+   "33783984",
+   "25957927",
+   "29473717"
+  ],
+  "reference": "Kumar P et al. Supplementing Glycine and N-Acetylcysteine (GlyNAC) in Older Adults Improves Glutathione Deficiency, Oxidative Stress, Mitochondrial Dysfunction, Inflammation, Physical Function, and Aging Hallmarks: A Randomized Clinical Trial. J Gerontol A Biol Sci Med Sci 2023. PMID 35975308"
+ },
+ "nattokinase": {
+  "slug": "nattokinase",
+  "name": "Nattokinase",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "36072877",
+   "39076715",
+   "28264497",
+   "36080170"
+  ],
+  "reference": "Chen H et al. Effective management of atherosclerosis progress and hyperlipidemia with nattokinase: A clinical study with 1,062 participants. Front Cardiovasc Med 2022. PMID 36072877"
+ },
+ "neem": {
+  "slug": "neem",
+  "name": "Neem",
+  "scientific_name": "Azadirachta indica",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "38565924",
+   "39554682",
+   "35349879",
+   "39583271"
+  ],
+  "reference": "Hashem MM et al. Rosemary and neem: an insight into their combined anti-dandruff and anti-hair loss efficacy. Sci Rep 2024. PMID 38565924"
+ },
+ "nettle": {
+  "slug": "nettle",
+  "name": "Nettle",
+  "scientific_name": "Urtica dioica",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "31577095",
+   "30000836",
+   "39000608",
+   "39713116"
+  ],
+  "reference": "Cicero AFG et al. Nutraceutical treatment and prevention of benign prostatic hyperplasia and prostate cancer. Arch Ital Urol Androl 2019. PMID 31577095"
+ },
+ "nicotinamide": {
+  "slug": "nicotinamide",
+  "name": "Nicotinamide",
+  "scientific_name": "Pyridine-3-carboxamide",
+  "pubchem_cid": 936,
+  "inchikey": "DFPAKSUCGFBDDF-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "33104317",
+   "40127374",
+   "36153941",
+   "38750062"
+  ],
+  "reference": " Ubrogepant.  2006. PMID 33104317"
+ },
+ "nigella-sativa": {
+  "slug": "nigella-sativa",
+  "name": "Nigella Sativa",
+  "scientific_name": "Nigella sativa",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "39769174",
+   "34073784",
+   "27852303",
+   "32878326"
+  ],
+  "reference": "Alberts A et al. Nigella sativa: A Comprehensive Review of Its Therapeutic Potential, Pharmacological Properties, and Clinical Applications. Int J Mol Sci 2024. PMID 39769174"
+ },
+ "noni": {
+  "slug": "noni",
+  "name": "Noni",
+  "scientific_name": "Morinda citrifolia",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "36041061",
+   "36448674",
+   "35449669",
+   "41050503"
+  ],
+  "reference": "Cooper TE et al. D-mannose for preventing and treating urinary tract infections. Cochrane Database Syst Rev 2022. PMID 36041061"
+ },
+ "oldenlandia-diffusa": {
+  "slug": "oldenlandia-diffusa",
+  "name": "Oldenlandia Diffusa",
+  "scientific_name": "Oldenlandia diffusa, Hedyotis diffusa",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37837473",
+   "36219718",
+   "27902758",
+   "27280050"
+  ],
+  "reference": "Al-Shuhaib MBS et al. Phytochemistry, pharmacology, and medical uses of Oldenlandia (family Rubaceae): a review. Naunyn Schmiedebergs Arch Pharmacol 2024. PMID 37837473"
+ },
+ "oleandrin": {
+  "slug": "oleandrin",
+  "name": "Oleandrin",
+  "scientific_name": "Nerium oleander",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "38284273",
+   "30725648",
+   "36706925",
+   "37039741"
+  ],
+  "reference": "Karimi A et al. Protective efficacy of Nerium oleander extract on spermatogenesis in streptozotocin-induced diabetic rats. Zygote 2024. PMID 38284273"
+ },
+ "olive-leaf": {
+  "slug": "olive-leaf",
+  "name": "Olive Leaf",
+  "scientific_name": "Olea europaea",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "29511019",
+   "39818111",
+   "25578760",
+   "38309486"
+  ],
+  "reference": "Khaw KT et al. Randomised trial of coconut oil, olive oil or butter on blood lipids and other cardiovascular risk factors in healthy men and women. BMJ Open 2018. PMID 29511019"
+ },
+ "omega-3": {
+  "slug": "omega-3",
+  "name": "Omega 3",
+  "scientific_name": "",
+  "pubchem_cid": 1548943,
+  "inchikey": "YKPUWZUDDOIDPM-SOFGYWHQSA-N",
+  "pubmed_pmids": [
+   "25720716",
+   "38777432",
+   "38999792",
+   "22765297"
+  ],
+  "reference": "Jain AP et al. Omega-3 fatty acids and cardiovascular disease. Eur Rev Med Pharmacol Sci 2015. PMID 25720716"
+ },
+ "oyster-mushroom": {
+  "slug": "oyster-mushroom",
+  "name": "Oyster Mushroom",
+  "scientific_name": "Pleurotus ostreatus",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37373268",
+   "33276307",
+   "38541460",
+   "37238827"
+  ],
+  "reference": "Gariboldi MB et al. Anti-Cancer Potential of Edible/Medicinal Mushrooms in Breast Cancer. Int J Mol Sci 2023. PMID 37373268"
+ },
+ "pao-pereira": {
+  "slug": "pao-pereira",
+  "name": "Pao Pereira",
+  "scientific_name": "Geissospermum vellosii Fr., Geissospermum leave, Tabernaemontana laevis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "35908569",
+   "33933206",
+   "37060915",
+   "37865101"
+  ],
+  "reference": "RECOVERY Collaborative Group Baricitinib in patients admitted to hospital with COVID-19 (RECOVERY): a randomised, controlled, open-label, platform trial and updated meta-analysis. Lancet 2022. PMID 35908569"
+ },
+ "papaya-leaf": {
+  "slug": "papaya-leaf",
+  "name": "Papaya Leaf",
+  "scientific_name": "Carica papaya",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "30000941",
+   "17472487",
+   "35638309",
+   "31601215"
+  ],
+  "reference": " Papaya.  2006. PMID 30000941"
+ },
+ "passionflower": {
+  "slug": "passionflower",
+  "name": "Passionflower",
+  "scientific_name": "Passiflora incarnata",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "33352740",
+   "38646244",
+   "29575228",
+   "29403626"
+  ],
+  "reference": "Janda K et al. Passiflora incarnata in Neuropsychiatric Disorders-A Systematic Review. Nutrients 2020. PMID 33352740"
+ },
+ "pau-d-arco": {
+  "slug": "pau-d-arco",
+  "name": "Pau D Arco",
+  "scientific_name": "Handroanthus impetiginosus, Tabebuia impetiginosa, Tabebuia avellanedae, Tabebuia heptaphylla",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "36960315",
+   "39864282",
+   "22632862",
+   "35998713"
+  ],
+  "reference": "McClure C et al. Safety and tolerability of Pau d' Arco (Tabebuia avellanedae) for primary dysmenorrhea: A single-arm, open-label trial on adults ages 18-45. Adv Integr Med 2022. PMID 36960315"
+ },
+ "pc-spes": {
+  "slug": "pc-spes",
+  "name": "Pc Spes",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "12809931",
+   "26389430",
+   "12088108",
+   "26389352"
+  ],
+  "reference": "Ko R et al. PC-SPES. Urology 2003. PMID 12809931"
+ },
+ "pectin": {
+  "slug": "pectin",
+  "name": "Pectin",
+  "scientific_name": "",
+  "pubchem_cid": 441476,
+  "inchikey": "AEMOLEFTQBMNLQ-DTEWXJGMSA-N",
+  "pubmed_pmids": [
+   "35816465",
+   "33004548",
+   "36615814",
+   "40829673"
+  ],
+  "reference": "van der Schoot A et al. The Effect of Fiber Supplementation on Chronic Constipation in Adults: An Updated Systematic Review and Meta-Analysis of Randomized Controlled Trials. Am J Clin Nutr 2022. PMID 35816465"
+ },
+ "pelargonium-sidoides": {
+  "slug": "pelargonium-sidoides",
+  "name": "Pelargonium Sidoides",
+  "scientific_name": "Pelargonium sidoides",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "29563828",
+   "37378781",
+   "38931472",
+   "35419311"
+  ],
+  "reference": "Careddu D et al. Pelargonium sidoides extract EPs 7630: a review of its clinical efficacy and safety for treating acute respiratory tract infections in children. Int J Gen Med 2018. PMID 29563828"
+ },
+ "pennyroyal": {
+  "slug": "pennyroyal",
+  "name": "Pennyroyal",
+  "scientific_name": "Mentha pulegium, Hedeoma pulegioides",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "25512112",
+   "36495177",
+   "37103181",
+   "30417147"
+  ],
+  "reference": "Gordon P et al. A decades-long investigation of acute metabolism-based hepatotoxicity by herbal constituents: a case study of pennyroyal oil. Drug Metab Rev 2015. PMID 25512112"
+ },
+ "peppermint": {
+  "slug": "peppermint",
+  "name": "Peppermint",
+  "scientific_name": "Mentha piperita L.",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37662995",
+   "42024666",
+   "35110977",
+   "40741364"
+  ],
+  "reference": "Štrbac F et al. Invitro and in vivo anthelmintic efficacy of peppermint (Mentha x piperita L.) essential oil against gastrointestinal nematodes of sheep. Front Vet Sci 2023. PMID 37662995"
+ },
+ "perillyl-alcohol": {
+  "slug": "perillyl-alcohol",
+  "name": "Perillyl Alcohol",
+  "scientific_name": "p-metha,1,7-diene-6-ol, 4-isopropenyl-cyclohexenecarbinol",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "14637181"
+  ],
+  "reference": "Kennedy S et al. Effect of antiproliferative agents on vascular function in normal and in vitro balloon-injured porcine coronary arteries. Eur J Pharmacol 2003. PMID 14637181"
+ },
+ "petiveria-alliacea": {
+  "slug": "petiveria-alliacea",
+  "name": "Petiveria Alliacea",
+  "scientific_name": "Petiveria alliacea",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37563608",
+   "26944236",
+   "28762858",
+   "12046866"
+  ],
+  "reference": "Ballesteros-Ramírez R et al. Exploring the safety and efficacy of phytomedicine Petiveria alliacea extract (Esperanza) in patients with metastatic gastrointestinal tumors and acute leukemias: study protocol for a phase Ib/randomized double blind phase II trial (PA001). BMC Complement Med Ther 2023. PMID 37563608"
+ },
+ "phellinus-linteus": {
+  "slug": "phellinus-linteus",
+  "name": "Phellinus Linteus",
+  "scientific_name": "Phellinus linteus",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "36221338",
+   "38072341",
+   "32768475",
+   "32080074"
+  ],
+  "reference": "Ku YH et al. Efficacy of Phellinus linteus extract on immunity enhancement: A CONSORT-randomized, double-blind, placebo-controlled pilot trial. Medicine (Baltimore) 2022. PMID 36221338"
+ },
+ "pine-bark-extract": {
+  "slug": "pine-bark-extract",
+  "name": "Pine Bark Extract",
+  "scientific_name": "Pinus maritima, Pinus pinaster",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "33141449",
+   "27048768",
+   "32990945",
+   "25931421"
+  ],
+  "reference": "Martinez-Zapata MJ et al. Phlebotonics for venous insufficiency. Cochrane Database Syst Rev 2020. PMID 33141449"
+ },
+ "pokeweed": {
+  "slug": "pokeweed",
+  "name": "Pokeweed",
+  "scientific_name": "Phytolacca americana, Phytolacca decandra",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37645570",
+   "25894210",
+   "15326549",
+   "22164865"
+  ],
+  "reference": "Trunjaruen A et al. The Optimization of Medium Conditions and Auxins in the Induction of Adventitious Roots of Pokeweed (Phytolacca americana L.) and Their Phytochemical Constituents. Scientifica (Cairo) 2023. PMID 37645570"
+ },
+ "pollen-extract": {
+  "slug": "pollen-extract",
+  "name": "Pollen Extract",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "31577095",
+   "41031780",
+   "30537561",
+   "38194609"
+  ],
+  "reference": "Cicero AFG et al. Nutraceutical treatment and prevention of benign prostatic hyperplasia and prostate cancer. Arch Ital Urol Androl 2019. PMID 31577095"
+ },
+ "polydox": {
+  "slug": "polydox",
+  "name": "Polydox",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "28844758",
+   "21703363",
+   "41878125",
+   "31503464"
+  ],
+  "reference": "Alibolandi M et al. Extensive preclinical investigation of polymersomal formulation of doxorubicin versus Doxil-mimic formulation. J Control Release 2017. PMID 28844758"
+ },
+ "pomegranate": {
+  "slug": "pomegranate",
+  "name": "Pomegranate",
+  "scientific_name": "Punica granatum",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "31577095",
+   "37697053",
+   "38422652",
+   "39016077"
+  ],
+  "reference": "Cicero AFG et al. Nutraceutical treatment and prevention of benign prostatic hyperplasia and prostate cancer. Arch Ital Urol Androl 2019. PMID 31577095"
+ },
+ "probiotics-01": {
+  "slug": "probiotics-01",
+  "name": "Probiotics 01",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "31004628",
+   "39106167",
+   "31039287",
+   "39599701"
+  ],
+  "reference": "Liu RT et al. Prebiotics and probiotics for depression and anxiety: A systematic review and meta-analysis of controlled clinical trials. Neurosci Biobehav Rev 2019. PMID 31004628"
+ },
+ "propolis": {
+  "slug": "propolis",
+  "name": "Propolis",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37867066",
+   "36144852",
+   "35965421",
+   "36162824"
+  ],
+  "reference": "Duane B et al. Mouthwashes: Alternatives and Future Directions. Int Dent J 2023. PMID 37867066"
+ },
+ "proteolytic-enzymes": {
+  "slug": "proteolytic-enzymes",
+  "name": "Proteolytic Enzymes",
+  "scientific_name": "",
+  "pubchem_cid": 3086051,
+  "inchikey": "VLKSXJAPRDAENT-OWGHDAAGSA-N",
+  "pubmed_pmids": [
+   "26822714",
+   "32755581",
+   "39036884",
+   "30711207"
+  ],
+  "reference": "Lugo JP et al. Efficacy and tolerability of an undenatured type II collagen supplement in modulating knee osteoarthritis symptoms: a multicenter randomized, double-blind, placebo-controlled study. Nutr J 2016. PMID 26822714"
+ },
+ "psilocybin": {
+  "slug": "psilocybin",
+  "name": "Psilocybin",
+  "scientific_name": "3-[2-(Dimethylamino)ethyl]-1H-indol-4-yl dihydrogen phosphate",
+  "pubchem_cid": 10624,
+  "inchikey": "QVDSEJDULKLHCG-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "37651119",
+   "37844352",
+   "36322843",
+   "28074670"
+  ],
+  "reference": "Raison CL et al. Single-Dose Psilocybin Treatment for Major Depressive Disorder: A Randomized Clinical Trial. JAMA 2023. PMID 37651119"
+ },
+ "pygeum": {
+  "slug": "pygeum",
+  "name": "Pygeum",
+  "scientific_name": "Pygeum africanum, Prunus africana",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "17709901",
+   "30316061",
+   "26497340",
+   "39125867"
+  ],
+  "reference": "Shenouda NS et al. Phytosterol Pygeum africanum regulates prostate cancer in vitro and in vivo. Endocrine 2007. PMID 17709901"
+ },
+ "quercetin": {
+  "slug": "quercetin",
+  "name": "Quercetin",
+  "scientific_name": "3,3',4',5,7-pentapentahydroxyflavone",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "18666380",
+   "41763802",
+   "31672599",
+   "39519561"
+  ],
+  "reference": "Roupe KA et al. Pharmacometrics of stilbenes: seguing towards the clinic. Curr Clin Pharmacol 2006. PMID 18666380"
+ },
+ "red-clover": {
+  "slug": "red-clover",
+  "name": "Red Clover",
+  "scientific_name": "Trifolium pratense",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "27677719",
+   "33920485",
+   "29403626",
+   "40488850"
+  ],
+  "reference": "Dietz BM et al. Botanicals and Their Bioactive Phytochemicals for Women's Health. Pharmacol Rev 2016. PMID 27677719"
+ },
+ "red-yeast-rice": {
+  "slug": "red-yeast-rice",
+  "name": "Red Yeast Rice",
+  "scientific_name": "Monascus purpureus",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37242171",
+   "31643497",
+   "37836525",
+   "39275298"
+  ],
+  "reference": "Cicero AFG et al. Red Yeast Rice for the Improvement of Lipid Profiles in Mild-to-Moderate Hypercholesterolemia: A Narrative Review. Nutrients 2023. PMID 37242171"
+ },
+ "reishi-mushroom": {
+  "slug": "reishi-mushroom",
+  "name": "Reishi Mushroom",
+  "scientific_name": "Ganoderma lucidum",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "34411377",
+   "36671409",
+   "34444885",
+   "38750669"
+  ],
+  "reference": "Ahmad R et al. Ganoderma lucidum (Reishi) an edible mushroom; a comprehensive and critical review of its nutritional, cosmeceutical, mycochemical, pharmacological, clinical, and toxicological properties. Phytother Res 2021. PMID 34411377"
+ },
+ "resveratrol": {
+  "slug": "resveratrol",
+  "name": "Resveratrol",
+  "scientific_name": "3,5,4'-trihydroxystilbene",
+  "pubchem_cid": 445154,
+  "inchikey": "LUKBXSAWLPMMSZ-OWOJBTEDSA-N",
+  "pubmed_pmids": [
+   "35315418",
+   "34649335",
+   "39725607",
+   "36159792"
+  ],
+  "reference": "Yalçın Bahat P et al. Dietary supplements for treatment of endometriosis: A review. Acta Biomed 2022. PMID 35315418"
+ },
+ "rhodiola": {
+  "slug": "rhodiola",
+  "name": "Rhodiola",
+  "scientific_name": "Rhodiola rosea",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "20378318",
+   "35311615",
+   "35745023",
+   "37641937"
+  ],
+  "reference": "Panossian A et al. Rosenroot (Rhodiola rosea): traditional use, chemical composition, pharmacology and clinical efficacy. Phytomedicine 2010. PMID 20378318"
+ },
+ "rhubarb": {
+  "slug": "rhubarb",
+  "name": "Rhubarb",
+  "scientific_name": "Rheum palmatum, Rheum officinale",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "27677719",
+   "27000311",
+   "30000922",
+   "36219608"
+  ],
+  "reference": "Dietz BM et al. Botanicals and Their Bioactive Phytochemicals for Women's Health. Pharmacol Rev 2016. PMID 27677719"
+ },
+ "rooibos-tea": {
+  "slug": "rooibos-tea",
+  "name": "Rooibos Tea",
+  "scientific_name": "Aspalathus linearis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "38204815",
+   "34877951",
+   "29388183",
+   "35850312"
+  ],
+  "reference": "Afrifa D et al. The health benefits of rooibos tea in humans (aspalathus linearis)-a scoping review. J Public Health Afr 2023. PMID 38204815"
+ },
+ "royal-jelly": {
+  "slug": "royal-jelly",
+  "name": "Royal Jelly",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "35593875",
+   "30678228",
+   "39296128",
+   "40678328"
+  ],
+  "reference": " Royal Jelly.  2012. PMID 35593875"
+ },
+ "salvia-divinorum": {
+  "slug": "salvia-divinorum",
+  "name": "Salvia Divinorum",
+  "scientific_name": "Salvia divinorum",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "24315983",
+   "18259963",
+   "31593812",
+   "21131142"
+  ],
+  "reference": "Casselman I et al. From local to global-fifty years of research on Salvia divinorum. J Ethnopharmacol 2014. PMID 24315983"
+ },
+ "sam-e": {
+  "slug": "sam-e",
+  "name": "Sam E",
+  "scientific_name": "S-adenosylmethionine",
+  "pubchem_cid": 34755,
+  "inchikey": "MEFKEPWMEQBLKI-AIRLBKTGSA-N",
+  "pubmed_pmids": [
+   "37166978",
+   "10902097",
+   "12043126",
+   "26995510"
+  ],
+  "reference": "Gou D et al. Gluconeogenic enzyme PCK1 supports S-adenosylmethionine biosynthesis and promotes H3K9me3 modification to suppress hepatocellular carcinoma progression. J Clin Invest 2023. PMID 37166978"
+ },
+ "sarcandra-glabra": {
+  "slug": "sarcandra-glabra",
+  "name": "Sarcandra Glabra",
+  "scientific_name": "Sarcandra glabra (Thunb.) Nakai, Chloranthus glaber (Thunb.) Makino",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "39305746",
+   "28110531",
+   "41503792",
+   "41453545"
+  ],
+  "reference": "Tang Y et al. A review of botany, ethnomedicine, phytochemistry, pharmacology and toxicology of Sarcandra species. Phytomedicine 2024. PMID 39305746"
+ },
+ "sassafras": {
+  "slug": "sassafras",
+  "name": "Sassafras",
+  "scientific_name": "Sassafras albidum",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "10030529",
+   "20970412",
+   "35849397",
+   "11712913"
+  ],
+  "reference": "Klepser TB et al. Unsafe and potentially safe herbal therapies. Am J Health Syst Pharm 1999. PMID 10030529"
+ },
+ "saw-palmetto": {
+  "slug": "saw-palmetto",
+  "name": "Saw Palmetto",
+  "scientific_name": "Serenoa repens",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "34885733",
+   "32066284",
+   "40654553",
+   "19719333"
+  ],
+  "reference": "Csikós E et al. Treatment of Benign Prostatic Hyperplasia by Natural Drugs. Molecules 2021. PMID 34885733"
+ },
+ "schisandra": {
+  "slug": "schisandra",
+  "name": "Schisandra",
+  "scientific_name": "Schisandra chinensis, Schisandra sphenanthera",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "32768638",
+   "36707434",
+   "30522014",
+   "27813307"
+  ],
+  "reference": "Qin XL et al. Co-administration of Wuzhi tablet (Schisandra sphenanthera extract) alters tacrolimus pharmacokinetics in a dose- and time-dependent manner in rats. J Ethnopharmacol 2020. PMID 32768638"
+ },
+ "scorpion-venom": {
+  "slug": "scorpion-venom",
+  "name": "Scorpion Venom",
+  "scientific_name": "Rhopalurus junceus; other species include Mesobuthus martensii (Buthus martensii), Tityus cambridgei, Odontobuthus doriae, Tityus discrepans, Mesobuthus eupeus, Leiurus quinquestriatus, and Androctonus crassicauda",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "30954030",
+   "32057833",
+   "32373297",
+   "26541901"
+  ],
+  "reference": "Díaz-García A et al. Pharmacokinetics and Biodistribution of Rhopalurus junceus Scorpion Venom in Tumor-Bearing Mice after Intravenous and Oral Administration. Iran Biomed J 2019. PMID 30954030"
+ },
+ "scutellaria-baicalensis": {
+  "slug": "scutellaria-baicalensis",
+  "name": "Scutellaria Baicalensis",
+  "scientific_name": "Scutellaria baicalensis",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37298268",
+   "35344714",
+   "38763368",
+   "41124707"
+  ],
+  "reference": "Wen Y et al. The Pharmacological Efficacy of Baicalin in Inflammatory Diseases. Int J Mol Sci 2023. PMID 37298268"
+ },
+ "scutellaria-barbata": {
+  "slug": "scutellaria-barbata",
+  "name": "Scutellaria Barbata",
+  "scientific_name": "Scutellaria barbata",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "31840605",
+   "40544733",
+   "39702302",
+   "39575387"
+  ],
+  "reference": "Chen Q et al. Scutellaria barbata: A Review on Chemical Constituents, Pharmacological Activities and Clinical Applications. Curr Pharm Des 2020. PMID 31840605"
+ },
+ "sea-cucumber": {
+  "slug": "sea-cucumber",
+  "name": "Sea Cucumber",
+  "scientific_name": "Staurocucumis liouvillei, Mensamaria intercedens Lampert, Cucumaria frondosa",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "29932674",
+   "37853667",
+   "31374852",
+   "25984989"
+  ],
+  "reference": "Zhao YC et al. Saponins from Sea Cucumber and Their Biological Activities. J Agric Food Chem 2018. PMID 29932674"
+ },
+ "seasilver": {
+  "slug": "seasilver",
+  "name": "Seasilver",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": []
+ },
+ "selenium": {
+  "slug": "selenium",
+  "name": "Selenium",
+  "scientific_name": "",
+  "pubchem_cid": 6326970,
+  "inchikey": "BUGBHKTXTAQXES-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "38243784",
+   "40898469",
+   "35983607",
+   "32943303"
+  ],
+  "reference": "Huwiler VV et al. Selenium Supplementation in Patients with Hashimoto Thyroiditis: A Systematic Review and Meta-Analysis of Randomized Clinical Trials. Thyroid 2024. PMID 38243784"
+ },
+ "sha-shen-mai-men-dong-tang": {
+  "slug": "sha-shen-mai-men-dong-tang",
+  "name": "Sha Shen Mai Men Dong Tang",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": []
+ },
+ "shark-cartilage": {
+  "slug": "shark-cartilage",
+  "name": "Shark Cartilage",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "15293867",
+   "31809613",
+   "40176994",
+   "25600427"
+  ],
+  "reference": " AE 941. Drugs R D 2004. PMID 15293867"
+ },
+ "sheep-sorrel": {
+  "slug": "sheep-sorrel",
+  "name": "Sheep Sorrel",
+  "scientific_name": "Rumex acetosella",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "20091658",
+   "29981688",
+   "38276257",
+   "26384001"
+  ],
+  "reference": "Ngamjarus C et al. Roselle for hypertension in adults. Cochrane Database Syst Rev 2010. PMID 20091658"
+ },
+ "shen-ling-bai-zhu-san": {
+  "slug": "shen-ling-bai-zhu-san",
+  "name": "Shen Ling Bai Zhu San",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "40850653",
+   "41031501",
+   "35837289",
+   "36118084"
+  ],
+  "reference": "TingtingChen et al. Mechanism and spectrum effect relationship of Shen-Ling-Bai-Zhu-San in treating viral pneumonia via inhibiting the PI3K/AKT/NF-κB signaling pathway. J Ethnopharmacol 2025. PMID 40850653"
+ },
+ "sheng-mai-yin": {
+  "slug": "sheng-mai-yin",
+  "name": "Sheng Mai Yin",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37430270",
+   "20614436",
+   "36608499",
+   "23986406"
+  ],
+  "reference": "Yu D et al. Single-cell RNA sequencing reveals enhanced antitumor immunity after combined application of PD-1 inhibitor and Shenmai injection in non-small cell lung cancer. Cell Commun Signal 2023. PMID 37430270"
+ },
+ "shi-quan-da-bu-tang": {
+  "slug": "shi-quan-da-bu-tang",
+  "name": "Shi Quan Da Bu Tang",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "32733236",
+   "17003851",
+   "39368761",
+   "30544681"
+  ],
+  "reference": "Kuchta K et al. Phytotherapy for Cachexia: Where Do We Stand? Front Pharmacol 2020. PMID 32733236"
+ },
+ "shiitake-mushroom": {
+  "slug": "shiitake-mushroom",
+  "name": "Shiitake Mushroom",
+  "scientific_name": "Lentinula edodes",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37373268",
+   "35814366",
+   "40860821",
+   "32733077"
+  ],
+  "reference": "Gariboldi MB et al. Anti-Cancer Potential of Edible/Medicinal Mushrooms in Breast Cancer. Int J Mol Sci 2023. PMID 37373268"
+ },
+ "sho-saiko": {
+  "slug": "sho-saiko",
+  "name": "Sho Saiko",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "10948380",
+   "11762055",
+   "37683930",
+   "17436373"
+  ],
+  "reference": "Stickel F et al. Hepatotoxicity of botanicals. Public Health Nutr 2000. PMID 10948380"
+ },
+ "siberian-ginseng": {
+  "slug": "siberian-ginseng",
+  "name": "Siberian Ginseng",
+  "scientific_name": "Eleutherococcus senticosus, Acanthopanax senticosus",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "30000865",
+   "27852123",
+   "36946399",
+   "19588417"
+  ],
+  "reference": " Eleuthero.  2006. PMID 30000865"
+ },
+ "slippery-elm": {
+  "slug": "slippery-elm",
+  "name": "Slippery Elm",
+  "scientific_name": "Ulmus rubra",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "32151878",
+   "39153558",
+   "28918484",
+   "32153392"
+  ],
+  "reference": "Ried K et al. Herbal formula improves upper and lower gastrointestinal symptoms and gut health in Australian adults with digestive disorders. Nutr Res 2020. PMID 32151878"
+ },
+ "smilax-glabra": {
+  "slug": "smilax-glabra",
+  "name": "Smilax Glabra",
+  "scientific_name": "Smilax glabra, Smilacis glabrae",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "23384550",
+   "10083847",
+   "31005813",
+   "12576202"
+  ],
+  "reference": "Zheng ZG et al. Macrophage biospecific extraction and HPLC-ESI-MSn analysis for screening immunological active components in Smilacis Glabrae Rhizoma. J Pharm Biomed Anal 2013. PMID 23384550"
+ },
+ "sophora-flavescens": {
+  "slug": "sophora-flavescens",
+  "name": "Sophora Flavescens",
+  "scientific_name": "Sophora flavescens",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "39379937",
+   "39506193",
+   "33362558",
+   "38853681"
+  ],
+  "reference": "Zhang M et al. Oral administration of Sophora Flavescens-derived exosomes-like nanovesicles carrying CX5461 ameliorates DSS-induced colitis in mice. J Nanobiotechnology 2024. PMID 39379937"
+ },
+ "soy": {
+  "slug": "soy",
+  "name": "Soy",
+  "scientific_name": "Glycine max",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "40131516",
+   "23258394",
+   "26863913",
+   "16414334"
+  ],
+  "reference": "Pokushalov E et al. Assessing the combined effects of Black Cohosh, Soy Isoflavones, and SDG Lignans on menopausal symptoms: a randomized, double-blind, placebo-controlled clinical trial. Eur J Nutr 2025. PMID 40131516"
+ },
+ "spilanthes-acmella-jambu": {
+  "slug": "spilanthes-acmella-jambu",
+  "name": "Spilanthes Acmella Jambu",
+  "scientific_name": "Spilanthes acmella, Spilanthes oleracea, Acmella oleracea, Acmella uliginosa",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "40650269",
+   "41836524"
+  ],
+  "reference": "Abdul Malik MM et al. A Systematic Review of the Potential of Acmella Genus Plants for the Treatment of Musculoskeletal Disorders. Int J Mol Sci 2025. PMID 40650269"
+ },
+ "squalamine": {
+  "slug": "squalamine",
+  "name": "Squalamine",
+  "scientific_name": "",
+  "pubchem_cid": 72495,
+  "inchikey": "UIRKNQLZZXALBI-MSVGPLKSSA-N",
+  "pubmed_pmids": [
+   "10798670",
+   "31012332",
+   "30423343",
+   "31298960"
+  ],
+  "reference": "Higgins RD et al. Squalamine improves retinal neovascularization. Invest Ophthalmol Vis Sci 2000. PMID 10798670"
+ },
+ "st-john-wort": {
+  "slug": "st-john-wort",
+  "name": "St John Wort",
+  "scientific_name": "Hypericum perforatum",
+  "pubchem_cid": 3663,
+  "inchikey": "YDOIFHVUBCIUHF-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "18843608",
+   "28064110",
+   "39925681",
+   "24188229"
+  ],
+  "reference": "Linde K et al. St John's wort for major depression. Cochrane Database Syst Rev 2008. PMID 18843608"
+ },
+ "stevia": {
+  "slug": "stevia",
+  "name": "Stevia",
+  "scientific_name": "Stevia rebaudiana",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "35987213",
+   "39098209",
+   "30000908",
+   "36770924"
+  ],
+  "reference": "Suez J et al. Personalized microbiome-driven effects of non-nutritive sweeteners on human glucose tolerance. Cell 2022. PMID 35987213"
+ },
+ "stillingia": {
+  "slug": "stillingia",
+  "name": "Stillingia",
+  "scientific_name": "Stillingia sylvatica",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "30772483"
+  ],
+  "reference": "Lans C Do recent research studies validate the medicinal plants used in British Columbia, Canada for pet diseases and wild animals taken into temporary care? J Ethnopharmacol 2019. PMID 30772483"
+ },
+ "suan-zao-ren-tang": {
+  "slug": "suan-zao-ren-tang",
+  "name": "Suan Zao Ren Tang",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "26346534",
+   "25793006",
+   "21660310",
+   "41997438"
+  ],
+  "reference": "Chan YY et al. Clinical Efficacy of Traditional Chinese Medicine, Suan Zao Ren Tang, for Sleep Disturbance during Methadone Maintenance: A Randomized, Double-Blind, Placebo-Controlled Trial. Evid Based Complement Alternat Med 2015. PMID 26346534"
+ },
+ "sun-farms-vegetable-soup": {
+  "slug": "sun-farms-vegetable-soup",
+  "name": "Sun Farms Vegetable Soup",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": []
+ },
+ "superoxide-dismutase": {
+  "slug": "superoxide-dismutase",
+  "name": "Superoxide Dismutase",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "36804260",
+   "39339645",
+   "32098418",
+   "34186009"
+  ],
+  "reference": "Dehzad MJ et al. Antioxidant and anti-inflammatory effects of curcumin/turmeric supplementation in adults: A GRADE-assessed systematic review and dose-response meta-analysis of randomized controlled trials. Cytokine 2023. PMID 36804260"
+ },
+ "sutherlandia-frutescens": {
+  "slug": "sutherlandia-frutescens",
+  "name": "Sutherlandia Frutescens",
+  "scientific_name": "Sutherlandia frutescens, Lessertia frutescens",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "17476314",
+   "18761068",
+   "26498493"
+  ],
+  "reference": "Johnson Q et al. A randomized, double-blind, placebo-controlled trial of Lessertia frutescens in healthy adults. PLoS Clin Trials 2007. PMID 17476314"
+ },
+ "synsepalum-dulcificum": {
+  "slug": "synsepalum-dulcificum",
+  "name": "Synsepalum Dulcificum",
+  "scientific_name": "Synsepalum dulcificum",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "41086359",
+   "37960292",
+   "28620457",
+   "34135997"
+  ],
+  "reference": "Li W et al. Bioactive Compounds in Synsepalum dulcificum Daniell (Miracle Fruits) Kernels: Structural Elucidation and Lipid-Lowering Efficacy. J Agric Food Chem 2025. PMID 41086359"
+ },
+ "taurine": {
+  "slug": "taurine",
+  "name": "Taurine",
+  "scientific_name": "2-aminoethanesulfonic acid",
+  "pubchem_cid": 1123,
+  "inchikey": "XOAAWQZATWQOTB-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "37836520",
+   "35323671",
+   "35096334",
+   "35855073"
+  ],
+  "reference": "Santulli G et al. Functional Role of Taurine in Aging and Cardiovascular Health: An Updated Overview. Nutrients 2023. PMID 37836520"
+ },
+ "tea-tree-oil": {
+  "slug": "tea-tree-oil",
+  "name": "Tea Tree Oil",
+  "scientific_name": "Melaleuca alternifolia",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37033604",
+   "16418522",
+   "30000944",
+   "42098589"
+  ],
+  "reference": "Kairey L et al. Efficacy and safety of Melaleuca alternifolia (tea tree) oil for human health-A systematic review of randomized controlled trials. Front Pharmacol 2023. PMID 37033604"
+ },
+ "tian-wang-bu-xin-dan": {
+  "slug": "tian-wang-bu-xin-dan",
+  "name": "Tian Wang Bu Xin Dan",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": []
+ },
+ "tian-xian": {
+  "slug": "tian-xian",
+  "name": "Tian Xian",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "21669277",
+   "33371168",
+   "20663169",
+   "30249916"
+  ],
+  "reference": "Chu ES et al. Differential effects of anti-metastatic mechanism of Tian-Xian liquid (TXL) and its bioactive fractions on human colorectal cancer models. J Ethnopharmacol 2011. PMID 21669277"
+ },
+ "transfer-factor": {
+  "slug": "transfer-factor",
+  "name": "Transfer Factor",
+  "scientific_name": "Transfer Factor",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "30451441",
+   "24829485",
+   "35163286",
+   "39805518"
+  ],
+  "reference": "Zawistowska-Rojek A et al. Are Probiotic Really Safe for Humans? Pol J Microbiol 2018. PMID 30451441"
+ },
+ "tribulus-terrestris": {
+  "slug": "tribulus-terrestris",
+  "name": "Tribulus Terrestris",
+  "scientific_name": "Tribulus terrestris",
+  "pubchem_cid": 10125785,
+  "inchikey": "MUKYLHIZBOASDM-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "40219032",
+   "37697053",
+   "37686709",
+   "26727646"
+  ],
+  "reference": "Vilar Neto JO et al. Effects of Tribulus (Tribulus terrestris L.) Supplementation on Erectile Dysfunction and Testosterone Levels in Men-A Systematic Review of Clinical Trials. Nutrients 2025. PMID 40219032"
+ },
+ "triphala": {
+  "slug": "triphala",
+  "name": "Triphala",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "33917843",
+   "39102684",
+   "39583271",
+   "39355186"
+  ],
+  "reference": "Gregory J et al. Neuroprotective Herbs for the Management of Alzheimer's Disease. Biomolecules 2021. PMID 33917843"
+ },
+ "turmeric": {
+  "slug": "turmeric",
+  "name": "Turmeric",
+  "scientific_name": "Curcuma longa, Curcuma domestica",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "35935936",
+   "31412624",
+   "34017975",
+   "27213821"
+  ],
+  "reference": "Zeng L et al. Efficacy and Safety of Curcumin and Curcuma longa Extract in the Treatment of Arthritis: A Systematic Review and Meta-Analysis of Randomized Controlled Trial. Front Immunol 2022. PMID 35935936"
+ },
+ "ukrain": {
+  "slug": "ukrain",
+  "name": "Ukrain",
+  "scientific_name": "",
+  "pubchem_cid": 160027,
+  "inchikey": "KIGCDEJCMKDBHU-NIQQUOCOSA-K",
+  "pubmed_pmids": [
+   "10190077",
+   "15992405",
+   "23919744",
+   "12111260"
+  ],
+  "reference": "Jagiello-Wójtowicz E et al. Ukrain (NSC-631570) in experimental and clinical studies: a review. Drugs Exp Clin Res 1998. PMID 10190077"
+ },
+ "usnic-acid": {
+  "slug": "usnic-acid",
+  "name": "Usnic Acid",
+  "scientific_name": "[2,6 diacetyl-7,9-dihydroxy-8,9b-dimethyl-1,3(2H,9bH)-dibenzo-furandione]",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "12453567",
+   "32961280",
+   "40371696",
+   "25707417"
+  ],
+  "reference": "Ingólfsdóttir K Usnic acid. Phytochemistry 2002. PMID 12453567"
+ },
+ "valerian": {
+  "slug": "valerian",
+  "name": "Valerian",
+  "scientific_name": "Valeriana officinalis, Valeriana jatamansi, Valeriana fauriei, Valeriana wallichii",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "28762712",
+   "30058034",
+   "27677719",
+   "34116572"
+  ],
+  "reference": "Asher GN et al. Common Herbal Dietary Supplement-Drug Interactions. Am Fam Physician 2017. PMID 28762712"
+ },
+ "viacreme": {
+  "slug": "viacreme",
+  "name": "Viacreme",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": []
+ },
+ "vinpocetine": {
+  "slug": "vinpocetine",
+  "name": "Vinpocetine",
+  "scientific_name": "(14-ethoxycarbonyl-(3a,16a-ethyl)-14,15eburnamine), ethyl-apovincaminate",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37693907",
+   "33957389",
+   "35396012",
+   "28786085"
+  ],
+  "reference": "Li Y et al. The efficacy and safety of post-stroke cognitive impairment therapies: an umbrella review. Front Pharmacol 2023. PMID 37693907"
+ },
+ "vitamin": {
+  "slug": "vitamin",
+  "name": "Vitamin",
+  "scientific_name": "",
+  "pubchem_cid": 266052,
+  "inchikey": "XLSLFPQAPYONPW-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "38244989",
+   "32487800",
+   "35406137",
+   "37544189"
+  ],
+  "reference": "Vyas CM et al. Effect of multivitamin-mineral supplementation versus placebo on cognitive function: results from the clinic subcohort of the COcoa Supplement and Multivitamin Outcomes Study (COSMOS) randomized clinical trial and meta-analysis of 3 cognitive studies within COSMOS. Am J Clin Nutr 2024. PMID 38244989"
+ },
+ "vitamin-b12": {
+  "slug": "vitamin-b12",
+  "name": "Vitamin B12",
+  "scientific_name": "Cyanocobalamin",
+  "pubchem_cid": 166596686,
+  "inchikey": "RMRCNWBMXRMIRW-WZHZPDAFSA-L",
+  "pubmed_pmids": [
+   "32941710",
+   "35851507",
+   "35268010",
+   "38987872"
+  ],
+  "reference": "Zamil DH et al. Acne related to dietary supplements. Dermatol Online J 2020. PMID 32941710"
+ },
+ "vitamin-b6": {
+  "slug": "vitamin-b6",
+  "name": "Vitamin B6",
+  "scientific_name": "Pyridoxine",
+  "pubchem_cid": 1054,
+  "inchikey": "LXNHXLLTXMVWPM-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "37447150",
+   "33200442",
+   "27701665",
+   "35655045"
+  ],
+  "reference": "Muhamad R et al. The Role of Vitamin B6 in Peripheral Neuropathy: A Systematic Review. Nutrients 2023. PMID 37447150"
+ },
+ "vitamin-c": {
+  "slug": "vitamin-c",
+  "name": "Vitamin C",
+  "scientific_name": "Ascorbic Acid, C6H8O6",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "38931263",
+   "33136134",
+   "37417662",
+   "39861409"
+  ],
+  "reference": "Žmitek K et al. The Effects of Dietary Supplementation with Collagen and Vitamin C and Their Combination with Hyaluronic Acid on Skin Density, Texture and Other Parameters: A Randomised, Double-Blind, Placebo-Controlled Trial. Nutrients 2024. PMID 38931263"
+ },
+ "vitamin-d": {
+  "slug": "vitamin-d",
+  "name": "Vitamin D",
+  "scientific_name": "Calciferol, ergocalciferol (D2), calcitriol, cholecalciferol (D3)",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "23713877",
+   "6262039",
+   "29099543",
+   "18492750"
+  ],
+  "reference": "Park J et al. Clinical uses of 1-alpha-hydroxy-ergocalciferol. Curr Vasc Pharmacol 2014. PMID 23713877"
+ },
+ "vitamin-e": {
+  "slug": "vitamin-e",
+  "name": "Vitamin E",
+  "scientific_name": "d-alpha-tocopherol",
+  "pubchem_cid": 14985,
+  "inchikey": "GVJHHUAWPYXKBD-IEOSBIPESA-N",
+  "pubmed_pmids": [
+   "31219748",
+   "28362118",
+   "34699937",
+   "30624689"
+  ],
+  "reference": "Tobias DK Vitamin E. Circ Res 2019. PMID 31219748"
+ },
+ "vitamin-o": {
+  "slug": "vitamin-o",
+  "name": "Vitamin O",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "33670026",
+   "36206809",
+   "38931263",
+   "33509399"
+  ],
+  "reference": "Jouanne M et al. Nutrient Requirements during Pregnancy and Lactation. Nutrients 2021. PMID 33670026"
+ },
+ "wen-dan-tang": {
+  "slug": "wen-dan-tang",
+  "name": "Wen Dan Tang",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": []
+ },
+ "wheat-germ-extract": {
+  "slug": "wheat-germ-extract",
+  "name": "Wheat Germ Extract",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "35616942",
+   "22077851",
+   "16126993",
+   "21892933"
+  ],
+  "reference": "Schwarz C et al. Effects of Spermidine Supplementation on Cognition and Biomarkers in Older Adults With Subjective Cognitive Decline: A Randomized Clinical Trial. JAMA Netw Open 2022. PMID 35616942"
+ },
+ "wheat-grass": {
+  "slug": "wheat-grass",
+  "name": "Wheat Grass",
+  "scientific_name": "Triticum aestivum",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37688369",
+   "38773056",
+   "38791211",
+   "28892132"
+  ],
+  "reference": "Lopez de Romaña D et al. Review of intervention products for use in the prevention and control of anemia. Ann N Y Acad Sci 2023. PMID 37688369"
+ },
+ "wild-yam": {
+  "slug": "wild-yam",
+  "name": "Wild Yam",
+  "scientific_name": "Dioscorea villosa, Dioscorea alata",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "37742877",
+   "38076553",
+   "42250036",
+   "26864460"
+  ],
+  "reference": "Logan K et al. Characterization of ACE inhibitory activity in Dioscorea alata cv and its implication as a natural antihypertensive extract. J Ethnopharmacol 2024. PMID 37742877"
+ },
+ "willow-bark": {
+  "slug": "willow-bark",
+  "name": "Willow Bark",
+  "scientific_name": "Salix alba, Salicis cortex",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "25997859",
+   "30000964",
+   "11345689",
+   "40129612"
+  ],
+  "reference": "Shara M et al. Efficacy and Safety of White Willow Bark (Salix alba) Extracts. Phytother Res 2015. PMID 25997859"
+ },
+ "xiang-sha-liu-jun-zi-tang": {
+  "slug": "xiang-sha-liu-jun-zi-tang",
+  "name": "Xiang Sha Liu Jun Zi Tang",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": []
+ },
+ "xiao-yao-san": {
+  "slug": "xiao-yao-san",
+  "name": "Xiao Yao San",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "34713840",
+   "37905203",
+   "35126152",
+   "37105369"
+  ],
+  "reference": "Hu J et al. Clinical efficacy and safety of traditional Chinese medicine Xiao Yao San in insomnia combined with anxiety. Medicine (Baltimore) 2021. PMID 34713840"
+ },
+ "yohimbe": {
+  "slug": "yohimbe",
+  "name": "Yohimbe",
+  "scientific_name": "Pausinystalia yohimbe, Corynanthe johimbe",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "33277212",
+   "26498493",
+   "39684567",
+   "26391406"
+  ],
+  "reference": "Sin VJ et al. Botanical Medicine and Natural Products Used for Erectile Dysfunction. Sex Med Rev 2021. PMID 33277212"
+ },
+ "yu-ping-feng-san": {
+  "slug": "yu-ping-feng-san",
+  "name": "Yu Ping Feng San",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "38604509",
+   "33787571",
+   "29110710",
+   "25586308"
+  ],
+  "reference": "Nie J et al. Yu-Ping-Feng-San alleviates inflammation in atopic dermatitis mice by TLR4/MyD88/NF-κB pathway. J Ethnopharmacol 2024. PMID 38604509"
+ },
+ "yuanhu-zhitong": {
+  "slug": "yuanhu-zhitong",
+  "name": "Yuanhu Zhitong",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "24339904",
+   "37729733",
+   "29551644",
+   "32541510"
+  ],
+  "reference": "Xu H et al. Study on the absorbed fingerprint-efficacy of yuanhu zhitong tablet based on chemical analysis, vasorelaxation evaluation and data mining. PLoS One 2013. PMID 24339904"
+ },
+ "yunnan-baiyao": {
+  "slug": "yunnan-baiyao",
+  "name": "Yunnan Baiyao",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "34899330",
+   "24753739",
+   "40703359",
+   "41544174"
+  ],
+  "reference": "Yao Q et al. Research Advances in Pharmacology, Safety, and Clinical Applications of Yunnan Baiyao, a Traditional Chinese Medicine Formula. Front Pharmacol 2021. PMID 34899330"
+ },
+ "zeolite": {
+  "slug": "zeolite",
+  "name": "Zeolite",
+  "scientific_name": "Hydrated alkali aluminum silicate",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "39986047",
+   "36984046",
+   "41249754",
+   "25282372"
+  ],
+  "reference": "Luan C et al. Recycling excavated soil waste into low-carbon alkali-activated materials. Waste Manag 2025. PMID 39986047"
+ },
+ "zestra": {
+  "slug": "zestra",
+  "name": "Zestra",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "12735087",
+   "20063238"
+  ],
+  "reference": "Ferguson DM et al. Randomized, placebo-controlled, double blind, crossover design trial of the efficacy and safety of Zestra for Women in women with and without female sexual arousal disorder. J Sex Marital Ther 2003. PMID 12735087"
+ },
+ "zhi-sou-san": {
+  "slug": "zhi-sou-san",
+  "name": "Zhi Sou San",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": []
+ },
+ "zinc": {
+  "slug": "zinc",
+  "name": "Zinc",
+  "scientific_name": "",
+  "pubchem_cid": 23994,
+  "inchikey": "HCHKCACWOHOZIP-UHFFFAOYSA-N",
+  "pubmed_pmids": [
+   "11594942",
+   "39641338",
+   "37746736",
+   "39683510"
+  ],
+  "reference": "Age-Related Eye Disease Study Research Group A randomized, placebo-controlled, clinical trial of high-dose supplementation with vitamins C and E, beta carotene, and zinc for age-related macular degeneration and vision loss: AREDS report no. 8. Arch Ophthalmol 2001. PMID 11594942"
+ },
+ "zyflamend": {
+  "slug": "zyflamend",
+  "name": "Zyflamend",
+  "scientific_name": "",
+  "pubchem_cid": null,
+  "inchikey": null,
+  "pubmed_pmids": [
+   "19476738",
+   "32795297",
+   "29227176",
+   "32779962"
+  ],
+  "reference": "Capodice JL et al. Zyflamend in men with high-grade prostatic intraepithelial neoplasia: results of a phase I clinical trial. J Soc Integr Oncol 2009. PMID 19476738"
+ }
+}

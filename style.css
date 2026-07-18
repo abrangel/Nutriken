@@ -436,3 +436,21 @@ body { background: var(--bg); color: var(--text); font-family: var(--font-sans);
 #risk-box-wrap .md-bullets li strong {
   color: var(--teal);
 }
+
+/* ── Language toggle (ES/EN) ─────────────────────────────── */
+.lang-toggle{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:44px;padding:4px 12px;margin-bottom:10px;
+  background:transparent;border:1px solid #c8a96e;color:#c8a96e;
+  border-radius:14px;font-size:.72rem;font-weight:600;letter-spacing:.5px;
+  cursor:pointer;transition:all .2s;font-family:inherit;
+}
+.lang-toggle:hover{background:#c8a96e;color:#12151b;}
+
+/* ── Justificado del CONTENIDO (no afecta el editor A4 ni sus márgenes) ─── */
+.supp-text, .supp-list li, .supp-ix-detail, .dosing-name + table td,
+#c-pathway-body, #clinical-out .card-body p, .insight-text {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}

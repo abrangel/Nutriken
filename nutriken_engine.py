@@ -1983,6 +1983,8 @@ def init_db():
     c.execute("""CREATE TABLE IF NOT EXISTS query_log (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         query TEXT, query_type TEXT, timestamp TEXT)""")
+    c.execute("""CREATE TABLE IF NOT EXISTS trans_cache (
+        thash TEXT PRIMARY KEY, extra TEXT, data TEXT, fetched_at TEXT)""")
     conn.commit(); conn.close()
 
 def cache_get(table, key_col, key):
@@ -2023,8 +2025,69 @@ async def translate_to_en(text: str, client: httpx.AsyncClient) -> str:
         except: pass
     return t
 
+import hashlib as _hashlib
+async def translate_text(text: str, client: httpx.AsyncClient, tgt: str = "en", src: str = "es") -> str:
+    """Traduce texto (ES->EN por defecto) con caché SQLite. Chunk de ~480 chars (límite MyMemory).
+    Best-effort: si falla, devuelve el original. Usado para servir el contenido clínico en inglés."""
+    if not text or tgt == src:
+        return text
+    key = _hashlib.md5(f"{src}|{tgt}|{text}".encode()).hexdigest()
+    cached = cache_get("trans_cache", "thash", key)
+    if cached is not None:
+        return cached
+    out_parts = []
+    # trocear por oraciones para respetar el límite de 500 chars
+    chunk = ""
+    for sentence in re.split(r"(?<=[.\n])\s+", text):
+        if len(chunk) + len(sentence) < 480:
+            chunk += (" " if chunk else "") + sentence
+        else:
+            if chunk:
+                out_parts.append(chunk)
+            chunk = sentence
+    if chunk:
+        out_parts.append(chunk)
+    translated = []
+    for part in out_parts:
+        try:
+            r = await client.get("https://api.mymemory.translated.net/get",
+                                 params={"q": part, "langpair": f"{src}|{tgt}"}, timeout=8.0)
+            tt = r.json().get("responseData", {}).get("translatedText", "")
+            translated.append(tt if tt else part)
+        except Exception:
+            translated.append(part)
+    result = " ".join(translated)
+    try:
+        cache_set("trans_cache", "thash", key, "extra", f"{src}|{tgt}", result)
+    except Exception:
+        pass
+    return result
+
+async def translate_obj(obj, client, tgt="en"):
+    """Traduce recursivamente los strings de un dict/list (para la respuesta clínica en EN)."""
+    if tgt == "es":
+        return obj
+    if isinstance(obj, str):
+        return await translate_text(obj, client, tgt) if len(obj) > 3 else obj
+    if isinstance(obj, list):
+        return [await translate_obj(x, client, tgt) for x in obj]
+    if isinstance(obj, dict):
+        return {k: (v if k in ("slug", "url", "kegg_url", "pmid", "id", "gene", "kegg", "pubmed")
+                    else await translate_obj(v, client, tgt)) for k, v in obj.items()}
+    return obj
+
+
 # ── MSK SCRAPER ───────────────────────────────────────────────────────────────
-async def fetch_msk_herb(slug: str, client: httpx.AsyncClient) -> dict:
+async def fetch_msk_herb(slug: str, client: httpx.AsyncClient, lang: str = "es") -> dict:
+    # EN: saltar Supabase (que está en español) y traer MSK original en inglés.
+    if lang == "en":
+        en_key = f"{slug}__en"
+        cached_en = cache_get("herb_cache", "slug", en_key)
+        if cached_en:
+            logger.info(f"Cache EN: {slug}")
+            return cached_en
+        return await _scrape_msk(slug, client, cache_key=en_key)
+
     # 1) Probar Supabase primero (datos pre-traducidos al espanol)
     sb_data = await supabase_get_herb(slug)
     if sb_data:
@@ -2037,7 +2100,11 @@ async def fetch_msk_herb(slug: str, client: httpx.AsyncClient) -> dict:
     # 2) Cache local SQLite
     cached = cache_get("herb_cache","slug", slug)
     if cached: logger.info(f"Cache SQLite: {slug}"); return cached
+    return await _scrape_msk(slug, client, cache_key=slug)
 
+
+async def _scrape_msk(slug: str, client: httpx.AsyncClient, cache_key: str = None) -> dict:
+    cache_key = cache_key or slug
     # 3) Fallback: scraping MSK en vivo (solo si no esta en Supabase ni en SQLite)
     url = f"https://www.mskcc.org/cancer-care/integrative-medicine/herbs/{slug}"
     try:
@@ -2099,8 +2166,8 @@ async def fetch_msk_herb(slug: str, client: httpx.AsyncClient) -> dict:
                 if line not in herb["food_interactions"]:
                     herb["food_interactions"].append(line)
 
-        cache_set("herb_cache","slug",slug,"name",herb["name"],herb)
-        logger.info(f"✅ MSK cached: {slug}")
+        cache_set("herb_cache","slug",cache_key,"name",herb["name"],herb)
+        logger.info(f"✅ MSK cached: {cache_key}")
         return herb
     except Exception as e:
         logger.error(f"Error MSK {slug}: {e}")
@@ -2741,12 +2808,14 @@ def get_description(key): return DESCRIPTIONS.get(key, f"Análisis basado en evi
 class ClinicalQuery(BaseModel):
     query: str
     drugs_used: Optional[List[str]] = []
+    lang: Optional[str] = "es"
 
 class GeneQuery(BaseModel):
     genes: List[str]
 
 class NutrientQuery(BaseModel):
     nutrient: str
+    lang: Optional[str] = "es"
 
 
 # ── APP ───────────────────────────────────────────────────────────────────────
@@ -2754,7 +2823,36 @@ app = FastAPI(title="NutriKen", version="2.0.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 @app.on_event("startup")
-async def startup(): init_db(); logger.info("🌿 NutriKen v2 iniciado")
+async def startup():
+    init_db()
+    logger.info("🌿 NutriKen v2 iniciado")
+    import asyncio as _asyncio
+    _asyncio.create_task(_keepwarm_loop())
+
+
+# ── Programador interno: búsquedas automáticas ~3×/día (mantiene la app caliente
+#    y deja actividad registrada en query_log — útil para revisión JOSS). Sin
+#    dependencias extra: usa asyncio. Espaciado 8 h => 3 corridas al día en horas
+#    distintas. Pre-calienta KEGG/MSK/dosis para que el usuario no sufra cold-start.
+_KEEPWARM_CONDITIONS = ["obesidad", "diabetes", "hipertension", "colesterol",
+                        "higado graso", "inflamacion", "trigliceridos"]
+_KEEPWARM_INTERVAL_H = float(os.getenv("KEEPWARM_INTERVAL_H", "8"))
+
+async def _keepwarm_loop():
+    import asyncio as _asyncio
+    i = 0
+    await _asyncio.sleep(45)  # esperar a que el server arranque del todo
+    while True:
+        cond = _KEEPWARM_CONDITIONS[i % len(_KEEPWARM_CONDITIONS)]
+        i += 1
+        try:
+            async with httpx.AsyncClient(headers={"User-Agent": "NutriKen/2.0 (keepwarm)"}) as client:
+                await _build_plan(cond, [], "es", client)  # calienta KEGG+MSK+dosis+pharmgkb
+            log_query(f"[auto {datetime.datetime.now().strftime('%H:%M')}] {cond}", "auto")
+            logger.info(f"🔥 keep-warm: {cond}")
+        except Exception as e:
+            logger.warning(f"keep-warm error: {e}")
+        await _asyncio.sleep(_KEEPWARM_INTERVAL_H * 3600)
 
 @app.get("/")
 async def root(): return FileResponse("index.html")
@@ -2762,11 +2860,417 @@ async def root(): return FileResponse("index.html")
 @app.get("/script.js")
 async def js(): return FileResponse("script.js")
 
+@app.get("/i18n.js")
+async def i18n_js(): return FileResponse("i18n.js")
+
 @app.get("/style.css")
 async def css(): return FileResponse("style.css")
 
+# ── Base de DOSIS de suplementos/hierbas (cuánto tomar realmente) ────────────
+import json as _json_dose
+_DOSING_DB = {"items": [], "count": 0}
+try:
+    with open("local_db/supplement_dosing.json", "r", encoding="utf-8") as _f:
+        _DOSING_DB = _json_dose.load(_f)
+    logger.info(f"💊 Dosing DB cargada: {_DOSING_DB.get('count', 0)} entradas")
+except Exception as _e:
+    logger.warning(f"No se pudo cargar supplement_dosing.json: {_e}")
+
+# Evidencia científica por hierba (307) — PMIDs/PubChem de fuentes abiertas
+_HERBS_EVIDENCE = {}
+try:
+    with open("local_db/herbs_evidence.json", "r", encoding="utf-8") as _f:
+        _HERBS_EVIDENCE = _json_dose.load(_f)
+    logger.info(f"🌿 Herb evidence cargada: {len(_HERBS_EVIDENCE)} hierbas")
+except Exception as _e:
+    logger.warning(f"No se pudo cargar herbs_evidence.json: {_e}")
+
+# Índice botánico masivo (LOTUS, CC0): planta -> fitoquímicos
+_BOTANICAL = {}
+_BOTANICAL_IDX = {}
+try:
+    with open("local_db/botanical_index.json", "r", encoding="utf-8") as _f:
+        _BOTANICAL = _json_dose.load(_f)
+    logger.info(f"🌱 Índice botánico (LOTUS) cargado: {len(_BOTANICAL)} plantas")
+except Exception as _e:
+    logger.warning(f"No se pudo cargar botanical_index.json: {_e}")
+
+_DOSING_ALIASES = {
+    "omega 3": "omega3", "omega-3": "omega3", "fish oil": "omega3", "aceite de pescado": "omega3",
+    "vitamina d": "vitd", "vitamin d": "vitd", "vitamina d3": "vitd", "colecalciferol": "vitd",
+    "magnesio": "magnesium", "berberina": "berberine", "curcuma": "curcumin", "cúrcuma": "curcumin",
+    "turmeric": "curcumin", "coq10": "coq10", "coenzyme q10": "coq10", "coenzima q10": "coq10",
+    "creatina": "creatine", "melatonina": "melatonin", "vitamina c": "vitc", "vitamin c": "vitc",
+    "vitamina b12": "b12", "vitamin b12": "b12", "folato": "folate", "acido folico": "folate",
+    "ácido fólico": "folate", "hierro": "iron", "calcio": "calcium", "vitamina k2": "k2",
+    "te verde": "egcg", "té verde": "egcg", "green tea": "egcg", "cardo mariano": "milkthistle",
+    "silimarina": "milkthistle", "ajo": "garlic", "canela": "cinnamon", "cromo": "chromium",
+    "inositol": "inositol", "taurina": "taurine", "glicina": "glycine", "l-teanina": "ltheanine",
+    "teanina": "ltheanine", "vitamina e": "vite", "selenio": "selenium", "yodo": "iodine",
+    "potasio": "potassium", "ginkgo biloba": "ginkgo", "panax ginseng": "ginseng",
+    "acido alfa lipoico": "ala", "ácido alfa-lipoico": "ala", "alpha lipoic acid": "ala",
+    "quercetina": "quercetin", "psyllium": "psyllium", "probioticos": "probiotics",
+    "probióticos": "probiotics", "colageno": "collagen", "colágeno": "collagen",
+}
+
+def _norm_dose_key(s: str) -> str:
+    import unicodedata, re as _re
+    s = unicodedata.normalize("NFKD", (s or "").lower().strip())
+    s = "".join(c for c in s if not unicodedata.combining(c))
+    return _re.sub(r"[^a-z0-9]", "", s)  # solo alfanumérico (quita espacios/guiones/apóstrofes/_)
+
+# Índice O(1): slug + nombres (ES/EN) + alias -> item. Se construye UNA vez al cargar,
+# así la búsqueda es instantánea aunque haya miles de entradas (sin lag).
+_DOSING_INDEX = {}
+def _build_dosing_index():
+    _DOSING_INDEX.clear()
+    for it in _DOSING_DB.get("items", []):
+        keys = {_norm_dose_key(it.get("slug", "")), _norm_dose_key(it.get("name", "")),
+                _norm_dose_key(it.get("name_es", "")), _norm_dose_key(it.get("name_en", ""))}
+        for k in keys:
+            if k:
+                _DOSING_INDEX[k] = it
+    for alias, slug in _DOSING_ALIASES.items():
+        target = next((i for i in _DOSING_DB.get("items", []) if i.get("slug") == slug), None)
+        if target:
+            _DOSING_INDEX[_norm_dose_key(alias)] = target
+_build_dosing_index()
+
+# ── Índice botánico (LOTUS) normalizado + búsqueda ──────────────────────────
+def _build_botanical_idx():
+    _BOTANICAL_IDX.clear()
+    for plant, rec in _BOTANICAL.items():
+        _BOTANICAL_IDX[_norm_dose_key(plant)] = rec
+        first = plant.split()[0] if plant else ""
+        if first:
+            _BOTANICAL_IDX.setdefault(_norm_dose_key(first), rec)
+try:
+    _build_botanical_idx()
+except Exception:
+    pass
+
+def find_botanical(name: str) -> dict:
+    if not name or not _BOTANICAL_IDX:
+        return None
+    key = _norm_dose_key(name)
+    hit = _BOTANICAL_IDX.get(key)
+    if hit:
+        return hit
+    for k, rec in _BOTANICAL_IDX.items():
+        if k and len(key) >= 4 and (k.startswith(key) or key.startswith(k)):
+            return rec
+    return None
+
+@app.get("/api/botanical")
+async def botanical_lookup(q: str = ""):
+    """Fitoquímicos de una planta desde LOTUS (CC0). q vacío = catálogo de plantas."""
+    if not q:
+        return {"count": len(_BOTANICAL), "plants": sorted(_BOTANICAL.keys())}
+    hit = find_botanical(q)
+    if not hit:
+        return {"found": False, "query": q}
+    return {"found": True, "botanical": hit}
+
+def find_dosing(name: str) -> dict:
+    """Búsqueda O(1) por nombre/slug/alias (ES/EN), con fallback laxo."""
+    if not name:
+        return None
+    key = _norm_dose_key(name)
+    hit = _DOSING_INDEX.get(key)
+    if hit:
+        return hit
+    # fallback por PREFIJO (evita falsos positivos de substring, p.ej. 'ala' en 'betaalanine')
+    if len(key) >= 4:
+        for k, it in _DOSING_INDEX.items():
+            if k and (k.startswith(key) or key.startswith(k)):
+                return it
+    return None
+
+@app.get("/api/dosing")
+async def dosing_lookup(q: str = "", lang: str = "es"):
+    """Devuelve la dosis basada en evidencia de un suplemento/hierba. q vacío = catálogo."""
+    if not q:
+        return {"count": _DOSING_DB.get("count", 0),
+                "items": [{"slug": i["slug"], "name": i.get("name")} for i in _DOSING_DB.get("items", [])]}
+    hit = find_dosing(q)
+    if not hit:
+        return {"found": False, "query": q}
+    return {"found": True, "lang": lang, "dosing": hit,
+            "disclaimer": _DOSING_DB.get(f"disclaimer_{lang}", _DOSING_DB.get("disclaimer_es", ""))}
+
 @app.get("/health")
 async def health(): return {"status":"ok","version":"NutriKen 2.0"}
+
+# ── DrugBank OPCIONAL (token del usuario; sin almacenar datos; JOSS-limpio) ──
+@app.get("/api/drugbank/status")
+async def drugbank_status():
+    try:
+        from drugbank_client import is_configured
+        return {"configured": is_configured(),
+                "note": "DrugBank es opcional y requiere tu propio token (DRUGBANK_TOKEN). "
+                        "Sin él, se usan fuentes abiertas (PubMed/PubChem/ChEMBL/curado)."}
+    except Exception as e:
+        return {"configured": False, "error": str(e)}
+
+@app.get("/api/drugbank/query")
+async def drugbank_query(q: str):
+    try:
+        from drugbank_client import query_interactions
+        return query_interactions(q)
+    except Exception as e:
+        return {"configured": False, "error": str(e)}
+
+
+# ── PLAN CLÍNICO: compila condición → ruta → intervenciones+dosis → SNPs → interacciones ──
+_PGX_GENES = {}
+_PGX_NUTRITION = []
+_HERB_DRUG = {}
+try:
+    with open("local_db/pharmgkb_genes_nutrition.json", "r", encoding="utf-8") as _f:
+        _PGX_GENES = _json_dose.load(_f)
+except Exception as _e:
+    logger.warning(f"pharmgkb_genes_nutrition no cargado: {_e}")
+try:
+    with open("local_db/pharmgkb_nutrition.json", "r", encoding="utf-8") as _f:
+        _PGX_NUTRITION = _json_dose.load(_f)
+except Exception as _e:
+    logger.warning(f"pharmgkb_nutrition no cargado: {_e}")
+try:
+    with open("local_db/herb_drug_interactions.json", "r", encoding="utf-8") as _f:
+        _HERB_DRUG = _json_dose.load(_f).get("interactions_by_herb", {})
+except Exception as _e:
+    logger.warning(f"herb_drug_interactions no cargado: {_e}")
+
+# Contenido experto curado por condición (plantilla de calidad tipo referencia)
+_PLAN_OVERLAYS = {}
+try:
+    with open("local_db/plan_overlays.json", "r", encoding="utf-8") as _f:
+        _PLAN_OVERLAYS = _json_dose.load(_f)
+except Exception as _e:
+    logger.warning(f"plan_overlays no cargado: {_e}")
+
+# Cronoterapia de fármacos (a qué hora y por qué) — tab "Fármacos + timing"
+_DRUG_TIMING = {}
+try:
+    with open("local_db/drug_timing.json", "r", encoding="utf-8") as _f:
+        _DRUG_TIMING = _json_dose.load(_f)
+except Exception as _e:
+    logger.warning(f"drug_timing no cargado: {_e}")
+
+def find_drug_timing(drug: str):
+    if not drug or not _DRUG_TIMING:
+        return None
+    d = drug.lower().strip()
+    drugs = _DRUG_TIMING.get("drugs", {})
+    if d in drugs:
+        return drugs[d]
+    alias = _DRUG_TIMING.get("aliases", {}).get(d)
+    if alias and alias in drugs:
+        return drugs[alias]
+    for k in drugs:
+        if k in d or d in k:
+            return drugs[k]
+    return None
+
+# Ventanas circadianas (para el cronograma)
+_CHRONO_WINDOWS = [
+    ("06:30", "🌅", "Al despertar · en ayunas", "Cortisol matutino · AMPK activo por ayuno nocturno",
+     ["ayunas", "fasting", "mañana", "morning", "despertar"]),
+    ("07:30", "🍳", "Desayuno", "Con comida · mayor sensibilidad insulínica",
+     ["desayuno", "breakfast", "con comida con carbohidrato", "carb"]),
+    ("08:30", "🏃", "Ejercicio", "Ventana de sensibilidad insulínica muscular",
+     ["ejercicio", "exercise", "pre-ejercicio", "pre-exercise"]),
+    ("13:00", "🍽️", "Almuerzo", "Comida principal · con comida grasa",
+     ["antes de comida", "before meal", "con comida", "with food", "with a fatty meal", "comida grasa", "meals"]),
+    ("21:00", "🌙", "Noche / antes de dormir", "Síntesis de colesterol nocturna · descanso",
+     ["noche", "evening", "dormir", "before bed", "bed"]),
+]
+
+def _pick_window(timing_text: str) -> int:
+    t = (timing_text or "").lower()
+    for idx, (_, _, _, _, kws) in enumerate(_CHRONO_WINDOWS):
+        if any(k in t for k in kws):
+            return idx
+    return 3  # por defecto: almuerzo
+
+def _lang_field(item, base, lang):
+    return item.get(f"{base}_{lang}") or item.get(f"{base}_es") or item.get(base) or ""
+
+async def _build_plan(condition_query: str, drugs_used, lang: str, client):
+    # 1. Emparejar condición
+    query_en = await translate_to_en(condition_query, client)
+    matched_key, matched = None, None
+    for key, data in CLINICAL_MAP.items():
+        if key in query_en or query_en in key or any(w in query_en for w in key.split() if len(w) > 3):
+            matched_key, matched = key, data
+            break
+    if not matched:
+        # condición libre: sin ruta/genes, pero igual damos dosis de suplementos citados
+        matched = {"genes": [], "kegg": "", "msk_slugs": [], "drugs": [], "pubmed": condition_query}
+        matched_key = condition_query
+
+    # 2. Ruta KEGG
+    pathway = {}
+    if matched.get("kegg"):
+        try:
+            kp = await fetch_kegg_pathway(matched["kegg"], client)
+            pathway = {"id": matched["kegg"], "name": kp.get("name", matched["kegg"]),
+                       "url": f"https://www.kegg.jp/entry/{matched['kegg']}"}
+        except Exception:
+            pathway = {"id": matched["kegg"], "name": matched["kegg"],
+                       "url": f"https://www.kegg.jp/entry/{matched['kegg']}"}
+
+    # 3. Genes + metadatos PharmGKB
+    genes = []
+    for gsym in matched.get("genes", [])[:8]:
+        meta = _PGX_GENES.get(gsym, {})
+        genes.append({
+            "symbol": gsym, "name": meta.get("name", ""), "is_vip": meta.get("is_vip", False),
+            "links": {"NCBI": meta.get("ncbi_url"), "Ensembl": meta.get("ensembl_url"),
+                      "SNPedia": meta.get("snpedia_url"), "OMIM": meta.get("omim_url"),
+                      "PharmGKB": meta.get("pharmgkb_url")},
+        })
+
+    # 4. Intervenciones (dosis + seguridad) desde el catálogo de dosis
+    interventions, chrono = [], [{"time": w[0], "icon": w[1], "title": w[2], "subtitle": w[3], "items": []}
+                                 for w in _CHRONO_WINDOWS]
+    seen = set()
+    candidate_names = list(matched.get("msk_slugs", [])) + [i["slug"] for i in _DOSING_DB.get("items", [])]
+    for name in candidate_names:
+        dz = find_dosing(name.replace("-", " ") if isinstance(name, str) else name)
+        if not dz or dz["slug"] in seen:
+            continue
+        # Solo incluir en el plan si es relevante a la condición (está en msk_slugs) o si la condición es libre
+        rel = (not matched.get("msk_slugs")) or any(_norm_dose_key(s) == _norm_dose_key(dz["slug"]) or
+               _norm_dose_key(s.replace("-", " ")) == _norm_dose_key(dz.get("name", "")) for s in matched.get("msk_slugs", []))
+        if matched.get("msk_slugs") and not rel:
+            continue
+        seen.add(dz["slug"])
+        saf = dz.get("safety", {}) or {}
+        saf_bits = []
+        if saf.get("stop_days_before_surgery"):
+            saf_bits.append(_t2(lang, f"Suspender {saf['stop_days_before_surgery']} d antes de cirugía",
+                                 f"Stop {saf['stop_days_before_surgery']} d before surgery"))
+        if saf.get("bleeding_risk"):
+            saf_bits.append(_t2(lang, "riesgo de sangrado", "bleeding risk"))
+        if saf.get(f"separate_from_{lang}") or saf.get("separate_from_es"):
+            saf_bits.append(saf.get(f"separate_from_{lang}") or saf.get("separate_from_es"))
+        if saf.get(f"oncology_caution_{lang}") or saf.get("oncology_caution_es"):
+            saf_bits.append(saf.get(f"oncology_caution_{lang}") or saf.get("oncology_caution_es"))
+        iv = {
+            "name": _lang_field(dz, "name", lang) or dz.get("name"),
+            "category": _lang_field(dz, "category", lang),
+            "standard_dose": dz.get("standard_dose", ""), "therapeutic_dose": dz.get("therapeutic_dose", ""),
+            "timing": _lang_field(dz, "timing", lang), "mechanism": _lang_field(dz, "notes", lang),
+            "reference": dz.get("reference", ""), "safety_text": "; ".join(saf_bits),
+            "evidence": dz.get("evidence", ""),
+        }
+        # Enriquecimiento EXPERTO por condición (plantilla de calidad tipo referencia)
+        ov = _PLAN_OVERLAYS.get((matched_key or "").lower(), {})
+        ov_iv = (ov.get("interventions", {}) or {}).get(dz["slug"])
+        if ov_iv:
+            mech = ov_iv.get(f"mechanism_{lang}") or ov_iv.get("mechanism_es") or iv["mechanism"]
+            snp = ov_iv.get(f"snp_{lang}") or ov_iv.get("snp_es")
+            prac = ov_iv.get(f"practical_{lang}") or ov_iv.get("practical_es")
+            kin = ov_iv.get(f"kinetics_{lang}") or ov_iv.get("kinetics_es")
+            contra = ov_iv.get(f"contra_{lang}") or ov_iv.get("contra_es")
+            parts = [mech]
+            if snp:
+                parts.append("🧬 SNP: " + snp)
+            if prac:
+                parts.append("💊 " + prac)
+            if kin:
+                parts.append(("⏱️ Cinética: " if lang != "en" else "⏱️ Kinetics: ") + kin)
+            if contra:
+                parts.append(("⛔ Contraindicación: " if lang != "en" else "⛔ Contraindication: ") + contra)
+            iv["mechanism"] = "  ".join([p for p in parts if p])
+            iv["evidence"] = ov_iv.get("evidence", iv["evidence"])
+            if contra:
+                iv["safety_text"] = (iv.get("safety_text", "") + ("; " if iv.get("safety_text") else "") + contra)
+            chrono_note = prac or iv["safety_text"]
+        else:
+            chrono_note = iv["safety_text"]
+        interventions.append(iv)
+        wi = _pick_window(dz.get("timing_es", ""))
+        chrono[wi]["items"].append({"name": iv["name"], "category": iv["category"],
+                                    "dose": iv["standard_dose"], "note": chrono_note})
+    chrono = [c for c in chrono if c["items"]]
+
+    # 5. Interacciones (base real herb_drug_interactions.json)
+    interactions = []
+    drugset = set((drugs_used or []) + matched.get("drugs", []))
+    for herb_key, ints in _HERB_DRUG.items():
+        for it in ints:
+            interactions.append({"herb": herb_key.title(), "drug_class": it.get("drug_class", ""),
+                                 "severity": it.get("severity", ""), "effect": it.get("effect", ""),
+                                 "mechanism": it.get("mechanism", ""), "source": it.get("source", "")})
+    # priorizar severidad alta y limitar
+    order = {"alta": 0, "high": 0, "media": 1, "moderate": 1, "baja": 2, "low": 2}
+    interactions.sort(key=lambda x: order.get((x["severity"] or "").lower(), 3))
+    interactions = interactions[:20]
+
+    # 6. Nutrigenética (gen ↔ nutriente)
+    gene_syms = {g.upper() for g in matched.get("genes", [])}
+    nutri = [n for n in _PGX_NUTRITION if (n.get("gene", "").upper() in gene_syms)][:20]
+
+    # 7. Referencias
+    refs = await search_pubmed(matched.get("pubmed", condition_query), client, n=6)
+
+    # 8. Resultados esperados — usar contenido experto del overlay si existe
+    ov = _PLAN_OVERLAYS.get((matched_key or "").lower(), {})
+    results = ov.get(f"expected_outcomes_{lang}") or ov.get("expected_outcomes_es")
+    if not results:
+        results = []
+        for iv in interventions[:6]:
+            if iv["mechanism"]:
+                results.append(f"{iv['name']}: {iv['mechanism']}")
+    pathway_note = ov.get(f"pathway_context_{lang}") or ov.get("pathway_context_es", "")
+    if pathway_note and isinstance(pathway, dict):
+        pathway = {**pathway, "context": pathway_note}
+
+    # 9. Cronoterapia de fármacos (tab "Fármacos + timing")
+    drugs_timing = []
+    for drg in matched.get("drugs", [])[:10]:
+        dt = find_drug_timing(drg)
+        if dt:
+            drugs_timing.append({
+                "drug": drg.title(),
+                "class": _lang_field(dt, "class", lang),
+                "timing": _lang_field(dt, "timing", lang),
+                "why": _lang_field(dt, "why", lang),
+                "warning": _lang_field(dt, "warn", lang),
+                "evidence": dt.get("evidence", ""),
+            })
+
+    return {
+        "condition": matched_key.title() if isinstance(matched_key, str) else condition_query,
+        "lang": lang, "pathway": pathway, "genes": genes,
+        "chronogram": chrono, "interventions": interventions,
+        "interactions": interactions, "nutrigenetics": nutri,
+        "drugs_timing": drugs_timing,
+        "references": refs, "results": results,
+        "disclaimer": _t2(lang,
+            "Plan educativo (RUO). No sustituye el criterio clínico. Verificar dosis e interacciones antes de cualquier intervención.",
+            "Educational plan (RUO). Not a substitute for clinical judgment. Verify doses and interactions before any intervention."),
+    }
+
+def _t2(lang, es, en):
+    return en if lang == "en" else es
+
+@app.get("/api/plan")
+async def api_plan(q: str, lang: str = "es"):
+    async with httpx.AsyncClient(headers={"User-Agent": "NutriKen/2.0"}) as client:
+        plan = await _build_plan(q, [], lang, client)
+    return plan
+
+@app.get("/api/plan/export")
+async def api_plan_export(q: str, lang: str = "es"):
+    from plan_template import render_plan_html
+    async with httpx.AsyncClient(headers={"User-Agent": "NutriKen/2.0"}) as client:
+        plan = await _build_plan(q, [], lang, client)
+    html_str = render_plan_html(plan, lang)
+    from fastapi.responses import HTMLResponse
+    return HTMLResponse(content=html_str)
 
 
 # ── ENDPOINT 1: CLÍNICO — búsqueda libre en cualquier idioma ─────────────────
@@ -2792,9 +3296,11 @@ async def clinical_analysis(req: ClinicalQuery):
             genes_info  = await asyncio.gather(*genes_tasks)
             pathway     = await fetch_kegg_pathway(matched_data["kegg"], client)
             slugs       = matched_data["msk_slugs"][:10]
-            herb_tasks  = [fetch_msk_herb(slug, client) for slug in slugs]
+            herb_tasks  = [fetch_msk_herb(slug, client, req.lang or "es") for slug in slugs]
             herbs_raw   = await asyncio.gather(*herb_tasks)
             herbs       = [h for h in herbs_raw if "error" not in h]
+            for _h in herbs:
+                _h["herb_evidence"] = _HERBS_EVIDENCE.get(_h.get("slug"))
 
             # All drugs: user-provided + condition defaults
             all_drugs = list(set((req.drugs_used or []) + matched_data.get("drugs",[])))
@@ -2802,7 +3308,7 @@ async def clinical_analysis(req: ClinicalQuery):
 
             refs = await search_pubmed(matched_data["pubmed"], client, n=6)
 
-            return {
+            resp = {
                 "query": req.query, "query_en": query_en,
                 "condition": matched_key.title(),
                 "description": get_description(matched_key),
@@ -2816,13 +3322,17 @@ async def clinical_analysis(req: ClinicalQuery):
                 "msk_sources": [f"https://www.mskcc.org/cancer-care/integrative-medicine/herbs/{s}" for s in slugs[:6]],
                 "timestamp": datetime.datetime.now().isoformat()
             }
+            if (req.lang or "es") == "en":
+                for f in ("description", "drug_alerts", "food_alerts"):
+                    resp[f] = await translate_obj(resp[f], client, "en")
+            return resp
         else:
             # FREE SEARCH — any unknown term
             free = await free_search(query_en, req.query, client)
             herbs = free["herbs"]
             all_drugs = req.drugs_used or []
             interactions = analyze_interactions(herbs, all_drugs)
-            return {
+            resp = {
                 "query": req.query, "query_en": query_en,
                 "condition": req.query.title(),
                 "description": f"Búsqueda libre en MSK y PubMed para: '{req.query}'. Suplementos relacionados encontrados con mayor evidencia disponible.",
@@ -2835,6 +3345,10 @@ async def clinical_analysis(req: ClinicalQuery):
                 "msk_sources": [f"https://www.mskcc.org/cancer-care/integrative-medicine/herbs/{s}" for s in free["related_slugs"][:6]],
                 "timestamp": datetime.datetime.now().isoformat()
             }
+            if (req.lang or "es") == "en":
+                for f in ("description", "drug_alerts", "food_alerts"):
+                    resp[f] = await translate_obj(resp[f], client, "en")
+            return resp
 
 
 # ── ENDPOINT 2: GEN ───────────────────────────────────────────────────────────
@@ -2869,14 +3383,19 @@ async def nutrient_analysis(req: NutrientQuery):
     slug = MSK_SLUGS.get(nut, nut.replace(" ","-"))
     async with httpx.AsyncClient(headers={"User-Agent":"NutriKen/2.0"}) as client:
         # Try direct slug, if fail try translated
-        herb = await fetch_msk_herb(slug, client)
+        herb = await fetch_msk_herb(slug, client, req.lang or "es")
         if "error" in herb:
             en = await translate_to_en(nut, client)
             slug2 = MSK_SLUGS.get(en, en.replace(" ","-"))
             if slug2 != slug:
-                herb = await fetch_msk_herb(slug2, client)
+                herb = await fetch_msk_herb(slug2, client, req.lang or "es")
                 if "error" not in herb: slug = slug2
         if "error" in herb:
+            _bot = find_botanical(req.nutrient); _dz = find_dosing(req.nutrient)
+            if _bot or _dz:
+                return {"nutrient": req.nutrient, "slug": slug, "msk_data": {}, "pathway": {},
+                        "references": [], "dosing": _dz, "herb_evidence": _HERBS_EVIDENCE.get(slug),
+                        "botanical": _bot, "timestamp": datetime.datetime.now().isoformat()}
             raise HTTPException(status_code=404,
                 detail=f"'{req.nutrient}' no encontrado en MSK. Prueba: omega-3, vitamin-d, berberine, turmeric, milk-thistle, coenzyme-q10, garlic, green-tea, magnesium, probiotics")
 
@@ -2892,6 +3411,9 @@ async def nutrient_analysis(req: NutrientQuery):
 
     return {"nutrient":req.nutrient,"slug":slug,"msk_data":herb,"pathway":pathway,
             "references":refs,"msk_url":f"https://www.mskcc.org/cancer-care/integrative-medicine/herbs/{slug}",
+            "dosing":find_dosing(req.nutrient),
+            "herb_evidence":_HERBS_EVIDENCE.get(slug),
+            "botanical":find_botanical(req.nutrient),
             "timestamp":datetime.datetime.now().isoformat()}
 
 
@@ -3182,6 +3704,28 @@ async def herbs_index():
     except Exception as e:
         logger.error(f"herbs-index Supabase error: {e}")
         return {"total": 0, "by_letter": {}, "letters": [], "error": str(e)}
+
+    # Ampliar catálogo: añadir suplementos de la base de dosis que NO estén ya en MSK
+    # (creatina, NMN, NR, taurina, beta-alanina, etc.), con su evidencia enriquecida.
+    try:
+        existing = {_norm_dose_key(r.get("name", "")) for r in rows}
+        existing |= {_norm_dose_key(r.get("slug", "")) for r in rows}
+        for it in _DOSING_DB.get("items", []):
+            nm = it.get("name_es") or it.get("name") or it.get("slug")
+            if _norm_dose_key(nm) in existing or _norm_dose_key(it.get("slug", "")) in existing:
+                continue
+            rows.append({"slug": it["slug"], "name": nm,
+                         "scientific_name": it.get("category_es", "") or it.get("category", "")})
+            existing.add(_norm_dose_key(nm))
+        # Añadir plantas botánicas (LOTUS) al catálogo navegable
+        for plant in _BOTANICAL.keys():
+            if _norm_dose_key(plant) in existing:
+                continue
+            rows.append({"slug": _norm_dose_key(plant), "name": plant,
+                         "scientific_name": "LOTUS · fitoquímicos"})
+            existing.add(_norm_dose_key(plant))
+    except Exception as e:
+        logger.warning(f"No se pudo ampliar catálogo con dosis: {e}")
 
     from collections import defaultdict
     by_letter = defaultdict(list)

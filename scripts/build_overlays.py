@@ -1,0 +1,232 @@
+"""
+Genera local_db/plan_overlays.json — contenido experto por condición para el Plan Clínico
+(nivel de los informes de referencia): mecanismo ligado a la ruta KEGG + SNP concreto +
+detalle práctico + resultados esperados. Bilingüe ES/EN. Reproducible.
+Ejecutar:  python scripts/build_overlays.py
+"""
+import json, os
+
+
+def iv(m_es, m_en, snp_es, snp_en, p_es, p_en, ev, kin_es="", kin_en="", contra_es="", contra_en=""):
+    d = {"mechanism_es": m_es, "mechanism_en": m_en, "snp_es": snp_es, "snp_en": snp_en,
+         "practical_es": p_es, "practical_en": p_en, "evidence": ev}
+    if kin_es or kin_en:
+        d["kinetics_es"], d["kinetics_en"] = kin_es, (kin_en or kin_es)
+    if contra_es or contra_en:
+        d["contra_es"], d["contra_en"] = contra_es, (contra_en or contra_es)
+    return d
+
+
+OV = {
+ "_doc": "Contenido experto curado por condición. Mecanismo ligado a ruta KEGG + SNP + detalle práctico + resultados. Requiere validación clínica.",
+
+ "diabetes": {
+   "pathway_context_es": "Ruta KEGG hsa04930 (diabetes tipo 2): la resistencia a insulina y la disfunción de células β convergen en PI3K-Akt, AMPK y estrés oxidativo. Las intervenciones se cronometran a la ventana de mayor sensibilidad insulínica (mañana) y a las comidas con carbohidratos.",
+   "pathway_context_en": "KEGG hsa04930 (type 2 diabetes): insulin resistance and β-cell dysfunction converge on PI3K-Akt, AMPK and oxidative stress. Interventions are timed to the window of highest insulin sensitivity (morning) and to carbohydrate meals.",
+   "interventions": {
+     "berberine": iv("Activa AMPK (nodo central de hsa04930), aumenta GLUT4 y sensibilidad a insulina; inhibe gluconeogénesis hepática (efecto tipo metformina).","Activates AMPK (central node of hsa04930), raises GLUT4 and insulin sensitivity; inhibits hepatic gluconeogenesis (metformin-like).","TCF7L2 (rs7903146, riesgo T): mayor disfunción de célula β.","TCF7L2 (rs7903146, T risk): greater β-cell dysfunction.","500 mg 15–30 min antes de las 2–3 comidas con carbohidratos. Baja HbA1c ~0.7–1%.","500 mg 15–30 min before the 2–3 carbohydrate meals. Lowers HbA1c ~0.7–1%.","Meta-análisis"),
+     "chromium": iv("Potencia la autofosforilación del receptor de insulina (brazo PI3K-Akt).","Potentiates insulin-receptor autophosphorylation (PI3K-Akt arm).","Mayor beneficio en resistencia a insulina establecida.","Greater benefit in established insulin resistance.","200 µg/día (picolinato) con la comida principal. Separar de levotiroxina.","200 µg/day (picolinate) with the main meal. Separate from levothyroxine.","Clínico (mixto)"),
+     "cinnamon": iv("Polifenoles mejoran la captación de glucosa y ralentizan el vaciado gástrico → menor pico posprandial.","Polyphenols improve glucose uptake and slow gastric emptying → lower postprandial spike.","Sin SNP validado; efecto dosis-dependiente.","No validated SNP; dose-dependent effect.","1–2 g/día de CEYLÁN (Cinnamomum verum), NO Cassia (cumarina hepatotóxica), con el desayuno.","1–2 g/day CEYLON (Cinnamomum verum), NOT Cassia (hepatotoxic coumarin), with breakfast.","Clínico (modesto)"),
+     "ala": iv("Antioxidante que reduce el estrés oxidativo de hsa04930 y mejora la sensibilidad a insulina; alivia neuropatía.","Antioxidant that reduces hsa04930 oxidative stress and improves insulin sensitivity; relieves neuropathy.","Beneficio marcado en neuropatía sintomática.","Marked benefit in symptomatic neuropathy.","600 mg (R-ALA) en ayunas 30 min antes del desayuno. Puede bajar glucosa.","600 mg (R-ALA) fasting 30 min before breakfast. May lower glucose.","Clínico"),
+     "fenugreek": iv("Fibra soluble + 4-hidroxiisoleucina: enlentece la absorción de glucosa y estimula la insulina.","Soluble fiber + 4-hydroxyisoleucine: slows glucose absorption and stimulates insulin.","Efecto posprandial consistente.","Consistent postprandial effect.","5–10 g de semilla molida con las comidas de carbohidratos.","5–10 g ground seed with carbohydrate meals.","Clínico (moderado)"),
+     "magnesium": iv("Cofactor de la cascada del receptor de insulina; el déficit empeora la resistencia.","Cofactor of the insulin-receptor cascade; deficiency worsens resistance.","TRPM6 influye en el estatus de magnesio.","TRPM6 influences magnesium status.","300–400 mg (glicinato) por la noche. Separar de antibióticos.","300–400 mg (glycinate) at night. Separate from antibiotics.","Clínico"),
+   },
+   "expected_outcomes_es": ["HbA1c: berberina ~-0.7 a -1%; aditivo con dieta/ejercicio.","Glucosa posprandial: canela + fenogreco + fibra reducen el pico.","Neuropatía: ALA 600 mg/día mejora síntomas a 4–8 semanas.","Seguridad: vigilar hipoglucemia si se combinan con antidiabéticos."],
+   "expected_outcomes_en": ["HbA1c: berberine ~-0.7 to -1%; additive with diet/exercise.","Postprandial glucose: cinnamon + fenugreek + fiber blunt the spike.","Neuropathy: ALA 600 mg/day improves symptoms at 4–8 weeks.","Safety: watch for hypoglycemia when combined with antidiabetics."],
+ },
+
+ "obesity": {
+   "pathway_context_es": "Ruta KEGG hsa04920 (adipocitoquinas): leptina/adiponectina (LEPR, ADIPOQ) y AMPK regulan apetito y gasto energético. FTO modula la saciedad. Se cronometra a las ventanas de cortisol/insulina y a la ansiedad vespertina por dulce.",
+   "pathway_context_en": "KEGG hsa04920 (adipocytokines): leptin/adiponectin (LEPR, ADIPOQ) and AMPK regulate appetite and energy expenditure. FTO modulates satiety. Timed to cortisol/insulin windows and the evening sweet craving.",
+   "interventions": {
+     "egcg": iv("EGCG inhibe la COMT → prolonga la noradrenalina → termogénesis leve; potenciado por cafeína.","EGCG inhibits COMT → prolongs noradrenaline → mild thermogenesis; potentiated by caffeine.","FTO (rs9939609, riesgo A): mayor apetito; el ejercicio es su 'antídoto'.","FTO (rs9939609, A risk): higher appetite; exercise is its 'antidote'.","300–400 mg EGCG por la tarde (16 h), NO en ayunas; con comida (riesgo hepático). ~-1.4 kg/12 sem.","300–400 mg EGCG in the afternoon (4 pm), NOT fasting; with food (liver risk). ~-1.4 kg/12 wk.","Meta-análisis"),
+     "glucomannan": iv("Fibra viscosa (konjac): forma gel, distiende el estómago y frena NPY/AGRP → saciedad.","Viscous fiber (konjac): forms a gel, distends the stomach and curbs NPY/AGRP → satiety.","Respuesta de saciedad general.","General satiety response.","1 g con 1–2 vasos de agua 15–30 min antes de las comidas. SIEMPRE con agua (riesgo de atragantamiento).","1 g with 1–2 glasses of water 15–30 min before meals. ALWAYS with water (choking risk).","Clínico"),
+     "berberine": iv("Activa AMPK → mejora sensibilidad a insulina y perfil lipídico; reduce adipogénesis.","Activates AMPK → improves insulin sensitivity and lipids; reduces adipogenesis.","Útil en obesidad con resistencia a insulina.","Useful in obesity with insulin resistance.","500 mg antes de las comidas principales.","500 mg before main meals.","Clínico"),
+     "chromium": iv("Mejora la señalización de insulina y puede reducir el antojo de carbohidratos.","Improves insulin signaling and may reduce carbohydrate cravings.","Mayor efecto en resistencia a insulina.","Greater effect in insulin resistance.","200 µg/día con comida.","200 µg/day with food.","Clínico (mixto)"),
+     "cla": iv("Modula PPARγ y la lipólisis; efecto modesto en composición corporal.","Modulates PPARγ and lipolysis; modest effect on body composition.","Evidencia inconsistente.","Inconsistent evidence.","3–4 g/día con comida; puede empeorar resistencia a insulina a dosis altas.","3–4 g/day with food; may worsen insulin resistance at high doses.","Clínico (mixto)"),
+   },
+   "expected_outcomes_es": ["Peso: EGCG ~-1.4 kg/12 sem; glucomanano añade saciedad y baja LDL.","Metabólico: berberina + cromo mejoran sensibilidad a insulina.","Clave: el efecto es aditivo a déficit calórico y ejercicio, no sustituto.","FTO: el ejercicio neutraliza gran parte del riesgo genético."],
+   "expected_outcomes_en": ["Weight: EGCG ~-1.4 kg/12 wk; glucomannan adds satiety and lowers LDL.","Metabolic: berberine + chromium improve insulin sensitivity.","Key: effect is additive to caloric deficit and exercise, not a substitute.","FTO: exercise neutralizes much of the genetic risk."],
+ },
+
+ "hypertension": {
+   "pathway_context_es": "Ruta KEGG hsa04614 (sistema renina-angiotensina): ACE/AGT/AGTR1 regulan la vasoconstricción. Óxido nítrico y magnesio modulan el tono vascular. Cronoterapia: en no-dippers, mover un antihipertensivo a la noche.",
+   "pathway_context_en": "KEGG hsa04614 (renin-angiotensin system): ACE/AGT/AGTR1 drive vasoconstriction. Nitric oxide and magnesium modulate vascular tone. Chronotherapy: in non-dippers, shift one antihypertensive to night.",
+   "interventions": {
+     "garlic": iv("La alicina aumenta el óxido nítrico (vasodilatación) e inhibe levemente la ECA.","Allicin raises nitric oxide (vasodilation) and mildly inhibits ACE.","ACE (rs4646994 I/D): el genotipo DD asocia PA más alta.","ACE (rs4646994 I/D): DD genotype associates with higher BP.","600–1200 mg de extracto añejado/día. Baja PAS ~5–8 mmHg. Suspender 7–10 d antes de cirugía.","600–1200 mg aged extract/day. Lowers SBP ~5–8 mmHg. Stop 7–10 d before surgery.","Meta-análisis"),
+     "magnesium": iv("Antagonista natural del calcio en el músculo liso vascular → vasodilatación.","Natural calcium antagonist in vascular smooth muscle → vasodilation.","Déficit frecuente empeora la PA.","Common deficiency worsens BP.","300–400 mg (glicinato) por la noche. Baja PAS ~2–4 mmHg.","300–400 mg (glycinate) at night. Lowers SBP ~2–4 mmHg.","Clínico"),
+     "omega3": iv("EPA/DHA mejoran la función endotelial y bajan la PA levemente.","EPA/DHA improve endothelial function and mildly lower BP.","Beneficio dependiente de la dosis.","Dose-dependent benefit.","2–3 g EPA+DHA/día con comida grasa.","2–3 g EPA+DHA/day with a fatty meal.","Meta-análisis"),
+     "coq10": iv("Mejora la eficiencia mitocondrial endotelial; efecto hipotensor modesto.","Improves endothelial mitochondrial efficiency; modest hypotensive effect.","Mayor beneficio en déficit (uso de estatinas).","Greater benefit in deficiency (statin use).","100–200 mg/día (ubiquinol) con comida grasa.","100–200 mg/day (ubiquinol) with a fatty meal.","Clínico (mixto)"),
+   },
+   "expected_outcomes_es": ["PA: ajo ~-5–8 mmHg PAS; magnesio y omega-3 aditivos.","Cronoterapia: en no-dippers (MAPA), un antihipertensivo nocturno mejora el perfil.","Seguridad: ajo + anticoagulantes = riesgo de sangrado; vigilar antes de cirugía."],
+   "expected_outcomes_en": ["BP: garlic ~-5–8 mmHg SBP; magnesium and omega-3 additive.","Chronotherapy: in non-dippers (ABPM), a nighttime antihypertensive improves the profile.","Safety: garlic + anticoagulants = bleeding risk; watch before surgery."],
+ },
+
+ "cholesterol": {
+   "pathway_context_es": "La síntesis hepática de colesterol (HMGCR) pica de noche; LDLR/PCSK9/APOB regulan el aclaramiento de LDL. Intervenciones nocturnas y con las comidas grasas.",
+   "pathway_context_en": "Hepatic cholesterol synthesis (HMGCR) peaks at night; LDLR/PCSK9/APOB regulate LDL clearance. Night and fatty-meal timing.",
+   "interventions": {
+     "red_yeast_rice": iv("Contiene monacolina K = lovastatina natural: inhibe HMGCR (misma diana que las estatinas).","Contains monacolin K = natural lovastatin: inhibits HMGCR (same target as statins).","SLCO1B1 (rs4149056): mayor riesgo de miopatía (igual que con estatinas).","SLCO1B1 (rs4149056): higher myopathy risk (as with statins).","~10 mg monacolina K/noche con comida. Baja LDL 15–25%. NO combinar con estatinas; añadir CoQ10.","~10 mg monacolin K/night with food. Lowers LDL 15–25%. Do NOT combine with statins; add CoQ10.","Clínico"),
+     "plant_sterols": iv("Compiten con el colesterol por la absorción intestinal → menos LDL.","Compete with cholesterol for intestinal absorption → less LDL.","Sin SNP relevante de rutina.","No routine relevant SNP.","2 g/día repartidos con las comidas grasas. Bajan LDL 8–10%.","2 g/day split with fatty meals. Lower LDL 8–10%.","Clínico (fuerte)"),
+     "bergamot": iv("Polifenoles inhiben HMGCR y ACAT; bajan LDL y triglicéridos.","Polyphenols inhibit HMGCR and ACAT; lower LDL and triglycerides.","Alternativa/complemento en intolerancia a estatinas.","Alternative/complement in statin intolerance.","500–1000 mg/día antes de comidas.","500–1000 mg/day before meals.","Clínico (moderado)"),
+     "omega3": iv("Bajan la síntesis hepática de VLDL → menos triglicéridos.","Lower hepatic VLDL synthesis → fewer triglycerides.","Efecto marcado en hipertrigliceridemia.","Marked effect in hypertriglyceridemia.","2–4 g EPA+DHA/día con comida grasa. TG -20–30%.","2–4 g EPA+DHA/day with a fatty meal. TG -20–30%.","Meta-análisis"),
+     "berberine": iv("Sube el receptor de LDL (LDLR) por vía distinta a las estatinas → sinergia.","Upregulates the LDL receptor (LDLR) via a non-statin route → synergy.","Complemento a estatina/dieta.","Complement to statin/diet.","500 mg antes de las comidas.","500 mg before meals.","Clínico"),
+   },
+   "expected_outcomes_es": ["LDL: levadura roja 15–25%, fitoesteroles 8–10%, bergamota aditiva.","TG: omega-3 -20–30%.","Seguridad: levadura roja ES estatina → NO sumar a estatina; vigilar hígado/CK y añadir CoQ10."],
+   "expected_outcomes_en": ["LDL: red yeast rice 15–25%, phytosterols 8–10%, bergamot additive.","TG: omega-3 -20–30%.","Safety: red yeast rice IS a statin → do NOT add to a statin; monitor liver/CK and add CoQ10."],
+ },
+
+ "liver": {
+   "pathway_context_es": "Hígado graso (NAFLD/NASH): PNPLA3/TM6SF2 aumentan la susceptibilidad; el estrés oxidativo y la lipotoxicidad impulsan la inflamación. Objetivo: reducir grasa hepática y oxidación.",
+   "pathway_context_en": "Fatty liver (NAFLD/NASH): PNPLA3/TM6SF2 increase susceptibility; oxidative stress and lipotoxicity drive inflammation. Goal: reduce liver fat and oxidation.",
+   "interventions": {
+     "vite": iv("Antioxidante que reduce la peroxidación lipídica hepática (recomendado en NASH sin diabetes).","Antioxidant that reduces hepatic lipid peroxidation (recommended in NASH without diabetes).","PNPLA3 (rs738409, riesgo G): mayor esteatosis; puede modular la respuesta.","PNPLA3 (rs738409, G risk): more steatosis; may modulate response.","≤400 UI/día con comida grasa (guías NASH). No exceder crónicamente.","≤400 IU/day with a fatty meal (NASH guidelines). Don't exceed chronically.","Clínico"),
+     "milkthistle": iv("Silimarina: antioxidante hepatoprotector, estabiliza la membrana del hepatocito.","Silymarin: antioxidant hepatoprotector, stabilizes the hepatocyte membrane.","Buen perfil de seguridad; evidencia mixta.","Good safety; mixed evidence.","200–400 mg silimarina/día con comida.","200–400 mg silymarin/day with food.","Clínico (moderado)"),
+     "berberine": iv("Activa AMPK → reduce lipogénesis hepática y grasa del hígado.","Activates AMPK → reduces hepatic lipogenesis and liver fat.","Útil en NAFLD con resistencia a insulina.","Useful in NAFLD with insulin resistance.","500 mg antes de las comidas.","500 mg before meals.","Clínico"),
+     "omega3": iv("Bajan triglicéridos hepáticos y activan PPARα (oxidación de ácidos grasos).","Lower hepatic triglycerides and activate PPARα (fatty-acid oxidation).","Beneficio en el componente de TG.","Benefit on the TG component.","2–4 g EPA+DHA/día con comida grasa.","2–4 g EPA+DHA/day with a fatty meal.","Clínico"),
+     "choline": iv("Necesaria para exportar VLDL; su déficit causa acumulación de grasa hepática.","Needed to export VLDL; deficiency causes hepatic fat accumulation.","MTHFD1/PEMT influyen en el requerimiento.","MTHFD1/PEMT influence requirement.","Citicolina/alfa-GPC; asegurar aporte adecuado.","Citicoline/alpha-GPC; ensure adequate intake.","Clínico"),
+   },
+   "expected_outcomes_es": ["Grasa hepática: berberina + omega-3 la reducen; vitamina E mejora histología en NASH.","Enzimas: descenso de ALT/AST a 3–6 meses con pérdida de peso.","Base: la pérdida de peso del 7–10% es la intervención más potente."],
+   "expected_outcomes_en": ["Liver fat: berberine + omega-3 reduce it; vitamin E improves NASH histology.","Enzymes: ALT/AST decline at 3–6 months with weight loss.","Foundation: 7–10% weight loss is the most powerful intervention."],
+ },
+
+ "inflammation": {
+   "pathway_context_es": "Ruta KEGG hsa04668 (señalización TNF/NF-κB): TNF, IL6, PTGS2 (COX-2) impulsan la inflamación. Fitoquímicos inhiben NF-κB, COX-2 y 5-LOX, y resuelven vía SPMs.",
+   "pathway_context_en": "KEGG hsa04668 (TNF/NF-κB signaling): TNF, IL6, PTGS2 (COX-2) drive inflammation. Phytochemicals inhibit NF-κB, COX-2 and 5-LOX, and resolve via SPMs.",
+   "interventions": {
+     "curcumin": iv("Inhibe NF-κB y COX-2 (nodos de hsa04668) → menos citoquinas proinflamatorias.","Inhibits NF-κB and COX-2 (hsa04668 nodes) → fewer pro-inflammatory cytokines.","Sin SNP de rutina; efecto dependiente de biodisponibilidad.","No routine SNP; effect depends on bioavailability.","1000–2000 mg/día con piperina o fitosoma, con comida grasa. Suspender antes de cirugía.","1000–2000 mg/day with piperine or phytosome, with a fatty meal. Stop before surgery.","Clínico"),
+     "omega3": iv("EPA/DHA generan resolvinas/protectinas (SPMs) que RESUELVEN activamente la inflamación.","EPA/DHA generate resolvins/protectins (SPMs) that actively RESOLVE inflammation.","Ratio omega-6/3 alto amplifica la inflamación.","High omega-6/3 ratio amplifies inflammation.","2–4 g EPA+DHA/día con comida grasa.","2–4 g EPA+DHA/day with a fatty meal.","Meta-análisis"),
+     "boswellia": iv("Los ácidos boswélicos (AKBA) inhiben 5-LOX → menos leucotrienos (artrosis, EII).","Boswellic acids (AKBA) inhibit 5-LOX → fewer leukotrienes (osteoarthritis, IBD).","Beneficio en artrosis y enfermedad inflamatoria intestinal.","Benefit in osteoarthritis and IBD.","100–250 mg AKBA/día con comida grasa.","100–250 mg AKBA/day with a fatty meal.","Clínico"),
+     "quercetin": iv("Estabiliza mastocitos e inhibe NF-κB; antiinflamatorio/antihistamínico.","Stabilizes mast cells and inhibits NF-κB; anti-inflammatory/antihistamine.","Baja biodisponibilidad → con bromelina/vit C.","Low bioavailability → with bromelain/vit C.","500 mg 2×/día con comida.","500 mg 2×/day with food.","Preclínico/clínico"),
+   },
+   "expected_outcomes_es": ["PCR/citoquinas: curcumina + omega-3 bajan marcadores inflamatorios.","Dolor articular: boswellia y curcumina mejoran a 4–8 semanas.","Seguridad: curcumina/omega-3 a dosis altas + anticoagulantes = sangrado."],
+   "expected_outcomes_en": ["CRP/cytokines: curcumin + omega-3 lower inflammatory markers.","Joint pain: boswellia and curcumin improve at 4–8 weeks.","Safety: high-dose curcumin/omega-3 + anticoagulants = bleeding."],
+ },
+
+ "triglycerides": {
+   "pathway_context_es": "Hipertrigliceridemia (hsa04977, digestión/absorción de lípidos): APOA5/LPL/APOC3 regulan el aclaramiento de VLDL. Objetivo: reducir síntesis hepática de VLDL y mejorar la lipólisis.",
+   "pathway_context_en": "Hypertriglyceridemia (hsa04977, lipid digestion/absorption): APOA5/LPL/APOC3 regulate VLDL clearance. Goal: reduce hepatic VLDL synthesis and improve lipolysis.",
+   "interventions": {
+     "omega3": iv("EPA/DHA reducen la síntesis hepática de VLDL → menos triglicéridos (efecto dosis-dependiente).","EPA/DHA reduce hepatic VLDL synthesis → fewer triglycerides (dose-dependent).","APOA5 (rs662799): portadores con TG basales más altos responden bien.","APOA5 (rs662799): carriers with higher baseline TG respond well.","2–4 g EPA+DHA/día con comida grasa. TG -20–30%.","2–4 g EPA+DHA/day with a fatty meal. TG -20–30%.","Meta-análisis"),
+     "berberine": iv("Activa AMPK → baja lipogénesis y mejora el perfil lipídico.","Activates AMPK → lowers lipogenesis and improves lipids.","Sinergia con dieta baja en carbohidratos.","Synergy with low-carb diet.","500 mg antes de comidas.","500 mg before meals.","Clínico"),
+     "red_yeast_rice": iv("Monacolina K (lovastatina) inhibe HMGCR; baja LDL y algo de TG.","Monacolin K (lovastatin) inhibits HMGCR; lowers LDL and some TG.","SLCO1B1: riesgo de miopatía.","SLCO1B1: myopathy risk.","~10 mg monacolina K/noche. NO combinar con estatina; añadir CoQ10.","~10 mg monacolin K/night. Do NOT combine with a statin; add CoQ10.","Clínico"),
+     "fenugreek": iv("Fibra soluble reduce absorción de lípidos y glucosa.","Soluble fiber reduces lipid and glucose absorption.","Efecto posprandial.","Postprandial effect.","5–10 g de semilla con comidas.","5–10 g seed with meals.","Clínico (moderado)"),
+   },
+   "expected_outcomes_es": ["TG: omega-3 -20–30% a 2–4 g/día (efecto más potente).","LDL: levadura roja/berberina aditivos.","Base: reducir azúcares simples y alcohol es clave para los TG."],
+   "expected_outcomes_en": ["TG: omega-3 -20–30% at 2–4 g/day (strongest effect).","LDL: red yeast rice/berberine additive.","Foundation: cutting simple sugars and alcohol is key for TG."],
+ },
+
+ "gut microbiota": {
+   "pathway_context_es": "Eje intestino-huésped: la fibra fermentable → SCFA (butirato) que nutre el colonocito e inhibe HDAC (epigenética). Probióticos cepa-específicos modulan inmunidad y barrera.",
+   "pathway_context_en": "Gut-host axis: fermentable fiber → SCFAs (butyrate) that feed the colonocyte and inhibit HDAC (epigenetics). Strain-specific probiotics modulate immunity and barrier.",
+   "interventions": {
+     "probiotics": iv("Cepas específicas restauran la barrera intestinal y compiten con patógenos; efecto CEPA-dependiente.","Specific strains restore the gut barrier and outcompete pathogens; STRAIN-dependent effect.","Sin SNP de rutina; elegir cepa por indicación.","No routine SNP; choose strain by indication.","10–50 mil millones UFC/día con o antes de comida. Elegir cepa según objetivo, no 'genérico'.","10–50 billion CFU/day with or before a meal. Choose strain by goal, not 'generic'.","Clínico (cepa-dependiente)"),
+     "psyllium": iv("Fibra soluble → fermenta a SCFA (butirato), alimenta la microbiota y regula el tránsito.","Soluble fiber → ferments to SCFAs (butyrate), feeds microbiota and regulates transit.","Beneficio general en disbiosis.","General benefit in dysbiosis.","5 g 1–3×/día con agua abundante; subir gradual (gases). Separar 2–4 h de fármacos.","5 g 1–3×/day with plenty of water; titrate up (gas). Separate 2–4 h from drugs.","Clínico"),
+     "glutamine": iv("Combustible del enterocito: mantiene la integridad de la barrera intestinal.","Enterocyte fuel: maintains gut barrier integrity.","Útil en estrés/daño de mucosa.","Useful in stress/mucosal damage.","5 g/día (hasta 10–30 g en daño intestinal).","5 g/day (up to 10–30 g in gut damage).","Clínico (mixto)"),
+     "omega3": iv("EPA/DHA modulan la microbiota y bajan la inflamación de mucosa.","EPA/DHA modulate microbiota and lower mucosal inflammation.","Ratio omega-6/3 afecta la disbiosis.","Omega-6/3 ratio affects dysbiosis.","2 g EPA+DHA/día con comida grasa.","2 g EPA+DHA/day with a fatty meal.","Clínico"),
+   },
+   "expected_outcomes_es": ["Barrera: glutamina + probióticos mejoran permeabilidad intestinal.","SCFA: fibra soluble (psyllium) sube butirato (efecto HDACi/epigenético).","Clave: la cepa del probiótico define el efecto — no todos sirven para lo mismo."],
+   "expected_outcomes_en": ["Barrier: glutamine + probiotics improve gut permeability.","SCFAs: soluble fiber (psyllium) raises butyrate (HDACi/epigenetic effect).","Key: the probiotic strain defines the effect — not interchangeable."],
+ },
+
+ "celiac": {
+   "pathway_context_es": "Enfermedad celíaca (HLA-DQ2/DQ8): la única terapia es la dieta SIN GLUTEN estricta. Los suplementos corrigen los déficits por malabsorción, NO tratan la enfermedad.",
+   "pathway_context_en": "Celiac disease (HLA-DQ2/DQ8): the only therapy is a strict GLUTEN-FREE diet. Supplements correct malabsorption deficiencies, they do NOT treat the disease.",
+   "interventions": {
+     "vitd": iv("Corrige el déficit por malabsorción de la mucosa dañada; salud ósea.","Corrects deficiency from damaged-mucosa malabsorption; bone health.","Déficit muy frecuente al diagnóstico.","Very common deficiency at diagnosis.","2000–4000 UI/día con control de 25-OH-D; con comida grasa.","2000–4000 IU/day with 25-OH-D monitoring; with a fatty meal.","Clínico"),
+     "iron": iv("La atrofia vellositaria causa anemia ferropénica; reponer hierro.","Villous atrophy causes iron-deficiency anemia; replete iron.","Anemia frecuente al diagnóstico.","Anemia common at diagnosis.","Bisglicinato en días alternos + vit C; confirmar con ferritina.","Bisglycinate alternate-day + vit C; confirm with ferritin.","Clínico"),
+     "b12": iv("Malabsorción ileal → déficit de B12; reponer.","Ileal malabsorption → B12 deficiency; replete.","Verificar con ácido metilmalónico.","Confirm with methylmalonic acid.","500–1000 µg/día (sublingual si malabsorción).","500–1000 µg/day (sublingual if malabsorption).","Clínico"),
+     "probiotics": iv("Pueden ayudar a restaurar la microbiota alterada; adyuvante, no tratamiento.","May help restore altered microbiota; adjuvant, not treatment.","Cepa-dependiente.","Strain-dependent.","10–20 mil millones UFC/día.","10–20 billion CFU/day.","Clínico (limitado)"),
+   },
+   "expected_outcomes_es": ["Único tratamiento: dieta sin gluten estricta de por vida.","Déficits: reponer Vit D, hierro, B12, folato tras el diagnóstico y revisar.","Seguimiento: anticuerpos y densitometría; la mucosa se recupera en meses."],
+   "expected_outcomes_en": ["Only treatment: strict lifelong gluten-free diet.","Deficiencies: replete Vit D, iron, B12, folate after diagnosis and re-check.","Follow-up: antibodies and bone density; mucosa recovers over months."],
+ },
+
+ "folate": {
+   "pathway_context_es": "Metabolismo de un carbono (folato/B12/B6): MTHFR regula la conversión a metilfolato activo; su déficit sube la homocisteína.",
+   "pathway_context_en": "One-carbon metabolism (folate/B12/B6): MTHFR regulates conversion to active methylfolate; its deficiency raises homocysteine.",
+   "interventions": {
+     "folate": iv("Dador de metilo esencial; en MTHFR C677T conviene el metilfolato (5-MTHF) ya activo.","Essential methyl donor; in MTHFR C677T prefer already-active methylfolate (5-MTHF).","MTHFR (rs1801133 C677T): menor actividad enzimática → preferir metilfolato.","MTHFR (rs1801133 C677T): lower enzyme activity → prefer methylfolate.","400–800 µg/día de metilfolato. No enmascarar déficit de B12.","400–800 µg/day methylfolate. Don't mask B12 deficiency.","Clínico"),
+     "b12": iv("Coopera con el folato en la remetilación de homocisteína; déficit común en veganos/metformina/IBP.","Works with folate in homocysteine remethylation; deficiency common in vegans/metformin/PPIs.","Verificar antes de suplementar folato solo.","Confirm before supplementing folate alone.","500–1000 µg/día (metilcobalamina).","500–1000 µg/day (methylcobalamin).","Clínico"),
+   },
+   "expected_outcomes_es": ["Homocisteína: folato + B12 (+ B6) la reducen.","MTHFR C677T: usar metilfolato mejora el estatus en portadores.","Seguridad: descartar déficit de B12 antes de dar folato en dosis altas."],
+   "expected_outcomes_en": ["Homocysteine: folate + B12 (+ B6) lower it.","MTHFR C677T: methylfolate improves status in carriers.","Safety: rule out B12 deficiency before high-dose folate."],
+ },
+
+ "weight loss": {
+   "pathway_context_es": "Balance energético (hsa04920): saciedad (LEPR/FTO), termogénesis y sensibilidad a insulina. Las intervenciones apoyan el déficit calórico; no lo sustituyen.",
+   "pathway_context_en": "Energy balance (hsa04920): satiety (LEPR/FTO), thermogenesis and insulin sensitivity. Interventions support the caloric deficit; they do not replace it.",
+   "interventions": {
+     "egcg": iv("EGCG inhibe COMT → prolonga noradrenalina → termogénesis leve.","EGCG inhibits COMT → prolongs noradrenaline → mild thermogenesis.","FTO (rs9939609, A): mayor apetito; el ejercicio lo contrarresta.","FTO (rs9939609, A): higher appetite; exercise counteracts it.","300–400 mg EGCG por la tarde, con comida. ~-1.4 kg/12 sem.","300–400 mg EGCG in the afternoon, with food. ~-1.4 kg/12 wk.","Meta-análisis", kin_es="Por la tarde: el pico de noradrenalina no interfiere con el sueño; con comida evita hepatotoxicidad.", kin_en="Afternoon: the noradrenaline peak doesn't disrupt sleep; with food avoids hepatotoxicity.", contra_es="Evitar en hepatopatía y en ayunas a dosis altas (riesgo hepático).", contra_en="Avoid in liver disease and fasting at high doses (liver risk)."),
+     "berberine": iv("Activa AMPK → mejora insulina y perfil lipídico; reduce adipogénesis.","Activates AMPK → improves insulin and lipids; reduces adipogenesis.","Útil con resistencia a insulina.","Useful with insulin resistance.","500 mg antes de las comidas.","500 mg before meals.","Clínico"),
+     "chromium": iv("Mejora la señalización de insulina; puede reducir el antojo de carbohidratos.","Improves insulin signaling; may reduce carbohydrate cravings.","Mayor efecto en resistencia a insulina.","Greater effect in insulin resistance.","200 µg/día con comida.","200 µg/day with food.","Clínico (mixto)"),
+     "carnitine": iv("Transporta ácidos grasos a la mitocondria para su oxidación (efecto modesto).","Shuttles fatty acids into mitochondria for oxidation (modest effect).","Mayor beneficio en déficit o mayores.","Greater benefit in deficiency or elderly.","2 g/día con carbohidrato; efecto pequeño sin ejercicio.","2 g/day with a carb; small effect without exercise.","Clínico (mixto)"),
+     "5htp": iv("Precursor de serotonina → aumenta la saciedad y reduce el picoteo.","Serotonin precursor → increases satiety and reduces snacking.","Respuesta variable.","Variable response.","50–100 mg antes de comidas o noche.","50–100 mg before meals or at night.","Clínico (limitado)", contra_es="NO combinar con ISRS/IMAO (riesgo de síndrome serotoninérgico).", contra_en="Do NOT combine with SSRIs/MAOIs (serotonin syndrome risk)."),
+   },
+   "expected_outcomes_es": ["Peso: apoyo de -1 a -3 kg/12 sem sobre un déficit calórico.","Antojo: 5-HTP y fibra ayudan a la adherencia.","Clave: dieta + ejercicio siguen siendo el 80% del resultado."],
+   "expected_outcomes_en": ["Weight: -1 to -3 kg/12 wk support on top of a caloric deficit.","Cravings: 5-HTP and fiber aid adherence.","Key: diet + exercise remain 80% of the result."],
+ },
+
+ "lactose intolerance": {
+   "pathway_context_es": "Hipolactasia (gen LCT/MCM6): déficit de lactasa. Estrategia: reducir lactosa, aportar lactasa exógena y prevenir el déficit de calcio/Vit D por evitar lácteos.",
+   "pathway_context_en": "Hypolactasia (LCT/MCM6 gene): lactase deficiency. Strategy: reduce lactose, provide exogenous lactase and prevent calcium/Vit D deficiency from dairy avoidance.",
+   "interventions": {
+     "probiotics": iv("Cepas con β-galactosidasa (p. ej. Lactobacillus) ayudan a digerir la lactosa residual.","Strains with β-galactosidase (e.g., Lactobacillus) help digest residual lactose.","LCT/MCM6 (rs4988235): genotipo no persistente = hipolactasia adulta.","LCT/MCM6 (rs4988235): non-persistent genotype = adult hypolactasia.","10–20 mil millones UFC/día con lácteos.","10–20 billion CFU/day with dairy.","Clínico (moderado)"),
+     "calcium": iv("Evitar lácteos reduce el aporte de calcio → suplementar para el hueso.","Avoiding dairy lowers calcium intake → supplement for bone.","Riesgo óseo si se evitan lácteos.","Bone risk if dairy is avoided.","≤500 mg por toma (citrato), con Vit D y K2.","≤500 mg per dose (citrate), with Vit D and K2.","Clínico", contra_es="Separar 4 h de levotiroxina, hierro y quinolonas.", contra_en="Separate 4 h from levothyroxine, iron and quinolones."),
+     "vitd": iv("Cofactor de la absorción de calcio; frecuente déficit al evitar lácteos fortificados.","Cofactor for calcium absorption; common deficiency when avoiding fortified dairy.","Objetivo 25-OH-D 30–50 ng/mL.","Target 25-OH-D 30–50 ng/mL.","2000 UI/día con comida grasa.","2000 IU/day with a fatty meal.","Clínico"),
+   },
+   "expected_outcomes_es": ["Síntomas: lactasa exógena antes de lácteos elimina la mayoría de molestias.","Hueso: calcio + Vit D compensan la restricción de lácteos.","Nota: la mayoría tolera yogur/quesos madurados (baja lactosa)."],
+   "expected_outcomes_en": ["Symptoms: exogenous lactase before dairy removes most discomfort.","Bone: calcium + Vit D offset dairy restriction.","Note: most tolerate yogurt/aged cheeses (low lactose)."],
+ },
+
+ "gallstones": {
+   "pathway_context_es": "Colelitiasis: sobresaturación biliar de colesterol y estasis vesicular. Objetivo: mejorar el flujo biliar y el perfil lipídico. La cirugía es el tratamiento definitivo si hay síntomas.",
+   "pathway_context_en": "Cholelithiasis: biliary cholesterol supersaturation and gallbladder stasis. Goal: improve bile flow and lipids. Surgery is definitive if symptomatic.",
+   "interventions": {
+     "artichoke": iv("Colerético: la cinarina aumenta el flujo biliar y mejora la digestión de grasas.","Choleretic: cynarin increases bile flow and improves fat digestion.","Sin SNP de rutina.","No routine SNP.","300–640 mg antes de las comidas.","300–640 mg before meals.","Clínico (moderado)", contra_es="CONTRAINDICADO si hay obstrucción de la vía biliar (puede precipitar cólico).", contra_en="CONTRAINDICATED in bile duct obstruction (may precipitate colic)."),
+     "milkthistle": iv("Hepatoprotector; apoya la función hepatobiliar.","Hepatoprotector; supports hepatobiliary function.","Buen perfil de seguridad.","Good safety.","200–400 mg silimarina/día.","200–400 mg silymarin/day.","Clínico (moderado)"),
+     "vitc": iv("La vitamina C favorece la conversión de colesterol a ácidos biliares (menos saturación).","Vitamin C promotes cholesterol-to-bile-acid conversion (less saturation).","Efecto poblacional modesto.","Modest population-level effect.","500 mg/día con comida.","500 mg/day with food.","Epidemiológico"),
+   },
+   "expected_outcomes_es": ["Flujo biliar: alcachofa mejora síntomas dispépticos (si no hay obstrucción).","Definitivo: colecistectomía si cólico recurrente/complicaciones.","Prevención: pérdida de peso gradual (no >1 kg/sem) para no precipitar cálculos."],
+   "expected_outcomes_en": ["Bile flow: artichoke improves dyspeptic symptoms (if no obstruction).","Definitive: cholecystectomy for recurrent colic/complications.","Prevention: gradual weight loss (not >1 kg/wk) to avoid precipitating stones."],
+ },
+
+ "statins": {
+   "pathway_context_es": "Terapia con estatinas (HMGCR/SLCO1B1): la coenzima Q10 mitiga la mialgia; se vigilan interacciones CYP3A4 y la miopatía.",
+   "pathway_context_en": "Statin therapy (HMGCR/SLCO1B1): coenzyme Q10 mitigates myalgia; CYP3A4 interactions and myopathy are monitored.",
+   "interventions": {
+     "coq10": iv("Las estatinas bajan la CoQ10; reponerla mejora la mialgia asociada.","Statins lower CoQ10; repletion improves associated myalgia.","SLCO1B1 (rs4149056): mayor riesgo de miopatía por estatinas.","SLCO1B1 (rs4149056): higher statin-myopathy risk.","100–200 mg/día (ubiquinol) con comida grasa.","100–200 mg/day (ubiquinol) with a fatty meal.","Clínico (mixto)", contra_es="", contra_en=""),
+     "milkthistle": iv("Hepatoprotector; útil ante elevación leve de transaminasas.","Hepatoprotector; useful for mild transaminase elevation.","—","—","200–400 mg silimarina/día.","200–400 mg silymarin/day.","Clínico (moderado)"),
+     "red_yeast_rice": iv("ES una estatina natural (lovastatina).","It IS a natural statin (lovastatin).","SLCO1B1: mismo riesgo de miopatía.","SLCO1B1: same myopathy risk.","No usar como 'suplemento' si ya toma estatina.","Don't use as a 'supplement' if already on a statin.","Clínico", contra_es="NO combinar con estatinas de prescripción (doble dosis de estatina).", contra_en="Do NOT combine with prescription statins (double statin dose)."),
+     "omega3": iv("Reduce triglicéridos, complemento útil del tratamiento hipolipemiante.","Reduces triglycerides, useful complement to lipid therapy.","—","—","2–4 g EPA+DHA/día con comida grasa.","2–4 g EPA+DHA/day with a fatty meal.","Clínico"),
+   },
+   "expected_outcomes_es": ["Mialgia: CoQ10 puede aliviarla en algunos pacientes.","Seguridad crítica: NO sumar levadura roja de arroz a una estatina.","Toronja: evitar con simvastatina/atorvastatina (CYP3A4)."],
+   "expected_outcomes_en": ["Myalgia: CoQ10 may relieve it in some patients.","Critical safety: do NOT add red yeast rice to a statin.","Grapefruit: avoid with simvastatin/atorvastatin (CYP3A4)."],
+ },
+
+ "silymarin": {
+   "pathway_context_es": "Silimarina (cardo mariano): antioxidante hepatoprotector; modula CYP levemente (vigilar interacciones).",
+   "pathway_context_en": "Silymarin (milk thistle): antioxidant hepatoprotector; mildly modulates CYP (watch interactions).",
+   "interventions": {
+     "milkthistle": iv("La silibinina estabiliza la membrana del hepatocito y es antioxidante.","Silibinin stabilizes the hepatocyte membrane and is antioxidant.","Buen perfil de seguridad.","Good safety.","200–400 mg silimarina/día con comida.","200–400 mg silymarin/day with food.","Clínico (moderado)", contra_es="Inhibición leve de CYP2C9/3A4: precaución con warfarina y sustratos.", contra_en="Mild CYP2C9/3A4 inhibition: caution with warfarin and substrates."),
+     "vite": iv("Antioxidante complementario en daño hepático oxidativo.","Complementary antioxidant in oxidative liver damage.","—","—","≤400 UI/día con comida grasa.","≤400 IU/day with a fatty meal.","Clínico"),
+     "ala": iv("Regenera glutatión y otros antioxidantes; apoyo hepático.","Regenerates glutathione and other antioxidants; liver support.","—","—","300–600 mg/día en ayunas.","300–600 mg/day fasting.","Clínico"),
+     "artichoke": iv("Colerético y digestivo; complementa el soporte hepatobiliar.","Choleretic and digestive; complements hepatobiliary support.","—","—","300–640 mg antes de comidas.","300–640 mg before meals.","Clínico (moderado)", contra_es="Evitar en obstrucción biliar.", contra_en="Avoid in bile duct obstruction."),
+   },
+   "expected_outcomes_es": ["Transaminasas: descenso leve en hepatopatía con soporte antioxidante.","Interacciones: vigilar warfarina con silimarina.","Base: eliminar el hepatotóxico (alcohol, fármaco) es lo primero."],
+   "expected_outcomes_en": ["Transaminases: mild decline in liver disease with antioxidant support.","Interactions: watch warfarin with silymarin.","Foundation: removing the hepatotoxin (alcohol, drug) comes first."],
+ },
+}
+
+
+def main():
+    dst = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                       "local_db", "plan_overlays.json")
+    with open(dst, "w", encoding="utf-8") as f:
+        json.dump(OV, f, ensure_ascii=False, indent=2)
+    conds = [k for k in OV if not k.startswith("_")]
+    print(f"OK: {len(conds)} condiciones -> {dst}  ({', '.join(conds)})")
+
+
+if __name__ == "__main__":
+    main()
