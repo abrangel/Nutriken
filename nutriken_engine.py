@@ -2475,7 +2475,7 @@ DESCRIPTIONS = {
         "â€¢ **Omega-3** â€” antiinflamatorio, mejora composiciÃ³n corporal."
     ),
     "triglycerides": (
-        "**Hipertrigliceridemia.** TriglicÃ©ridos >[DOSIS_CLINICA_REMOVIDA]/dL (1.7 mmol/L). >[DOSIS_CLINICA_REMOVIDA]/dL aumenta riesgo de **pancreatitis aguda** â€” emergencia "
+        "**Hipertrigliceridemia.** TriglicÃ©ridos >[DOSIS_CLINICA_REMOVIDA]/dL ([DOSIS_CLINICA_REMOVIDA]/L). >[DOSIS_CLINICA_REMOVIDA]/dL aumenta riesgo de **pancreatitis aguda** â€” emergencia "
         "mÃ©dica. Componente del sÃ­ndrome metabÃ³lico junto con HDL bajo, hipertensiÃ³n, glucemia alterada y obesidad central.\n\n"
         "**Base genÃ©tica.** Genes clave: **APOA5** (regula actividad de la lipoproteÃ­na lipasa), **LPL** (lipoproteÃ­na lipasa, hidroliza "
         "triglicÃ©ridos circulantes), **APOC3** (inhibidor de LPL â€” variantes con pÃ©rdida de funciÃ³n reducen TG y riesgo cardiovascular), "
