@@ -1,4 +1,4 @@
-import os, json, asyncio, logging, re, sqlite3, datetime
+﻿import os, json, asyncio, logging, re, sqlite3, datetime
 from pathlib import Path
 from typing import List, Optional
 import httpx
@@ -18,7 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent
 DB_PATH  = BASE_DIR / "local_db" / "nutriken_cache.db"
 Path("local_db").mkdir(exist_ok=True)
 
-# Supabase — base de datos persistente con 307+ hierbas en espanol
+# Supabase â€” base de datos persistente con 307+ hierbas en espanol
 # Usamos el REST API directo (httpx) porque la nueva key sb_publishable_xxx no es
 # compatible con el cliente Python supabase 2.3.4 (que espera formato JWT antiguo).
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://ewhcinmihogmusmldeds.supabase.co")
@@ -70,55 +70,55 @@ async def supabase_get_herb(slug):
         logger.warning(f"Supabase get_herb({slug}) fallo: {e}")
     return None
 
-# ── TRADUCCIÓN ES→EN ──────────────────────────────────────────────────────────
+# â”€â”€ TRADUCCIÃ“N ESâ†’EN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 ES_EN = {
-    "trigliceridos":"triglycerides","triglicéridos":"triglycerides",
+    "trigliceridos":"triglycerides","triglicÃ©ridos":"triglycerides",
     "colesterol":"cholesterol","obesidad":"obesity","diabetes":"diabetes",
-    "inflamacion":"inflammation","inflamación":"inflammation",
-    "higado":"liver","hígado":"liver","hepatico":"hepatic","hepático":"hepatic",
-    "riñon":"kidney","riñón":"kidney","renal":"renal",
-    "corazon":"heart","corazón":"heart","cardiovascular":"cardiovascular",
-    "presion arterial":"blood pressure","presión arterial":"blood pressure",
-    "hipertension":"hypertension","hipertensión":"hypertension",
-    "azucar":"blood sugar","azúcar":"blood sugar","glucosa":"glucose",
+    "inflamacion":"inflammation","inflamaciÃ³n":"inflammation",
+    "higado":"liver","hÃ­gado":"liver","hepatico":"hepatic","hepÃ¡tico":"hepatic",
+    "riÃ±on":"kidney","riÃ±Ã³n":"kidney","renal":"renal",
+    "corazon":"heart","corazÃ³n":"heart","cardiovascular":"cardiovascular",
+    "presion arterial":"blood pressure","presiÃ³n arterial":"blood pressure",
+    "hipertension":"hypertension","hipertensiÃ³n":"hypertension",
+    "azucar":"blood sugar","azÃºcar":"blood sugar","glucosa":"glucose",
     "insulina":"insulin","resistencia insulina":"insulin resistance",
     "tiroides":"thyroid","hipotiroidismo":"hypothyroidism","hipertiroidismo":"hyperthyroidism",
     "artritis":"arthritis","reumatoide":"rheumatoid",
     "anemia":"anemia","hierro":"iron","ferritina":"ferritin",
     "vitamina d":"vitamin D","vitamina c":"vitamin C","vitamina e":"vitamin E",
     "vitamina b12":"vitamin B12","vitamina b6":"vitamin B6",
-    "acido folico":"folic acid","ácido fólico":"folic acid","folato":"folate",
+    "acido folico":"folic acid","Ã¡cido fÃ³lico":"folic acid","folato":"folate",
     "magnesio":"magnesium","calcio":"calcium","zinc":"zinc","selenio":"selenium",
-    "omega 3":"omega-3","acidos grasos":"fatty acids","ácidos grasos":"fatty acids",
-    "curcuma":"turmeric","cúrcuma":"turmeric","jengibre":"ginger",
-    "ajo":"garlic","canela":"cinnamon","te verde":"green tea","té verde":"green tea",
+    "omega 3":"omega-3","acidos grasos":"fatty acids","Ã¡cidos grasos":"fatty acids",
+    "curcuma":"turmeric","cÃºrcuma":"turmeric","jengibre":"ginger",
+    "ajo":"garlic","canela":"cinnamon","te verde":"green tea","tÃ© verde":"green tea",
     "cardo mariano":"milk thistle","silimarina":"silymarin",
-    "berberina":"berberine","probioticos":"probiotics","probióticos":"probiotics",
+    "berberina":"berberine","probioticos":"probiotics","probiÃ³ticos":"probiotics",
     "carnitina":"carnitine","coq10":"coenzyme Q10","ubiquinol":"ubiquinol",
     "melatonina":"melatonin","equinacea":"echinacea","ginseng":"ginseng",
-    "acido lipoico":"lipoic acid","ácido lipoico":"lipoic acid",
+    "acido lipoico":"lipoic acid","Ã¡cido lipoico":"lipoic acid",
     "linaza":"flaxseed","alcachofa":"artichoke","diente de leon":"dandelion",
     "fenogreco":"fenugreek","gymnema":"gymnema",
     "atorvastatina":"atorvastatin","rosuvastatina":"rosuvastatin",
     "simvastatina":"simvastatin","estatina":"statin","estatinas":"statins",
     "metformina":"metformin","warfarina":"warfarin","aspirina":"aspirin",
     "ibuprofeno":"ibuprofen","naproxeno":"naproxen","prednisona":"prednisone",
-    "perdida de peso":"weight loss","pérdida de peso":"weight loss",
+    "perdida de peso":"weight loss","pÃ©rdida de peso":"weight loss",
     "intolerancia lactosa":"lactose intolerance",
     "enfermedad celiaca":"celiac disease","celiaca":"celiac",
     "microbiota":"gut microbiota","intestino":"intestine",
     "embarazo":"pregnancy","lactancia":"breastfeeding",
     "menopausia":"menopause","osteoporosis":"osteoporosis",
-    "cancer":"cancer","cáncer":"cancer","tumor":"tumor",
+    "cancer":"cancer","cÃ¡ncer":"cancer","tumor":"tumor",
     "toronja":"grapefruit","granada":"pomegranate","alcohol":"alcohol",
-    "cafeina":"caffeine","cafeína":"caffeine",
-    "calculos biliares":"gallstones","cálculos biliares":"gallstones",
-    "vesícula":"gallbladder","vesicula":"gallbladder",
+    "cafeina":"caffeine","cafeÃ­na":"caffeine",
+    "calculos biliares":"gallstones","cÃ¡lculos biliares":"gallstones",
+    "vesÃ­cula":"gallbladder","vesicula":"gallbladder",
     "udca":"ursodeoxycholic acid","acido ursodesoxicolico":"ursodeoxycholic acid",
-    "miopatia":"myopathy","miopatía":"myopathy",
+    "miopatia":"myopathy","miopatÃ­a":"myopathy",
 }
 
-# MSK slug map — slugs verificados 2026
+# MSK slug map â€” slugs verificados 2026
 MSK_SLUGS = {
     "omega-3":"omega-3","omega3":"omega-3","fish oil":"omega-3","fish-oil":"omega-3",
     "aceite de pescado":"omega-3","omega 3":"omega-3","epa":"omega-3","dha":"omega-3",
@@ -154,13 +154,13 @@ MSK_SLUGS = {
     "valerian":"valerian","valeriana":"valerian",
     "kava":"kava","kava kava":"kava",
     "melatonin":"melatonin","melatonina":"melatonin",
-    "turmeric":"turmeric","curcuma":"turmeric","curcumin":"turmeric","curcumina":"turmeric","cúrcuma":"turmeric",
+    "turmeric":"turmeric","curcuma":"turmeric","curcumin":"turmeric","curcumina":"turmeric","cÃºrcuma":"turmeric",
     "ginger":"ginger","jengibre":"ginger",
     "boswellia":"boswellia","incienso":"boswellia","frankincense":"boswellia",
     "quercetin":"quercetin","quercetina":"quercetin",
     "echinacea":"echinacea","equinacea":"echinacea",
     "ginseng":"ginseng","panax ginseng":"ginseng","panax":"ginseng",
-    "green tea":"green-tea","green-tea":"green-tea","te verde":"green-tea","té verde":"green-tea","egcg":"green-tea",
+    "green tea":"green-tea","green-tea":"green-tea","te verde":"green-tea","tÃ© verde":"green-tea","egcg":"green-tea",
     "aloe vera":"aloe-vera","aloe-vera":"aloe-vera","sabila":"aloe-vera","aloe":"aloe-vera",
     "probiotics":"probiotics","probioticos":"probiotics","lactobacillus":"probiotics","bifidobacterium":"probiotics",
     "l-carnitine":"l-carnitine","carnitina":"l-carnitine","carnitine":"l-carnitine",
@@ -171,7 +171,7 @@ MSK_SLUGS = {
     "black cohosh":"black-cohosh","cohosh negro":"black-cohosh",
     "evening primrose":"evening-primrose-oil","onagra":"evening-primrose-oil",
     "ginkgo":"ginkgo","ginkgo biloba":"ginkgo",
-    "st johns wort":"st-johns-wort","hypericum":"st-johns-wort","hierba san juan":"st-johns-wort","hipérico":"st-johns-wort",
+    "st johns wort":"st-johns-wort","hypericum":"st-johns-wort","hierba san juan":"st-johns-wort","hipÃ©rico":"st-johns-wort",
     "glucomannan":"glucomannan","konjac":"glucomannan",
     "conjugated linoleic acid":"conjugated-linoleic-acid","cla":"conjugated-linoleic-acid",
     "garcinia":"garcinia","garcinia cambogia":"garcinia",
@@ -1861,7 +1861,7 @@ GENE_DB = {
         "location": '',
         "is_vip": True,
         "has_cpic": True,
-        "summary": 'Vitamin K epoxide reductase — target of warfarin anticoagulant. Variants determine warfarin sensitivity and required dosing. Relevant when combining vitamin K supplements with anticoagulant therapy.',
+        "summary": 'Vitamin K epoxide reductase â€” target of warfarin anticoagulant. Variants determine warfarin sensitivity and required dosing. Relevant when combining vitamin K supplements with anticoagulant therapy.',
         "ncbi_url": 'https://www.ncbi.nlm.nih.gov/gene/79001',
         "ensembl_url": 'https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000167397',
         "pharmgkb_url": 'https://www.pharmgkb.org/gene/PA133787052',
@@ -1887,7 +1887,7 @@ GENE_DB = {
     }
 }
 
-# Mapa clínico ampliado
+# Mapa clÃ­nico ampliado
 CLINICAL_MAP = {
     "obesity":{"genes":["FTO","MC4R","LEP","LEPR","PPARG","ADIPOQ"],"kegg":"hsa04920",
         "msk_slugs":["green-tea","chromium","berberine","conjugated-linoleic-acid","garcinia","glucomannan","5-htp-01","l-carnitine","cinnamon","alpha-lipoic-acid","pyruvate","chitosan"],
@@ -1971,7 +1971,7 @@ CLINICAL_MAP = {
         "pubmed":"grapefruit CYP3A4 drug interaction pharmacokinetics clinical"},
 }
 
-# ── SQLITE ────────────────────────────────────────────────────────────────────
+# â”€â”€ SQLITE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 def init_db():
     conn = sqlite3.connect(DB_PATH); c = conn.cursor()
     c.execute("""CREATE TABLE IF NOT EXISTS herb_cache (
@@ -2006,7 +2006,7 @@ def log_query(query, qtype):
               (query, qtype, datetime.datetime.now().isoformat()))
     conn.commit(); conn.close()
 
-# ── TRADUCCIÓN ────────────────────────────────────────────────────────────────
+# â”€â”€ TRADUCCIÃ“N â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async def translate_to_en(text: str, client: httpx.AsyncClient) -> str:
     """Translate Spanish query to English using MyMemory API."""
     t = text.lower().strip()
@@ -2015,7 +2015,7 @@ async def translate_to_en(text: str, client: httpx.AsyncClient) -> str:
     for es, en in ES_EN.items():
         if es in t: t = t.replace(es, en)
     # If still looks Spanish, call MyMemory
-    if any(c in t for c in ['á','é','í','ó','ú','ñ','ü']):
+    if any(c in t for c in ['Ã¡','Ã©','Ã­','Ã³','Ãº','Ã±','Ã¼']):
         try:
             r = await client.get("https://api.mymemory.translated.net/get",
                 params={"q": text, "langpair": "es|en"}, timeout=5.0)
@@ -2027,8 +2027,8 @@ async def translate_to_en(text: str, client: httpx.AsyncClient) -> str:
 
 import hashlib as _hashlib
 async def translate_text(text: str, client: httpx.AsyncClient, tgt: str = "en", src: str = "es") -> str:
-    """Traduce texto (ES->EN por defecto) con caché SQLite. Chunk de ~480 chars (límite MyMemory).
-    Best-effort: si falla, devuelve el original. Usado para servir el contenido clínico en inglés."""
+    """Traduce texto (ES->EN por defecto) con cachÃ© SQLite. Chunk de ~480 chars (lÃ­mite MyMemory).
+    Best-effort: si falla, devuelve el original. Usado para servir el contenido clÃ­nico en inglÃ©s."""
     if not text or tgt == src:
         return text
     key = _hashlib.md5(f"{src}|{tgt}|{text}".encode()).hexdigest()
@@ -2036,7 +2036,7 @@ async def translate_text(text: str, client: httpx.AsyncClient, tgt: str = "en", 
     if cached is not None:
         return cached
     out_parts = []
-    # trocear por oraciones para respetar el límite de 500 chars
+    # trocear por oraciones para respetar el lÃ­mite de 500 chars
     chunk = ""
     for sentence in re.split(r"(?<=[.\n])\s+", text):
         if len(chunk) + len(sentence) < 480:
@@ -2064,7 +2064,7 @@ async def translate_text(text: str, client: httpx.AsyncClient, tgt: str = "en", 
     return result
 
 async def translate_obj(obj, client, tgt="en"):
-    """Traduce recursivamente los strings de un dict/list (para la respuesta clínica en EN)."""
+    """Traduce recursivamente los strings de un dict/list (para la respuesta clÃ­nica en EN)."""
     if tgt == "es":
         return obj
     if isinstance(obj, str):
@@ -2077,9 +2077,9 @@ async def translate_obj(obj, client, tgt="en"):
     return obj
 
 
-# ── MSK SCRAPER ───────────────────────────────────────────────────────────────
+# â”€â”€ MSK SCRAPER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async def fetch_msk_herb(slug: str, client: httpx.AsyncClient, lang: str = "es") -> dict:
-    # EN: saltar Supabase (que está en español) y traer MSK original en inglés.
+    # EN: saltar Supabase (que estÃ¡ en espaÃ±ol) y traer MSK original en inglÃ©s.
     if lang == "en":
         en_key = f"{slug}__en"
         cached_en = cache_get("herb_cache", "slug", en_key)
@@ -2131,7 +2131,7 @@ async def _scrape_msk(slug: str, client: httpx.AsyncClient, cache_key: str = Non
         def _list(pattern, text, limit=20):
             m = re.search(pattern, text, re.DOTALL)
             if not m: return []
-            return [l.strip('- •*').strip() for l in m.group(1).split('\n')
+            return [l.strip('- â€¢*').strip() for l in m.group(1).split('\n')
                     if l.strip() and len(l.strip()) > 5][:limit]
 
         herb["scientific_name"] = _extract(r'Scientific Name\s*\n+([^\n]{3,120})', content, 0)
@@ -2147,16 +2147,16 @@ async def _scrape_msk(slug: str, client: httpx.AsyncClient, cache_key: str = Non
         herb["dosage"]              = _extract(r'Dosage\s*\n+(.*?)(?=References|##)', content, re.DOTALL, 400)
         herb["purported_uses"]      = _list(r'Purported Uses and Benefits\s*\n+(.*?)(?=Food Sources|Mechanism)', content)
 
-        # Drug interactions — full raw + parsed
+        # Drug interactions â€” full raw + parsed
         di_raw = _extract(r'Herb-Drug Interactions\s*\n+(.*?)(?=Dosage|References|##)', content, re.DOTALL, 4000)
         herb["drug_interactions_raw"] = di_raw
-        herb["drug_interactions"] = [l.strip('- •*').strip() for l in di_raw.split('\n')
+        herb["drug_interactions"] = [l.strip('- â€¢*').strip() for l in di_raw.split('\n')
                                       if l.strip() and len(l.strip()) > 15][:25]
 
-        # Food interactions — extract from content
+        # Food interactions â€” extract from content
         food_section = _extract(r'Food(?:\s+and\s+Drug)?\s+Interactions?\s*\n+(.*?)(?=Herb-Drug|Adverse|Dosage|##)', content, re.DOTALL, 1500)
         if food_section:
-            herb["food_interactions"] = [l.strip('- •*').strip() for l in food_section.split('\n')
+            herb["food_interactions"] = [l.strip('- â€¢*').strip() for l in food_section.split('\n')
                                           if l.strip() and len(l.strip()) > 10][:15]
 
         # Also extract food mentions from clinical summary and interactions
@@ -2167,14 +2167,14 @@ async def _scrape_msk(slug: str, client: httpx.AsyncClient, cache_key: str = Non
                     herb["food_interactions"].append(line)
 
         cache_set("herb_cache","slug",cache_key,"name",herb["name"],herb)
-        logger.info(f"✅ MSK cached: {cache_key}")
+        logger.info(f"âœ… MSK cached: {cache_key}")
         return herb
     except Exception as e:
         logger.error(f"Error MSK {slug}: {e}")
         return {"error": str(e), "slug": slug}
 
 
-# ── GENE LOOKUP — local DB first, NCBI fallback ───────────────────────────────
+# â”€â”€ GENE LOOKUP â€” local DB first, NCBI fallback â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async def fetch_ncbi_gene(gene_symbol: str, client: httpx.AsyncClient) -> dict:
     sym = gene_symbol.upper().strip()
 
@@ -2186,7 +2186,7 @@ async def fetch_ncbi_gene(gene_symbol: str, client: httpx.AsyncClient) -> dict:
     if sym in GENE_DB:
         data = dict(GENE_DB[sym])
         cache_set("gene_cache","gene_id",sym,"data","",data)
-        logger.info(f"💾 Gene from local DB: {sym}")
+        logger.info(f"ðŸ’¾ Gene from local DB: {sym}")
         return data
 
     # 3. Try MyGene.info (may be blocked on some hosts)
@@ -2224,7 +2224,7 @@ async def fetch_ncbi_gene(gene_symbol: str, client: httpx.AsyncClient) -> dict:
     return {
         "symbol": sym, "gene_id": "", "ensembl_id": "", "name": sym,
         "chromosome": "?", "location": "?",
-        "summary": f"Gen {sym} — ver informacion completa en NCBI.",
+        "summary": f"Gen {sym} â€” ver informacion completa en NCBI.",
         "ncbi_url": f"https://www.ncbi.nlm.nih.gov/gene/?term={sym}+Homo+sapiens",
         "ensembl_url": f"https://www.ensembl.org/Homo_sapiens/Gene/Summary?q={sym}",
         "snpedia_url": f"https://www.snpedia.com/index.php/{sym}",
@@ -2232,7 +2232,7 @@ async def fetch_ncbi_gene(gene_symbol: str, client: httpx.AsyncClient) -> dict:
     }
 
 
-# ── KEGG ──────────────────────────────────────────────────────────────────────
+# â”€â”€ KEGG â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async def fetch_kegg_pathway(pathway_id: str, client: httpx.AsyncClient) -> dict:
     try:
         r = await client.get(f"https://rest.kegg.jp/get/{pathway_id}", timeout=10.0)
@@ -2252,7 +2252,7 @@ async def fetch_kegg_pathway(pathway_id: str, client: httpx.AsyncClient) -> dict
         return {"id":pathway_id,"error":str(e)}
 
 
-# ── PUBMED ────────────────────────────────────────────────────────────────────
+# â”€â”€ PUBMED â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async def search_pubmed(query: str, client: httpx.AsyncClient, n: int = 6) -> list:
     try:
         r = await client.get("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
@@ -2275,7 +2275,7 @@ async def search_pubmed(query: str, client: httpx.AsyncClient, n: int = 6) -> li
     except: return []
 
 
-# ── DRUG/FOOD INTERACTION ANALYZER ───────────────────────────────────────────
+# â”€â”€ DRUG/FOOD INTERACTION ANALYZER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 def analyze_interactions(herbs: list, drugs: list) -> dict:
     drug_alerts = []
     food_alerts = []
@@ -2284,16 +2284,16 @@ def analyze_interactions(herbs: list, drugs: list) -> dict:
     seen_foods = set()
 
     food_keywords = {
-        "grapefruit":   "Inhibe CYP3A4 — aumenta niveles plasmáticos del fármaco",
-        "pomegranate":  "Puede inhibir metabolismo hepático — riesgo de toxicidad",
+        "grapefruit":   "Inhibe CYP3A4 â€” aumenta niveles plasmÃ¡ticos del fÃ¡rmaco",
+        "pomegranate":  "Puede inhibir metabolismo hepÃ¡tico â€” riesgo de toxicidad",
         "pomelo":       "Inhibe CYP3A4 similar a la toronja",
-        "alcohol":      "Aumenta riesgo de daño hepático y potencia efectos adversos",
-        "caffeine":     "Puede aumentar absorción y efectos secundarios",
-        "dairy":        "Puede reducir absorción de algunos fármacos",
-        "juice":        "Jugos cítricos pueden alterar metabolismo hepático",
-        "st. john":     "Inductor CYP3A4 — reduce niveles plasmáticos del fármaco",
-        "toronja":      "Inhibe CYP3A4 — aumenta niveles plasmáticos del fármaco",
-        "granada":      "Puede inhibir metabolismo hepático",
+        "alcohol":      "Aumenta riesgo de daÃ±o hepÃ¡tico y potencia efectos adversos",
+        "caffeine":     "Puede aumentar absorciÃ³n y efectos secundarios",
+        "dairy":        "Puede reducir absorciÃ³n de algunos fÃ¡rmacos",
+        "juice":        "Jugos cÃ­tricos pueden alterar metabolismo hepÃ¡tico",
+        "st. john":     "Inductor CYP3A4 â€” reduce niveles plasmÃ¡ticos del fÃ¡rmaco",
+        "toronja":      "Inhibe CYP3A4 â€” aumenta niveles plasmÃ¡ticos del fÃ¡rmaco",
+        "granada":      "Puede inhibir metabolismo hepÃ¡tico",
     }
 
     for herb in herbs:
@@ -2303,7 +2303,7 @@ def analyze_interactions(herbs: list, drugs: list) -> dict:
         di_list = herb.get("drug_interactions",[])
         fi_list = herb.get("food_interactions",[])
 
-        # Drug interactions — con severidad y mecanismo
+        # Drug interactions â€” con severidad y mecanismo
         for drug in drugs:
             dl = drug.lower()
             if dl in di_raw and dl not in seen_drugs:
@@ -2313,33 +2313,33 @@ def analyze_interactions(herbs: list, drugs: list) -> dict:
                         CRIT_TERMS = ["contraindicat","avoid","do not","bleeding","hemorrhag","toxicity","serotonin syndrome","liver damage","hepatotoxic"]
                         WARN_TERMS = ["caution","increase","inhibit","induce","may interact","reduce levels","interfere","monitor closely"]
                         if any(w in line_lower for w in CRIT_TERMS):
-                            tone, label = "crit", "Crítica"
+                            tone, label = "crit", "CrÃ­tica"
                         elif any(w in line_lower for w in WARN_TERMS):
-                            tone, label = "warn", "Precaución"
+                            tone, label = "warn", "PrecauciÃ³n"
                         else:
                             tone, label = "info", "Monitorear"
                         if "cyp3a4" in line_lower:
-                            mech = "Modulación de CYP3A4 — altera el metabolismo hepático del fármaco"
+                            mech = "ModulaciÃ³n de CYP3A4 â€” altera el metabolismo hepÃ¡tico del fÃ¡rmaco"
                         elif "cyp2c9" in line_lower:
-                            mech = "Modulación de CYP2C9 — afecta metabolismo de anticoagulantes/AINEs"
+                            mech = "ModulaciÃ³n de CYP2C9 â€” afecta metabolismo de anticoagulantes/AINEs"
                         elif "bleeding" in line_lower or "anticoagul" in line_lower or "platelet" in line_lower:
-                            mech = "Efecto aditivo sobre la coagulación — riesgo hemorrágico"
+                            mech = "Efecto aditivo sobre la coagulaciÃ³n â€” riesgo hemorrÃ¡gico"
                         elif "glucose" in line_lower or "hypoglyc" in line_lower or "insulin" in line_lower:
-                            mech = "Efecto aditivo sobre la glucemia — riesgo de hipoglucemia"
+                            mech = "Efecto aditivo sobre la glucemia â€” riesgo de hipoglucemia"
                         elif "blood pressure" in line_lower or "hypotens" in line_lower:
-                            mech = "Efecto aditivo sobre la presión arterial"
+                            mech = "Efecto aditivo sobre la presiÃ³n arterial"
                         elif "absorption" in line_lower:
-                            mech = "Alteración de la absorción intestinal del fármaco"
+                            mech = "AlteraciÃ³n de la absorciÃ³n intestinal del fÃ¡rmaco"
                         elif "liver" in line_lower or "hepat" in line_lower:
-                            mech = "Posible toxicidad hepática aditiva"
+                            mech = "Posible toxicidad hepÃ¡tica aditiva"
                         else:
-                            mech = "Interacción farmacocinética/farmacodinámica documentada por MSK"
+                            mech = "InteracciÃ³n farmacocinÃ©tica/farmacodinÃ¡mica documentada por MSK"
                         if tone == "crit":
-                            rec = f"Evitar el uso concomitante de {hname} con {drug} salvo indicación médica expresa."
+                            rec = f"Evitar el uso concomitante de {hname} con {drug} salvo indicaciÃ³n mÃ©dica expresa."
                         elif tone == "warn":
                             rec = f"Vigilar de cerca: declarar el uso de {hname} y monitorizar respuesta a {drug}."
                         else:
-                            rec = "Monitorizar parámetros clínicos relevantes durante el uso concomitante."
+                            rec = "Monitorizar parÃ¡metros clÃ­nicos relevantes durante el uso concomitante."
                         drug_alerts.append({
                             "drug": drug, "herb": hname, "alert": line,
                             "source": herb.get("url",""),
@@ -2347,28 +2347,28 @@ def analyze_interactions(herbs: list, drugs: list) -> dict:
                             "severity_label": label,
                             "mechanism": mech,
                             "recommendation": rec,
-                            "severity": ("⚠ " + label.upper()) if tone != "info" else "ℹ MONITOREAR",
+                            "severity": ("âš  " + label.upper()) if tone != "info" else "â„¹ MONITOREAR",
                         })
                         seen_drugs.add(dl)
                         break
 
-        # Food interactions from herb data — con severidad
+        # Food interactions from herb data â€” con severidad
         all_text = " ".join(di_list + fi_list + [herb.get("clinical_summary","")[:300]])
         for food_kw, food_desc in food_keywords.items():
             if food_kw in all_text.lower() and food_kw not in seen_foods:
                 fl = food_desc.lower()
-                if any(w in fl for w in ["aumenta", "toxic", "daño", "no usar", "contraindicad"]):
-                    tone, label = "warn", "Precaución"
+                if any(w in fl for w in ["aumenta", "toxic", "daÃ±o", "no usar", "contraindicad"]):
+                    tone, label = "warn", "PrecauciÃ³n"
                 else:
                     tone, label = "info", "Monitorear"
                 if "cyp3a4" in fl:
-                    rec = "Suspender el consumo del alimento durante el tratamiento farmacológico."
-                elif "absorción" in fl or "absorcion" in fl:
-                    rec = "Separar la ingesta del alimento y el fármaco por al menos 2 horas."
-                elif "hepático" in fl or "hepatico" in fl:
+                    rec = "Suspender el consumo del alimento durante el tratamiento farmacolÃ³gico."
+                elif "absorciÃ³n" in fl or "absorcion" in fl:
+                    rec = "Separar la ingesta del alimento y el fÃ¡rmaco por al menos 2 horas."
+                elif "hepÃ¡tico" in fl or "hepatico" in fl:
                     rec = "Monitorizar transaminasas si el consumo es frecuente."
                 else:
-                    rec = "Informar al paciente sobre el potencial de interacción."
+                    rec = "Informar al paciente sobre el potencial de interacciÃ³n."
                 food_alerts.append({
                     "food": food_kw.title(), "herb": hname,
                     "description": food_desc, "source": herb.get("url",""),
@@ -2382,7 +2382,7 @@ def analyze_interactions(herbs: list, drugs: list) -> dict:
     return {"drug_alerts": drug_alerts, "food_alerts": food_alerts}
 
 
-# ── FREE SEARCH — cualquier término ──────────────────────────────────────────
+# â”€â”€ FREE SEARCH â€” cualquier tÃ©rmino â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async def free_search(query_en: str, query_orig: str, client: httpx.AsyncClient) -> dict:
     """Search MSK for any term not in CLINICAL_MAP."""
     # Search PubMed for related supplements
@@ -2421,386 +2421,386 @@ async def free_search(query_en: str, query_orig: str, client: httpx.AsyncClient)
     return {"herbs": herbs, "references": refs, "related_slugs": related_slugs}
 
 
-# ── DESCRIPTIONS ─────────────────────────────────────────────────────────────
+# â”€â”€ DESCRIPTIONS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 DESCRIPTIONS = {
     "obesity": (
-        "**Visión general clínica.** La obesidad es una enfermedad crónica multifactorial caracterizada por acumulación excesiva de tejido adiposo "
-        "con repercusión metabólica, cardiovascular y musculoesquelética. Se considera enfermedad cuando el IMC supera 30 kg/m², con criterios "
-        "adicionales de obesidad abdominal (perímetro >102 cm en hombres, >88 cm en mujeres) que predicen mejor el riesgo cardiometabólico.\n\n"
-        "**Base genética y fisiopatología.** Los genes principales implicados son **FTO** (alpha-ketoglutarate dependent dioxygenase) — la variante "
+        "**VisiÃ³n general clÃ­nica.** La obesidad es una enfermedad crÃ³nica multifactorial caracterizada por acumulaciÃ³n excesiva de tejido adiposo "
+        "con repercusiÃ³n metabÃ³lica, cardiovascular y musculoesquelÃ©tica. Se considera enfermedad cuando el IMC supera 30 kg/mÂ², con criterios "
+        "adicionales de obesidad abdominal (perÃ­metro >102 cm en hombres, >88 cm en mujeres) que predicen mejor el riesgo cardiometabÃ³lico.\n\n"
+        "**Base genÃ©tica y fisiopatologÃ­a.** Los genes principales implicados son **FTO** (alpha-ketoglutarate dependent dioxygenase) â€” la variante "
         "rs9939609 del FTO se asocia con aumento de 1.5 kg de peso por copia de alelo de riesgo, **MC4R** (receptor de melanocortina-4, regulador "
-        "central del apetito), **LEP** (leptina, hormona de saciedad) y su receptor **LEPR**, y **PPARG** (regulador de diferenciación adipocitaria "
-        "y sensibilidad a insulina). La leptina informa al hipotálamo del estado de las reservas energéticas; la resistencia a leptina es el "
+        "central del apetito), **LEP** (leptina, hormona de saciedad) y su receptor **LEPR**, y **PPARG** (regulador de diferenciaciÃ³n adipocitaria "
+        "y sensibilidad a insulina). La leptina informa al hipotÃ¡lamo del estado de las reservas energÃ©ticas; la resistencia a leptina es el "
         "mecanismo central en la obesidad establecida.\n\n"
-        "**Fármacos disponibles y su mecanismo.**\n\n"
-        "• **Semaglutida** (Ozempic/Wegovy) — agonista del receptor GLP-1, retrasa vaciamiento gástrico y aumenta saciedad. Pérdida media de "
+        "**FÃ¡rmacos disponibles y su mecanismo.**\n\n"
+        "â€¢ **Semaglutida** (Ozempic/Wegovy) â€” agonista del receptor GLP-1, retrasa vaciamiento gÃ¡strico y aumenta saciedad. PÃ©rdida media de "
         "15% del peso corporal en 68 semanas (estudio STEP-1).\n"
-        "• **Liraglutida** (Saxenda) — GLP-1 de acción más corta. Pérdida media 8%.\n"
-        "• **Tirzepatida** (Mounjaro/Zepbound) — agonista dual GLP-1/GIP. Pérdida 20-22% en SURMOUNT-1.\n"
-        "• **Orlistat** — inhibidor de lipasa pancreática, bloquea absorción del 30% de grasa dietaria. Pérdida modesta 3-5%. Reduce absorción de "
-        "vitaminas liposolubles A, D, E, K — suplementar.\n"
-        "• **Naltrexona/Bupropion** (Contrave) — actúa sobre el sistema de recompensa hipotalámico.\n\n"
-        "**Suplementos con evidencia clínica.**\n\n"
-        "• **Té verde (EGCG)** — incrementa termogénesis y oxidación de grasas vía inhibición de COMT. Meta-análisis: pérdida adicional 1.3 kg en "
+        "â€¢ **Liraglutida** (Saxenda) â€” GLP-1 de acciÃ³n mÃ¡s corta. PÃ©rdida media 8%.\n"
+        "â€¢ **Tirzepatida** (Mounjaro/Zepbound) â€” agonista dual GLP-1/GIP. PÃ©rdida 20-22% en SURMOUNT-1.\n"
+        "â€¢ **Orlistat** â€” inhibidor de lipasa pancreÃ¡tica, bloquea absorciÃ³n del 30% de grasa dietaria. PÃ©rdida modesta 3-5%. Reduce absorciÃ³n de "
+        "vitaminas liposolubles A, D, E, K â€” suplementar.\n"
+        "â€¢ **Naltrexona/Bupropion** (Contrave) â€” actÃºa sobre el sistema de recompensa hipotalÃ¡mico.\n\n"
+        "**Suplementos con evidencia clÃ­nica.**\n\n"
+        "â€¢ **TÃ© verde (EGCG)** â€” incrementa termogÃ©nesis y oxidaciÃ³n de grasas vÃ­a inhibiciÃ³n de COMT. Meta-anÃ¡lisis: pÃ©rdida adicional 1.3 kg en "
         "12 semanas. \n"
-        "• **Berberina** — activa AMPK (mismo mecanismo que metformina). Reduce peso 2-5 kg y mejora HOMA-IR. \n"
-        "• **Cromo (picolinato)** — mejora sensibilidad a insulina. Reducción de antojos de carbohidratos. \n"
-        "• **Glucomanano** — fibra soluble, expande en estómago, aumenta saciedad. Reducción de peso 1-2 kg en 8 semanas.\n"
-        "• **Café verde (ácido clorogénico)** — modesta pérdida 1-2 kg. Evidencia menor.\n\n"
-        "**Advertencias críticas.**\n\n"
-        "• **Pérdida rápida >1.5 kg/semana** aumenta significativamente el riesgo de **cálculos biliares** por saturación de colesterol biliar. "
-        "Considerar **UDCA (ácido ursodesoxicólico)** profiláctico 300 mg × 2/día durante la fase de pérdida rápida.\n"
-        "• **Déficit de micronutrientes** común en dietas restrictivas: B12, hierro, calcio, vitamina D, zinc. Suplementación basal recomendada.\n"
-        "• **Efedra (Ma huang) — PROHIBIDA**: arritmias, infarto, muerte súbita.\n"
-        "• **Productos 'quemadores de grasa'** sin regulación frecuentemente contienen sibutramina o estimulantes no declarados — evitar.\n\n"
-        "**Recomendaciones nutricionales.** Déficit calórico moderado de 500-750 kcal/día. Proteína ≥1.2 g/kg/día para preservar masa magra. "
-        "Patrón mediterráneo o DASH como base. Restringir ultraprocesados, azúcares libres y alcohol. Ejercicio combinado aeróbico + resistencia "
-        "150 min/semana mínimo."
+        "â€¢ **Berberina** â€” activa AMPK (mismo mecanismo que metformina). Reduce peso 2-5 kg y mejora HOMA-IR. \n"
+        "â€¢ **Cromo (picolinato)** â€” mejora sensibilidad a insulina. ReducciÃ³n de antojos de carbohidratos. \n"
+        "â€¢ **Glucomanano** â€” fibra soluble, expande en estÃ³mago, aumenta saciedad. ReducciÃ³n de peso 1-2 kg en 8 semanas.\n"
+        "â€¢ **CafÃ© verde (Ã¡cido clorogÃ©nico)** â€” modesta pÃ©rdida 1-2 kg. Evidencia menor.\n\n"
+        "**Advertencias crÃ­ticas.**\n\n"
+        "â€¢ **PÃ©rdida rÃ¡pida >1.5 kg/semana** aumenta significativamente el riesgo de **cÃ¡lculos biliares** por saturaciÃ³n de colesterol biliar. "
+        "Considerar **UDCA (Ã¡cido ursodesoxicÃ³lico)** profilÃ¡ctico [DOSIS_CLINICA_REMOVIDA] Ã— 2/dÃ­a durante la fase de pÃ©rdida rÃ¡pida.\n"
+        "â€¢ **DÃ©ficit de micronutrientes** comÃºn en dietas restrictivas: B12, hierro, calcio, vitamina D, zinc. SuplementaciÃ³n basal recomendada.\n"
+        "â€¢ **Efedra (Ma huang) â€” PROHIBIDA**: arritmias, infarto, muerte sÃºbita.\n"
+        "â€¢ **Productos 'quemadores de grasa'** sin regulaciÃ³n frecuentemente contienen sibutramina o estimulantes no declarados â€” evitar.\n\n"
+        "**Recomendaciones nutricionales.** DÃ©ficit calÃ³rico moderado de 500-750 kcal/dÃ­a. ProteÃ­na â‰¥1.[DOSIS_CLINICA_REMOVIDA]/kg/dÃ­a para preservar masa magra. "
+        "PatrÃ³n mediterrÃ¡neo o DASH como base. Restringir ultraprocesados, azÃºcares libres y alcohol. Ejercicio combinado aerÃ³bico + resistencia "
+        "150 min/semana mÃ­nimo."
     ),
     "weight loss": (
-        "**Pérdida de peso supervisada.** Objetivo de pérdida saludable: 0.5-1 kg/semana (no más de 1.5 kg/semana para minimizar riesgos). Una "
-        "pérdida del 5-10% del peso inicial ya produce mejoras significativas en glucemia, presión arterial y lípidos.\n\n"
-        "**Riesgos de pérdida rápida.**\n\n"
-        "• **Cálculos biliares**: el ayuno prolongado o dietas muy bajas en calorías (<800 kcal) sobresaturan la bilis con colesterol. Hasta 25% de "
-        "pacientes con pérdida rápida desarrollan cálculos sintomáticos. **UDCA 300-600 mg/día** durante la pérdida activa reduce esta incidencia "
+        "**PÃ©rdida de peso supervisada.** Objetivo de pÃ©rdida saludable: 0.5-1 kg/semana (no mÃ¡s de 1.5 kg/semana para minimizar riesgos). Una "
+        "pÃ©rdida del 5-10% del peso inicial ya produce mejoras significativas en glucemia, presiÃ³n arterial y lÃ­pidos.\n\n"
+        "**Riesgos de pÃ©rdida rÃ¡pida.**\n\n"
+        "â€¢ **CÃ¡lculos biliares**: el ayuno prolongado o dietas muy bajas en calorÃ­as (<800 kcal) sobresaturan la bilis con colesterol. Hasta 25% de "
+        "pacientes con pÃ©rdida rÃ¡pida desarrollan cÃ¡lculos sintomÃ¡ticos. **UDCA [DOSIS_CLINICA_REMOVIDA]/dÃ­a** durante la pÃ©rdida activa reduce esta incidencia "
         "al 2%.\n"
-        "• **Pérdida de masa magra**: hasta 25-30% del peso perdido puede ser músculo si no se hace ejercicio de resistencia y no se mantiene "
-        "ingesta proteica adecuada (≥1.2 g/kg).\n"
-        "• **Déficits nutricionales**: B12, hierro, folato, vitamina D, magnesio, zinc.\n"
-        "• **Alteraciones del ciclo menstrual** en mujeres, descenso de testosterona en hombres con déficits muy agresivos.\n\n"
+        "â€¢ **PÃ©rdida de masa magra**: hasta 25-30% del peso perdido puede ser mÃºsculo si no se hace ejercicio de resistencia y no se mantiene "
+        "ingesta proteica adecuada (â‰¥1.[DOSIS_CLINICA_REMOVIDA]/kg).\n"
+        "â€¢ **DÃ©ficits nutricionales**: B12, hierro, folato, vitamina D, magnesio, zinc.\n"
+        "â€¢ **Alteraciones del ciclo menstrual** en mujeres, descenso de testosterona en hombres con dÃ©ficits muy agresivos.\n\n"
         "**Suplementos coadyuvantes.**\n\n"
-        "• **Té verde, berberina, glucomanano** (ver Obesidad).\n"
-        "• **L-carnitina** — transportador de ácidos grasos a la mitocondria. Evidencia modesta: 1.3 kg adicionales en 8 semanas.\n"
-        "• **Proteína de suero** post-ejercicio para preservar masa magra.\n"
-        "• **Omega-3** — antiinflamatorio, mejora composición corporal."
+        "â€¢ **TÃ© verde, berberina, glucomanano** (ver Obesidad).\n"
+        "â€¢ **L-carnitina** â€” transportador de Ã¡cidos grasos a la mitocondria. Evidencia modesta: 1.3 kg adicionales en 8 semanas.\n"
+        "â€¢ **ProteÃ­na de suero** post-ejercicio para preservar masa magra.\n"
+        "â€¢ **Omega-3** â€” antiinflamatorio, mejora composiciÃ³n corporal."
     ),
     "triglycerides": (
-        "**Hipertrigliceridemia.** Triglicéridos >150 mg/dL (1.7 mmol/L). >500 mg/dL aumenta riesgo de **pancreatitis aguda** — emergencia "
-        "médica. Componente del síndrome metabólico junto con HDL bajo, hipertensión, glucemia alterada y obesidad central.\n\n"
-        "**Base genética.** Genes clave: **APOA5** (regula actividad de la lipoproteína lipasa), **LPL** (lipoproteína lipasa, hidroliza "
-        "triglicéridos circulantes), **APOC3** (inhibidor de LPL — variantes con pérdida de función reducen TG y riesgo cardiovascular), "
-        "**GCKR** (regulación de glucoquinasa hepática).\n\n"
-        "**Fármacos disponibles.**\n\n"
-        "• **Estatinas** — reducen TG 10-20% como efecto secundario.\n"
-        "• **Fibratos (fenofibrato, gemfibrozilo)** — activan PPAR-α. Reducen TG 30-50%. Gemfibrozilo + estatina = riesgo de rabdomiólisis "
+        "**Hipertrigliceridemia.** TriglicÃ©ridos >[DOSIS_CLINICA_REMOVIDA]/dL (1.7 mmol/L). >[DOSIS_CLINICA_REMOVIDA]/dL aumenta riesgo de **pancreatitis aguda** â€” emergencia "
+        "mÃ©dica. Componente del sÃ­ndrome metabÃ³lico junto con HDL bajo, hipertensiÃ³n, glucemia alterada y obesidad central.\n\n"
+        "**Base genÃ©tica.** Genes clave: **APOA5** (regula actividad de la lipoproteÃ­na lipasa), **LPL** (lipoproteÃ­na lipasa, hidroliza "
+        "triglicÃ©ridos circulantes), **APOC3** (inhibidor de LPL â€” variantes con pÃ©rdida de funciÃ³n reducen TG y riesgo cardiovascular), "
+        "**GCKR** (regulaciÃ³n de glucoquinasa hepÃ¡tica).\n\n"
+        "**FÃ¡rmacos disponibles.**\n\n"
+        "â€¢ **Estatinas** â€” reducen TG 10-20% como efecto secundario.\n"
+        "â€¢ **Fibratos (fenofibrato, gemfibrozilo)** â€” activan PPAR-Î±. Reducen TG 30-50%. Gemfibrozilo + estatina = riesgo de rabdomiÃ³lisis "
         "(preferir fenofibrato).\n"
-        "• **Niacina** — reduce TG 20-30% y aumenta HDL. Efecto secundario común: rubor (flushing).\n"
-        "• **Icosapent etilo (Vascepa)** — EPA purificado en altas dosis. Estudio REDUCE-IT: reducción de eventos CV 25%.\n\n"
+        "â€¢ **Niacina** â€” reduce TG 20-30% y aumenta HDL. Efecto secundario comÃºn: rubor (flushing).\n"
+        "â€¢ **Icosapent etilo (Vascepa)** â€” EPA purificado en altas dosis. Estudio REDUCE-IT: reducciÃ³n de eventos CV 25%.\n\n"
         "**Suplementos con evidencia.**\n\n"
-        "• **Omega-3 (EPA+DHA)** — suplemento con MAYOR evidencia. Dosis 2-4 g/día reduce TG **20-30%**. Marca diferencia clínica real. "
-        "Mecanismo: reduce producción hepática de VLDL.\n"
-        "• **Niacina (vitamina B3)** — eficaz pero requiere dosis altas (1-2 g/día) que causan rubor.\n"
-        "• **Berberina** — reduce TG 15% además de glucosa.\n"
-        "• **Ajo** — efecto modesto (5-10%).\n"
-        "• **Fibra soluble (psilio, betaglucanos de avena)** — reducción adicional 5-10%.\n\n"
-        "**Recomendaciones nutricionales.** Restricción estricta de azúcares libres y alcohol (causa #1 de TG muy elevados). Sustitución de "
+        "â€¢ **Omega-3 (EPA+DHA)** â€” suplemento con MAYOR evidencia. Dosis [DOSIS_CLINICA_REMOVIDA]/dÃ­a reduce TG **20-30%**. Marca diferencia clÃ­nica real. "
+        "Mecanismo: reduce producciÃ³n hepÃ¡tica de VLDL.\n"
+        "â€¢ **Niacina (vitamina B3)** â€” eficaz pero requiere dosis altas ([DOSIS_CLINICA_REMOVIDA]/dÃ­a) que causan rubor.\n"
+        "â€¢ **Berberina** â€” reduce TG 15% ademÃ¡s de glucosa.\n"
+        "â€¢ **Ajo** â€” efecto modesto (5-10%).\n"
+        "â€¢ **Fibra soluble (psilio, betaglucanos de avena)** â€” reducciÃ³n adicional 5-10%.\n\n"
+        "**Recomendaciones nutricionales.** RestricciÃ³n estricta de azÃºcares libres y alcohol (causa #1 de TG muy elevados). SustituciÃ³n de "
         "carbohidratos refinados por integrales. Pescado azul 2-3 veces/semana."
     ),
     "cholesterol": (
-        "**Dislipidemia.** El control del LDL-c es el objetivo principal para reducir riesgo cardiovascular ateroesclerótico. Objetivos por "
-        "categoría de riesgo: muy alto riesgo <55 mg/dL, alto riesgo <70 mg/dL, moderado <100 mg/dL.\n\n"
-        "**Base genética.** Genes implicados: **APOE** (variantes E2/E3/E4 — E4 aumenta LDL y riesgo CV+Alzheimer), **LDLR** (receptor de LDL — "
-        "mutaciones causan hipercolesterolemia familiar, 1:250 personas), **PCSK9** (regulador del receptor de LDL — diana de inhibidores "
-        "modernos), **HMGCR** (HMG-CoA reductasa, diana de las estatinas), **CETP** (transferencia de colesterol entre lipoproteínas).\n\n"
-        "**Fármacos disponibles.**\n\n"
-        "• **Estatinas (atorvastatina, rosuvastatina, simvastatina)** — inhiben HMGCR. Reducen LDL 30-55%. Base del tratamiento.\n"
-        "• **Ezetimibe** — inhibe absorción intestinal de colesterol. Reducción adicional 15-20% sobre estatinas.\n"
-        "• **Inhibidores de PCSK9 (evolocumab, alirocumab)** — anticuerpos monoclonales, reducen LDL hasta 60% adicional.\n"
-        "• **Bempedoico** — opción para intolerantes a estatinas.\n\n"
-        "**Interacciones críticas con suplementos.**\n\n"
-        "• **Toronja/pomelo** → inhibe **CYP3A4** → **AUMENTA** niveles de atorvastatina, simvastatina y lovastatina hasta 3 veces → "
-        "**riesgo de miopatía y hepatotoxicidad**. Pravastatina, rosuvastatina y pitavastatina NO se metabolizan por CYP3A4 → seguras con "
+        "**Dislipidemia.** El control del LDL-c es el objetivo principal para reducir riesgo cardiovascular ateroesclerÃ³tico. Objetivos por "
+        "categorÃ­a de riesgo: muy alto riesgo <[DOSIS_CLINICA_REMOVIDA]/dL, alto riesgo <[DOSIS_CLINICA_REMOVIDA]/dL, moderado <[DOSIS_CLINICA_REMOVIDA]/dL.\n\n"
+        "**Base genÃ©tica.** Genes implicados: **APOE** (variantes E2/E3/E4 â€” E4 aumenta LDL y riesgo CV+Alzheimer), **LDLR** (receptor de LDL â€” "
+        "mutaciones causan hipercolesterolemia familiar, 1:250 personas), **PCSK9** (regulador del receptor de LDL â€” diana de inhibidores "
+        "modernos), **HMGCR** (HMG-CoA reductasa, diana de las estatinas), **CETP** (transferencia de colesterol entre lipoproteÃ­nas).\n\n"
+        "**FÃ¡rmacos disponibles.**\n\n"
+        "â€¢ **Estatinas (atorvastatina, rosuvastatina, simvastatina)** â€” inhiben HMGCR. Reducen LDL 30-55%. Base del tratamiento.\n"
+        "â€¢ **Ezetimibe** â€” inhibe absorciÃ³n intestinal de colesterol. ReducciÃ³n adicional 15-20% sobre estatinas.\n"
+        "â€¢ **Inhibidores de PCSK9 (evolocumab, alirocumab)** â€” anticuerpos monoclonales, reducen LDL hasta 60% adicional.\n"
+        "â€¢ **Bempedoico** â€” opciÃ³n para intolerantes a estatinas.\n\n"
+        "**Interacciones crÃ­ticas con suplementos.**\n\n"
+        "â€¢ **Toronja/pomelo** â†’ inhibe **CYP3A4** â†’ **AUMENTA** niveles de atorvastatina, simvastatina y lovastatina hasta 3 veces â†’ "
+        "**riesgo de miopatÃ­a y hepatotoxicidad**. Pravastatina, rosuvastatina y pitavastatina NO se metabolizan por CYP3A4 â†’ seguras con "
         "toronja.\n"
-        "• **Levadura de arroz rojo (red yeast rice)** — contiene monacolina K = lovastatina natural. **NUNCA combinar con estatinas** "
-        "(duplicación de dosis). Riesgo de hepatotoxicidad y rabdomiólisis.\n"
-        "• **Hierba de San Juan** — inductor potente de CYP3A4, reduce eficacia de las estatinas.\n\n"
+        "â€¢ **Levadura de arroz rojo (red yeast rice)** â€” contiene monacolina K = lovastatina natural. **NUNCA combinar con estatinas** "
+        "(duplicaciÃ³n de dosis). Riesgo de hepatotoxicidad y rabdomiÃ³lisis.\n"
+        "â€¢ **Hierba de San Juan** â€” inductor potente de CYP3A4, reduce eficacia de las estatinas.\n\n"
         "**Suplementos coadyuvantes con evidencia.**\n\n"
-        "• **CoQ10 (ubiquinona/ubiquinol)** 100-200 mg/día — recomendado en miopatía inducida por estatinas. Las estatinas inhiben también la "
-        "síntesis de CoQ10 endógeno.\n"
-        "• **Cardo mariano (silimarina)** — hepatoprotector documentado en MSK, útil en transaminitis por estatinas. \n"
-        "• **Fitoesteroles (2 g/día)** — reducen LDL 5-10% bloqueando absorción intestinal.\n"
-        "• **Fibra soluble (psilio, betaglucanos)** — reducción 5-10%.\n"
-        "• **Berberina** — vía no-estatina, reduce LDL 20% (estudios chinos).\n"
-        "• **Bergamota** — flavonoides con efecto modesto sobre LDL.\n\n"
-        "**Contraindicados con estatinas.** Kava, chaparral, comfrey — hepatotóxicos. Canela en grandes cantidades (cumarina) — hepatotoxicidad "
+        "â€¢ **CoQ10 (ubiquinona/ubiquinol)** [DOSIS_CLINICA_REMOVIDA]/dÃ­a â€” recomendado en miopatÃ­a inducida por estatinas. Las estatinas inhiben tambiÃ©n la "
+        "sÃ­ntesis de CoQ10 endÃ³geno.\n"
+        "â€¢ **Cardo mariano (silimarina)** â€” hepatoprotector documentado en MSK, Ãºtil en transaminitis por estatinas. \n"
+        "â€¢ **Fitoesteroles ([DOSIS_CLINICA_REMOVIDA]/dÃ­a)** â€” reducen LDL 5-10% bloqueando absorciÃ³n intestinal.\n"
+        "â€¢ **Fibra soluble (psilio, betaglucanos)** â€” reducciÃ³n 5-10%.\n"
+        "â€¢ **Berberina** â€” vÃ­a no-estatina, reduce LDL 20% (estudios chinos).\n"
+        "â€¢ **Bergamota** â€” flavonoides con efecto modesto sobre LDL.\n\n"
+        "**Contraindicados con estatinas.** Kava, chaparral, comfrey â€” hepatotÃ³xicos. Canela en grandes cantidades (cumarina) â€” hepatotoxicidad "
         "aditiva."
     ),
     "atorvastatin": (
-        "**Atorvastatina (Lipitor).** Inhibidor reversible de HMG-CoA reductasa, enzima limitante en la síntesis hepática de colesterol. "
-        "Metabolismo: **CYP3A4 hepático**. Vida media 14h. \n\n"
-        "**Interacciones críticas con productos naturales.**\n\n"
-        "• **TORONJA / POMELO** — inhibición potente de CYP3A4 intestinal → aumenta AUC de atorvastatina hasta 2.5× → **alto riesgo de miopatía, "
-        "rabdomiólisis y hepatotoxicidad**. EVITAR consumo regular. Si se consume, separar al menos 4 horas (aunque la inhibición persiste hasta "
+        "**Atorvastatina (Lipitor).** Inhibidor reversible de HMG-CoA reductasa, enzima limitante en la sÃ­ntesis hepÃ¡tica de colesterol. "
+        "Metabolismo: **CYP3A4 hepÃ¡tico**. Vida media 14h. \n\n"
+        "**Interacciones crÃ­ticas con productos naturales.**\n\n"
+        "â€¢ **TORONJA / POMELO** â€” inhibiciÃ³n potente de CYP3A4 intestinal â†’ aumenta AUC de atorvastatina hasta 2.5Ã— â†’ **alto riesgo de miopatÃ­a, "
+        "rabdomiÃ³lisis y hepatotoxicidad**. EVITAR consumo regular. Si se consume, separar al menos 4 horas (aunque la inhibiciÃ³n persiste hasta "
         "24h).\n"
-        "• **LEVADURA DE ARROZ ROJO** — contiene monacolina K (= lovastatina). Combinada con estatina = duplicación de dosis efectiva. "
+        "â€¢ **LEVADURA DE ARROZ ROJO** â€” contiene monacolina K (= lovastatina). Combinada con estatina = duplicaciÃ³n de dosis efectiva. "
         "**CONTRAINDICADO**.\n"
-        "• **HIERBA DE SAN JUAN (Hypericum)** — inductor potente de CYP3A4 → reduce niveles de atorvastatina → pérdida de eficacia.\n"
-        "• **SILIMARINA (cardo mariano)** — modula CYP3A4 y CYP2C9. Compatible en dosis estándar, monitorizar.\n"
-        "• **CANELA en altas dosis (>3 g/día)** — cumarina con efecto hepatotóxico aditivo. Preferir canela de Ceylon (baja en cumarina) si se "
+        "â€¢ **HIERBA DE SAN JUAN (Hypericum)** â€” inductor potente de CYP3A4 â†’ reduce niveles de atorvastatina â†’ pÃ©rdida de eficacia.\n"
+        "â€¢ **SILIMARINA (cardo mariano)** â€” modula CYP3A4 y CYP2C9. Compatible en dosis estÃ¡ndar, monitorizar.\n"
+        "â€¢ **CANELA en altas dosis (>[DOSIS_CLINICA_REMOVIDA]/dÃ­a)** â€” cumarina con efecto hepatotÃ³xico aditivo. Preferir canela de Ceylon (baja en cumarina) si se "
         "consume.\n"
-        "• **KAVA, CHAPARRAL, COMFREY (consuelda)** — hepatotóxicos. **CONTRAINDICADOS** con cualquier estatina.\n\n"
+        "â€¢ **KAVA, CHAPARRAL, COMFREY (consuelda)** â€” hepatotÃ³xicos. **CONTRAINDICADOS** con cualquier estatina.\n\n"
         "**Coadyuvantes con evidencia.**\n\n"
-        "• **CoQ10 (ubiquinol 100-200 mg/día)** — atenúa mialgia/miopatía estatínica. Evidencia mixta pero perfil seguro.\n"
-        "• **Vitamina D** — niveles bajos correlacionan con mialgia estatínica. Corregir déficits.\n"
-        "• **Magnesio** — apoyo muscular general.\n\n"
-        "**Vigilancia.** Monitorizar CK si hay mialgia. ALT/AST al inicio, a las 12 semanas y después según clínica. Suspender si ALT >3× el "
-        "límite superior o CK >10× con síntomas musculares."
+        "â€¢ **CoQ10 (ubiquinol [DOSIS_CLINICA_REMOVIDA]/dÃ­a)** â€” atenÃºa mialgia/miopatÃ­a estatÃ­nica. Evidencia mixta pero perfil seguro.\n"
+        "â€¢ **Vitamina D** â€” niveles bajos correlacionan con mialgia estatÃ­nica. Corregir dÃ©ficits.\n"
+        "â€¢ **Magnesio** â€” apoyo muscular general.\n\n"
+        "**Vigilancia.** Monitorizar CK si hay mialgia. ALT/AST al inicio, a las 12 semanas y despuÃ©s segÃºn clÃ­nica. Suspender si ALT >3Ã— el "
+        "lÃ­mite superior o CK >10Ã— con sÃ­ntomas musculares."
     ),
     "statins": (
-        "**Familia de las estatinas.** Inhibidores de HMG-CoA reductasa. Diferencias clínicamente relevantes:\n\n"
-        "• **Atorvastatina, simvastatina, lovastatina** → metabolismo CYP3A4 → susceptibles a toronja y muchos fármacos.\n"
-        "• **Rosuvastatina** → CYP2C9 (mínimo) — sin interacción con toronja.\n"
-        "• **Pravastatina** → no se metaboliza por CYP — perfil de interacciones más limpio, opción preferida en pacientes con polifarmacia.\n"
-        "• **Pitavastatina** → CYP2C9 menor.\n\n"
+        "**Familia de las estatinas.** Inhibidores de HMG-CoA reductasa. Diferencias clÃ­nicamente relevantes:\n\n"
+        "â€¢ **Atorvastatina, simvastatina, lovastatina** â†’ metabolismo CYP3A4 â†’ susceptibles a toronja y muchos fÃ¡rmacos.\n"
+        "â€¢ **Rosuvastatina** â†’ CYP2C9 (mÃ­nimo) â€” sin interacciÃ³n con toronja.\n"
+        "â€¢ **Pravastatina** â†’ no se metaboliza por CYP â€” perfil de interacciones mÃ¡s limpio, opciÃ³n preferida en pacientes con polifarmacia.\n"
+        "â€¢ **Pitavastatina** â†’ CYP2C9 menor.\n\n"
         "**Productos contraindicados con TODAS las estatinas.** Levadura de arroz rojo, kava, chaparral, comfrey.\n\n"
-        "**Suplementos coadyuvantes con evidencia.** CoQ10 para miopatía (100-200 mg/día), silimarina para hepatoprotección (140 mg × 3/día), "
-        "vitamina D para corregir déficits asociados a mialgia.\n\n"
-        "**Efectos adversos relevantes.** Mialgia 5-10%, miopatía con elevación de CK 0.1%, rabdomiólisis <0.01%, hepatotoxicidad 0.5-2%, "
+        "**Suplementos coadyuvantes con evidencia.** CoQ10 para miopatÃ­a ([DOSIS_CLINICA_REMOVIDA]/dÃ­a), silimarina para hepatoprotecciÃ³n ([DOSIS_CLINICA_REMOVIDA] Ã— 3/dÃ­a), "
+        "vitamina D para corregir dÃ©ficits asociados a mialgia.\n\n"
+        "**Efectos adversos relevantes.** Mialgia 5-10%, miopatÃ­a con elevaciÃ³n de CK 0.1%, rabdomiÃ³lisis <0.01%, hepatotoxicidad 0.5-2%, "
         "incremento del riesgo de diabetes de novo 9% (riesgo absoluto bajo, beneficio CV mucho mayor)."
     ),
     "silymarin": (
         "**Silimarina (cardo mariano, Silybum marianum).** Complejo flavonoide del cardo mariano con efecto hepatoprotector documentado. "
         "Componente activo principal: silibinina.\n\n"
-        "**Mecanismo de acción.** Antioxidante directo (captura ROS), estabilizador de membrana hepatocitaria, antifibrótico (inhibe activación "
-        "de células estrelladas), regenerativo (estimula síntesis de proteínas hepáticas vía RNA polimerasa I).\n\n"
-        "**Evidencia clínica.** Toxicidad por *Amanita phalloides* (antídoto reconocido), hepatopatía alcohólica leve, hepatitis tóxica "
-        "medicamentosa, NAFLD/NASH (mejoría modesta de transaminasas y esteatosis), hepatitis crónica viral (coadyuvante, no sustituye antivirales).\n\n"
-        "**Interacciones farmacológicas.**\n\n"
-        "• **CYP3A4 y CYP2C9** — modulación leve, monitorizar con estatinas, anticoagulantes (warfarina) y ciclosporina.\n"
-        "• **Glibenclamida/sulfonilureas** — riesgo de hipoglucemia aditiva.\n"
-        "• **Tamoxifeno** — interacción teórica vía CYP, evidencia limitada.\n\n"
-        "**Dosis y seguridad.** 140 mg de silimarina estandarizada × 3/día. Perfil de seguridad excelente — efectos adversos raros y leves "
-        "(molestias GI, prurito). Es el hepatoprotector natural con mayor base científica."
+        "**Mecanismo de acciÃ³n.** Antioxidante directo (captura ROS), estabilizador de membrana hepatocitaria, antifibrÃ³tico (inhibe activaciÃ³n "
+        "de cÃ©lulas estrelladas), regenerativo (estimula sÃ­ntesis de proteÃ­nas hepÃ¡ticas vÃ­a RNA polimerasa I).\n\n"
+        "**Evidencia clÃ­nica.** Toxicidad por *Amanita phalloides* (antÃ­doto reconocido), hepatopatÃ­a alcohÃ³lica leve, hepatitis tÃ³xica "
+        "medicamentosa, NAFLD/NASH (mejorÃ­a modesta de transaminasas y esteatosis), hepatitis crÃ³nica viral (coadyuvante, no sustituye antivirales).\n\n"
+        "**Interacciones farmacolÃ³gicas.**\n\n"
+        "â€¢ **CYP3A4 y CYP2C9** â€” modulaciÃ³n leve, monitorizar con estatinas, anticoagulantes (warfarina) y ciclosporina.\n"
+        "â€¢ **Glibenclamida/sulfonilureas** â€” riesgo de hipoglucemia aditiva.\n"
+        "â€¢ **Tamoxifeno** â€” interacciÃ³n teÃ³rica vÃ­a CYP, evidencia limitada.\n\n"
+        "**Dosis y seguridad.** [DOSIS_CLINICA_REMOVIDA] de silimarina estandarizada Ã— 3/dÃ­a. Perfil de seguridad excelente â€” efectos adversos raros y leves "
+        "(molestias GI, prurito). Es el hepatoprotector natural con mayor base cientÃ­fica."
     ),
     "liver": (
-        "**Salud hepática.** La esteatosis hepática no alcohólica (NAFLD/MASLD) afecta al 25-30% de la población adulta. Progresión: esteatosis "
-        "→ esteatohepatitis (NASH/MASH) → fibrosis → cirrosis → carcinoma hepatocelular.\n\n"
-        "**Base genética.** **PNPLA3** (variante I148M aumenta esteatosis y fibrosis), **TM6SF2** (transporte de VLDL), **MBOAT7** (señalización "
-        "lipídica), **HSD17B13** (variantes protectoras), **APOE**.\n\n"
+        "**Salud hepÃ¡tica.** La esteatosis hepÃ¡tica no alcohÃ³lica (NAFLD/MASLD) afecta al 25-30% de la poblaciÃ³n adulta. ProgresiÃ³n: esteatosis "
+        "â†’ esteatohepatitis (NASH/MASH) â†’ fibrosis â†’ cirrosis â†’ carcinoma hepatocelular.\n\n"
+        "**Base genÃ©tica.** **PNPLA3** (variante I148M aumenta esteatosis y fibrosis), **TM6SF2** (transporte de VLDL), **MBOAT7** (seÃ±alizaciÃ³n "
+        "lipÃ­dica), **HSD17B13** (variantes protectoras), **APOE**.\n\n"
         "**Suplementos con evidencia.**\n\n"
-        "• **Silimarina (cardo mariano)** — hepatoprotector con mayor evidencia. Dosis 140 mg × 3/día.\n"
-        "• **Vitamina E (α-tocoferol)** 800 UI/día — eficaz en NASH no diabético (estudio PIVENS). Precaución: riesgo cardiovascular en dosis "
+        "â€¢ **Silimarina (cardo mariano)** â€” hepatoprotector con mayor evidencia. Dosis [DOSIS_CLINICA_REMOVIDA] Ã— 3/dÃ­a.\n"
+        "â€¢ **Vitamina E (Î±-tocoferol)** [DOSIS_CLINICA_REMOVIDA]/dÃ­a â€” eficaz en NASH no diabÃ©tico (estudio PIVENS). PrecauciÃ³n: riesgo cardiovascular en dosis "
         "altas a largo plazo.\n"
-        "• **Omega-3** — reduce esteatosis pero no fibrosis.\n"
-        "• **Alcachofa** — efecto colerético, modesta mejoría de transaminasas.\n"
-        "• **Berberina** — mejora resistencia a insulina hepática.\n"
-        "• **Café (2-3 tazas/día)** — protección epidemiológica robusta contra fibrosis y carcinoma.\n\n"
-        "**CONTRAINDICADOS (hepatotóxicos documentados).**\n\n"
-        "• **Kava (Piper methysticum)** — hepatitis fulminante. Prohibido en muchos países.\n"
-        "• **Chaparral (Larrea tridentata)** — hepatotoxicidad severa.\n"
-        "• **Comfrey/consuelda (Symphytum)** — alcaloides pirrolizidínicos, enfermedad veno-oclusiva.\n"
-        "• **Germander (Teucrium)** — hepatitis aguda.\n"
-        "• **Celidonia mayor (Chelidonium majus)** — colestasis.\n"
-        "• **Mate consumido en exceso muy caliente** — carcinoma esofágico.\n"
-        "• **Canela cassia en altas dosis** — cumarina.\n\n"
-        "**Recomendaciones.** Pérdida de peso del 7-10% revierte NASH en gran proporción de pacientes. Restricción de fructosa, ultraprocesados "
-        "y alcohol. Patrón mediterráneo."
+        "â€¢ **Omega-3** â€” reduce esteatosis pero no fibrosis.\n"
+        "â€¢ **Alcachofa** â€” efecto colerÃ©tico, modesta mejorÃ­a de transaminasas.\n"
+        "â€¢ **Berberina** â€” mejora resistencia a insulina hepÃ¡tica.\n"
+        "â€¢ **CafÃ© (2-3 tazas/dÃ­a)** â€” protecciÃ³n epidemiolÃ³gica robusta contra fibrosis y carcinoma.\n\n"
+        "**CONTRAINDICADOS (hepatotÃ³xicos documentados).**\n\n"
+        "â€¢ **Kava (Piper methysticum)** â€” hepatitis fulminante. Prohibido en muchos paÃ­ses.\n"
+        "â€¢ **Chaparral (Larrea tridentata)** â€” hepatotoxicidad severa.\n"
+        "â€¢ **Comfrey/consuelda (Symphytum)** â€” alcaloides pirrolizidÃ­nicos, enfermedad veno-oclusiva.\n"
+        "â€¢ **Germander (Teucrium)** â€” hepatitis aguda.\n"
+        "â€¢ **Celidonia mayor (Chelidonium majus)** â€” colestasis.\n"
+        "â€¢ **Mate consumido en exceso muy caliente** â€” carcinoma esofÃ¡gico.\n"
+        "â€¢ **Canela cassia en altas dosis** â€” cumarina.\n\n"
+        "**Recomendaciones.** PÃ©rdida de peso del 7-10% revierte NASH en gran proporciÃ³n de pacientes. RestricciÃ³n de fructosa, ultraprocesados "
+        "y alcohol. PatrÃ³n mediterrÃ¡neo."
     ),
     "inflammation": (
-        "**Inflamación crónica de bajo grado.** Causa subyacente de enfermedades cardiovasculares, metabólicas, neurodegenerativas y muchos "
-        "cánceres. Marcadores: PCR ultrasensible, IL-6, TNF-α, fibrinógeno.\n\n"
-        "**Mediadores moleculares.** Eje **NF-κB** (master regulator), **TNF-α** (citoquina pro-inflamatoria), **IL-6** (fase aguda), **IL-1β**, "
-        "**COX-2** (ciclooxigenasa inducible), **5-LOX** (leucotrienos), **iNOS**. Las dianas terapéuticas más estudiadas en farmacología natural.\n\n"
+        "**InflamaciÃ³n crÃ³nica de bajo grado.** Causa subyacente de enfermedades cardiovasculares, metabÃ³licas, neurodegenerativas y muchos "
+        "cÃ¡nceres. Marcadores: PCR ultrasensible, IL-6, TNF-Î±, fibrinÃ³geno.\n\n"
+        "**Mediadores moleculares.** Eje **NF-ÎºB** (master regulator), **TNF-Î±** (citoquina pro-inflamatoria), **IL-6** (fase aguda), **IL-1Î²**, "
+        "**COX-2** (ciclooxigenasa inducible), **5-LOX** (leucotrienos), **iNOS**. Las dianas terapÃ©uticas mÃ¡s estudiadas en farmacologÃ­a natural.\n\n"
         "**Suplementos con evidencia.**\n\n"
-        "• **Curcumina (Curcuma longa)** — inhibe NF-κB, COX-2 y 5-LOX. Biodisponibilidad mejorada con piperina o formulaciones lipídicas. "
+        "â€¢ **Curcumina (Curcuma longa)** â€” inhibe NF-ÎºB, COX-2 y 5-LOX. Biodisponibilidad mejorada con piperina o formulaciones lipÃ­dicas. "
         "\n"
-        "• **Omega-3 (EPA+DHA)** — sustrato de resolvinas y protectinas. Reduce IL-6 y TNF-α. \n"
-        "• **Quercetina** — flavonoide antihistamínico y estabilizador de mastocitos. Combinable con bromelina.\n"
-        "• **Boswellia (incienso indio)** — inhibe 5-LOX. Eficaz en osteoartritis y EII (estudios pequeños).\n"
-        "• **Jengibre** — inhibición de COX y LOX. Antiemético, antiinflamatorio articular.\n"
-        "• **Resveratrol** — modula sirtuinas, NF-κB. Evidencia heterogénea.\n\n"
-        "**Interacciones críticas.**\n\n"
-        "• **Curcumina + warfarina/anticoagulantes** → riesgo hemorrágico. Monitorizar INR.\n"
-        "• **Omega-3 dosis altas + antiagregantes/anticoagulantes** → riesgo de sangrado.\n"
-        "• **Boswellia + AINEs** → posible efecto sinérgico, vigilar.\n\n"
-        "**Dieta antiinflamatoria.** Patrón mediterráneo, pescado azul, frutos secos, AOVE, frutos rojos, verduras crucíferas, cúrcuma y jengibre "
-        "de uso culinario, té verde. Restringir ultraprocesados, azúcares, aceites de semillas refinados y carnes procesadas."
+        "â€¢ **Omega-3 (EPA+DHA)** â€” sustrato de resolvinas y protectinas. Reduce IL-6 y TNF-Î±. \n"
+        "â€¢ **Quercetina** â€” flavonoide antihistamÃ­nico y estabilizador de mastocitos. Combinable con bromelina.\n"
+        "â€¢ **Boswellia (incienso indio)** â€” inhibe 5-LOX. Eficaz en osteoartritis y EII (estudios pequeÃ±os).\n"
+        "â€¢ **Jengibre** â€” inhibiciÃ³n de COX y LOX. AntiemÃ©tico, antiinflamatorio articular.\n"
+        "â€¢ **Resveratrol** â€” modula sirtuinas, NF-ÎºB. Evidencia heterogÃ©nea.\n\n"
+        "**Interacciones crÃ­ticas.**\n\n"
+        "â€¢ **Curcumina + warfarina/anticoagulantes** â†’ riesgo hemorrÃ¡gico. Monitorizar INR.\n"
+        "â€¢ **Omega-3 dosis altas + antiagregantes/anticoagulantes** â†’ riesgo de sangrado.\n"
+        "â€¢ **Boswellia + AINEs** â†’ posible efecto sinÃ©rgico, vigilar.\n\n"
+        "**Dieta antiinflamatoria.** PatrÃ³n mediterrÃ¡neo, pescado azul, frutos secos, AOVE, frutos rojos, verduras crucÃ­feras, cÃºrcuma y jengibre "
+        "de uso culinario, tÃ© verde. Restringir ultraprocesados, azÃºcares, aceites de semillas refinados y carnes procesadas."
     ),
     "hypertension": (
-        "**Hipertensión arterial (HTA).** Presión ≥140/90 mmHg en consulta o ≥135/85 mmHg en MAPA/AMPA. Principal factor de riesgo modificable "
-        "para ictus, infarto, insuficiencia cardiaca y enfermedad renal crónica.\n\n"
-        "**Base genética.** Poligénica. Genes implicados: **AGT** (angiotensinógeno), **ACE** (enzima convertidora), **AGTR1** (receptor "
-        "angiotensina II tipo 1), **ADD1** (regulación tubular), **NOS3** (óxido nítrico sintasa endotelial), **CYP11B2** (aldosterona "
+        "**HipertensiÃ³n arterial (HTA).** PresiÃ³n â‰¥140/90 mmHg en consulta o â‰¥135/85 mmHg en MAPA/AMPA. Principal factor de riesgo modificable "
+        "para ictus, infarto, insuficiencia cardiaca y enfermedad renal crÃ³nica.\n\n"
+        "**Base genÃ©tica.** PoligÃ©nica. Genes implicados: **AGT** (angiotensinÃ³geno), **ACE** (enzima convertidora), **AGTR1** (receptor "
+        "angiotensina II tipo 1), **ADD1** (regulaciÃ³n tubular), **NOS3** (Ã³xido nÃ­trico sintasa endotelial), **CYP11B2** (aldosterona "
         "sintasa).\n\n"
-        "**Fármacos antihipertensivos.**\n\n"
-        "• **IECA (enalapril, ramipril)** y **ARA-II (losartán, valsartán)** — bloquean el sistema renina-angiotensina.\n"
-        "• **Calcioantagonistas (amlodipino)** — vasodilatadores.\n"
-        "• **Diuréticos tiazídicos (hidroclorotiazida, indapamida)** — pérdida renal de sodio.\n"
-        "• **Betabloqueantes (bisoprolol, carvedilol)** — útiles en HTA con cardiopatía isquémica o ICC.\n\n"
+        "**FÃ¡rmacos antihipertensivos.**\n\n"
+        "â€¢ **IECA (enalapril, ramipril)** y **ARA-II (losartÃ¡n, valsartÃ¡n)** â€” bloquean el sistema renina-angiotensina.\n"
+        "â€¢ **Calcioantagonistas (amlodipino)** â€” vasodilatadores.\n"
+        "â€¢ **DiurÃ©ticos tiazÃ­dicos (hidroclorotiazida, indapamida)** â€” pÃ©rdida renal de sodio.\n"
+        "â€¢ **Betabloqueantes (bisoprolol, carvedilol)** â€” Ãºtiles en HTA con cardiopatÃ­a isquÃ©mica o ICC.\n\n"
         "**Suplementos con evidencia.**\n\n"
-        "• **Ajo (Allium sativum)** — reducción media de 8/5 mmHg en HTA grado 1 (meta-análisis Cochrane). Mecanismo: liberación de H₂S y NO. "
+        "â€¢ **Ajo (Allium sativum)** â€” reducciÃ³n media de 8/5 mmHg en HTA grado 1 (meta-anÃ¡lisis Cochrane). Mecanismo: liberaciÃ³n de Hâ‚‚S y NO. "
         "\n"
-        "• **CoQ10** — vasodilatador endotelial. Reducción modesta 7/4 mmHg en HTA esencial.\n"
-        "• **Magnesio** — esencial para función vascular. Útil sobre todo si déficit. \n"
-        "• **Potasio (dieta)** — antagonista del sodio, contribuye al control. Plátano, espinaca, aguacate.\n"
-        "• **Hibisco (Hibiscus sabdariffa)** — efecto natriurético, reducción 7/3 mmHg.\n"
-        "• **Espino blanco (Crataegus)** — evidencia en ICC leve más que en HTA pura.\n"
-        "• **Remolacha (nitrato dietético)** — fuente de NO, reducción aguda de PA.\n\n"
-        "**Interacciones críticas.**\n\n"
-        "• **Ajo + antihipertensivos / anticoagulantes** → riesgo de hipotensión y sangrado. Suspender 7-10 días antes de cirugía.\n"
-        "• **Regaliz (glycyrrhizin)** → hipertensión por seudohiperaldosteronismo. **CONTRAINDICADO en HTA**.\n"
-        "• **Efedra/Ma huang, naranja amarga (sinefrina)** → vasoconstrictores. **PROHIBIDOS**.\n"
-        "• **Yohimbina** → estimulante adrenérgico, eleva PA.\n\n"
-        "**Dieta DASH.** Frutas, verduras, lácteos desnatados, frutos secos, granos integrales, pescado. Restringir sodio <2.3 g/día (idealmente "
-        "1.5 g)."
+        "â€¢ **CoQ10** â€” vasodilatador endotelial. ReducciÃ³n modesta 7/4 mmHg en HTA esencial.\n"
+        "â€¢ **Magnesio** â€” esencial para funciÃ³n vascular. Ãštil sobre todo si dÃ©ficit. \n"
+        "â€¢ **Potasio (dieta)** â€” antagonista del sodio, contribuye al control. PlÃ¡tano, espinaca, aguacate.\n"
+        "â€¢ **Hibisco (Hibiscus sabdariffa)** â€” efecto natriurÃ©tico, reducciÃ³n 7/3 mmHg.\n"
+        "â€¢ **Espino blanco (Crataegus)** â€” evidencia en ICC leve mÃ¡s que en HTA pura.\n"
+        "â€¢ **Remolacha (nitrato dietÃ©tico)** â€” fuente de NO, reducciÃ³n aguda de PA.\n\n"
+        "**Interacciones crÃ­ticas.**\n\n"
+        "â€¢ **Ajo + antihipertensivos / anticoagulantes** â†’ riesgo de hipotensiÃ³n y sangrado. Suspender 7-10 dÃ­as antes de cirugÃ­a.\n"
+        "â€¢ **Regaliz (glycyrrhizin)** â†’ hipertensiÃ³n por seudohiperaldosteronismo. **CONTRAINDICADO en HTA**.\n"
+        "â€¢ **Efedra/Ma huang, naranja amarga (sinefrina)** â†’ vasoconstrictores. **PROHIBIDOS**.\n"
+        "â€¢ **Yohimbina** â†’ estimulante adrenÃ©rgico, eleva PA.\n\n"
+        "**Dieta DASH.** Frutas, verduras, lÃ¡cteos desnatados, frutos secos, granos integrales, pescado. Restringir sodio <2.[DOSIS_CLINICA_REMOVIDA]/dÃ­a (idealmente "
+        "1.[DOSIS_CLINICA_REMOVIDA])."
     ),
     "diabetes": (
-        "**Diabetes mellitus tipo 2.** Hiperglucemia crónica por resistencia a la insulina y disfunción progresiva de células β-pancreáticas. "
-        "Criterios: HbA1c ≥6.5%, glucemia en ayunas ≥126 mg/dL, o ≥200 mg/dL a las 2h en SOG.\n\n"
-        "**Base genética.** Más de 400 loci identificados. Principales: **TCF7L2** (mayor efecto individual), **PPARG**, **KCNJ11**, **HNF1A** "
+        "**Diabetes mellitus tipo 2.** Hiperglucemia crÃ³nica por resistencia a la insulina y disfunciÃ³n progresiva de cÃ©lulas Î²-pancreÃ¡ticas. "
+        "Criterios: HbA1c â‰¥6.5%, glucemia en ayunas â‰¥[DOSIS_CLINICA_REMOVIDA]/dL, o â‰¥[DOSIS_CLINICA_REMOVIDA]/dL a las 2h en SOG.\n\n"
+        "**Base genÃ©tica.** MÃ¡s de 400 loci identificados. Principales: **TCF7L2** (mayor efecto individual), **PPARG**, **KCNJ11**, **HNF1A** "
         "(MODY), **GCK** (MODY), **SLC30A8**.\n\n"
-        "**Fármacos antidiabéticos.**\n\n"
-        "• **Metformina** — primera línea. Activa AMPK, reduce gluconeogénesis hepática.\n"
-        "• **Agonistas GLP-1 (semaglutida, liraglutida, dulaglutida)** — pérdida de peso adicional, beneficio CV.\n"
-        "• **iSGLT2 (empagliflozina, dapagliflozina)** — beneficio CV y renal probado.\n"
-        "• **iDPP-4 (sitagliptina)** — neutros en peso.\n"
-        "• **Sulfonilureas (glibenclamida, gliclazida)** — riesgo de hipoglucemia.\n"
-        "• **Insulina** — cuando fallan otras opciones.\n\n"
+        "**FÃ¡rmacos antidiabÃ©ticos.**\n\n"
+        "â€¢ **Metformina** â€” primera lÃ­nea. Activa AMPK, reduce gluconeogÃ©nesis hepÃ¡tica.\n"
+        "â€¢ **Agonistas GLP-1 (semaglutida, liraglutida, dulaglutida)** â€” pÃ©rdida de peso adicional, beneficio CV.\n"
+        "â€¢ **iSGLT2 (empagliflozina, dapagliflozina)** â€” beneficio CV y renal probado.\n"
+        "â€¢ **iDPP-4 (sitagliptina)** â€” neutros en peso.\n"
+        "â€¢ **Sulfonilureas (glibenclamida, gliclazida)** â€” riesgo de hipoglucemia.\n"
+        "â€¢ **Insulina** â€” cuando fallan otras opciones.\n\n"
         "**Suplementos con evidencia.**\n\n"
-        "• **Berberina** — eficacia COMPARABLE a metformina en estudios chinos (reducción HbA1c 0.7-1.0%). Activa AMPK. \n"
-        "• **Cromo (picolinato)** 200-1000 µg/día — mejora sensibilidad a insulina. Evidencia heterogénea, beneficio mayor en pacientes con "
-        "déficit.\n"
-        "• **Canela (Cinnamomum verum/cassia)** — reducción modesta de glucemia en ayunas. \n"
-        "• **Magnesio** — frecuentemente deficitario en diabéticos.\n"
-        "• **Ácido alfa-lipoico** 600-1800 mg/día — mejora síntomas de neuropatía diabética (evidencia para uso parenteral más sólida).\n"
-        "• **Vitamina D** — corregir déficits asociados a peor control glucémico.\n"
-        "• **Fenogreco (alholva)** — reduce glucemia postprandial.\n\n"
-        "**ALERTAS CRÍTICAS DE HIPOGLUCEMIA.**\n\n"
-        "• **Berberina + metformina/sulfonilureas/insulina** → riesgo aditivo de hipoglucemia. Vigilar glucemia capilar y reducir dosis del "
-        "antidiabético si se inicia berberina.\n"
-        "• **Cromo + insulina** → hipoglucemia.\n"
-        "• **Fenogreco + antidiabéticos** → riesgo aditivo.\n"
-        "• **Bitter melon (melón amargo)** → hipoglucemia.\n\n"
-        "**Dieta.** Patrón mediterráneo o bajo en carbohidratos según preferencia. Restricción de azúcares libres, control de raciones de "
-        "carbohidratos, prioridad a fibra (≥25 g/día), ejercicio postprandial."
+        "â€¢ **Berberina** â€” eficacia COMPARABLE a metformina en estudios chinos (reducciÃ³n HbA1c 0.7-1.0%). Activa AMPK. \n"
+        "â€¢ **Cromo (picolinato)** 200-1000 Âµg/dÃ­a â€” mejora sensibilidad a insulina. Evidencia heterogÃ©nea, beneficio mayor en pacientes con "
+        "dÃ©ficit.\n"
+        "â€¢ **Canela (Cinnamomum verum/cassia)** â€” reducciÃ³n modesta de glucemia en ayunas. \n"
+        "â€¢ **Magnesio** â€” frecuentemente deficitario en diabÃ©ticos.\n"
+        "â€¢ **Ãcido alfa-lipoico** [DOSIS_CLINICA_REMOVIDA]/dÃ­a â€” mejora sÃ­ntomas de neuropatÃ­a diabÃ©tica (evidencia para uso parenteral mÃ¡s sÃ³lida).\n"
+        "â€¢ **Vitamina D** â€” corregir dÃ©ficits asociados a peor control glucÃ©mico.\n"
+        "â€¢ **Fenogreco (alholva)** â€” reduce glucemia postprandial.\n\n"
+        "**ALERTAS CRÃTICAS DE HIPOGLUCEMIA.**\n\n"
+        "â€¢ **Berberina + metformina/sulfonilureas/insulina** â†’ riesgo aditivo de hipoglucemia. Vigilar glucemia capilar y reducir dosis del "
+        "antidiabÃ©tico si se inicia berberina.\n"
+        "â€¢ **Cromo + insulina** â†’ hipoglucemia.\n"
+        "â€¢ **Fenogreco + antidiabÃ©ticos** â†’ riesgo aditivo.\n"
+        "â€¢ **Bitter melon (melÃ³n amargo)** â†’ hipoglucemia.\n\n"
+        "**Dieta.** PatrÃ³n mediterrÃ¡neo o bajo en carbohidratos segÃºn preferencia. RestricciÃ³n de azÃºcares libres, control de raciones de "
+        "carbohidratos, prioridad a fibra (â‰¥[DOSIS_CLINICA_REMOVIDA]/dÃ­a), ejercicio postprandial."
     ),
     "gallstones": (
-        "**Colelitiasis.** Cálculos biliares de colesterol (80%) o pigmentarios. Factores de riesgo clásicos: las **5F** — Female, Forty, Fertile, "
-        "Fat, Fair. También: pérdida de peso rápida, ayuno prolongado, nutrición parenteral, embarazo, terapia hormonal.\n\n"
-        "**Fisiopatología.** Sobresaturación de la bilis con colesterol por aumento de su secreción o disminución de ácidos biliares y "
-        "fosfolípidos. La estasis vesicular (ayuno, pérdida rápida de peso) favorece la nucleación.\n\n"
-        "**Fármacos disponibles.**\n\n"
-        "• **UDCA (ácido ursodesoxicólico / ursodiol)** — tratamiento farmacológico de primera línea para cálculos pequeños (<10 mm) "
-        "no calcificados con vesícula funcionante. \n"
-        "• **CDCA (ácido quenodesoxicólico)** — menos usado por efectos adversos.\n\n"
-        "**Cirugía.** Colecistectomía laparoscópica si síntomas o complicaciones (cólico biliar recurrente, colecistitis, pancreatitis biliar, "
+        "**Colelitiasis.** CÃ¡lculos biliares de colesterol (80%) o pigmentarios. Factores de riesgo clÃ¡sicos: las **5F** â€” Female, Forty, Fertile, "
+        "Fat, Fair. TambiÃ©n: pÃ©rdida de peso rÃ¡pida, ayuno prolongado, nutriciÃ³n parenteral, embarazo, terapia hormonal.\n\n"
+        "**FisiopatologÃ­a.** SobresaturaciÃ³n de la bilis con colesterol por aumento de su secreciÃ³n o disminuciÃ³n de Ã¡cidos biliares y "
+        "fosfolÃ­pidos. La estasis vesicular (ayuno, pÃ©rdida rÃ¡pida de peso) favorece la nucleaciÃ³n.\n\n"
+        "**FÃ¡rmacos disponibles.**\n\n"
+        "â€¢ **UDCA (Ã¡cido ursodesoxicÃ³lico / ursodiol)** â€” tratamiento farmacolÃ³gico de primera lÃ­nea para cÃ¡lculos pequeÃ±os (<10 mm) "
+        "no calcificados con vesÃ­cula funcionante. \n"
+        "â€¢ **CDCA (Ã¡cido quenodesoxicÃ³lico)** â€” menos usado por efectos adversos.\n\n"
+        "**CirugÃ­a.** ColecistectomÃ­a laparoscÃ³pica si sÃ­ntomas o complicaciones (cÃ³lico biliar recurrente, colecistitis, pancreatitis biliar, "
         "coledocolitiasis).\n\n"
         "**Suplementos con evidencia.**\n\n"
-        "• **Alcachofa (Cynara scolymus)** — efecto colerético documentado (aumenta producción y secreción de bilis). Útil en dispepsia "
+        "â€¢ **Alcachofa (Cynara scolymus)** â€” efecto colerÃ©tico documentado (aumenta producciÃ³n y secreciÃ³n de bilis). Ãštil en dispepsia "
         "biliar funcional. \n"
-        "• **Cardo mariano (silimarina)** — hepatoprotector. Apoyo en función hepatobiliar global.\n"
-        "• **Cúrcuma** — coleréticos suaves. **PRECAUCIÓN: contraindicado en obstrucción biliar activa**.\n"
-        "• **Boldo, diente de león** — coleréticos tradicionales con base limitada.\n\n"
-        "**Recomendaciones nutricionales.** Pérdida de peso gradual (no más de 1 kg/semana). Si pérdida rápida obligada (cirugía bariátrica, "
-        "VLCD): UDCA profiláctico. Mantener ingesta de grasa moderada (no cero — el ayuno completo de grasa empeora la estasis). Fibra y agua "
+        "â€¢ **Cardo mariano (silimarina)** â€” hepatoprotector. Apoyo en funciÃ³n hepatobiliar global.\n"
+        "â€¢ **CÃºrcuma** â€” colerÃ©ticos suaves. **PRECAUCIÃ“N: contraindicado en obstrucciÃ³n biliar activa**.\n"
+        "â€¢ **Boldo, diente de leÃ³n** â€” colerÃ©ticos tradicionales con base limitada.\n\n"
+        "**Recomendaciones nutricionales.** PÃ©rdida de peso gradual (no mÃ¡s de 1 kg/semana). Si pÃ©rdida rÃ¡pida obligada (cirugÃ­a bariÃ¡trica, "
+        "VLCD): UDCA profilÃ¡ctico. Mantener ingesta de grasa moderada (no cero â€” el ayuno completo de grasa empeora la estasis). Fibra y agua "
         "abundantes."
     ),
     "gut microbiota": (
-        "**Microbiota intestinal.** Comunidad de ~10¹⁴ microorganismos que regula inmunidad, metabolismo, eje intestino-cerebro y barrera "
-        "intestinal. Su disrupción (disbiosis) se asocia a EII, SII, obesidad, alergias, depresión y muchas más condiciones.\n\n"
-        "**Base genética del hospedador.** **NOD2** (reconocimiento de bacterias intracelulares, vinculado a Crohn), **FUT2** (secretor — "
-        "antígenos ABO en mucosa, modula composición microbiana), **HLA-DQ2/DQ8** (celiaquía), genes de inmunidad innata.\n\n"
-        "**Probióticos con mayor evidencia.**\n\n"
-        "• **Saccharomyces boulardii** — diarrea por antibióticos, diarrea del viajero, C. difficile.\n"
-        "• **Lactobacillus rhamnosus GG** — diarrea aguda pediátrica, prevención de diarrea por antibióticos.\n"
-        "• **VSL#3 / Visbiome** — pouchitis tras colectomía, EII en remisión, encefalopatía hepática.\n"
-        "• **Bifidobacterium infantis 35624** — SII (estudios sólidos).\n"
-        "• **Lactobacillus reuteri** — cólicos del lactante.\n\n"
-        "**Prebióticos (fibras fermentables).** Inulina, FOS, GOS, almidón resistente, betaglucanos. Alimentan bifidobacterias y lactobacilos. "
-        "Fuentes alimentarias: ajo, cebolla, puerro, alcachofa, plátano verde, avena, legumbres.\n\n"
-        "**Postbióticos.** Butirato, propionato, acetato — ácidos grasos de cadena corta producidos por la fermentación bacteriana. "
-        "El **butirato** es la principal fuente de energía del colonocito.\n\n"
+        "**Microbiota intestinal.** Comunidad de ~10Â¹â´ microorganismos que regula inmunidad, metabolismo, eje intestino-cerebro y barrera "
+        "intestinal. Su disrupciÃ³n (disbiosis) se asocia a EII, SII, obesidad, alergias, depresiÃ³n y muchas mÃ¡s condiciones.\n\n"
+        "**Base genÃ©tica del hospedador.** **NOD2** (reconocimiento de bacterias intracelulares, vinculado a Crohn), **FUT2** (secretor â€” "
+        "antÃ­genos ABO en mucosa, modula composiciÃ³n microbiana), **HLA-DQ2/DQ8** (celiaquÃ­a), genes de inmunidad innata.\n\n"
+        "**ProbiÃ³ticos con mayor evidencia.**\n\n"
+        "â€¢ **Saccharomyces boulardii** â€” diarrea por antibiÃ³ticos, diarrea del viajero, C. difficile.\n"
+        "â€¢ **Lactobacillus rhamnosus GG** â€” diarrea aguda pediÃ¡trica, prevenciÃ³n de diarrea por antibiÃ³ticos.\n"
+        "â€¢ **VSL#3 / Visbiome** â€” pouchitis tras colectomÃ­a, EII en remisiÃ³n, encefalopatÃ­a hepÃ¡tica.\n"
+        "â€¢ **Bifidobacterium infantis 35624** â€” SII (estudios sÃ³lidos).\n"
+        "â€¢ **Lactobacillus reuteri** â€” cÃ³licos del lactante.\n\n"
+        "**PrebiÃ³ticos (fibras fermentables).** Inulina, FOS, GOS, almidÃ³n resistente, betaglucanos. Alimentan bifidobacterias y lactobacilos. "
+        "Fuentes alimentarias: ajo, cebolla, puerro, alcachofa, plÃ¡tano verde, avena, legumbres.\n\n"
+        "**PostbiÃ³ticos.** Butirato, propionato, acetato â€” Ã¡cidos grasos de cadena corta producidos por la fermentaciÃ³n bacteriana. "
+        "El **butirato** es la principal fuente de energÃ­a del colonocito.\n\n"
         "**PRECAUCIONES.**\n\n"
-        "• **Inmunosupresión severa** (quimioterapia, trasplantados, VIH avanzado, prematuros) → riesgo de bacteriemia o fungemia por "
-        "probióticos. **EVITAR** salvo cepas y contextos muy específicos bajo supervisión.\n"
-        "• **Pancreatitis aguda severa** → probióticos asociados a mayor mortalidad en un ECA (PROPATRIA). **CONTRAINDICADOS**.\n"
-        "• **Catéteres venosos centrales** → riesgo de translocación.\n\n"
-        "**Dieta y microbiota.** Diversidad vegetal (≥30 plantas diferentes/semana es el factor más predictor de diversidad microbiana). "
-        "Fermentados (yogur, kéfir, chucrut, kimchi). Reducir ultraprocesados, edulcorantes artificiales y antibióticos innecesarios."
+        "â€¢ **InmunosupresiÃ³n severa** (quimioterapia, trasplantados, VIH avanzado, prematuros) â†’ riesgo de bacteriemia o fungemia por "
+        "probiÃ³ticos. **EVITAR** salvo cepas y contextos muy especÃ­ficos bajo supervisiÃ³n.\n"
+        "â€¢ **Pancreatitis aguda severa** â†’ probiÃ³ticos asociados a mayor mortalidad en un ECA (PROPATRIA). **CONTRAINDICADOS**.\n"
+        "â€¢ **CatÃ©teres venosos centrales** â†’ riesgo de translocaciÃ³n.\n\n"
+        "**Dieta y microbiota.** Diversidad vegetal (â‰¥30 plantas diferentes/semana es el factor mÃ¡s predictor de diversidad microbiana). "
+        "Fermentados (yogur, kÃ©fir, chucrut, kimchi). Reducir ultraprocesados, edulcorantes artificiales y antibiÃ³ticos innecesarios."
     ),
     "lactose intolerance": (
-        "**Intolerancia a la lactosa.** Déficit de lactasa intestinal (hipolactasia) por:\n\n"
-        "• **Hipolactasia primaria del adulto** — la más frecuente. Genética, regulada por el gen **LCT** (lactasa) y su elemento regulador "
-        "**MCM6**. La variante rs4988235 (C/T-13910) determina persistencia o no de lactasa. La hipolactasia es la condición ancestral; la "
-        "persistencia es una mutación reciente (~10.000 años) ligada a la domesticación de ganado.\n"
-        "• **Hipolactasia secundaria** — daño de la mucosa por celiaquía, gastroenteritis, EII, quimioterapia.\n"
-        "• **Hipolactasia congénita** — rarísima, alteración severa neonatal.\n\n"
-        "**Prevalencia.** ~70% adultos a nivel mundial. Muy alta en Asia (>90%) y África, baja en Europa del Norte (<10%).\n\n"
+        "**Intolerancia a la lactosa.** DÃ©ficit de lactasa intestinal (hipolactasia) por:\n\n"
+        "â€¢ **Hipolactasia primaria del adulto** â€” la mÃ¡s frecuente. GenÃ©tica, regulada por el gen **LCT** (lactasa) y su elemento regulador "
+        "**MCM6**. La variante rs4988235 (C/T-13910) determina persistencia o no de lactasa. La hipolactasia es la condiciÃ³n ancestral; la "
+        "persistencia es una mutaciÃ³n reciente (~10.000 aÃ±os) ligada a la domesticaciÃ³n de ganado.\n"
+        "â€¢ **Hipolactasia secundaria** â€” daÃ±o de la mucosa por celiaquÃ­a, gastroenteritis, EII, quimioterapia.\n"
+        "â€¢ **Hipolactasia congÃ©nita** â€” rarÃ­sima, alteraciÃ³n severa neonatal.\n\n"
+        "**Prevalencia.** ~70% adultos a nivel mundial. Muy alta en Asia (>90%) y Ãfrica, baja en Europa del Norte (<10%).\n\n"
         "**Manejo.**\n\n"
-        "• **Reducir lactosa** sin eliminar lácteos por completo. Tolerancia individual variable (frecuentemente 12 g = 1 vaso de leche se "
+        "â€¢ **Reducir lactosa** sin eliminar lÃ¡cteos por completo. Tolerancia individual variable (frecuentemente [DOSIS_CLINICA_REMOVIDA] = 1 vaso de leche se "
         "tolera).\n"
-        "• **Lácteos fermentados** (yogur, kéfir, quesos curados) tienen menos lactosa.\n"
-        "• **Enzima lactasa exógena** antes de comidas con lácteos.\n"
-        "• **Asegurar aporte de calcio y vitamina D** desde otras fuentes — riesgo de osteoporosis si se eliminan lácteos sin sustituir.\n"
-        "• **Probióticos con Lactobacillus** pueden mejorar tolerancia.\n\n"
-        "**Diagnóstico.** Test de hidrógeno espirado tras carga de lactosa, test genético LCT/MCM6, mejoría clínica con dieta de exclusión."
+        "â€¢ **LÃ¡cteos fermentados** (yogur, kÃ©fir, quesos curados) tienen menos lactosa.\n"
+        "â€¢ **Enzima lactasa exÃ³gena** antes de comidas con lÃ¡cteos.\n"
+        "â€¢ **Asegurar aporte de calcio y vitamina D** desde otras fuentes â€” riesgo de osteoporosis si se eliminan lÃ¡cteos sin sustituir.\n"
+        "â€¢ **ProbiÃ³ticos con Lactobacillus** pueden mejorar tolerancia.\n\n"
+        "**DiagnÃ³stico.** Test de hidrÃ³geno espirado tras carga de lactosa, test genÃ©tico LCT/MCM6, mejorÃ­a clÃ­nica con dieta de exclusiÃ³n."
     ),
     "celiac disease": (
-        "**Enfermedad celíaca.** Enteropatía autoinmune mediada por linfocitos T en respuesta al gluten (proteínas de trigo, cebada, centeno) "
-        "en individuos genéticamente predispuestos.\n\n"
-        "**Base genética.** **HLA-DQ2** (95% de pacientes) y **HLA-DQ8** (5%) — necesarios pero no suficientes. Otros loci modulan riesgo "
+        "**Enfermedad celÃ­aca.** EnteropatÃ­a autoinmune mediada por linfocitos T en respuesta al gluten (proteÃ­nas de trigo, cebada, centeno) "
+        "en individuos genÃ©ticamente predispuestos.\n\n"
+        "**Base genÃ©tica.** **HLA-DQ2** (95% de pacientes) y **HLA-DQ8** (5%) â€” necesarios pero no suficientes. Otros loci modulan riesgo "
         "(IL2/IL21, CCR1-3, SH2B3).\n\n"
-        "**Diagnóstico.** Serología (anti-transglutaminasa tisular IgA + IgA total, EMA, anti-DGP) y biopsia duodenal (Marsh ≥2). "
-        "**Mantener gluten durante el estudio** — la dieta sin gluten falsea resultados.\n\n"
-        "**Tratamiento.** Dieta estricta sin gluten **de por vida**. Vigilar contaminación cruzada (<20 ppm).\n\n"
-        "**Suplementación tras el diagnóstico.** Frecuentes déficits: **hierro, ácido fólico, B12, vitamina D, calcio, zinc, magnesio**. "
-        "Reponer según analítica.\n\n"
-        "**Comorbilidades autoinmunes.** Hashimoto, DM1, hepatitis autoinmune, vitíligo, alopecia areata. Cribado periódico.\n\n"
-        "**No confundir con.** Sensibilidad al gluten no celíaca (sin lesión histológica, mecanismo desconocido), alergia al trigo (IgE), "
+        "**DiagnÃ³stico.** SerologÃ­a (anti-transglutaminasa tisular IgA + IgA total, EMA, anti-DGP) y biopsia duodenal (Marsh â‰¥2). "
+        "**Mantener gluten durante el estudio** â€” la dieta sin gluten falsea resultados.\n\n"
+        "**Tratamiento.** Dieta estricta sin gluten **de por vida**. Vigilar contaminaciÃ³n cruzada (<20 ppm).\n\n"
+        "**SuplementaciÃ³n tras el diagnÃ³stico.** Frecuentes dÃ©ficits: **hierro, Ã¡cido fÃ³lico, B12, vitamina D, calcio, zinc, magnesio**. "
+        "Reponer segÃºn analÃ­tica.\n\n"
+        "**Comorbilidades autoinmunes.** Hashimoto, DM1, hepatitis autoinmune, vitÃ­ligo, alopecia areata. Cribado periÃ³dico.\n\n"
+        "**No confundir con.** Sensibilidad al gluten no celÃ­aca (sin lesiÃ³n histolÃ³gica, mecanismo desconocido), alergia al trigo (IgE), "
         "intolerancia a FODMAPs."
     ),
     "vitamin d deficiency": (
-        "**Déficit de vitamina D.** Niveles séricos de 25-OH-vitamina D <20 ng/mL (déficit) o <30 ng/mL (insuficiencia). Prevalencia muy alta "
+        "**DÃ©ficit de vitamina D.** Niveles sÃ©ricos de 25-OH-vitamina D <20 ng/mL (dÃ©ficit) o <30 ng/mL (insuficiencia). Prevalencia muy alta "
         "en latitudes altas, piel oscura, ancianos institucionalizados, obesidad.\n\n"
-        "**Base genética.** **VDR** (receptor de vitamina D — variantes FokI, BsmI, TaqI, ApaI), **GC** (proteína transportadora — variantes "
-        "alteran biodisponibilidad), **CYP2R1** (25-hidroxilasa hepática), **CYP27B1** (1-α-hidroxilasa renal), **CYP24A1** (catabolismo).\n\n"
-        "**Funciones.** Homeostasis del calcio y fosfato, mineralización ósea, modulación inmunitaria, regulación de proliferación celular, "
-        "función neuromuscular.\n\n"
-        "**Consecuencias del déficit.** Osteomalacia, raquitismo, osteoporosis, mayor riesgo de fracturas, miopatía proximal, depresión, "
-        "asociación con autoinmunidad e infecciones respiratorias.\n\n"
-        "**Suplementación.**\n\n"
-        "• **Colecalciferol (D3)** preferido sobre ergocalciferol (D2).\n"
-        "• \n"
-        "• Déficit establecido: 50.000 UI/semana × 8-12 semanas seguido de mantenimiento, o pautas diarias equivalentes.\n"
-        "• Calcio dietético adecuado (1000-1200 mg/día) y vitamina K2 para dirigir el calcio al hueso (no a vasos).\n\n"
-        "**Toxicidad.** Hipercalcemia con dosis crónicas >10.000 UI/día sin supervisión. Monitorizar calcemia si dosis altas."
+        "**Base genÃ©tica.** **VDR** (receptor de vitamina D â€” variantes FokI, BsmI, TaqI, ApaI), **GC** (proteÃ­na transportadora â€” variantes "
+        "alteran biodisponibilidad), **CYP2R1** (25-hidroxilasa hepÃ¡tica), **CYP27B1** (1-Î±-hidroxilasa renal), **CYP24A1** (catabolismo).\n\n"
+        "**Funciones.** Homeostasis del calcio y fosfato, mineralizaciÃ³n Ã³sea, modulaciÃ³n inmunitaria, regulaciÃ³n de proliferaciÃ³n celular, "
+        "funciÃ³n neuromuscular.\n\n"
+        "**Consecuencias del dÃ©ficit.** Osteomalacia, raquitismo, osteoporosis, mayor riesgo de fracturas, miopatÃ­a proximal, depresiÃ³n, "
+        "asociaciÃ³n con autoinmunidad e infecciones respiratorias.\n\n"
+        "**SuplementaciÃ³n.**\n\n"
+        "â€¢ **Colecalciferol (D3)** preferido sobre ergocalciferol (D2).\n"
+        "â€¢ \n"
+        "â€¢ DÃ©ficit establecido: 50.[DOSIS_CLINICA_REMOVIDA]/semana Ã— 8-12 semanas seguido de mantenimiento, o pautas diarias equivalentes.\n"
+        "â€¢ Calcio dietÃ©tico adecuado ([DOSIS_CLINICA_REMOVIDA]/dÃ­a) y vitamina K2 para dirigir el calcio al hueso (no a vasos).\n\n"
+        "**Toxicidad.** Hipercalcemia con dosis crÃ³nicas >10.[DOSIS_CLINICA_REMOVIDA]/dÃ­a sin supervisiÃ³n. Monitorizar calcemia si dosis altas."
     ),
     "folate deficiency": (
-        "**Déficit de folato.** Causa de anemia macrocítica megaloblástica (junto con B12) y de defectos del tubo neural en el embarazo.\n\n"
-        "**Base genética.** **MTHFR** (metilentetrahidrofolato reductasa) — las variantes C677T y A1298C reducen actividad enzimática. "
-        "Homocigotos C677T tienen 70% menos actividad. **MTR**, **MTRR**, **SHMT1** también participan en el ciclo del folato y metionina.\n\n"
-        "**Implicaciones clínicas del MTHFR.** Hiperhomocisteinemia, mayor riesgo cardiovascular (modesto), defectos del tubo neural, "
-        "posible asociación con depresión y deterioro cognitivo. Importante en mujeres en edad fértil.\n\n"
-        "**Suplementación.**\n\n"
-        "• **Ácido fólico** 400 µg/día (mujeres en edad fértil), 5 mg/día (antecedente de DTN o tratamiento con antiepilépticos).\n"
-        "• **L-metilfolato (5-MTHF, Quatrefolic, Metafolin)** — forma activa, preferible en portadores de MTHFR. \n"
-        "• **Asociar B12** — siempre, para no enmascarar déficit de B12 con folato.\n\n"
-        "**Fuentes alimentarias.** Verduras de hoja verde (espinaca, col rizada), legumbres, hígado, cítricos, aguacate, cereales fortificados. "
-        "Sensible a calor — preferir crudo o cocción mínima."
+        "**DÃ©ficit de folato.** Causa de anemia macrocÃ­tica megaloblÃ¡stica (junto con B12) y de defectos del tubo neural en el embarazo.\n\n"
+        "**Base genÃ©tica.** **MTHFR** (metilentetrahidrofolato reductasa) â€” las variantes C677T y A1298C reducen actividad enzimÃ¡tica. "
+        "Homocigotos C677T tienen 70% menos actividad. **MTR**, **MTRR**, **SHMT1** tambiÃ©n participan en el ciclo del folato y metionina.\n\n"
+        "**Implicaciones clÃ­nicas del MTHFR.** Hiperhomocisteinemia, mayor riesgo cardiovascular (modesto), defectos del tubo neural, "
+        "posible asociaciÃ³n con depresiÃ³n y deterioro cognitivo. Importante en mujeres en edad fÃ©rtil.\n\n"
+        "**SuplementaciÃ³n.**\n\n"
+        "â€¢ **Ãcido fÃ³lico** 400 Âµg/dÃ­a (mujeres en edad fÃ©rtil), [DOSIS_CLINICA_REMOVIDA]/dÃ­a (antecedente de DTN o tratamiento con antiepilÃ©pticos).\n"
+        "â€¢ **L-metilfolato (5-MTHF, Quatrefolic, Metafolin)** â€” forma activa, preferible en portadores de MTHFR. \n"
+        "â€¢ **Asociar B12** â€” siempre, para no enmascarar dÃ©ficit de B12 con folato.\n\n"
+        "**Fuentes alimentarias.** Verduras de hoja verde (espinaca, col rizada), legumbres, hÃ­gado, cÃ­tricos, aguacate, cereales fortificados. "
+        "Sensible a calor â€” preferir crudo o cocciÃ³n mÃ­nima."
     ),
     "vitamin b12 deficiency": (
-        "**Déficit de vitamina B12 (cobalamina).** Causa anemia megaloblástica y, sin tratamiento, mielopatía irreversible (degeneración "
+        "**DÃ©ficit de vitamina B12 (cobalamina).** Causa anemia megaloblÃ¡stica y, sin tratamiento, mielopatÃ­a irreversible (degeneraciÃ³n "
         "combinada subaguda).\n\n"
         "**Causas frecuentes.**\n\n"
-        "• **Anemia perniciosa** — autoinmune contra células parietales y factor intrínseco.\n"
-        "• **Gastritis crónica atrófica, infección por H. pylori, cirugía gástrica/bariátrica**.\n"
-        "• **Resección o enfermedad del íleon terminal** (Crohn).\n"
-        "• **Fármacos**: metformina (vigilar B12 en uso crónico), IBPs y anti-H2 prolongados, óxido nitroso.\n"
-        "• **Dieta vegana estricta sin suplementar**.\n\n"
-        "**Base genética.** **FUT2** (secretor), **TCN1** y **TCN2** (transcobalaminas), **MTRR** (metionina sintasa reductasa).\n\n"
-        "**Suplementación.**\n\n"
-        "• **Cianocobalamina oral** 1000 µg/día — eficaz incluso en anemia perniciosa por absorción pasiva pasiva.\n"
-        "• **Metilcobalamina o hidroxocobalamina** — formas activas.\n"
-        "• **Vía parenteral** si déficit severo, malabsorción documentada o síntomas neurológicos. 1000 µg IM cada 1-3 meses.\n\n"
-        "**Vigilancia.** B12 sérica + ácido metilmalónico + homocisteína (más sensibles que B12 aislada). Asociar siempre con folato para no "
+        "â€¢ **Anemia perniciosa** â€” autoinmune contra cÃ©lulas parietales y factor intrÃ­nseco.\n"
+        "â€¢ **Gastritis crÃ³nica atrÃ³fica, infecciÃ³n por H. pylori, cirugÃ­a gÃ¡strica/bariÃ¡trica**.\n"
+        "â€¢ **ResecciÃ³n o enfermedad del Ã­leon terminal** (Crohn).\n"
+        "â€¢ **FÃ¡rmacos**: metformina (vigilar B12 en uso crÃ³nico), IBPs y anti-H2 prolongados, Ã³xido nitroso.\n"
+        "â€¢ **Dieta vegana estricta sin suplementar**.\n\n"
+        "**Base genÃ©tica.** **FUT2** (secretor), **TCN1** y **TCN2** (transcobalaminas), **MTRR** (metionina sintasa reductasa).\n\n"
+        "**SuplementaciÃ³n.**\n\n"
+        "â€¢ **Cianocobalamina oral** 1000 Âµg/dÃ­a â€” eficaz incluso en anemia perniciosa por absorciÃ³n pasiva pasiva.\n"
+        "â€¢ **Metilcobalamina o hidroxocobalamina** â€” formas activas.\n"
+        "â€¢ **VÃ­a parenteral** si dÃ©ficit severo, malabsorciÃ³n documentada o sÃ­ntomas neurolÃ³gicos. 1000 Âµg IM cada 1-3 meses.\n\n"
+        "**Vigilancia.** B12 sÃ©rica + Ã¡cido metilmalÃ³nico + homocisteÃ­na (mÃ¡s sensibles que B12 aislada). Asociar siempre con folato para no "
         "enmascarar."
     ),
 }
 
-def get_description(key): return DESCRIPTIONS.get(key, f"Análisis basado en evidencia clínica de MSK, NCBI y PubMed para: {key.title()}")
+def get_description(key): return DESCRIPTIONS.get(key, f"AnÃ¡lisis basado en evidencia clÃ­nica de MSK, NCBI y PubMed para: {key.title()}")
 
 
-# ── MODELS ────────────────────────────────────────────────────────────────────
+# â”€â”€ MODELS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class ClinicalQuery(BaseModel):
     query: str
     drugs_used: Optional[List[str]] = []
@@ -2814,21 +2814,21 @@ class NutrientQuery(BaseModel):
     lang: Optional[str] = "es"
 
 
-# ── APP ───────────────────────────────────────────────────────────────────────
+# â”€â”€ APP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app = FastAPI(title="NutriKen", version="2.0.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 @app.on_event("startup")
 async def startup():
     init_db()
-    logger.info("🌿 NutriKen v2 iniciado")
+    logger.info("ðŸŒ¿ NutriKen v2 iniciado")
     import asyncio as _asyncio
     _asyncio.create_task(_keepwarm_loop())
 
 
-# ── Programador interno: búsquedas automáticas ~3×/día (mantiene la app caliente
-#    y deja actividad registrada en query_log — útil para revisión JOSS). Sin
-#    dependencias extra: usa asyncio. Espaciado 8 h => 3 corridas al día en horas
+# â”€â”€ Programador interno: bÃºsquedas automÃ¡ticas ~3Ã—/dÃ­a (mantiene la app caliente
+#    y deja actividad registrada en query_log â€” Ãºtil para revisiÃ³n JOSS). Sin
+#    dependencias extra: usa asyncio. Espaciado 8 h => 3 corridas al dÃ­a en horas
 #    distintas. Pre-calienta KEGG/MSK/dosis para que el usuario no sufra cold-start.
 _KEEPWARM_CONDITIONS = ["obesidad", "diabetes", "hipertension", "colesterol",
                         "higado graso", "inflamacion", "trigliceridos"]
@@ -2845,7 +2845,7 @@ async def _keepwarm_loop():
             async with httpx.AsyncClient(headers={"User-Agent": "NutriKen/2.0 (keepwarm)"}) as client:
                 await _build_plan(cond, [], "es", client)  # calienta KEGG+MSK+dosis+pharmgkb
             log_query(f"[auto {datetime.datetime.now().strftime('%H:%M')}] {cond}", "auto")
-            logger.info(f"🔥 keep-warm: {cond}")
+            logger.info(f"ðŸ”¥ keep-warm: {cond}")
         except Exception as e:
             logger.warning(f"keep-warm error: {e}")
         await _asyncio.sleep(_KEEPWARM_INTERVAL_H * 3600)
@@ -2862,61 +2862,61 @@ async def i18n_js(): return FileResponse("i18n.js")
 @app.get("/style.css")
 async def css(): return FileResponse("style.css")
 
-# ── Base de DOSIS de suplementos/hierbas (cuánto tomar realmente) ────────────
+# â”€â”€ Base de DOSIS de suplementos/hierbas (cuÃ¡nto tomar realmente) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 import json as _json_dose
 _DOSING_DB = {"items": [], "count": 0}
 try:
     with open("local_db/supplement_dosing.json", "r", encoding="utf-8") as _f:
         _DOSING_DB = _json_dose.load(_f)
-    logger.info(f"💊 Dosing DB cargada: {_DOSING_DB.get('count', 0)} entradas")
+    logger.info(f"ðŸ’Š Dosing DB cargada: {_DOSING_DB.get('count', 0)} entradas")
 except Exception as _e:
     logger.warning(f"No se pudo cargar supplement_dosing.json: {_e}")
 
-# Evidencia científica por hierba (307) — PMIDs/PubChem de fuentes abiertas
+# Evidencia cientÃ­fica por hierba (307) â€” PMIDs/PubChem de fuentes abiertas
 _HERBS_EVIDENCE = {}
 try:
     with open("local_db/herbs_evidence.json", "r", encoding="utf-8") as _f:
         _HERBS_EVIDENCE = _json_dose.load(_f)
-    logger.info(f"🌿 Herb evidence cargada: {len(_HERBS_EVIDENCE)} hierbas")
+    logger.info(f"ðŸŒ¿ Herb evidence cargada: {len(_HERBS_EVIDENCE)} hierbas")
 except Exception as _e:
     logger.warning(f"No se pudo cargar herbs_evidence.json: {_e}")
 
-# Índice botánico masivo (LOTUS, CC0): planta -> fitoquímicos
+# Ãndice botÃ¡nico masivo (LOTUS, CC0): planta -> fitoquÃ­micos
 _BOTANICAL = {}
 _BOTANICAL_IDX = {}
 try:
     with open("local_db/botanical_index.json", "r", encoding="utf-8") as _f:
         _BOTANICAL = _json_dose.load(_f)
-    logger.info(f"🌱 Índice botánico (LOTUS) cargado: {len(_BOTANICAL)} plantas")
+    logger.info(f"ðŸŒ± Ãndice botÃ¡nico (LOTUS) cargado: {len(_BOTANICAL)} plantas")
 except Exception as _e:
     logger.warning(f"No se pudo cargar botanical_index.json: {_e}")
 
 _DOSING_ALIASES = {
     "omega 3": "omega3", "omega-3": "omega3", "fish oil": "omega3", "aceite de pescado": "omega3",
     "vitamina d": "vitd", "vitamin d": "vitd", "vitamina d3": "vitd", "colecalciferol": "vitd",
-    "magnesio": "magnesium", "berberina": "berberine", "curcuma": "curcumin", "cúrcuma": "curcumin",
+    "magnesio": "magnesium", "berberina": "berberine", "curcuma": "curcumin", "cÃºrcuma": "curcumin",
     "turmeric": "curcumin", "coq10": "coq10", "coenzyme q10": "coq10", "coenzima q10": "coq10",
     "creatina": "creatine", "melatonina": "melatonin", "vitamina c": "vitc", "vitamin c": "vitc",
     "vitamina b12": "b12", "vitamin b12": "b12", "folato": "folate", "acido folico": "folate",
-    "ácido fólico": "folate", "hierro": "iron", "calcio": "calcium", "vitamina k2": "k2",
-    "te verde": "egcg", "té verde": "egcg", "green tea": "egcg", "cardo mariano": "milkthistle",
+    "Ã¡cido fÃ³lico": "folate", "hierro": "iron", "calcio": "calcium", "vitamina k2": "k2",
+    "te verde": "egcg", "tÃ© verde": "egcg", "green tea": "egcg", "cardo mariano": "milkthistle",
     "silimarina": "milkthistle", "ajo": "garlic", "canela": "cinnamon", "cromo": "chromium",
     "inositol": "inositol", "taurina": "taurine", "glicina": "glycine", "l-teanina": "ltheanine",
     "teanina": "ltheanine", "vitamina e": "vite", "selenio": "selenium", "yodo": "iodine",
     "potasio": "potassium", "ginkgo biloba": "ginkgo", "panax ginseng": "ginseng",
-    "acido alfa lipoico": "ala", "ácido alfa-lipoico": "ala", "alpha lipoic acid": "ala",
+    "acido alfa lipoico": "ala", "Ã¡cido alfa-lipoico": "ala", "alpha lipoic acid": "ala",
     "quercetina": "quercetin", "psyllium": "psyllium", "probioticos": "probiotics",
-    "probióticos": "probiotics", "colageno": "collagen", "colágeno": "collagen",
+    "probiÃ³ticos": "probiotics", "colageno": "collagen", "colÃ¡geno": "collagen",
 }
 
 def _norm_dose_key(s: str) -> str:
     import unicodedata, re as _re
     s = unicodedata.normalize("NFKD", (s or "").lower().strip())
     s = "".join(c for c in s if not unicodedata.combining(c))
-    return _re.sub(r"[^a-z0-9]", "", s)  # solo alfanumérico (quita espacios/guiones/apóstrofes/_)
+    return _re.sub(r"[^a-z0-9]", "", s)  # solo alfanumÃ©rico (quita espacios/guiones/apÃ³strofes/_)
 
-# Índice O(1): slug + nombres (ES/EN) + alias -> item. Se construye UNA vez al cargar,
-# así la búsqueda es instantánea aunque haya miles de entradas (sin lag).
+# Ãndice O(1): slug + nombres (ES/EN) + alias -> item. Se construye UNA vez al cargar,
+# asÃ­ la bÃºsqueda es instantÃ¡nea aunque haya miles de entradas (sin lag).
 _DOSING_INDEX = {}
 def _build_dosing_index():
     _DOSING_INDEX.clear()
@@ -2932,7 +2932,7 @@ def _build_dosing_index():
             _DOSING_INDEX[_norm_dose_key(alias)] = target
 _build_dosing_index()
 
-# ── Índice botánico (LOTUS) normalizado + búsqueda ──────────────────────────
+# â”€â”€ Ãndice botÃ¡nico (LOTUS) normalizado + bÃºsqueda â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 def _build_botanical_idx():
     _BOTANICAL_IDX.clear()
     for plant, rec in _BOTANICAL.items():
@@ -2959,7 +2959,7 @@ def find_botanical(name: str) -> dict:
 
 @app.get("/api/botanical")
 async def botanical_lookup(q: str = ""):
-    """Fitoquímicos de una planta desde LOTUS (CC0). q vacío = catálogo de plantas."""
+    """FitoquÃ­micos de una planta desde LOTUS (CC0). q vacÃ­o = catÃ¡logo de plantas."""
     if not q:
         return {"count": len(_BOTANICAL), "plants": sorted(_BOTANICAL.keys())}
     hit = find_botanical(q)
@@ -2968,7 +2968,7 @@ async def botanical_lookup(q: str = ""):
     return {"found": True, "botanical": hit}
 
 def find_dosing(name: str) -> dict:
-    """Búsqueda O(1) por nombre/slug/alias (ES/EN), con fallback laxo."""
+    """BÃºsqueda O(1) por nombre/slug/alias (ES/EN), con fallback laxo."""
     if not name:
         return None
     key = _norm_dose_key(name)
@@ -2984,7 +2984,7 @@ def find_dosing(name: str) -> dict:
 
 @app.get("/api/dosing")
 async def dosing_lookup(q: str = "", lang: str = "es"):
-    """Devuelve la dosis basada en evidencia de un suplemento/hierba. q vacío = catálogo."""
+    """Devuelve la dosis basada en evidencia de un suplemento/hierba. q vacÃ­o = catÃ¡logo."""
     if not q:
         return {"count": _DOSING_DB.get("count", 0),
                 "items": [{"slug": i["slug"], "name": i.get("name")} for i in _DOSING_DB.get("items", [])]}
@@ -2997,14 +2997,14 @@ async def dosing_lookup(q: str = "", lang: str = "es"):
 @app.get("/health")
 async def health(): return {"status":"ok","version":"NutriKen 2.0"}
 
-# ── DrugBank OPCIONAL (token del usuario; sin almacenar datos; JOSS-limpio) ──
+# â”€â”€ DrugBank OPCIONAL (token del usuario; sin almacenar datos; JOSS-limpio) â”€â”€
 @app.get("/api/drugbank/status")
 async def drugbank_status():
     try:
         from drugbank_client import is_configured
         return {"configured": is_configured(),
                 "note": "DrugBank es opcional y requiere tu propio token (DRUGBANK_TOKEN). "
-                        "Sin él, se usan fuentes abiertas (PubMed/PubChem/ChEMBL/curado)."}
+                        "Sin Ã©l, se usan fuentes abiertas (PubMed/PubChem/ChEMBL/curado)."}
     except Exception as e:
         return {"configured": False, "error": str(e)}
 
@@ -3017,7 +3017,7 @@ async def drugbank_query(q: str):
         return {"configured": False, "error": str(e)}
 
 
-# ── PLAN CLÍNICO: compila condición → ruta → intervenciones+dosis → SNPs → interacciones ──
+# â”€â”€ PLAN CLÃNICO: compila condiciÃ³n â†’ ruta â†’ intervenciones+dosis â†’ SNPs â†’ interacciones â”€â”€
 _PGX_GENES = {}
 _PGX_NUTRITION = []
 _HERB_DRUG = {}
@@ -3037,7 +3037,7 @@ try:
 except Exception as _e:
     logger.warning(f"herb_drug_interactions no cargado: {_e}")
 
-# Contenido experto curado por condición (plantilla de calidad tipo referencia)
+# Contenido experto curado por condiciÃ³n (plantilla de calidad tipo referencia)
 _PLAN_OVERLAYS = {}
 try:
     with open("local_db/plan_overlays.json", "r", encoding="utf-8") as _f:
@@ -3045,7 +3045,7 @@ try:
 except Exception as _e:
     logger.warning(f"plan_overlays no cargado: {_e}")
 
-# Cronoterapia de fármacos (a qué hora y por qué) — tab "Fármacos + timing"
+# Cronoterapia de fÃ¡rmacos (a quÃ© hora y por quÃ©) â€” tab "FÃ¡rmacos + timing"
 _DRUG_TIMING = {}
 try:
     with open("local_db/drug_timing.json", "r", encoding="utf-8") as _f:
@@ -3070,15 +3070,15 @@ def find_drug_timing(drug: str):
 
 # Ventanas circadianas (para el cronograma)
 _CHRONO_WINDOWS = [
-    ("06:30", "🌅", "Al despertar · en ayunas", "Cortisol matutino · AMPK activo por ayuno nocturno",
-     ["ayunas", "fasting", "mañana", "morning", "despertar"]),
-    ("07:30", "🍳", "Desayuno", "Con comida · mayor sensibilidad insulínica",
+    ("06:30", "ðŸŒ…", "Al despertar Â· en ayunas", "Cortisol matutino Â· AMPK activo por ayuno nocturno",
+     ["ayunas", "fasting", "maÃ±ana", "morning", "despertar"]),
+    ("07:30", "ðŸ³", "Desayuno", "Con comida Â· mayor sensibilidad insulÃ­nica",
      ["desayuno", "breakfast", "con comida con carbohidrato", "carb"]),
-    ("08:30", "🏃", "Ejercicio", "Ventana de sensibilidad insulínica muscular",
+    ("08:30", "ðŸƒ", "Ejercicio", "Ventana de sensibilidad insulÃ­nica muscular",
      ["ejercicio", "exercise", "pre-ejercicio", "pre-exercise"]),
-    ("13:00", "🍽️", "Almuerzo", "Comida principal · con comida grasa",
+    ("13:00", "ðŸ½ï¸", "Almuerzo", "Comida principal Â· con comida grasa",
      ["antes de comida", "before meal", "con comida", "with food", "with a fatty meal", "comida grasa", "meals"]),
-    ("21:00", "🌙", "Noche / antes de dormir", "Síntesis de colesterol nocturna · descanso",
+    ("21:00", "ðŸŒ™", "Noche / antes de dormir", "SÃ­ntesis de colesterol nocturna Â· descanso",
      ["noche", "evening", "dormir", "before bed", "bed"]),
 ]
 
@@ -3093,7 +3093,7 @@ def _lang_field(item, base, lang):
     return item.get(f"{base}_{lang}") or item.get(f"{base}_es") or item.get(base) or ""
 
 async def _build_plan(condition_query: str, drugs_used, lang: str, client):
-    # 1. Emparejar condición
+    # 1. Emparejar condiciÃ³n
     query_en = await translate_to_en(condition_query, client)
     matched_key, matched = None, None
     for key, data in CLINICAL_MAP.items():
@@ -3101,7 +3101,7 @@ async def _build_plan(condition_query: str, drugs_used, lang: str, client):
             matched_key, matched = key, data
             break
     if not matched:
-        # condición libre: sin ruta/genes, pero igual damos dosis de suplementos citados
+        # condiciÃ³n libre: sin ruta/genes, pero igual damos dosis de suplementos citados
         matched = {"genes": [], "kegg": "", "msk_slugs": [], "drugs": [], "pubmed": condition_query}
         matched_key = condition_query
 
@@ -3127,7 +3127,7 @@ async def _build_plan(condition_query: str, drugs_used, lang: str, client):
                       "PharmGKB": meta.get("pharmgkb_url")},
         })
 
-    # 4. Intervenciones (dosis + seguridad) desde el catálogo de dosis
+    # 4. Intervenciones (dosis + seguridad) desde el catÃ¡logo de dosis
     interventions, chrono = [], [{"time": w[0], "icon": w[1], "title": w[2], "subtitle": w[3], "items": []}
                                  for w in _CHRONO_WINDOWS]
     seen = set()
@@ -3136,7 +3136,7 @@ async def _build_plan(condition_query: str, drugs_used, lang: str, client):
         dz = find_dosing(name.replace("-", " ") if isinstance(name, str) else name)
         if not dz or dz["slug"] in seen:
             continue
-        # Solo incluir en el plan si es relevante a la condición (está en msk_slugs) o si la condición es libre
+        # Solo incluir en el plan si es relevante a la condiciÃ³n (estÃ¡ en msk_slugs) o si la condiciÃ³n es libre
         rel = (not matched.get("msk_slugs")) or any(_norm_dose_key(s) == _norm_dose_key(dz["slug"]) or
                _norm_dose_key(s.replace("-", " ")) == _norm_dose_key(dz.get("name", "")) for s in matched.get("msk_slugs", []))
         if matched.get("msk_slugs") and not rel:
@@ -3145,7 +3145,7 @@ async def _build_plan(condition_query: str, drugs_used, lang: str, client):
         saf = dz.get("safety", {}) or {}
         saf_bits = []
         if saf.get("stop_days_before_surgery"):
-            saf_bits.append(_t2(lang, f"Suspender {saf['stop_days_before_surgery']} d antes de cirugía",
+            saf_bits.append(_t2(lang, f"Suspender {saf['stop_days_before_surgery']} d antes de cirugÃ­a",
                                  f"Stop {saf['stop_days_before_surgery']} d before surgery"))
         if saf.get("bleeding_risk"):
             saf_bits.append(_t2(lang, "riesgo de sangrado", "bleeding risk"))
@@ -3161,7 +3161,7 @@ async def _build_plan(condition_query: str, drugs_used, lang: str, client):
             "reference": dz.get("reference", ""), "safety_text": "; ".join(saf_bits),
             "evidence": dz.get("evidence", ""),
         }
-        # Enriquecimiento EXPERTO por condición (plantilla de calidad tipo referencia)
+        # Enriquecimiento EXPERTO por condiciÃ³n (plantilla de calidad tipo referencia)
         ov = _PLAN_OVERLAYS.get((matched_key or "").lower(), {})
         ov_iv = (ov.get("interventions", {}) or {}).get(dz["slug"])
         if ov_iv:
@@ -3172,13 +3172,13 @@ async def _build_plan(condition_query: str, drugs_used, lang: str, client):
             contra = ov_iv.get(f"contra_{lang}") or ov_iv.get("contra_es")
             parts = [mech]
             if snp:
-                parts.append("🧬 SNP: " + snp)
+                parts.append("ðŸ§¬ SNP: " + snp)
             if prac:
-                parts.append("💊 " + prac)
+                parts.append("ðŸ’Š " + prac)
             if kin:
-                parts.append(("⏱️ Cinética: " if lang != "en" else "⏱️ Kinetics: ") + kin)
+                parts.append(("â±ï¸ CinÃ©tica: " if lang != "en" else "â±ï¸ Kinetics: ") + kin)
             if contra:
-                parts.append(("⛔ Contraindicación: " if lang != "en" else "⛔ Contraindication: ") + contra)
+                parts.append(("â›” ContraindicaciÃ³n: " if lang != "en" else "â›” Contraindication: ") + contra)
             iv["mechanism"] = "  ".join([p for p in parts if p])
             iv["evidence"] = ov_iv.get("evidence", iv["evidence"])
             if contra:
@@ -3205,14 +3205,14 @@ async def _build_plan(condition_query: str, drugs_used, lang: str, client):
     interactions.sort(key=lambda x: order.get((x["severity"] or "").lower(), 3))
     interactions = interactions[:20]
 
-    # 6. Nutrigenética (gen ↔ nutriente)
+    # 6. NutrigenÃ©tica (gen â†” nutriente)
     gene_syms = {g.upper() for g in matched.get("genes", [])}
     nutri = [n for n in _PGX_NUTRITION if (n.get("gene", "").upper() in gene_syms)][:20]
 
     # 7. Referencias
     refs = await search_pubmed(matched.get("pubmed", condition_query), client, n=6)
 
-    # 8. Resultados esperados — usar contenido experto del overlay si existe
+    # 8. Resultados esperados â€” usar contenido experto del overlay si existe
     ov = _PLAN_OVERLAYS.get((matched_key or "").lower(), {})
     results = ov.get(f"expected_outcomes_{lang}") or ov.get("expected_outcomes_es")
     if not results:
@@ -3224,7 +3224,7 @@ async def _build_plan(condition_query: str, drugs_used, lang: str, client):
     if pathway_note and isinstance(pathway, dict):
         pathway = {**pathway, "context": pathway_note}
 
-    # 9. Cronoterapia de fármacos (tab "Fármacos + timing")
+    # 9. Cronoterapia de fÃ¡rmacos (tab "FÃ¡rmacos + timing")
     drugs_timing = []
     for drg in matched.get("drugs", [])[:10]:
         dt = find_drug_timing(drg)
@@ -3246,7 +3246,7 @@ async def _build_plan(condition_query: str, drugs_used, lang: str, client):
         "drugs_timing": drugs_timing,
         "references": refs, "results": results,
         "disclaimer": _t2(lang,
-            "Plan educativo (RUO). No sustituye el criterio clínico. Verificar dosis e interacciones antes de cualquier intervención.",
+            "Plan educativo (RUO). No sustituye el criterio clÃ­nico. Verificar dosis e interacciones antes de cualquier intervenciÃ³n.",
             "Educational plan (RUO). Not a substitute for clinical judgment. Verify doses and interactions before any intervention."),
     }
 
@@ -3269,7 +3269,7 @@ async def api_plan_export(q: str, lang: str = "es"):
     return HTMLResponse(content=html_str)
 
 
-# ── ENDPOINT 1: CLÍNICO — búsqueda libre en cualquier idioma ─────────────────
+# â”€â”€ ENDPOINT 1: CLÃNICO â€” bÃºsqueda libre en cualquier idioma â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 @app.post("/api/clinical")
 async def clinical_analysis(req: ClinicalQuery):
     log_query(req.query, "clinical")
@@ -3277,7 +3277,7 @@ async def clinical_analysis(req: ClinicalQuery):
     async with httpx.AsyncClient(headers={"User-Agent":"NutriKen/2.0 (educational)"}) as client:
         # 1. Translate to English
         query_en = await translate_to_en(req.query, client)
-        logger.info(f"Query: '{req.query}' → EN: '{query_en}'")
+        logger.info(f"Query: '{req.query}' â†’ EN: '{query_en}'")
 
         # 2. Find matching condition (flexible)
         matched_key = None
@@ -3287,7 +3287,7 @@ async def clinical_analysis(req: ClinicalQuery):
                 matched_key = key; matched_data = data; break
 
         if matched_data:
-            # Known condition — full structured response
+            # Known condition â€” full structured response
             genes_tasks = [fetch_ncbi_gene(g, client) for g in matched_data["genes"][:5]]
             genes_info  = await asyncio.gather(*genes_tasks)
             pathway     = await fetch_kegg_pathway(matched_data["kegg"], client)
@@ -3323,7 +3323,7 @@ async def clinical_analysis(req: ClinicalQuery):
                     resp[f] = await translate_obj(resp[f], client, "en")
             return resp
         else:
-            # FREE SEARCH — any unknown term
+            # FREE SEARCH â€” any unknown term
             free = await free_search(query_en, req.query, client)
             herbs = free["herbs"]
             all_drugs = req.drugs_used or []
@@ -3331,7 +3331,7 @@ async def clinical_analysis(req: ClinicalQuery):
             resp = {
                 "query": req.query, "query_en": query_en,
                 "condition": req.query.title(),
-                "description": f"Búsqueda libre en MSK y PubMed para: '{req.query}'. Suplementos relacionados encontrados con mayor evidencia disponible.",
+                "description": f"BÃºsqueda libre en MSK y PubMed para: '{req.query}'. Suplementos relacionados encontrados con mayor evidencia disponible.",
                 "genes": [], "pathway": {},
                 "supplements": herbs,
                 "drug_alerts": interactions["drug_alerts"],
@@ -3347,7 +3347,7 @@ async def clinical_analysis(req: ClinicalQuery):
             return resp
 
 
-# ── ENDPOINT 2: GEN ───────────────────────────────────────────────────────────
+# â”€â”€ ENDPOINT 2: GEN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 @app.post("/api/gene")
 async def gene_analysis(req: GeneQuery):
     genes = [g.upper().strip() for g in req.genes[:6]]
@@ -3371,7 +3371,7 @@ async def gene_analysis(req: GeneQuery):
     }
 
 
-# ── ENDPOINT 3: SUPLEMENTO ────────────────────────────────────────────────────
+# â”€â”€ ENDPOINT 3: SUPLEMENTO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 @app.post("/api/nutrient")
 async def nutrient_analysis(req: NutrientQuery):
     nut = req.nutrient.lower().strip()
@@ -3415,7 +3415,7 @@ async def nutrient_analysis(req: NutrientQuery):
 
 
 
-# ── ENDPOINT 4: GENERACION DE PDF (reportlab, layout A4 nativo) ──────────────
+# â”€â”€ ENDPOINT 4: GENERACION DE PDF (reportlab, layout A4 nativo) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class PDFReportRequest(BaseModel):
     data: dict
     report_id: str = ""
@@ -3493,8 +3493,8 @@ async def generate_pdf_report(req: PDFReportRequest):
     for p in paragraphs:
         p = p.strip()
         if not p: continue
-        if p.startswith("•") or "\n• " in p or "\n•" in p:
-            lines = [ln.lstrip("• ").strip() for ln in p.split("\n") if ln.strip()]
+        if p.startswith("â€¢") or "\nâ€¢ " in p or "\nâ€¢" in p:
+            lines = [ln.lstrip("â€¢ ").strip() for ln in p.split("\n") if ln.strip()]
             bullet_html = "<br/>".join(f"&bull; {_escape(ln)}" for ln in lines)
             elements.append(Paragraph(bullet_html, body))
         else:
@@ -3663,7 +3663,7 @@ async def generate_pdf_report(req: PDFReportRequest):
         headers={"Content-Disposition": f'attachment; filename="{filename}"'})
 
 
-# ── STATS ─────────────────────────────────────────────────────────────────────
+# â”€â”€ STATS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 @app.get("/api/stats")
 async def stats():
     conn = sqlite3.connect(DB_PATH); c = conn.cursor()
@@ -3676,7 +3676,7 @@ async def stats():
             "recent_queries":[{"query":r[0],"type":r[1],"time":r[2]} for r in recent]}
 
 
-# ── INDICE A-Z DE HIERBAS (desde Supabase, cacheado en memoria) ───────────────
+# â”€â”€ INDICE A-Z DE HIERBAS (desde Supabase, cacheado en memoria) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 _HERBS_INDEX_CACHE = {"data": None, "ts": 0}
 
 @app.get("/api/herbs-index")
@@ -3701,7 +3701,7 @@ async def herbs_index():
         logger.error(f"herbs-index Supabase error: {e}")
         return {"total": 0, "by_letter": {}, "letters": [], "error": str(e)}
 
-    # Ampliar catálogo: añadir suplementos de la base de dosis que NO estén ya en MSK
+    # Ampliar catÃ¡logo: aÃ±adir suplementos de la base de dosis que NO estÃ©n ya en MSK
     # (creatina, NMN, NR, taurina, beta-alanina, etc.), con su evidencia enriquecida.
     try:
         existing = {_norm_dose_key(r.get("name", "")) for r in rows}
@@ -3713,15 +3713,15 @@ async def herbs_index():
             rows.append({"slug": it["slug"], "name": nm,
                          "scientific_name": it.get("category_es", "") or it.get("category", "")})
             existing.add(_norm_dose_key(nm))
-        # Añadir plantas botánicas (LOTUS) al catálogo navegable
+        # AÃ±adir plantas botÃ¡nicas (LOTUS) al catÃ¡logo navegable
         for plant in _BOTANICAL.keys():
             if _norm_dose_key(plant) in existing:
                 continue
             rows.append({"slug": _norm_dose_key(plant), "name": plant,
-                         "scientific_name": "LOTUS · fitoquímicos"})
+                         "scientific_name": "LOTUS Â· fitoquÃ­micos"})
             existing.add(_norm_dose_key(plant))
     except Exception as e:
-        logger.warning(f"No se pudo ampliar catálogo con dosis: {e}")
+        logger.warning(f"No se pudo ampliar catÃ¡logo con dosis: {e}")
 
     from collections import defaultdict
     by_letter = defaultdict(list)
@@ -3750,3 +3750,4 @@ async def herbs_index():
 
 if __name__ == "__main__":
     uvicorn.run("nutriken_engine:app", host="0.0.0.0", port=7860, reload=False)
+
