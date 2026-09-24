@@ -173,8 +173,8 @@
       "class_en": "Lipid-lowering",
       "timing_es": "Con comida grasa",
       "timing_en": "With a fatty meal",
-      "why_es": "2–[DOSIS_CLINICA_REMOVIDA] bajan TG 20–30%; la grasa mejora la absorción.",
-      "why_en": "2–[DOSIS_CLINICA_REMOVIDA] lower TG 20–30%; fat improves absorption.",
+      "why_es": "[DOSIS_CLINICA_REMOVIDA] bajan TG 20–30%; la grasa mejora la absorción.",
+      "why_en": "[DOSIS_CLINICA_REMOVIDA] lower TG 20–30%; fat improves absorption.",
       "warn_es": "Sangrado con anticoagulantes a dosis altas.",
       "warn_en": "Bleeding with anticoagulants at high doses.",
       "evidence": "Clínico"
@@ -240,8 +240,8 @@
       "timing_en": "Any time",
       "why_es": "Analgésico/antipirético; no antiinflamatorio.",
       "why_en": "Analgesic/antipyretic; not anti-inflammatory.",
-      "warn_es": "Hepatotóxico >3–[DOSIS_CLINICA_REMOVIDA] o con alcohol. Sumar todas las fuentes.",
-      "warn_en": "Hepatotoxic >3–[DOSIS_CLINICA_REMOVIDA] or with alcohol. Count all sources.",
+      "warn_es": "Hepatotóxico >[DOSIS_CLINICA_REMOVIDA] o con alcohol. Sumar todas las fuentes.",
+      "warn_en": "Hepatotoxic >[DOSIS_CLINICA_REMOVIDA] or with alcohol. Count all sources.",
       "evidence": "Clínico"
     }
   }

@@ -27,8 +27,8 @@
         "mechanism_en": "Polyphenols improve glucose uptake and slow gastric emptying â†’ lower postprandial spike.",
         "snp_es": "Sin SNP validado; efecto dosis-dependiente.",
         "snp_en": "No validated SNP; dose-dependent effect.",
-        "practical_es": "1â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a de CEYLÃN (Cinnamomum verum), NO Cassia (cumarina hepatotÃ³xica), con el desayuno.",
-        "practical_en": "1â€“[DOSIS_CLINICA_REMOVIDA]y CEYLON (Cinnamomum verum), NOT Cassia (hepatotoxic coumarin), with breakfast.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a de CEYLÃN (Cinnamomum verum), NO Cassia (cumarina hepatotÃ³xica), con el desayuno.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA]y CEYLON (Cinnamomum verum), NOT Cassia (hepatotoxic coumarin), with breakfast.",
         "evidence": "ClÃ­nico (modesto)"
       },
       "ala": {
@@ -45,8 +45,8 @@
         "mechanism_en": "Soluble fiber + 4-hydroxyisoleucine: slows glucose absorption and stimulates insulin.",
         "snp_es": "Efecto posprandial consistente.",
         "snp_en": "Consistent postprandial effect.",
-        "practical_es": "5â€“[DOSIS_CLINICA_REMOVIDA] de semilla molida con las comidas de carbohidratos.",
-        "practical_en": "5â€“[DOSIS_CLINICA_REMOVIDA] ground seed with carbohydrate meals.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA] de semilla molida con las comidas de carbohidratos.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] ground seed with carbohydrate meals.",
         "evidence": "ClÃ­nico (moderado)"
       },
       "magnesium": {
@@ -54,8 +54,8 @@
         "mechanism_en": "Cofactor of the insulin-receptor cascade; deficiency worsens resistance.",
         "snp_es": "TRPM6 influye en el estatus de magnesio.",
         "snp_en": "TRPM6 influences magnesium status.",
-        "practical_es": "300â€“[DOSIS_CLINICA_REMOVIDA] (glicinato) por la noche. Separar de antibiÃ³ticos.",
-        "practical_en": "300â€“[DOSIS_CLINICA_REMOVIDA] (glycinate) at night. Separate from antibiotics.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA] (glicinato) por la noche. Separar de antibiÃ³ticos.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] (glycinate) at night. Separate from antibiotics.",
         "evidence": "ClÃ­nico"
       }
     },
@@ -81,8 +81,8 @@
         "mechanism_en": "EGCG inhibits COMT â†’ prolongs noradrenaline â†’ mild thermogenesis; potentiated by caffeine.",
         "snp_es": "FTO (rs9939609, riesgo A): mayor apetito; el ejercicio es su 'antÃ­doto'.",
         "snp_en": "FTO (rs9939609, A risk): higher appetite; exercise is its 'antidote'.",
-        "practical_es": "300â€“[DOSIS_CLINICA_REMOVIDA] EGCG por la tarde (16 h), NO en ayunas; con comida (riesgo hepÃ¡tico). ~-1.4 kg/12 sem.",
-        "practical_en": "300â€“[DOSIS_CLINICA_REMOVIDA] EGCG in the afternoon (4 pm), NOT fasting; with food (liver risk). ~-1.4 kg/12 wk.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA] EGCG por la tarde (16 h), NO en ayunas; con comida (riesgo hepÃ¡tico). ~-1.4 kg/12 sem.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] EGCG in the afternoon (4 pm), NOT fasting; with food (liver risk). ~-1.4 kg/12 wk.",
         "evidence": "Meta-anÃ¡lisis"
       },
       "glucomannan": {
@@ -117,8 +117,8 @@
         "mechanism_en": "Modulates PPARÎ³ and lipolysis; modest effect on body composition.",
         "snp_es": "Evidencia inconsistente.",
         "snp_en": "Inconsistent evidence.",
-        "practical_es": "3â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a con comida; puede empeorar resistencia a insulina a dosis altas.",
-        "practical_en": "3â€“[DOSIS_CLINICA_REMOVIDA]y with food; may worsen insulin resistance at high doses.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a con comida; puede empeorar resistencia a insulina a dosis altas.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA]y with food; may worsen insulin resistance at high doses.",
         "evidence": "ClÃ­nico (mixto)"
       }
     },
@@ -144,8 +144,8 @@
         "mechanism_en": "Allicin raises nitric oxide (vasodilation) and mildly inhibits ACE.",
         "snp_es": "ACE (rs4646994 I/D): el genotipo DD asocia PA mÃ¡s alta.",
         "snp_en": "ACE (rs4646994 I/D): DD genotype associates with higher BP.",
-        "practical_es": "600â€“[DOSIS_CLINICA_REMOVIDA] de extracto aÃ±ejado/dÃ­a. Baja PAS ~5â€“8 mmHg. Suspender 7â€“10 d antes de cirugÃ­a.",
-        "practical_en": "600â€“[DOSIS_CLINICA_REMOVIDA] aged extract/day. Lowers SBP ~5â€“8 mmHg. Stop 7â€“10 d before surgery.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA] de extracto aÃ±ejado/dÃ­a. Baja PAS ~5â€“8 mmHg. Suspender 7â€“10 d antes de cirugÃ­a.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] aged extract/day. Lowers SBP ~5â€“8 mmHg. Stop 7â€“10 d before surgery.",
         "evidence": "Meta-anÃ¡lisis"
       },
       "magnesium": {
@@ -153,8 +153,8 @@
         "mechanism_en": "Natural calcium antagonist in vascular smooth muscle â†’ vasodilation.",
         "snp_es": "DÃ©ficit frecuente empeora la PA.",
         "snp_en": "Common deficiency worsens BP.",
-        "practical_es": "300â€“[DOSIS_CLINICA_REMOVIDA] (glicinato) por la noche. Baja PAS ~2â€“4 mmHg.",
-        "practical_en": "300â€“[DOSIS_CLINICA_REMOVIDA] (glycinate) at night. Lowers SBP ~2â€“4 mmHg.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA] (glicinato) por la noche. Baja PAS ~2â€“4 mmHg.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] (glycinate) at night. Lowers SBP ~2â€“4 mmHg.",
         "evidence": "ClÃ­nico"
       },
       "omega3": {
@@ -162,8 +162,8 @@
         "mechanism_en": "EPA/DHA improve endothelial function and mildly lower BP.",
         "snp_es": "Beneficio dependiente de la dosis.",
         "snp_en": "Dose-dependent benefit.",
-        "practical_es": "2â€“[DOSIS_CLINICA_REMOVIDA] EPA+DHA/dÃ­a con comida grasa.",
-        "practical_en": "2â€“[DOSIS_CLINICA_REMOVIDA] EPA+DHA/day with a fatty meal.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA] EPA+DHA/dÃ­a con comida grasa.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] EPA+DHA/day with a fatty meal.",
         "evidence": "Meta-anÃ¡lisis"
       },
       "coq10": {
@@ -171,8 +171,8 @@
         "mechanism_en": "Improves endothelial mitochondrial efficiency; modest hypotensive effect.",
         "snp_es": "Mayor beneficio en dÃ©ficit (uso de estatinas).",
         "snp_en": "Greater benefit in deficiency (statin use).",
-        "practical_es": "100â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (ubiquinol) con comida grasa.",
-        "practical_en": "100â€“[DOSIS_CLINICA_REMOVIDA] (ubiquinol) with a fatty meal.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (ubiquinol) con comida grasa.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] (ubiquinol) with a fatty meal.",
         "evidence": "ClÃ­nico (mixto)"
       }
     },
@@ -214,8 +214,8 @@
         "mechanism_en": "Polyphenols inhibit HMGCR and ACAT; lower LDL and triglycerides.",
         "snp_es": "Alternativa/complemento en intolerancia a estatinas.",
         "snp_en": "Alternative/complement in statin intolerance.",
-        "practical_es": "500â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a antes de comidas.",
-        "practical_en": "500â€“[DOSIS_CLINICA_REMOVIDA] before meals.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a antes de comidas.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] before meals.",
         "evidence": "ClÃ­nico (moderado)"
       },
       "omega3": {
@@ -223,8 +223,8 @@
         "mechanism_en": "Lower hepatic VLDL synthesis â†’ fewer triglycerides.",
         "snp_es": "Efecto marcado en hipertrigliceridemia.",
         "snp_en": "Marked effect in hypertriglyceridemia.",
-        "practical_es": "2â€“[DOSIS_CLINICA_REMOVIDA] EPA+DHA/dÃ­a con comida grasa. TG -20â€“30%.",
-        "practical_en": "2â€“[DOSIS_CLINICA_REMOVIDA] EPA+DHA/day with a fatty meal. TG -20â€“30%.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA] EPA+DHA/dÃ­a con comida grasa. TG -20â€“30%.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] EPA+DHA/day with a fatty meal. TG -20â€“30%.",
         "evidence": "Meta-anÃ¡lisis"
       },
       "berberine": {
@@ -266,8 +266,8 @@
         "mechanism_en": "Silymarin: antioxidant hepatoprotector, stabilizes the hepatocyte membrane.",
         "snp_es": "Buen perfil de seguridad; evidencia mixta.",
         "snp_en": "Good safety; mixed evidence.",
-        "practical_es": "200â€“[DOSIS_CLINICA_REMOVIDA] silimarina/dÃ­a con comida.",
-        "practical_en": "200â€“[DOSIS_CLINICA_REMOVIDA] silymarin/day with food.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA] silimarina/dÃ­a con comida.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] silymarin/day with food.",
         "evidence": "ClÃ­nico (moderado)"
       },
       "berberine": {
@@ -284,8 +284,8 @@
         "mechanism_en": "Lower hepatic triglycerides and activate PPARÎ± (fatty-acid oxidation).",
         "snp_es": "Beneficio en el componente de TG.",
         "snp_en": "Benefit on the TG component.",
-        "practical_es": "2â€“[DOSIS_CLINICA_REMOVIDA] EPA+DHA/dÃ­a con comida grasa.",
-        "practical_en": "2â€“[DOSIS_CLINICA_REMOVIDA] EPA+DHA/day with a fatty meal.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA] EPA+DHA/dÃ­a con comida grasa.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] EPA+DHA/day with a fatty meal.",
         "evidence": "ClÃ­nico"
       },
       "choline": {
@@ -318,8 +318,8 @@
         "mechanism_en": "Inhibits NF-ÎºB and COX-2 (hsa04668 nodes) â†’ fewer pro-inflammatory cytokines.",
         "snp_es": "Sin SNP de rutina; efecto dependiente de biodisponibilidad.",
         "snp_en": "No routine SNP; effect depends on bioavailability.",
-        "practical_es": "1000â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a con piperina o fitosoma, con comida grasa. Suspender antes de cirugÃ­a.",
-        "practical_en": "1000â€“[DOSIS_CLINICA_REMOVIDA] with piperine or phytosome, with a fatty meal. Stop before surgery.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a con piperina o fitosoma, con comida grasa. Suspender antes de cirugÃ­a.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] with piperine or phytosome, with a fatty meal. Stop before surgery.",
         "evidence": "ClÃ­nico"
       },
       "omega3": {
@@ -327,8 +327,8 @@
         "mechanism_en": "EPA/DHA generate resolvins/protectins (SPMs) that actively RESOLVE inflammation.",
         "snp_es": "Ratio omega-6/3 alto amplifica la inflamaciÃ³n.",
         "snp_en": "High omega-6/3 ratio amplifies inflammation.",
-        "practical_es": "2â€“[DOSIS_CLINICA_REMOVIDA] EPA+DHA/dÃ­a con comida grasa.",
-        "practical_en": "2â€“[DOSIS_CLINICA_REMOVIDA] EPA+DHA/day with a fatty meal.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA] EPA+DHA/dÃ­a con comida grasa.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] EPA+DHA/day with a fatty meal.",
         "evidence": "Meta-anÃ¡lisis"
       },
       "boswellia": {
@@ -336,8 +336,8 @@
         "mechanism_en": "Boswellic acids (AKBA) inhibit 5-LOX â†’ fewer leukotrienes (osteoarthritis, IBD).",
         "snp_es": "Beneficio en artrosis y enfermedad inflamatoria intestinal.",
         "snp_en": "Benefit in osteoarthritis and IBD.",
-        "practical_es": "100â€“[DOSIS_CLINICA_REMOVIDA] AKBA/dÃ­a con comida grasa.",
-        "practical_en": "100â€“[DOSIS_CLINICA_REMOVIDA] AKBA/day with a fatty meal.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA] AKBA/dÃ­a con comida grasa.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] AKBA/day with a fatty meal.",
         "evidence": "ClÃ­nico"
       },
       "quercetin": {
@@ -370,8 +370,8 @@
         "mechanism_en": "EPA/DHA reduce hepatic VLDL synthesis â†’ fewer triglycerides (dose-dependent).",
         "snp_es": "APOA5 (rs662799): portadores con TG basales mÃ¡s altos responden bien.",
         "snp_en": "APOA5 (rs662799): carriers with higher baseline TG respond well.",
-        "practical_es": "2â€“[DOSIS_CLINICA_REMOVIDA] EPA+DHA/dÃ­a con comida grasa. TG -20â€“30%.",
-        "practical_en": "2â€“[DOSIS_CLINICA_REMOVIDA] EPA+DHA/day with a fatty meal. TG -20â€“30%.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA] EPA+DHA/dÃ­a con comida grasa. TG -20â€“30%.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] EPA+DHA/day with a fatty meal. TG -20â€“30%.",
         "evidence": "Meta-anÃ¡lisis"
       },
       "berberine": {
@@ -397,18 +397,18 @@
         "mechanism_en": "Soluble fiber reduces lipid and glucose absorption.",
         "snp_es": "Efecto posprandial.",
         "snp_en": "Postprandial effect.",
-        "practical_es": "5â€“[DOSIS_CLINICA_REMOVIDA] de semilla con comidas.",
-        "practical_en": "5â€“[DOSIS_CLINICA_REMOVIDA] seed with meals.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA] de semilla con comidas.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] seed with meals.",
         "evidence": "ClÃ­nico (moderado)"
       }
     },
     "expected_outcomes_es": [
-      "TG: omega-3 -20â€“30% a 2â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (efecto mÃ¡s potente).",
+      "TG: omega-3 -20â€“30% a [DOSIS_CLINICA_REMOVIDA]/dÃ­a (efecto mÃ¡s potente).",
       "LDL: levadura roja/berberina aditivos.",
       "Base: reducir azÃºcares simples y alcohol es clave para los TG."
     ],
     "expected_outcomes_en": [
-      "TG: omega-3 -20â€“30% at 2â€“[DOSIS_CLINICA_REMOVIDA]y (strongest effect).",
+      "TG: omega-3 -20â€“30% at [DOSIS_CLINICA_REMOVIDA]y (strongest effect).",
       "LDL: red yeast rice/berberine additive.",
       "Foundation: cutting simple sugars and alcohol is key for TG."
     ]
@@ -440,8 +440,8 @@
         "mechanism_en": "Enterocyte fuel: maintains gut barrier integrity.",
         "snp_es": "Ãštil en estrÃ©s/daÃ±o de mucosa.",
         "snp_en": "Useful in stress/mucosal damage.",
-        "practical_es": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (hasta 10â€“[DOSIS_CLINICA_REMOVIDA] en daÃ±o intestinal).",
-        "practical_en": "[DOSIS_CLINICA_REMOVIDA]y (up to 10â€“[DOSIS_CLINICA_REMOVIDA] in gut damage).",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (hasta [DOSIS_CLINICA_REMOVIDA] en daÃ±o intestinal).",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA]y (up to [DOSIS_CLINICA_REMOVIDA] in gut damage).",
         "evidence": "ClÃ­nico (mixto)"
       },
       "omega3": {
@@ -474,8 +474,8 @@
         "mechanism_en": "Corrects deficiency from damaged-mucosa malabsorption; bone health.",
         "snp_es": "DÃ©ficit muy frecuente al diagnÃ³stico.",
         "snp_en": "Very common deficiency at diagnosis.",
-        "practical_es": "2000â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a con control de 25-OH-D; con comida grasa.",
-        "practical_en": "2000â€“[DOSIS_CLINICA_REMOVIDA] with 25-OH-D monitoring; with a fatty meal.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a con control de 25-OH-D; con comida grasa.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] with 25-OH-D monitoring; with a fatty meal.",
         "evidence": "ClÃ­nico"
       },
       "iron": {
@@ -493,7 +493,7 @@
         "snp_es": "Verificar con Ã¡cido metilmalÃ³nico.",
         "snp_en": "Confirm with methylmalonic acid.",
         "practical_es": "500â€“1000 Âµg/dÃ­a (sublingual si malabsorciÃ³n).",
-        "practical_en": "500â€“[DOSIS_CLINICA_REMOVIDA] (sublingual if malabsorption).",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] (sublingual if malabsorption).",
         "evidence": "ClÃ­nico"
       },
       "probiotics": {
@@ -527,7 +527,7 @@
         "snp_es": "MTHFR (rs1801133 C677T): menor actividad enzimÃ¡tica â†’ preferir metilfolato.",
         "snp_en": "MTHFR (rs1801133 C677T): lower enzyme activity â†’ prefer methylfolate.",
         "practical_es": "400â€“800 Âµg/dÃ­a de metilfolato. No enmascarar dÃ©ficit de B12.",
-        "practical_en": "400â€“[DOSIS_CLINICA_REMOVIDA] methylfolate. Don't mask B12 deficiency.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] methylfolate. Don't mask B12 deficiency.",
         "evidence": "ClÃ­nico"
       },
       "b12": {
@@ -536,7 +536,7 @@
         "snp_es": "Verificar antes de suplementar folato solo.",
         "snp_en": "Confirm before supplementing folate alone.",
         "practical_es": "500â€“1000 Âµg/dÃ­a (metilcobalamina).",
-        "practical_en": "500â€“[DOSIS_CLINICA_REMOVIDA] (methylcobalamin).",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] (methylcobalamin).",
         "evidence": "ClÃ­nico"
       }
     },
@@ -560,8 +560,8 @@
         "mechanism_en": "EGCG inhibits COMT â†’ prolongs noradrenaline â†’ mild thermogenesis.",
         "snp_es": "FTO (rs9939609, A): mayor apetito; el ejercicio lo contrarresta.",
         "snp_en": "FTO (rs9939609, A): higher appetite; exercise counteracts it.",
-        "practical_es": "300â€“[DOSIS_CLINICA_REMOVIDA] EGCG por la tarde, con comida. ~-1.4 kg/12 sem.",
-        "practical_en": "300â€“[DOSIS_CLINICA_REMOVIDA] EGCG in the afternoon, with food. ~-1.4 kg/12 wk.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA] EGCG por la tarde, con comida. ~-1.4 kg/12 sem.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] EGCG in the afternoon, with food. ~-1.4 kg/12 wk.",
         "evidence": "Meta-anÃ¡lisis",
         "kinetics_es": "Por la tarde: el pico de noradrenalina no interfiere con el sueÃ±o; con comida evita hepatotoxicidad.",
         "kinetics_en": "Afternoon: the noradrenaline peak doesn't disrupt sleep; with food avoids hepatotoxicity.",
@@ -600,8 +600,8 @@
         "mechanism_en": "Serotonin precursor â†’ increases satiety and reduces snacking.",
         "snp_es": "Respuesta variable.",
         "snp_en": "Variable response.",
-        "practical_es": "50â€“[DOSIS_CLINICA_REMOVIDA] antes de comidas o noche.",
-        "practical_en": "50â€“[DOSIS_CLINICA_REMOVIDA] before meals or at night.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA] antes de comidas o noche.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] before meals or at night.",
         "evidence": "ClÃ­nico (limitado)",
         "contra_es": "NO combinar con ISRS/IMAO (riesgo de sÃ­ndrome serotoninÃ©rgico).",
         "contra_en": "Do NOT combine with SSRIs/MAOIs (serotonin syndrome risk)."
@@ -672,8 +672,8 @@
         "mechanism_en": "Choleretic: cynarin increases bile flow and improves fat digestion.",
         "snp_es": "Sin SNP de rutina.",
         "snp_en": "No routine SNP.",
-        "practical_es": "300â€“[DOSIS_CLINICA_REMOVIDA] antes de las comidas.",
-        "practical_en": "300â€“[DOSIS_CLINICA_REMOVIDA] before meals.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA] antes de las comidas.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] before meals.",
         "evidence": "ClÃ­nico (moderado)",
         "contra_es": "CONTRAINDICADO si hay obstrucciÃ³n de la vÃ­a biliar (puede precipitar cÃ³lico).",
         "contra_en": "CONTRAINDICATED in bile duct obstruction (may precipitate colic)."
@@ -683,8 +683,8 @@
         "mechanism_en": "Hepatoprotector; supports hepatobiliary function.",
         "snp_es": "Buen perfil de seguridad.",
         "snp_en": "Good safety.",
-        "practical_es": "200â€“[DOSIS_CLINICA_REMOVIDA] silimarina/dÃ­a.",
-        "practical_en": "200â€“[DOSIS_CLINICA_REMOVIDA] silymarin/day.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA] silimarina/dÃ­a.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] silymarin/day.",
         "evidence": "ClÃ­nico (moderado)"
       },
       "vitc": {
@@ -717,8 +717,8 @@
         "mechanism_en": "Statins lower CoQ10; repletion improves associated myalgia.",
         "snp_es": "SLCO1B1 (rs4149056): mayor riesgo de miopatÃ­a por estatinas.",
         "snp_en": "SLCO1B1 (rs4149056): higher statin-myopathy risk.",
-        "practical_es": "100â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (ubiquinol) con comida grasa.",
-        "practical_en": "100â€“[DOSIS_CLINICA_REMOVIDA] (ubiquinol) with a fatty meal.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (ubiquinol) con comida grasa.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] (ubiquinol) with a fatty meal.",
         "evidence": "ClÃ­nico (mixto)"
       },
       "milkthistle": {
@@ -726,8 +726,8 @@
         "mechanism_en": "Hepatoprotector; useful for mild transaminase elevation.",
         "snp_es": "â€”",
         "snp_en": "â€”",
-        "practical_es": "200â€“[DOSIS_CLINICA_REMOVIDA] silimarina/dÃ­a.",
-        "practical_en": "200â€“[DOSIS_CLINICA_REMOVIDA] silymarin/day.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA] silimarina/dÃ­a.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] silymarin/day.",
         "evidence": "ClÃ­nico (moderado)"
       },
       "red_yeast_rice": {
@@ -746,8 +746,8 @@
         "mechanism_en": "Reduces triglycerides, useful complement to lipid therapy.",
         "snp_es": "â€”",
         "snp_en": "â€”",
-        "practical_es": "2â€“[DOSIS_CLINICA_REMOVIDA] EPA+DHA/dÃ­a con comida grasa.",
-        "practical_en": "2â€“[DOSIS_CLINICA_REMOVIDA] EPA+DHA/day with a fatty meal.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA] EPA+DHA/dÃ­a con comida grasa.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] EPA+DHA/day with a fatty meal.",
         "evidence": "ClÃ­nico"
       }
     },
@@ -771,8 +771,8 @@
         "mechanism_en": "Silibinin stabilizes the hepatocyte membrane and is antioxidant.",
         "snp_es": "Buen perfil de seguridad.",
         "snp_en": "Good safety.",
-        "practical_es": "200â€“[DOSIS_CLINICA_REMOVIDA] silimarina/dÃ­a con comida.",
-        "practical_en": "200â€“[DOSIS_CLINICA_REMOVIDA] silymarin/day with food.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA] silimarina/dÃ­a con comida.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] silymarin/day with food.",
         "evidence": "ClÃ­nico (moderado)",
         "contra_es": "InhibiciÃ³n leve de CYP2C9/3A4: precauciÃ³n con warfarina y sustratos.",
         "contra_en": "Mild CYP2C9/3A4 inhibition: caution with warfarin and substrates."
@@ -791,8 +791,8 @@
         "mechanism_en": "Regenerates glutathione and other antioxidants; liver support.",
         "snp_es": "â€”",
         "snp_en": "â€”",
-        "practical_es": "300â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a en ayunas.",
-        "practical_en": "300â€“[DOSIS_CLINICA_REMOVIDA] fasting.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a en ayunas.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] fasting.",
         "evidence": "ClÃ­nico"
       },
       "artichoke": {
@@ -800,8 +800,8 @@
         "mechanism_en": "Choleretic and digestive; complements hepatobiliary support.",
         "snp_es": "â€”",
         "snp_en": "â€”",
-        "practical_es": "300â€“[DOSIS_CLINICA_REMOVIDA] antes de comidas.",
-        "practical_en": "300â€“[DOSIS_CLINICA_REMOVIDA] before meals.",
+        "practical_es": "[DOSIS_CLINICA_REMOVIDA] antes de comidas.",
+        "practical_en": "[DOSIS_CLINICA_REMOVIDA] before meals.",
         "evidence": "ClÃ­nico (moderado)",
         "contra_es": "Evitar en obstrucciÃ³n biliar.",
         "contra_en": "Avoid in bile duct obstruction."

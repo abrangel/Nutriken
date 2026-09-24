@@ -2453,7 +2453,7 @@ DESCRIPTIONS = {
         "â€¢ **DÃ©ficit de micronutrientes** comÃºn en dietas restrictivas: B12, hierro, calcio, vitamina D, zinc. SuplementaciÃ³n basal recomendada.\n"
         "â€¢ **Efedra (Ma huang) â€” PROHIBIDA**: arritmias, infarto, muerte sÃºbita.\n"
         "â€¢ **Productos 'quemadores de grasa'** sin regulaciÃ³n frecuentemente contienen sibutramina o estimulantes no declarados â€” evitar.\n\n"
-        "**Recomendaciones nutricionales.** DÃ©ficit calÃ³rico moderado de 500-750 kcal/dÃ­a. ProteÃ­na â‰¥1.[DOSIS_CLINICA_REMOVIDA]/kg/dÃ­a para preservar masa magra. "
+        "**Recomendaciones nutricionales.** DÃ©ficit calÃ³rico moderado de 500-750 kcal/dÃ­a. ProteÃ­na â‰¥[DOSIS_CLINICA_REMOVIDA]/kg/dÃ­a para preservar masa magra. "
         "PatrÃ³n mediterrÃ¡neo o DASH como base. Restringir ultraprocesados, azÃºcares libres y alcohol. Ejercicio combinado aerÃ³bico + resistencia "
         "150 min/semana mÃ­nimo."
     ),
@@ -2465,7 +2465,7 @@ DESCRIPTIONS = {
         "pacientes con pÃ©rdida rÃ¡pida desarrollan cÃ¡lculos sintomÃ¡ticos. **UDCA [DOSIS_CLINICA_REMOVIDA]/dÃ­a** durante la pÃ©rdida activa reduce esta incidencia "
         "al 2%.\n"
         "â€¢ **PÃ©rdida de masa magra**: hasta 25-30% del peso perdido puede ser mÃºsculo si no se hace ejercicio de resistencia y no se mantiene "
-        "ingesta proteica adecuada (â‰¥1.[DOSIS_CLINICA_REMOVIDA]/kg).\n"
+        "ingesta proteica adecuada (â‰¥[DOSIS_CLINICA_REMOVIDA]/kg).\n"
         "â€¢ **DÃ©ficits nutricionales**: B12, hierro, folato, vitamina D, magnesio, zinc.\n"
         "â€¢ **Alteraciones del ciclo menstrual** en mujeres, descenso de testosterona en hombres con dÃ©ficits muy agresivos.\n\n"
         "**Suplementos coadyuvantes.**\n\n"
@@ -2641,8 +2641,8 @@ DESCRIPTIONS = {
         "â€¢ **Regaliz (glycyrrhizin)** â†’ hipertensiÃ³n por seudohiperaldosteronismo. **CONTRAINDICADO en HTA**.\n"
         "â€¢ **Efedra/Ma huang, naranja amarga (sinefrina)** â†’ vasoconstrictores. **PROHIBIDOS**.\n"
         "â€¢ **Yohimbina** â†’ estimulante adrenÃ©rgico, eleva PA.\n\n"
-        "**Dieta DASH.** Frutas, verduras, lÃ¡cteos desnatados, frutos secos, granos integrales, pescado. Restringir sodio <2.[DOSIS_CLINICA_REMOVIDA]/dÃ­a (idealmente "
-        "1.[DOSIS_CLINICA_REMOVIDA])."
+        "**Dieta DASH.** Frutas, verduras, lÃ¡cteos desnatados, frutos secos, granos integrales, pescado. Restringir sodio <[DOSIS_CLINICA_REMOVIDA]/dÃ­a (idealmente "
+        "[DOSIS_CLINICA_REMOVIDA])."
     ),
     "diabetes": (
         "**Diabetes mellitus tipo 2.** Hiperglucemia crÃ³nica por resistencia a la insulina y disfunciÃ³n progresiva de cÃ©lulas Î²-pancreÃ¡ticas. "
@@ -2761,9 +2761,9 @@ DESCRIPTIONS = {
         "**SuplementaciÃ³n.**\n\n"
         "â€¢ **Colecalciferol (D3)** preferido sobre ergocalciferol (D2).\n"
         "â€¢ \n"
-        "â€¢ DÃ©ficit establecido: 50.[DOSIS_CLINICA_REMOVIDA]/semana Ã— 8-12 semanas seguido de mantenimiento, o pautas diarias equivalentes.\n"
+        "â€¢ DÃ©ficit establecido: [DOSIS_CLINICA_REMOVIDA]/semana Ã— 8-12 semanas seguido de mantenimiento, o pautas diarias equivalentes.\n"
         "â€¢ Calcio dietÃ©tico adecuado ([DOSIS_CLINICA_REMOVIDA]/dÃ­a) y vitamina K2 para dirigir el calcio al hueso (no a vasos).\n\n"
-        "**Toxicidad.** Hipercalcemia con dosis crÃ³nicas >10.[DOSIS_CLINICA_REMOVIDA]/dÃ­a sin supervisiÃ³n. Monitorizar calcemia si dosis altas."
+        "**Toxicidad.** Hipercalcemia con dosis crÃ³nicas >[DOSIS_CLINICA_REMOVIDA]/dÃ­a sin supervisiÃ³n. Monitorizar calcemia si dosis altas."
     ),
     "folate deficiency": (
         "**DÃ©ficit de folato.** Causa de anemia macrocÃ­tica megaloblÃ¡stica (junto con B12) y de defectos del tubo neural en el embarazo.\n\n"

@@ -10,8 +10,8 @@
       "name": "Omega-3 (EPA/DHA)",
       "category_es": "Ãcido graso",
       "category_en": "Fatty acid",
-      "standard_dose": "250â€“[DOSIS_CLINICA_REMOVIDA] EPA+DHA/dÃ­a",
-      "therapeutic_dose": "2â€“[DOSIS_CLINICA_REMOVIDA] EPA+DHA/dÃ­a (hipertrigliceridemia)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA] EPA+DHA/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA] EPA+DHA/dÃ­a (hipertrigliceridemia)",
       "form_es": "Aceite de pescado (TG o Ã©ster etÃ­lico)",
       "form_en": "Fish oil (TG or ethyl ester)",
       "timing_es": "Con comida grasa",
@@ -20,32 +20,22 @@
       "evidence": "ClÃ­nico (meta-anÃ¡lisis)",
       "interactions_es": "Anticoagulantes/antiplaquetarios a dosis altas",
       "interactions_en": "Anticoagulants/antiplatelets at high doses",
-      "notes_es": "Reduce TG 20â€“30% con 2â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a. Elegir ratio EPA:DHA segÃºn objetivo (EPAâ†’TG/Ã¡nimo).",
-      "notes_en": "Lowers TG 20â€“30% at 2â€“[DOSIS_CLINICA_REMOVIDA]y. Pick EPA:DHA ratio by goal (EPAâ†’TG/mood).",
+      "notes_es": "Reduce TG 20â€“30% con [DOSIS_CLINICA_REMOVIDA]/dÃ­a. Elegir ratio EPA:DHA segÃºn objetivo (EPAâ†’TG/Ã¡nimo).",
+      "notes_en": "Lowers TG 20â€“30% at [DOSIS_CLINICA_REMOVIDA]y. Pick EPA:DHA ratio by goal (EPAâ†’TG/mood).",
       "name_es": "Omega-3 (EPA/DHA)",
       "name_en": "Omega-3 (EPA/DHA)",
       "safety": {
         "stop_days_before_surgery": 7,
         "bleeding_risk": true
-      },
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "36637075",
-        "31383846",
-        "28741625",
-        "40444522",
-        "32114706"
-      ],
-      "reference": "Welty FK Omega-3 fatty acids and cognitive function. Curr Opin Lipidol 2023. PMID 36637075"
+      }
     },
     {
       "slug": "vitd",
       "name": "Vitamina D3",
       "category_es": "Vitamina liposoluble",
       "category_en": "Fat-soluble vitamin",
-      "standard_dose": "800â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "4000â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (dÃ©ficit, con control 25-OH-D)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (dÃ©ficit, con control 25-OH-D)",
       "form_es": "Colecalciferol (D3)",
       "form_en": "Cholecalciferol (D3)",
       "timing_es": "Con comida grasa",
@@ -57,25 +47,15 @@
       "notes_es": "Objetivo 25-OH-D 30â€“50 ng/mL. Cofactores: magnesio y K2.",
       "notes_en": "Target 25-OH-D 30â€“50 ng/mL. Cofactors: magnesium and K2.",
       "name_es": "Vitamina D3",
-      "name_en": "Vitamina D3",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "31405892",
-        "22552031",
-        "38337676",
-        "39552387",
-        "39421966"
-      ],
-      "reference": "Zhang Y et al. Association between vitamin D supplementation and mortality: systematic review and meta-analysis. BMJ 2019. PMID 31405892"
+      "name_en": "Vitamina D3"
     },
     {
       "slug": "magnesium",
       "name": "Magnesio",
       "category_es": "Mineral",
       "category_en": "Mineral",
-      "standard_dose": "200â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (elemental)",
-      "therapeutic_dose": "300â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (migraÃ±a, calambres, sueÃ±o)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (elemental)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (migraÃ±a, calambres, sueÃ±o)",
       "form_es": "Glicinato/citrato/malato",
       "form_en": "Glycinate/citrate/malate",
       "timing_es": "Noche (glicinato) o con comida",
@@ -91,17 +71,7 @@
       "safety": {
         "separate_from_es": "Separar 2â€“4 h de antibiÃ³ticos (quinolonas/tetraciclinas) y bifosfonatos.",
         "separate_from_en": "Separate 2â€“4 h from antibiotics (quinolones/tetracyclines) and bisphosphonates."
-      },
-      "pubchem_cid": 5462224,
-      "inchikey": "FYYHWMGAXLPEAU-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "33865376",
-        "39009081",
-        "29637897",
-        "35277037",
-        "39404918"
-      ],
-      "reference": "Mah J et al. Oral magnesium supplementation for insomnia in older adults: a Systematic Review & Meta-Analysis. BMC Complement Med Ther 2021. PMID 33865376"
+      }
     },
     {
       "slug": "berberine",
@@ -121,25 +91,15 @@
       "notes_es": "Baja HbA1c ~0.7â€“1%. Efecto tipo metformina. GI si dosis Ãºnica alta â†’ repartir.",
       "notes_en": "Lowers HbA1c ~0.7â€“1%. Metformin-like. GI upset if single high dose â†’ split.",
       "name_es": "Berberina",
-      "name_en": "Berberina",
-      "pubchem_cid": 2353,
-      "inchikey": "YBHILYKTIRIUTE-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "32690176",
-        "39640489",
-        "39998703",
-        "40029660",
-        "30393248"
-      ],
-      "reference": "Asbaghi O et al. The effect of berberine supplementation on obesity parameters, inflammation and liver function enzymes: A systematic review and meta-analysis of randomized controlled trials. Clin Nutr ESPEN 2020. PMID 32690176"
+      "name_en": "Berberina"
     },
     {
       "slug": "curcumin",
       "name": "Curcumina",
       "category_es": "Polifenol",
       "category_en": "Polyphenol",
-      "standard_dose": "500â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (extracto)",
-      "therapeutic_dose": "1000â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (con piperina o formulaciÃ³n)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (extracto)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (con piperina o formulaciÃ³n)",
       "form_es": "Extracto 95% curcuminoides + piperina/fitosomas",
       "form_en": "95% curcuminoid extract + piperine/phytosome",
       "timing_es": "Con comida grasa",
@@ -155,24 +115,14 @@
       "safety": {
         "stop_days_before_surgery": 7,
         "bleeding_risk": true
-      },
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "36804260",
-        "35935936",
-        "36720711",
-        "9619120",
-        "36901908"
-      ],
-      "reference": "Dehzad MJ et al. Antioxidant and anti-inflammatory effects of curcumin/turmeric supplementation in adults: A GRADE-assessed systematic review and dose-response meta-analysis of randomized controlled trials. Cytokine 2023. PMID 36804260"
+      }
     },
     {
       "slug": "coq10",
       "name": "Coenzima Q10",
       "category_es": "Ubiquinona",
       "category_en": "Ubiquinone",
-      "standard_dose": "100â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
       "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (miopatÃ­a por estatinas, IC)",
       "form_es": "Ubiquinol (reducido) o ubiquinona",
       "form_en": "Ubiquinol (reduced) or ubiquinone",
@@ -185,55 +135,35 @@
       "notes_es": "Ubiquinol mejor absorbido >50 aÃ±os. Ãštil en mialgia por estatinas.",
       "notes_en": "Ubiquinol better absorbed >50 y. Useful for statin myalgia.",
       "name_es": "Coenzima Q10",
-      "name_en": "Coenzima Q10",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "24410614",
-        "37256098",
-        "37346240",
-        "37560769",
-        "32331285"
-      ],
-      "reference": "Seet RC et al. Does high-dose coenzyme Q10 improve oxidative damage and clinical outcomes in Parkinson's disease? Antioxid Redox Signal 2014. PMID 24410614"
+      "name_en": "Coenzima Q10"
     },
     {
       "slug": "creatine",
       "name": "Creatina",
       "category_es": "AminoÃ¡cido derivado",
       "category_en": "Amino acid derivative",
-      "standard_dose": "3â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (mantenimiento)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (mantenimiento)",
       "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a 5â€“7 d (carga, opcional)",
       "form_es": "Monohidrato",
       "form_en": "Monohydrate",
       "timing_es": "Cualquier hora; constante",
       "timing_en": "Any time; consistent",
-      "upper_limit": "No aplica (seguro a 3â€“[DOSIS_CLINICA_REMOVIDA])",
+      "upper_limit": "No aplica (seguro a [DOSIS_CLINICA_REMOVIDA])",
       "evidence": "ClÃ­nico (fuerte)",
       "interactions_es": "Ninguna clÃ­nicamente relevante",
       "interactions_en": "None clinically relevant",
       "notes_es": "Fuerza/masa y cogniciÃ³n. Monohidrato es el estÃ¡ndar de oro. HidrataciÃ³n.",
       "notes_en": "Strength/mass and cognition. Monohydrate is gold standard. Hydrate.",
       "name_es": "Creatina",
-      "name_en": "Creatina",
-      "pubchem_cid": 80116,
-      "inchikey": "MEJYXFHCRXAUIL-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "35984306",
-        "39070254",
-        "40265319",
-        "41199218",
-        "36877404"
-      ],
-      "reference": "Prokopidis K et al. Effects of creatine supplementation on memory in healthy individuals: a systematic review and meta-analysis of randomized controlled trials. Nutr Rev 2023. PMID 35984306"
+      "name_en": "Creatina"
     },
     {
       "slug": "melatonin",
       "name": "Melatonina",
       "category_es": "Neurohormona",
       "category_en": "Neurohormone",
-      "standard_dose": "0.5â€“[DOSIS_CLINICA_REMOVIDA]",
-      "therapeutic_dose": "0.5â€“[DOSIS_CLINICA_REMOVIDA] (jet lag, insomnio de inicio)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA] (jet lag, insomnio de inicio)",
       "form_es": "LiberaciÃ³n inmediata o prolongada",
       "form_en": "Immediate or prolonged release",
       "timing_es": "30â€“60 min antes de dormir",
@@ -245,25 +175,15 @@
       "notes_es": "Dosis baja suele bastar; mÃ¡s no es mejor. CronobiÃ³tico (regula fase).",
       "notes_en": "Low dose usually enough; more isn't better. Chronobiotic (phase-shifts).",
       "name_es": "Melatonina",
-      "name_en": "Melatonina",
-      "pubchem_cid": 896,
-      "inchikey": "DRLFMBDRBRZALE-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "33417003",
-        "38888087",
-        "23691095",
-        "40662882",
-        "39534260"
-      ],
-      "reference": "Fatemeh G et al. Effect of melatonin supplementation on sleep quality: a systematic review and meta-analysis of randomized controlled trials. J Neurol 2022. PMID 33417003"
+      "name_en": "Melatonina"
     },
     {
       "slug": "zinc",
       "name": "Zinc",
       "category_es": "Mineral",
       "category_en": "Mineral",
-      "standard_dose": "8â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "25â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (corto plazo, resfriado)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (corto plazo, resfriado)",
       "form_es": "Citrato/picolinato/gluconato",
       "form_en": "Citrate/picolinate/gluconate",
       "timing_es": "Con comida (evita nÃ¡usea)",
@@ -272,32 +192,22 @@
       "evidence": "ClÃ­nico",
       "interactions_es": "AntibiÃ³ticos (quinolonas); cobre (deplece con uso crÃ³nico)",
       "interactions_en": "Antibiotics (quinolones); copper (depletes with chronic use)",
-      "notes_es": ">[DOSIS_CLINICA_REMOVIDA]/dÃ­a crÃ³nico â†’ aÃ±adir 1â€“[DOSIS_CLINICA_REMOVIDA] cobre. AbsorciÃ³n compite con hierro.",
-      "notes_en": ">[DOSIS_CLINICA_REMOVIDA] chronic â†’ add 1â€“[DOSIS_CLINICA_REMOVIDA] copper. Absorption competes with iron.",
+      "notes_es": ">[DOSIS_CLINICA_REMOVIDA]/dÃ­a crÃ³nico â†’ aÃ±adir [DOSIS_CLINICA_REMOVIDA] cobre. AbsorciÃ³n compite con hierro.",
+      "notes_en": ">[DOSIS_CLINICA_REMOVIDA] chronic â†’ add [DOSIS_CLINICA_REMOVIDA] copper. Absorption competes with iron.",
       "name_es": "Zinc",
       "name_en": "Zinc",
       "safety": {
         "separate_from_es": "Separar 2 h de quinolonas y del hierro.",
         "separate_from_en": "Separate 2 h from quinolones and iron."
-      },
-      "pubchem_cid": 23994,
-      "inchikey": "HCHKCACWOHOZIP-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "39641338",
-        "39683510",
-        "31910279",
-        "36849195",
-        "35599332"
-      ],
-      "reference": "Ali AA et al. Zinc supplementation for acute and persistent watery diarrhoea in children: A systematic review and meta-analysis. J Glob Health 2024. PMID 39641338"
+      }
     },
     {
       "slug": "vitc",
       "name": "Vitamina C",
       "category_es": "Vitamina hidrosoluble",
       "category_en": "Water-soluble vitamin",
-      "standard_dose": "75â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (RDA)",
-      "therapeutic_dose": "500â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (antioxidante)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (RDA)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (antioxidante)",
       "form_es": "Ãcido ascÃ³rbico / liposomal",
       "form_en": "Ascorbic acid / liposomal",
       "timing_es": "Repartida; con comida",
@@ -313,17 +223,7 @@
       "safety": {
         "oncology_caution_es": "Dosis altas antioxidantes pueden interferir con radio/quimio pro-oxidante â€” separar del ciclo.",
         "oncology_caution_en": "High antioxidant doses may blunt pro-oxidant chemo/radiotherapy â€” separate from cycle."
-      },
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "23440782",
-        "37417662",
-        "38931263",
-        "38820340",
-        "41210509"
-      ],
-      "reference": "Hemilä H et al. Vitamin C for preventing and treating the common cold. Cochrane Database Syst Rev 2013. PMID 23440782"
+      }
     },
     {
       "slug": "b12",
@@ -343,17 +243,7 @@
       "notes_es": "Sublingual o IM si malabsorciÃ³n. Verificar con Ã¡cido metilmalÃ³nico.",
       "notes_en": "Sublingual or IM if malabsorption. Confirm with methylmalonic acid.",
       "name_es": "Vitamina B12",
-      "name_en": "Vitamina B12",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "33809274",
-        "38231320",
-        "37334792",
-        "33513879",
-        "38794680"
-      ],
-      "reference": "Markun S et al. Effects of Vitamin B12 Supplementation on Cognitive Function, Depressive Symptoms, and Fatigue: A Systematic Review, Meta-Analysis, and Meta-Regression. Nutrients 2021. PMID 33809274"
+      "name_en": "Vitamina B12"
     },
     {
       "slug": "folate",
@@ -373,25 +263,15 @@
       "notes_es": "En MTHFR C677T preferir metilfolato. No enmascarar dÃ©ficit de B12.",
       "notes_en": "In MTHFR C677T prefer methylfolate. Don't mask B12 deficiency.",
       "name_es": "Folato (B9)",
-      "name_en": "Folato (B9)",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "26662928",
-        "1677062",
-        "38465839",
-        "34672229",
-        "23338728"
-      ],
-      "reference": "De-Regil LM et al. Effects and safety of periconceptional oral folate supplementation for preventing birth defects. Cochrane Database Syst Rev 2015. PMID 26662928"
+      "name_en": "Folato (B9)"
     },
     {
       "slug": "iron",
       "name": "Hierro",
       "category_es": "Mineral",
       "category_en": "Mineral",
-      "standard_dose": "8â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (RDA)",
-      "therapeutic_dose": "40â€“[DOSIS_CLINICA_REMOVIDA] elemental (dÃ©ficit, dÃ­as alternos)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (RDA)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA] elemental (dÃ©ficit, dÃ­as alternos)",
       "form_es": "Bisglicinato / sulfato ferroso",
       "form_en": "Bisglycinate / ferrous sulfate",
       "timing_es": "En ayunas + vit C; dÃ­as alternos",
@@ -407,24 +287,14 @@
       "safety": {
         "separate_from_es": "Separar 4 h de levotiroxina, calcio, cafÃ©/tÃ© y quinolonas.",
         "separate_from_en": "Separate 4 h from levothyroxine, calcium, coffee/tea and quinolones."
-      },
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "37497686",
-        "36728680",
-        "39951396",
-        "29032957",
-        "39909327"
-      ],
-      "reference": "Leung AKC et al. Iron Deficiency Anemia: An Updated Review. Curr Pediatr Rev 2024. PMID 37497686"
+      }
     },
     {
       "slug": "calcium",
       "name": "Calcio",
       "category_es": "Mineral",
       "category_en": "Mineral",
-      "standard_dose": "1000â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (dieta+suplemento)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (dieta+suplemento)",
       "therapeutic_dose": "â‰¤[DOSIS_CLINICA_REMOVIDA] por toma (fraccionar)",
       "form_es": "Citrato (mejor si IBP) / carbonato",
       "form_en": "Citrate (better with PPIs) / carbonate",
@@ -441,17 +311,7 @@
       "safety": {
         "separate_from_es": "Separar 4 h de levotiroxina, hierro y quinolonas/tetraciclinas.",
         "separate_from_en": "Separate 4 h from levothyroxine, iron and quinolones/tetracyclines."
-      },
-      "pubchem_cid": 5460341,
-      "inchikey": "OYPRJOBELJOOCE-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "38302677",
-        "38467003",
-        "15886487",
-        "2425832",
-        "10517720"
-      ],
-      "reference": "Wright D et al. Calcium supplementation for the prevention of pre-eclampsia: Challenging the evidence from meta-analyses. BJOG 2024. PMID 38302677"
+      }
     },
     {
       "slug": "k2",
@@ -475,24 +335,14 @@
       "safety": {
         "note_es": "Contraindicado con warfarina.",
         "note_en": "Contraindicated with warfarin."
-      },
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "23525894",
-        "35465686",
-        "42268593",
-        "25694037",
-        "37299386"
-      ],
-      "reference": "Knapen MH et al. Three-year low-dose menaquinone-7 supplementation helps decrease bone loss in healthy postmenopausal women. Osteoporos Int 2013. PMID 23525894"
+      }
     },
     {
       "slug": "ashwagandha",
       "name": "Ashwagandha",
       "category_es": "AdaptÃ³geno (hierba)",
       "category_en": "Adaptogen (herb)",
-      "standard_dose": "300â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (extracto KSM-66/Sensoril)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (extracto KSM-66/Sensoril)",
       "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (estrÃ©s/cortisol)",
       "form_es": "Extracto de raÃ­z estandarizado",
       "form_en": "Standardized root extract",
@@ -505,25 +355,15 @@
       "notes_es": "Reduce cortisol y ansiedad. PrecauciÃ³n en hipertiroidismo y embarazo.",
       "notes_en": "Lowers cortisol and anxiety. Caution in hyperthyroidism and pregnancy.",
       "name_es": "Ashwagandha",
-      "name_en": "Ashwagandha",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "36017529",
-        "34559859",
-        "31517876",
-        "33670194",
-        "26609282"
-      ],
-      "reference": "Akhgarjand C et al. Does Ashwagandha supplementation have a beneficial effect on the management of anxiety and stress? A systematic review and meta-analysis of randomized controlled trials. Phytother Res 2022. PMID 36017529"
+      "name_en": "Ashwagandha"
     },
     {
       "slug": "rhodiola",
       "name": "Rhodiola rosea",
       "category_es": "AdaptÃ³geno (hierba)",
       "category_en": "Adaptogen (herb)",
-      "standard_dose": "200â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (3% rosavinas/1% salidrÃ³sido)",
-      "therapeutic_dose": "400â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (fatiga)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (3% rosavinas/1% salidrÃ³sido)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (fatiga)",
       "form_es": "Extracto de raÃ­z",
       "form_en": "Root extract",
       "timing_es": "MaÃ±ana, en ayunas",
@@ -535,17 +375,7 @@
       "notes_es": "Anti-fatiga y rendimiento cognitivo bajo estrÃ©s. Puede activar â†’ evitar noche.",
       "notes_en": "Anti-fatigue and cognition under stress. May be activating â†’ avoid at night.",
       "name_es": "Rhodiola rosea",
-      "name_en": "Rhodiola rosea",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "35311615",
-        "26502953",
-        "11081987",
-        "40873122",
-        "41374026"
-      ],
-      "reference": "Sarris J et al. Clinician guidelines for the treatment of psychiatric disorders with nutraceuticals and phytoceuticals: The World Federation of Societies of Biological Psychiatry (WFSBP) and Canadian Network for Mood and Anxiety Treatments (CANMAT) Taskforce. World J Biol Psychiatry 2022. PMID 35311615"
+      "name_en": "Rhodiola rosea"
     },
     {
       "slug": "probiotics",
@@ -565,17 +395,7 @@
       "notes_es": "Efecto es CEPA-especÃ­fico: elegir cepa segÃºn indicaciÃ³n, no 'genÃ©rico'.",
       "notes_en": "Effect is STRAIN-specific: choose strain by indication, not 'generic'.",
       "name_es": "ProbiÃ³ticos",
-      "name_en": "ProbiÃ³ticos",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "41081513",
-        "39242081",
-        "36099162",
-        "38286962",
-        "28934296"
-      ],
-      "reference": "Dimidi E et al. British Dietetic Association Guidelines for the Dietary Management of Chronic Constipation in Adults. J Hum Nutr Diet 2025. PMID 41081513"
+      "name_en": "ProbiÃ³ticos"
     },
     {
       "slug": "psyllium",
@@ -583,7 +403,7 @@
       "category_es": "Fibra soluble",
       "category_en": "Soluble fiber",
       "standard_dose": "[DOSIS_CLINICA_REMOVIDA] 1â€“3Ã—/dÃ­a",
-      "therapeutic_dose": "10â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (colesterol/glucemia)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (colesterol/glucemia)",
       "form_es": "CÃ¡scara de Plantago ovata",
       "form_en": "Plantago ovata husk",
       "timing_es": "Con agua abundante, antes de comidas",
@@ -599,17 +419,7 @@
       "safety": {
         "separate_from_es": "Separar 2â€“4 h de cualquier fÃ¡rmaco (reduce absorciÃ³n).",
         "separate_from_en": "Separate 2â€“4 h from any drug (reduces absorption)."
-      },
-      "pubchem_cid": 181572,
-      "inchikey": "HQRWEDFDJHDPJC-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "35816465",
-        "37078654",
-        "30239559",
-        "37778464",
-        "37163454"
-      ],
-      "reference": "van der Schoot A et al. The Effect of Fiber Supplementation on Chronic Constipation in Adults: An Updated Systematic Review and Meta-Analysis of Randomized Controlled Trials. Am J Clin Nutr 2022. PMID 35816465"
+      }
     },
     {
       "slug": "nac",
@@ -617,7 +427,7 @@
       "category_es": "AminoÃ¡cido modificado",
       "category_en": "Modified amino acid",
       "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "1200â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (mucolÃ­tico, hepatoprotecciÃ³n)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (mucolÃ­tico, hepatoprotecciÃ³n)",
       "form_es": "NAC",
       "form_en": "NAC",
       "timing_es": "Con o sin comida",
@@ -633,25 +443,15 @@
       "safety": {
         "oncology_caution_es": "Antioxidante: puede interferir con quimio pro-oxidante â€” supervisiÃ³n oncolÃ³gica.",
         "oncology_caution_en": "Antioxidant: may interfere with pro-oxidant chemo â€” oncology supervision."
-      },
-      "pubchem_cid": 12035,
-      "inchikey": "PWKSKIMOESPYIA-BYPYZUCNSA-N",
-      "pubmed_pmids": [
-        "35975308",
-        "33783984",
-        "32900213",
-        "29473717",
-        "39415242"
-      ],
-      "reference": "Kumar P et al. Supplementing Glycine and N-Acetylcysteine (GlyNAC) in Older Adults Improves Glutathione Deficiency, Oxidative Stress, Mitochondrial Dysfunction, Inflammation, Physical Function, and Aging Hallmarks: A Randomized Clinical Trial. J Gerontol A Biol Sci Med Sci 2023. PMID 35975308"
+      }
     },
     {
       "slug": "ala",
       "name": "Ãcido alfa-lipoico",
       "category_es": "Antioxidante",
       "category_en": "Antioxidant",
-      "standard_dose": "300â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "600â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (neuropatÃ­a diabÃ©tica)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (neuropatÃ­a diabÃ©tica)",
       "form_es": "R-ALA o racÃ©mico",
       "form_en": "R-ALA or racemic",
       "timing_es": "En ayunas, antes de comida",
@@ -663,17 +463,7 @@
       "notes_es": "R-ALA mÃ¡s biodisponible. Mejora sensibilidad a insulina y neuropatÃ­a.",
       "notes_en": "R-ALA more bioavailable. Improves insulin sensitivity and neuropathy.",
       "name_es": "Ãcido alfa-lipoico",
-      "name_en": "Ãcido alfa-lipoico",
-      "pubchem_cid": 864,
-      "inchikey": "AGBQKNBQESQNJD-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "36480969",
-        "39404918",
-        "37630823",
-        "31405030",
-        "17065669"
-      ],
-      "reference": "An P et al. Micronutrient Supplementation to Reduce Cardiovascular Risk. J Am Coll Cardiol 2022. PMID 36480969"
+      "name_en": "Ãcido alfa-lipoico"
     },
     {
       "slug": "quercetin",
@@ -696,24 +486,14 @@
       "name_en": "Quercetina",
       "safety": {
         "bleeding_risk": true
-      },
-      "pubchem_cid": 5280343,
-      "inchikey": "REFJWTPEDVJJIY-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "36480969",
-        "40037045",
-        "38447616",
-        "30616998",
-        "30000838"
-      ],
-      "reference": "An P et al. Micronutrient Supplementation to Reduce Cardiovascular Risk. J Am Coll Cardiol 2022. PMID 36480969"
+      }
     },
     {
       "slug": "resveratrol",
       "name": "Resveratrol",
       "category_es": "Polifenol (estilbeno)",
       "category_en": "Polyphenol (stilbene)",
-      "standard_dose": "150â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
       "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (estudios metabÃ³licos)",
       "form_es": "Trans-resveratrol",
       "form_en": "Trans-resveratrol",
@@ -730,24 +510,14 @@
       "safety": {
         "stop_days_before_surgery": 7,
         "bleeding_risk": true
-      },
-      "pubchem_cid": 445154,
-      "inchikey": "LUKBXSAWLPMMSZ-OWOJBTEDSA-N",
-      "pubmed_pmids": [
-        "35240291",
-        "33441476",
-        "38794742",
-        "36159792",
-        "32564438"
-      ],
-      "reference": "Mahjabeen W et al. Role of resveratrol supplementation in regulation of glucose hemostasis, inflammation and oxidative stress in patients with diabetes mellitus type 2: A randomized, placebo-controlled trial. Complement Ther Med 2022. PMID 35240291"
+      }
     },
     {
       "slug": "egcg",
       "name": "EGCG (tÃ© verde)",
       "category_es": "Catequina",
       "category_en": "Catechin",
-      "standard_dose": "300â€“[DOSIS_CLINICA_REMOVIDA] EGCG/dÃ­a",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA] EGCG/dÃ­a",
       "therapeutic_dose": "Hasta [DOSIS_CLINICA_REMOVIDA]/dÃ­a (con precauciÃ³n hepÃ¡tica)",
       "form_es": "Extracto estandarizado de tÃ© verde",
       "form_en": "Standardized green tea extract",
@@ -760,25 +530,15 @@
       "notes_es": "Tomar CON comida. Vigilar transaminasas si dosis alta prolongada.",
       "notes_en": "Take WITH food. Monitor transaminases if prolonged high dose.",
       "name_es": "EGCG (tÃ© verde)",
-      "name_en": "EGCG (tÃ© verde)",
-      "pubchem_cid": 65064,
-      "inchikey": "WMBWREPUVVBILR-WIYYLYMNSA-N",
-      "pubmed_pmids": [
-        "26093535",
-        "39213264",
-        "40126033",
-        "42679470",
-        "34561541"
-      ],
-      "reference": "Chen IJ et al. Therapeutic effect of high-dose green tea extract on weight reduction: A randomized, double-blind, placebo-controlled clinical trial. Clin Nutr 2016. PMID 26093535"
+      "name_en": "EGCG (tÃ© verde)"
     },
     {
       "slug": "milkthistle",
       "name": "Cardo mariano (silimarina)",
       "category_es": "Hepatoprotector (hierba)",
       "category_en": "Hepatoprotector (herb)",
-      "standard_dose": "200â€“[DOSIS_CLINICA_REMOVIDA] silimarina/dÃ­a",
-      "therapeutic_dose": "420â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (hepatopatÃ­a)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA] silimarina/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (hepatopatÃ­a)",
       "form_es": "Extracto 70â€“80% silimarina",
       "form_en": "70â€“80% silymarin extract",
       "timing_es": "Con comida",
@@ -790,17 +550,7 @@
       "notes_es": "Hepatoprotector antioxidante. Evidencia mixta pero buen perfil de seguridad.",
       "notes_en": "Antioxidant hepatoprotector. Mixed evidence but good safety.",
       "name_es": "Cardo mariano (silimarina)",
-      "name_en": "Cardo mariano (silimarina)",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "31069872",
-        "28419855",
-        "40886393",
-        "25514914",
-        "30733935"
-      ],
-      "reference": "Soleimani V et al. Safety and toxicity of silymarin, the major constituent of milk thistle extract: An updated review. Phytother Res 2019. PMID 31069872"
+      "name_en": "Cardo mariano (silimarina)"
     },
     {
       "slug": "sawpalmetto",
@@ -820,58 +570,37 @@
       "notes_es": "SÃ­ntomas de HPB; evidencia inconsistente. Puede alterar PSA.",
       "notes_en": "BPH symptoms; inconsistent evidence. May alter PSA.",
       "name_es": "Saw palmetto",
-      "name_en": "Saw palmetto",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "32066284",
-        "23063633",
-        "30880074",
-        "39911983",
-        "19921983"
-      ],
-      "reference": "York K et al. A review of the treatment of male pattern hair loss. Expert Opin Pharmacother 2020. PMID 32066284"
+      "name_en": "Saw palmetto"
     },
     {
       "slug": "ginkgo",
       "name": "Ginkgo biloba",
       "category_es": "NootrÃ³pico (hierba)",
       "category_en": "Nootropic (herb)",
-      "standard_dose": "120â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (EGb 761)",
-      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (cogniciÃ³n/circulaciÃ³n)",
-      "form_es": "Extracto estandarizado 24/6",
-      "form_en": "Standardized extract 24/6",
-      "timing_es": "Repartido, con comida",
-      "timing_en": "Split, with food",
-      "upper_limit": "No establecido",
-      "evidence": "ClÃ­nico (moderado)",
-      "interactions_es": "Alto riesgo con anticoagulantes/antiplaquetarios; suspender 7â€“10 d antes de cirugÃ­a",
-      "interactions_en": "High risk with anticoagulants/antiplatelets; stop 7â€“10 d before surgery",
-      "notes_es": "Antiagregante: Â¡cuidado con warfarina! Sangrado documentado.",
-      "notes_en": "Antiplatelet: caution with warfarin! Documented bleeding.",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (EGb [DOSIS_CLINICA_REMOVIDA]/dÃ­a (cogniciÃ³n/circulaciÃ³n)",
+      "therapeutic_dose": "Extracto estandarizado 24/6",
+      "form_es": "Standardized extract 24/6",
+      "form_en": "Repartido, con comida",
+      "timing_es": "Split, with food",
+      "timing_en": "No establecido",
+      "upper_limit": "ClÃ­nico (moderado)",
+      "evidence": "Alto riesgo con anticoagulantes/antiplaquetarios; suspender 7â€“10 d antes de cirugÃ­a",
+      "interactions_es": "High risk with anticoagulants/antiplatelets; stop 7â€“10 d before surgery",
+      "interactions_en": "Antiagregante: Â¡cuidado con warfarina! Sangrado documentado.",
+      "notes_es": "Antiplatelet: caution with warfarin! Documented bleeding.",
       "name_es": "Ginkgo biloba",
       "name_en": "Ginkgo biloba",
       "safety": {
         "stop_days_before_surgery": 10,
         "bleeding_risk": true
-      },
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "19017911",
-        "23538078",
-        "38929090",
-        "25114079",
-        "40768551"
-      ],
-      "reference": "DeKosky ST et al. Ginkgo biloba for prevention of dementia: a randomized controlled trial. JAMA 2008. PMID 19017911"
+      }
     },
     {
       "slug": "ginseng",
       "name": "Ginseng (Panax)",
       "category_es": "AdaptÃ³geno (hierba)",
       "category_en": "Adaptogen (herb)",
-      "standard_dose": "200â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (4â€“7% ginsenÃ³sidos)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (4â€“7% ginsenÃ³sidos)",
       "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (fatiga/glucemia)",
       "form_es": "Extracto de raÃ­z estandarizado",
       "form_en": "Standardized root extract",
@@ -888,25 +617,15 @@
       "safety": {
         "stop_days_before_surgery": 7,
         "bleeding_risk": true
-      },
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "33439265",
-        "41747733",
-        "37686709",
-        "40414584",
-        "38731094"
-      ],
-      "reference": "Heymsfield SB et al. Effect of Bimagrumab vs Placebo on Body Fat Mass Among Adults With Type 2 Diabetes and Obesity: A Phase 2 Randomized Clinical Trial. JAMA Netw Open 2021. PMID 33439265"
+      }
     },
     {
       "slug": "garlic",
       "name": "Ajo (alicina)",
       "category_es": "Fitoterapia (hierba)",
       "category_en": "Phytotherapy (herb)",
-      "standard_dose": "600â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (extracto)",
-      "therapeutic_dose": "â‰ˆ3.6â€“5.[DOSIS_CLINICA_REMOVIDA] alicina/dÃ­a",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (extracto)",
+      "therapeutic_dose": "â‰ˆ3.[DOSIS_CLINICA_REMOVIDA] alicina/dÃ­a",
       "form_es": "Extracto aÃ±ejado/comprimido con recubrimiento entÃ©rico",
       "form_en": "Aged extract/enteric-coated tablet",
       "timing_es": "Con comida",
@@ -922,24 +641,14 @@
       "safety": {
         "stop_days_before_surgery": 10,
         "bleeding_risk": true
-      },
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "36351465",
-        "37686723",
-        "40580481",
-        "31511230",
-        "11697022"
-      ],
-      "reference": "Laffin LJ et al. Comparative Effects of Low-Dose Rosuvastatin, Placebo, and Dietary Supplements on Lipids and Inflammatory Biomarkers. J Am Coll Cardiol 2023. PMID 36351465"
+      }
     },
     {
       "slug": "cinnamon",
       "name": "Canela (Ceylan)",
       "category_es": "Especia funcional",
       "category_en": "Functional spice",
-      "standard_dose": "1â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
       "therapeutic_dose": "â‰¤[DOSIS_CLINICA_REMOVIDA]/dÃ­a corto plazo (glucemia)",
       "form_es": "CeylÃ¡n (baja cumarina) preferido sobre Cassia",
       "form_en": "Ceylon (low coumarin) preferred over Cassia",
@@ -952,17 +661,7 @@
       "notes_es": "Usar CeylÃ¡n para evitar cumarina. Efecto glucÃ©mico modesto.",
       "notes_en": "Use Ceylon to avoid coumarin. Modest glycemic effect.",
       "name_es": "Canela (Ceylan)",
-      "name_en": "Canela (Ceylan)",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "37818728",
-        "24019277",
-        "39998703",
-        "29605574",
-        "38917435"
-      ],
-      "reference": "Moridpour AH et al. The effect of cinnamon supplementation on glycemic control in patients with type 2 diabetes mellitus: An updated systematic review and dose-response meta-analysis of randomized controlled trials. Phytother Res 2024. PMID 37818728"
+      "name_en": "Canela (Ceylan)"
     },
     {
       "slug": "chromium",
@@ -982,17 +681,7 @@
       "notes_es": "Puede mejorar sensibilidad a insulina; evidencia heterogÃ©nea.",
       "notes_en": "May improve insulin sensitivity; heterogeneous evidence.",
       "name_es": "Cromo (picolinato)",
-      "name_en": "Cromo (picolinato)",
-      "pubchem_cid": 151932,
-      "inchikey": "CBDQOLKNTOMMTL-UHFFFAOYSA-K",
-      "pubmed_pmids": [
-        "34970669",
-        "39541030",
-        "34013788",
-        "33183560",
-        "37952433"
-      ],
-      "reference": "Alesi S et al. Nutritional Supplements and Complementary Therapies in Polycystic Ovary Syndrome. Adv Nutr 2022. PMID 34970669"
+      "name_en": "Cromo (picolinato)"
     },
     {
       "slug": "inositol",
@@ -1000,7 +689,7 @@
       "category_es": "Poliol",
       "category_en": "Polyol",
       "standard_dose": "[DOSIS_CLINICA_REMOVIDA] 2Ã—/dÃ­a ([DOSIS_CLINICA_REMOVIDA]/dÃ­a)",
-      "therapeutic_dose": "2â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (SOP, con D-chiro 40:1)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (SOP, con D-chiro 40:1)",
       "form_es": "Mio-inositol (+ D-chiro-inositol 40:1)",
       "form_en": "Myo-inositol (+ D-chiro-inositol 40:1)",
       "timing_es": "Repartido, con comida",
@@ -1012,25 +701,15 @@
       "notes_es": "SOP: mejora ovulaciÃ³n y resistencia a insulina. Ratio 40:1 mio:D-chiro.",
       "notes_en": "PCOS: improves ovulation and insulin resistance. 40:1 myo:D-chiro ratio.",
       "name_es": "Mio-inositol",
-      "name_en": "Mio-inositol",
-      "pubchem_cid": 892,
-      "inchikey": "CDAISMWEOUEBRE-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "40920401",
-        "36790138",
-        "39698034",
-        "23764390",
-        "25670222"
-      ],
-      "reference": "van der Wel AWT et al. Myo-inositol Supplementation to Prevent Pregnancy Complications in Polycystic Ovary Syndrome: A Randomized Clinical Trial. JAMA 2025. PMID 40920401"
+      "name_en": "Mio-inositol"
     },
     {
       "slug": "taurine",
       "name": "Taurina",
       "category_es": "AminoÃ¡cido",
       "category_en": "Amino acid",
-      "standard_dose": "500â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "3â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (rendimiento/cardiometabÃ³lico)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (rendimiento/cardiometabÃ³lico)",
       "form_es": "Taurina",
       "form_en": "Taurine",
       "timing_es": "Cualquier hora",
@@ -1042,17 +721,7 @@
       "notes_es": "Cardio y metabÃ³lico; buen perfil de seguridad.",
       "notes_en": "Cardio and metabolic; good safety profile.",
       "name_es": "Taurina",
-      "name_en": "Taurina",
-      "pubchem_cid": 1123,
-      "inchikey": "XOAAWQZATWQOTB-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "37934220",
-        "39148075",
-        "32877582",
-        "37357646",
-        "36615738"
-      ],
-      "reference": "McPheeters M et al. Pharmacotherapy for Alcohol Use Disorder: A Systematic Review and Meta-Analysis. JAMA 2023. PMID 37934220"
+      "name_en": "Taurina"
     },
     {
       "slug": "glycine",
@@ -1060,7 +729,7 @@
       "category_es": "AminoÃ¡cido",
       "category_en": "Amino acid",
       "standard_dose": "[DOSIS_CLINICA_REMOVIDA] antes de dormir",
-      "therapeutic_dose": "3â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (sueÃ±o/metabÃ³lico)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (sueÃ±o/metabÃ³lico)",
       "form_es": "Glicina",
       "form_en": "Glycine",
       "timing_es": "Antes de dormir",
@@ -1072,25 +741,15 @@
       "notes_es": "Mejora calidad del sueÃ±o y sensibilidad a insulina.",
       "notes_en": "Improves sleep quality and insulin sensitivity.",
       "name_es": "Glicina",
-      "name_en": "Glicina",
-      "pubchem_cid": 750,
-      "inchikey": "DHMQDGOQFOQNFH-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "35975308",
-        "36728680",
-        "32416072",
-        "33783984",
-        "32530764"
-      ],
-      "reference": "Kumar P et al. Supplementing Glycine and N-Acetylcysteine (GlyNAC) in Older Adults Improves Glutathione Deficiency, Oxidative Stress, Mitochondrial Dysfunction, Inflammation, Physical Function, and Aging Hallmarks: A Randomized Clinical Trial. J Gerontol A Biol Sci Med Sci 2023. PMID 35975308"
+      "name_en": "Glicina"
     },
     {
       "slug": "ltheanine",
       "name": "L-teanina",
       "category_es": "AminoÃ¡cido",
       "category_en": "Amino acid",
-      "standard_dose": "100â€“[DOSIS_CLINICA_REMOVIDA]",
-      "therapeutic_dose": "200â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (ansiedad/foco)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (ansiedad/foco)",
       "form_es": "L-teanina",
       "form_en": "L-theanine",
       "timing_es": "Con o sin cafeÃ­na",
@@ -1102,25 +761,15 @@
       "notes_es": "Calma sin sedaciÃ³n. Sinergia con cafeÃ­na para foco.",
       "notes_en": "Calm without sedation. Synergy with caffeine for focus.",
       "name_es": "L-teanina",
-      "name_en": "L-teanina",
-      "pubchem_cid": 439378,
-      "inchikey": "DATAGRPVKZEWHA-YFKPBYRVSA-N",
-      "pubmed_pmids": [
-        "31623400",
-        "18681988",
-        "40056718",
-        "21040626",
-        "31758301"
-      ],
-      "reference": "Hidese S et al. Effects of L-Theanine Administration on Stress-Related Symptoms and Cognitive Functions in Healthy Adults: A Randomized Controlled Trial. Nutrients 2019. PMID 31623400"
+      "name_en": "L-teanina"
     },
     {
       "slug": "5htp",
       "name": "5-HTP",
       "category_es": "Precursor de serotonina",
       "category_en": "Serotonin precursor",
-      "standard_dose": "50â€“[DOSIS_CLINICA_REMOVIDA]",
-      "therapeutic_dose": "100â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (Ã¡nimo/sueÃ±o)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (Ã¡nimo/sueÃ±o)",
       "form_es": "5-hidroxitriptÃ³fano",
       "form_en": "5-hydroxytryptophan",
       "timing_es": "Noche; con carbohidrato",
@@ -1132,17 +781,7 @@
       "notes_es": "NO combinar con antidepresivos serotoninÃ©rgicos. Empezar bajo.",
       "notes_en": "Do NOT combine with serotonergic antidepressants. Start low.",
       "name_es": "5-HTP",
-      "name_en": "5-HTP",
-      "pubchem_cid": 144,
-      "inchikey": "LDCYZAJDBXYCGN-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "16023217",
-        "38309227",
-        "39189588",
-        "16162083",
-        "40944161"
-      ],
-      "reference": "Turner EH et al. Serotonin a la carte: supplementation with the serotonin precursor 5-hydroxytryptophan. Pharmacol Ther 2006. PMID 16023217"
+      "name_en": "5-HTP"
     },
     {
       "slug": "same",
@@ -1150,7 +789,7 @@
       "category_es": "Donante de metilo",
       "category_en": "Methyl donor",
       "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "800â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (depresiÃ³n/artrosis)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (depresiÃ³n/artrosis)",
       "form_es": "S-adenosil-metionina entÃ©rica",
       "form_en": "Enteric S-adenosyl-methionine",
       "timing_es": "En ayunas",
@@ -1162,17 +801,7 @@
       "notes_es": "Ãnimo y articulaciones. PrecauciÃ³n en trastorno bipolar.",
       "notes_en": "Mood and joints. Caution in bipolar disorder.",
       "name_es": "SAMe",
-      "name_en": "SAMe",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "10902097",
-        "32520732",
-        "32939220",
-        "24352086",
-        "40668877"
-      ],
-      "reference": "Echols JC et al. SAMe (S-adenosylmethionine). Harv Rev Psychiatry 2000. PMID 10902097"
+      "name_en": "SAMe"
     },
     {
       "slug": "glucosamine",
@@ -1192,17 +821,7 @@
       "notes_es": "Sulfato > HCl en evidencia. Efecto lento (semanas).",
       "notes_en": "Sulfate > HCl in evidence. Slow onset (weeks).",
       "name_es": "Glucosamina",
-      "name_en": "Glucosamina",
-      "pubchem_cid": 73415774,
-      "inchikey": "WLNBMPZUVDTASE-HXIISURNSA-N",
-      "pubmed_pmids": [
-        "40647198",
-        "40253594",
-        "26822714",
-        "38581640",
-        "40095377"
-      ],
-      "reference": "Baden KER et al. The Safety and Efficacy of Glucosamine and/or Chondroitin in Humans: A Systematic Review. Nutrients 2025. PMID 40647198"
+      "name_en": "Glucosamina"
     },
     {
       "slug": "collagen",
@@ -1219,27 +838,17 @@
       "evidence": "ClÃ­nico (emergente)",
       "interactions_es": "Ninguna relevante",
       "interactions_en": "None relevant",
-      "notes_es": "Piel/articulaciones a 10â€“[DOSIS_CLINICA_REMOVIDA]. TendÃ³n: [DOSIS_CLINICA_REMOVIDA] + vit C antes de cargar.",
-      "notes_en": "Skin/joints at 10â€“[DOSIS_CLINICA_REMOVIDA]. Tendon: [DOSIS_CLINICA_REMOVIDA] + vit C before loading.",
+      "notes_es": "Piel/articulaciones a [DOSIS_CLINICA_REMOVIDA]. TendÃ³n: [DOSIS_CLINICA_REMOVIDA] + vit C antes de cargar.",
+      "notes_en": "Skin/joints at [DOSIS_CLINICA_REMOVIDA]. Tendon: [DOSIS_CLINICA_REMOVIDA] + vit C before loading.",
       "name_es": "ColÃ¡geno (pÃ©ptidos)",
-      "name_en": "ColÃ¡geno (pÃ©ptidos)",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "34491424",
-        "37822045",
-        "23949208",
-        "24401291",
-        "40935395"
-      ],
-      "reference": "Khatri M et al. The effects of collagen peptide supplementation on body composition, collagen synthesis, and recovery from joint injury and exercise: a systematic review. Amino Acids 2021. PMID 34491424"
+      "name_en": "ColÃ¡geno (pÃ©ptidos)"
     },
     {
       "slug": "vite",
       "name": "Vitamina E",
       "category_es": "Vitamina liposoluble",
       "category_en": "Fat-soluble vitamin",
-      "standard_dose": "[DOSIS_CLINICA_REMOVIDA] (22.[DOSIS_CLINICA_REMOVIDA])/dÃ­a",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA] ([DOSIS_CLINICA_REMOVIDA])/dÃ­a",
       "therapeutic_dose": "â‰¤[DOSIS_CLINICA_REMOVIDA] ([DOSIS_CLINICA_REMOVIDA])/dÃ­a",
       "form_es": "d-alfa-tocoferol (mezcla de tocoferoles)",
       "form_en": "d-alpha-tocopherol (mixed tocopherols)",
@@ -1256,17 +865,7 @@
       "safety": {
         "stop_days_before_surgery": 7,
         "bleeding_risk": true
-      },
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "37571239",
-        "31017554",
-        "32892350",
-        "35277015",
-        "28544241"
-      ],
-      "reference": "Xiong Z et al. Vitamin E and Multiple Health Outcomes: An Umbrella Review of Meta-Analyses. Nutrients 2023. PMID 37571239"
+      }
     },
     {
       "slug": "selenium",
@@ -1286,17 +885,7 @@
       "notes_es": "Ãštil en tiroiditis de Hashimoto. TÃ³xico por encima del UL.",
       "notes_en": "Useful in Hashimoto's thyroiditis. Toxic above UL.",
       "name_es": "Selenio",
-      "name_en": "Selenio",
-      "pubchem_cid": 6326970,
-      "inchikey": "BUGBHKTXTAQXES-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "38243784",
-        "40898469",
-        "36050880",
-        "30899530",
-        "37335715"
-      ],
-      "reference": "Huwiler VV et al. Selenium Supplementation in Patients with Hashimoto Thyroiditis: A Systematic Review and Meta-Analysis of Randomized Clinical Trials. Thyroid 2024. PMID 38243784"
+      "name_en": "Selenio"
     },
     {
       "slug": "iodine",
@@ -1316,24 +905,14 @@
       "notes_es": "Exceso tan daÃ±ino como dÃ©ficit. Cuidado con algas no dosificadas.",
       "notes_en": "Excess as harmful as deficiency. Beware undosed kelp.",
       "name_es": "Yodo",
-      "name_en": "Yodo",
-      "pubchem_cid": 807,
-      "inchikey": "PNDPGZBMCMUPRI-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "36154284",
-        "8427204",
-        "37562272",
-        "31689890",
-        "37966688"
-      ],
-      "reference": "Pötsch N et al. Contrast-enhanced Mammography versus Contrast-enhanced Breast MRI: A Systematic Review and Meta-Analysis. Radiology 2022. PMID 36154284"
+      "name_en": "Yodo"
     },
     {
       "slug": "potassium",
       "name": "Potasio",
       "category_es": "Electrolito",
       "category_en": "Electrolyte",
-      "standard_dose": "3500â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (dieta)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (dieta)",
       "therapeutic_dose": "â‰¤[DOSIS_CLINICA_REMOVIDA]/dosis (suplemento OTC)",
       "form_es": "Citrato/cloruro (bajo control)",
       "form_en": "Citrate/chloride (monitored)",
@@ -1346,17 +925,7 @@
       "notes_es": "Preferir dieta. Suplementar solo con control (arritmias).",
       "notes_en": "Prefer diet. Supplement only with monitoring (arrhythmia).",
       "name_es": "Potasio",
-      "name_en": "Potasio",
-      "pubchem_cid": 5462222,
-      "inchikey": "ZLMJMSJWJFRBEC-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "32500831",
-        "23558164",
-        "27289164",
-        "9624886",
-        "40504011"
-      ],
-      "reference": "Filippini T et al. Potassium Intake and Blood Pressure: A Dose-Response Meta-Analysis of Randomized Controlled Trials. J Am Heart Assoc 2020. PMID 32500831"
+      "name_en": "Potasio"
     },
     {
       "slug": "vita",
@@ -1380,25 +949,15 @@
       "safety": {
         "note_es": "Retinol teratÃ³geno: no exceder en embarazo.",
         "note_en": "Retinol is teratogenic: don't exceed in pregnancy."
-      },
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "29947134",
-        "38643780",
-        "12080400",
-        "22254063",
-        "38816049"
-      ],
-      "reference": "Dhaliwal S et al. Prospective, randomized, double-blind assessment of topical bakuchiol and retinol for facial photoageing. Br J Dermatol 2019. PMID 29947134"
+      }
     },
     {
       "slug": "b1",
       "name": "Vitamina B1 (tiamina)",
       "category_es": "Vitamina hidrosoluble",
       "category_en": "Water-soluble vitamin",
-      "standard_dose": "1.1â€“1.[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "100â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (dÃ©ficit, alcoholismo)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (dÃ©ficit, alcoholismo)",
       "form_es": "Tiamina / benfotiamina",
       "form_en": "Thiamine / benfotiamine",
       "timing_es": "Con comida",
@@ -1410,24 +969,14 @@
       "notes_es": "Benfotiamina (liposoluble) mejor en neuropatÃ­a. DÃ©ficit comÃºn en alcoholismo.",
       "notes_en": "Benfotiamine (fat-soluble) better for neuropathy. Deficiency common in alcoholism.",
       "name_es": "Vitamina B1 (tiamina)",
-      "name_en": "Vitamina B1 (tiamina)",
-      "pubchem_cid": 1130,
-      "inchikey": "JZRWCGZRTZMZEH-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "35365361",
-        "37306546",
-        "38306946",
-        "30467601",
-        "31950979"
-      ],
-      "reference": "Berger MM et al. ESPEN micronutrient guideline. Clin Nutr 2022. PMID 35365361"
+      "name_en": "Vitamina B1 (tiamina)"
     },
     {
       "slug": "b2",
       "name": "Vitamina B2 (riboflavina)",
       "category_es": "Vitamina hidrosoluble",
       "category_en": "Water-soluble vitamin",
-      "standard_dose": "1.1â€“1.[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
       "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (profilaxis de migraÃ±a)",
       "form_es": "Riboflavina",
       "form_en": "Riboflavin",
@@ -1440,25 +989,15 @@
       "notes_es": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a reduce frecuencia de migraÃ±a (efecto a 3 meses). Orina amarilla fluor.",
       "notes_en": "[DOSIS_CLINICA_REMOVIDA] reduces migraine frequency (effect at 3 months). Bright yellow urine.",
       "name_es": "Vitamina B2 (riboflavina)",
-      "name_en": "Vitamina B2 (riboflavina)",
-      "pubchem_cid": 493570,
-      "inchikey": "AUNGANRZJHBGPY-SCRDCRAPSA-N",
-      "pubmed_pmids": [
-        "35365361",
-        "33779525",
-        "39404918",
-        "38051700",
-        "40708203"
-      ],
-      "reference": "Berger MM et al. ESPEN micronutrient guideline. Clin Nutr 2022. PMID 35365361"
+      "name_en": "Vitamina B2 (riboflavina)"
     },
     {
       "slug": "b3",
       "name": "Vitamina B3 (niacina)",
       "category_es": "Vitamina hidrosoluble",
       "category_en": "Water-soluble vitamin",
-      "standard_dose": "14â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "500â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (dislipidemia, con control)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (dislipidemia, con control)",
       "form_es": "Niacina / nicotinamida",
       "form_en": "Niacin / nicotinamide",
       "timing_es": "Con comida",
@@ -1470,25 +1009,15 @@
       "notes_es": "Niacina sube HDL/baja Lp(a) pero causa flushing; vigilar hÃ­gado y glucosa.",
       "notes_en": "Niacin raises HDL/lowers Lp(a) but causes flushing; monitor liver and glucose.",
       "name_es": "Vitamina B3 (niacina)",
-      "name_en": "Vitamina B3 (niacina)",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "35365361",
-        "37651119",
-        "27673306",
-        "41655607",
-        "27184282"
-      ],
-      "reference": "Berger MM et al. ESPEN micronutrient guideline. Clin Nutr 2022. PMID 35365361"
+      "name_en": "Vitamina B3 (niacina)"
     },
     {
       "slug": "b6",
       "name": "Vitamina B6 (piridoxina)",
       "category_es": "Vitamina hidrosoluble",
       "category_en": "Water-soluble vitamin",
-      "standard_dose": "1.3â€“1.[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "10â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (SPM, nÃ¡usea gestacional)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (SPM, nÃ¡usea gestacional)",
       "form_es": "Piridoxina / P5P",
       "form_en": "Pyridoxine / P5P",
       "timing_es": "Con comida",
@@ -1500,17 +1029,7 @@
       "notes_es": "No exceder crÃ³nicamente: neuropatÃ­a sensitiva por exceso. P5P forma activa.",
       "notes_en": "Don't exceed chronically: sensory neuropathy from excess. P5P is active form.",
       "name_es": "Vitamina B6 (piridoxina)",
-      "name_en": "Vitamina B6 (piridoxina)",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "36719452",
-        "30562392",
-        "27731292",
-        "36608063",
-        "19046719"
-      ],
-      "reference": "Jayawardena R et al. The effects of pyridoxine (vitamin B6) supplementation in nausea and vomiting during pregnancy: a systematic review and meta-analysis. Arch Gynecol Obstet 2023. PMID 36719452"
+      "name_en": "Vitamina B6 (piridoxina)"
     },
     {
       "slug": "biotin",
@@ -1518,7 +1037,7 @@
       "category_es": "Vitamina hidrosoluble",
       "category_en": "Water-soluble vitamin",
       "standard_dose": "30 Âµg/dÃ­a",
-      "therapeutic_dose": "2.5â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (pelo/uÃ±as, evidencia limitada)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (pelo/uÃ±as, evidencia limitada)",
       "form_es": "Biotina",
       "form_en": "Biotin",
       "timing_es": "Con comida",
@@ -1534,25 +1053,15 @@
       "safety": {
         "note_es": "Suspender 48â€“72 h antes de anÃ¡lisis de sangre (falsea resultados).",
         "note_en": "Stop 48â€“72 h before blood tests (skews results)."
-      },
-      "pubchem_cid": 171548,
-      "inchikey": "YBJHBAHKTGYVGT-ZKWXMUAHSA-N",
-      "pubmed_pmids": [
-        "35365361",
-        "28879195",
-        "31627309",
-        "38688776",
-        "33171595"
-      ],
-      "reference": "Berger MM et al. ESPEN micronutrient guideline. Clin Nutr 2022. PMID 35365361"
+      }
     },
     {
       "slug": "choline",
       "name": "Colina",
       "category_es": "Nutriente esencial",
       "category_en": "Essential nutrient",
-      "standard_dose": "425â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "1â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (hÃ­gado graso, cogniciÃ³n)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (hÃ­gado graso, cogniciÃ³n)",
       "form_es": "Citicolina / alfa-GPC / bitartrato",
       "form_en": "Citicoline / alpha-GPC / bitartrate",
       "timing_es": "Con comida",
@@ -1564,25 +1073,15 @@
       "notes_es": "Alfa-GPC y citicolina para cogniciÃ³n. Exceso â†’ olor corporal a pescado (TMAO).",
       "notes_en": "Alpha-GPC and citicoline for cognition. Excess â†’ fishy body odor (TMAO).",
       "name_es": "Colina",
-      "name_en": "Colina",
-      "pubchem_cid": 305,
-      "inchikey": "OEYIOHPDSNJKLS-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "40362867",
-        "33053828",
-        "33978188",
-        "40645282",
-        "29217669"
-      ],
-      "reference": "Derbyshire EJ Choline in Pregnancy and Lactation: Essential Knowledge for Clinical Practice. Nutrients 2025. PMID 40362867"
+      "name_en": "Colina"
     },
     {
       "slug": "copper",
       "name": "Cobre",
       "category_es": "Mineral traza",
       "category_en": "Trace mineral",
-      "standard_dose": "0.[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "1â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (con zinc crÃ³nico)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (con zinc crÃ³nico)",
       "form_es": "Bisglicinato de cobre",
       "form_en": "Copper bisglycinate",
       "timing_es": "Con comida",
@@ -1594,24 +1093,14 @@
       "notes_es": "AÃ±adir si tomas zinc alto crÃ³nico. Ratio zinc:cobre ~10:1.",
       "notes_en": "Add if on chronic high zinc. Zinc:copper ratio ~10:1.",
       "name_es": "Cobre",
-      "name_en": "Cobre",
-      "pubchem_cid": 23978,
-      "inchikey": "RYGMFSIKBFXOCR-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "11437176",
-        "39739356",
-        "32421726",
-        "33030656",
-        "38690587"
-      ],
-      "reference": "Tamura T et al. Plasma extracellular superoxide dismutase activity in healthy pregnant women is not influenced by zinc supplementation. Biol Trace Elem Res 2001. PMID 11437176"
+      "name_en": "Cobre"
     },
     {
       "slug": "manganese",
       "name": "Manganeso",
       "category_es": "Mineral traza",
       "category_en": "Trace mineral",
-      "standard_dose": "1.8â€“2.[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
       "therapeutic_dose": "No suele suplementarse aislado",
       "form_es": "Gluconato/quelato",
       "form_en": "Gluconate/chelate",
@@ -1624,25 +1113,15 @@
       "notes_es": "Rara vez deficitario (abundante en dieta). No exceder UL.",
       "notes_en": "Rarely deficient (abundant in diet). Don't exceed UL.",
       "name_es": "Manganeso",
-      "name_en": "Manganeso",
-      "pubchem_cid": 23930,
-      "inchikey": "PWHULOQIROXLJO-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "35365361",
-        "39102684",
-        "32839553",
-        "40555748",
-        "39683514"
-      ],
-      "reference": "Berger MM et al. ESPEN micronutrient guideline. Clin Nutr 2022. PMID 35365361"
+      "name_en": "Manganeso"
     },
     {
       "slug": "boron",
       "name": "Boro",
       "category_es": "Mineral traza",
       "category_en": "Trace mineral",
-      "standard_dose": "1â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "3â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (hueso, testosterona)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (hueso, testosterona)",
       "form_es": "Borato / fructoborato",
       "form_en": "Borate / fructoborate",
       "timing_es": "Con comida",
@@ -1654,25 +1133,15 @@
       "notes_es": "Modula vitamina D, magnesio y hormonas esteroideas. Dosis baja.",
       "notes_en": "Modulates vitamin D, magnesium and steroid hormones. Low dose.",
       "name_es": "Boro",
-      "name_en": "Boro",
-      "pubchem_cid": 5462311,
-      "inchikey": "ZOXJGFHDIHLPTG-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "29486041",
-        "20413666",
-        "40956292",
-        "27196567",
-        "27702799"
-      ],
-      "reference": "Kaye KS et al. Effect of Meropenem-Vaborbactam vs Piperacillin-Tazobactam on Clinical Cure or Improvement and Microbial Eradication in Complicated Urinary Tract Infection: The TANGO I Randomized Clinical Trial. JAMA 2018. PMID 29486041"
+      "name_en": "Boro"
     },
     {
       "slug": "tmg",
       "name": "BetaÃ­na (TMG)",
       "category_es": "Donante de metilo",
       "category_en": "Methyl donor",
-      "standard_dose": "1â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "3â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (homocisteÃ­na, rendimiento)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (homocisteÃ­na, rendimiento)",
       "form_es": "Trimetilglicina",
       "form_en": "Trimethylglycine",
       "timing_es": "Con comida",
@@ -1684,25 +1153,15 @@
       "notes_es": "Baja homocisteÃ­na (sinergia con B12/folato). Puede subir LDL a dosis altas.",
       "notes_en": "Lowers homocysteine (synergy with B12/folate). May raise LDL at high doses.",
       "name_es": "BetaÃ­na (TMG)",
-      "name_en": "BetaÃ­na (TMG)",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "37374054",
-        "39514262",
-        "21697299",
-        "32516959",
-        "40944155"
-      ],
-      "reference": "Aguinaga-Ontoso I et al. Effects of Nutrition Interventions on Athletic Performance in Soccer Players: A Systematic Review. Life (Basel) 2023. PMID 37374054"
+      "name_en": "BetaÃ­na (TMG)"
     },
     {
       "slug": "beta_alanine",
       "name": "Beta-alanina",
       "category_es": "AminoÃ¡cido",
       "category_en": "Amino acid",
-      "standard_dose": "3â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (repartido)",
-      "therapeutic_dose": "4â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (rendimiento anaerÃ³bico)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (repartido)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (rendimiento anaerÃ³bico)",
       "form_es": "Beta-alanina",
       "form_en": "Beta-alanine",
       "timing_es": "Repartido para evitar parestesia",
@@ -1714,25 +1173,15 @@
       "notes_es": "Sube carnosina muscular; mejora esfuerzos 1â€“4 min. Hormigueo (inofensivo) â†’ repartir.",
       "notes_en": "Raises muscle carnosine; improves 1â€“4 min efforts. Tingling (harmless) â†’ split.",
       "name_es": "Beta-alanina",
-      "name_en": "Beta-alanina",
-      "pubchem_cid": 239,
-      "inchikey": "UCMIRNVEIXFBKS-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "27797728",
-        "39032921",
-        "22270875",
-        "38892701",
-        "39064783"
-      ],
-      "reference": "Saunders B et al. β-alanine supplementation to improve exercise capacity and performance: a systematic review and meta-analysis. Br J Sports Med 2017. PMID 27797728"
+      "name_en": "Beta-alanina"
     },
     {
       "slug": "citrulline",
       "name": "L-citrulina",
       "category_es": "AminoÃ¡cido",
       "category_en": "Amino acid",
-      "standard_dose": "3â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "6â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (rendimiento, malato)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (rendimiento, malato)",
       "form_es": "L-citrulina / citrulina malato",
       "form_en": "L-citrulline / citrulline malate",
       "timing_es": "30â€“60 min pre-ejercicio",
@@ -1744,25 +1193,15 @@
       "notes_es": "Sube Ã³xido nÃ­trico (mejor que arginina oral). Flujo sanguÃ­neo y bomba.",
       "notes_en": "Raises nitric oxide (better than oral arginine). Blood flow and pump.",
       "name_es": "L-citrulina",
-      "name_en": "L-citrulina",
-      "pubchem_cid": 9750,
-      "inchikey": "RHGKLRLOHDJJDR-BYPYZUCNSA-N",
-      "pubmed_pmids": [
-        "36480969",
-        "34965876",
-        "35511148",
-        "40431448",
-        "35565718"
-      ],
-      "reference": "An P et al. Micronutrient Supplementation to Reduce Cardiovascular Risk. J Am Coll Cardiol 2022. PMID 36480969"
+      "name_en": "L-citrulina"
     },
     {
       "slug": "carnitine",
       "name": "L-carnitina",
       "category_es": "AminoÃ¡cido derivado",
       "category_en": "Amino acid derivative",
-      "standard_dose": "500â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "2â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (segÃºn objetivo)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (segÃºn objetivo)",
       "form_es": "L-carnitina / tartrato / ALCAR",
       "form_en": "L-carnitine / tartrate / ALCAR",
       "timing_es": "Con carbohidrato para absorciÃ³n",
@@ -1774,25 +1213,15 @@
       "notes_es": "ALCAR cruza BHE (cogniciÃ³n); tartrato para recuperaciÃ³n. TMAO en exceso.",
       "notes_en": "ALCAR crosses BBB (cognition); tartrate for recovery. TMAO in excess.",
       "name_es": "L-carnitina",
-      "name_en": "L-carnitina",
-      "pubchem_cid": 10917,
-      "inchikey": "PHIQHXFUZVPYII-ZCFIWIBFSA-N",
-      "pubmed_pmids": [
-        "32359762",
-        "38594107",
-        "31743774",
-        "27335245",
-        "40298161"
-      ],
-      "reference": "Talenezhad N et al. Effects of l-carnitine supplementation on weight loss and body composition: A systematic review and meta-analysis of 37 randomized controlled clinical trials with dose-response analysis. Clin Nutr ESPEN 2020. PMID 32359762"
+      "name_en": "L-carnitina"
     },
     {
       "slug": "tyrosine",
       "name": "L-tirosina",
       "category_es": "AminoÃ¡cido",
       "category_en": "Amino acid",
-      "standard_dose": "500â€“[DOSIS_CLINICA_REMOVIDA]",
-      "therapeutic_dose": "100â€“[DOSIS_CLINICA_REMOVIDA]/kg (estrÃ©s agudo/cogniciÃ³n)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/kg (estrÃ©s agudo/cogniciÃ³n)",
       "form_es": "L-tirosina",
       "form_en": "L-tyrosine",
       "timing_es": "En ayunas, antes de estrÃ©s",
@@ -1804,17 +1233,7 @@
       "notes_es": "Precursor de dopamina/noradrenalina; Ãºtil bajo estrÃ©s/privaciÃ³n de sueÃ±o.",
       "notes_en": "Dopamine/noradrenaline precursor; useful under stress/sleep loss.",
       "name_es": "L-tirosina",
-      "name_en": "L-tirosina",
-      "pubchem_cid": 6057,
-      "inchikey": "OUYCCCASQSFEME-QMMMGPOBSA-N",
-      "pubmed_pmids": [
-        "40216176",
-        "33427303",
-        "23737086",
-        "10796799",
-        "24016038"
-      ],
-      "reference": "Hup RJ et al. Oral antihypertensive treatment during pregnancy: a systematic review and network meta-analysis. Am J Obstet Gynecol 2025. PMID 40216176"
+      "name_en": "L-tirosina"
     },
     {
       "slug": "bacopa",
@@ -1822,7 +1241,7 @@
       "category_es": "NootrÃ³pico (hierba)",
       "category_en": "Nootropic (herb)",
       "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (50% bacÃ³sidos)",
-      "therapeutic_dose": "300â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (memoria)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (memoria)",
       "form_es": "Extracto estandarizado",
       "form_en": "Standardized extract",
       "timing_es": "Con comida grasa",
@@ -1834,25 +1253,15 @@
       "notes_es": "Mejora memoria a 8â€“12 semanas (efecto lento). Puede dar molestia GI.",
       "notes_en": "Improves memory at 8â€“12 weeks (slow onset). May cause GI upset.",
       "name_es": "Bacopa monnieri",
-      "name_en": "Bacopa monnieri",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "18611150",
-        "40768551",
-        "38512715",
-        "37885445",
-        "30611275"
-      ],
-      "reference": "Calabrese C et al. Effects of a standardized Bacopa monnieri extract on cognitive performance, anxiety, and depression in the elderly: a randomized, double-blind, placebo-controlled trial. J Altern Complement Med 2008. PMID 18611150"
+      "name_en": "Bacopa monnieri"
     },
     {
       "slug": "lions_mane",
       "name": "Melena de leÃ³n",
       "category_es": "Hongo funcional",
       "category_en": "Functional mushroom",
-      "standard_dose": "500â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "1â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (cogniciÃ³n/nervio)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (cogniciÃ³n/nervio)",
       "form_es": "Extracto de Hericium erinaceus",
       "form_en": "Hericium erinaceus extract",
       "timing_es": "Con comida",
@@ -1864,23 +1273,15 @@
       "notes_es": "NGF/neurogÃ©nesis in vitro; evidencia humana emergente. Buscar cuerpo fructÃ­fero.",
       "notes_en": "NGF/neurogenesis in vitro; emerging human evidence. Seek fruiting body.",
       "name_es": "Melena de leÃ³n",
-      "name_en": "Melena de leÃ³n",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "38004235",
-        "40276537",
-        "38140277"
-      ],
-      "reference": "Docherty S et al. The Acute and Chronic Effects of Lion's Mane Mushroom Supplementation on Cognitive Function, Stress and Mood in Young Adults: A Double-Blind, Parallel Groups, Pilot Study. Nutrients 2023. PMID 38004235"
+      "name_en": "Melena de leÃ³n"
     },
     {
       "slug": "cordyceps",
       "name": "Cordyceps",
       "category_es": "Hongo funcional",
       "category_en": "Functional mushroom",
-      "standard_dose": "1â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "3â€“4.[DOSIS_CLINICA_REMOVIDA]/dÃ­a (rendimiento/energÃ­a)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (rendimiento/energÃ­a)",
       "form_es": "CS-4 / militaris",
       "form_en": "CS-4 / militaris",
       "timing_es": "Con comida",
@@ -1892,25 +1293,15 @@
       "notes_es": "VO2max/energÃ­a; evidencia moderada. Militaris con mÃ¡s cordicepina.",
       "notes_en": "VO2max/energy; moderate evidence. Militaris has more cordycepin.",
       "name_es": "Cordyceps",
-      "name_en": "Cordyceps",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "38873567",
-        "37101730",
-        "41280379",
-        "40590148",
-        "31977865"
-      ],
-      "reference": "Nieman DC et al. Beet supplementation mitigates post-exercise inflammation. Front Nutr 2024. PMID 38873567"
+      "name_en": "Cordyceps"
     },
     {
       "slug": "spirulina",
       "name": "Espirulina",
       "category_es": "Alga (superalimento)",
       "category_en": "Algae (superfood)",
-      "standard_dose": "1â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "4â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (lÃ­pidos/alergia)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (lÃ­pidos/alergia)",
       "form_es": "Polvo/comprimido (fuente segura)",
       "form_en": "Powder/tablet (safe source)",
       "timing_es": "Con comida",
@@ -1922,25 +1313,15 @@
       "notes_es": "Baja LDL levemente; antioxidante. Riesgo de contaminaciÃ³n â†’ marca certificada.",
       "notes_en": "Mildly lowers LDL; antioxidant. Contamination risk â†’ certified brand.",
       "name_es": "Espirulina",
-      "name_en": "Espirulina",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "37778464",
-        "32967062",
-        "31780031",
-        "40289965",
-        "26433766"
-      ],
-      "reference": "Shahinfar H et al. Comparative effects of nutraceuticals on body weight in adults with overweight or obesity: A systematic review and network meta-analysis of 111 randomized clinical trials. Pharmacol Res 2023. PMID 37778464"
+      "name_en": "Espirulina"
     },
     {
       "slug": "boswellia",
       "name": "Boswellia (incienso)",
       "category_es": "Antiinflamatorio (hierba)",
       "category_en": "Anti-inflammatory (herb)",
-      "standard_dose": "300â€“[DOSIS_CLINICA_REMOVIDA] 2â€“3Ã—/dÃ­a",
-      "therapeutic_dose": "100â€“[DOSIS_CLINICA_REMOVIDA] AKBA/dÃ­a (artrosis)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA] 2â€“3Ã—/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA] AKBA/dÃ­a (artrosis)",
       "form_es": "Extracto (30â€“65% Ã¡c. boswÃ©licos, AKBA)",
       "form_en": "Extract (30â€“65% boswellic acids, AKBA)",
       "timing_es": "Con comida grasa",
@@ -1952,25 +1333,15 @@
       "notes_es": "Inhibe 5-LOX; Ãºtil en artrosis y EII. Buscar alto AKBA.",
       "notes_en": "Inhibits 5-LOX; useful in osteoarthritis and IBD. Seek high AKBA.",
       "name_es": "Boswellia (incienso)",
-      "name_en": "Boswellia (incienso)",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "30838706",
-        "35512759",
-        "21287538",
-        "40806131",
-        "12622457"
-      ],
-      "reference": "Majeed M et al. A pilot, randomized, double-blind, placebo-controlled trial to assess the safety and efficacy of a novel Boswellia serrata extract in the management of osteoarthritis of the knee. Phytother Res 2019. PMID 30838706"
+      "name_en": "Boswellia (incienso)"
     },
     {
       "slug": "msm",
       "name": "MSM (metilsulfonilmetano)",
       "category_es": "Compuesto azufrado",
       "category_en": "Sulfur compound",
-      "standard_dose": "1â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "3â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (artrosis, dolor)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (artrosis, dolor)",
       "form_es": "MSM",
       "form_en": "MSM",
       "timing_es": "Con comida",
@@ -1982,17 +1353,7 @@
       "notes_es": "Dolor articular y rango de movimiento; sinergia con glucosamina.",
       "notes_en": "Joint pain and range of motion; synergy with glucosamine.",
       "name_es": "MSM (metilsulfonilmetano)",
-      "name_en": "MSM (metilsulfonilmetano)",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "26978418",
-        "40507030",
-        "18417375",
-        "40561485",
-        "26550817"
-      ],
-      "reference": "Alekseeva LI et al. [Use of ARTRA MSM FORTE in patients with knee osteoarthritis: Results of a randomized open-label comparative study of the efficacy and tolerability of the drug]. Ter Arkh 2015. PMID 26978418"
+      "name_en": "MSM (metilsulfonilmetano)"
     },
     {
       "slug": "lutein",
@@ -2012,25 +1373,15 @@
       "notes_es": "ProtecciÃ³n macular (AREDS2). Ratio 5:1 luteÃ­na:zeaxantina.",
       "notes_en": "Macular protection (AREDS2). 5:1 lutein:zeaxanthin ratio.",
       "name_es": "LuteÃ­na + zeaxantina",
-      "name_en": "LuteÃ­na + zeaxantina",
-      "pubchem_cid": 9876812,
-      "inchikey": "XZTAGCFEHSLUCU-KYBOCDQYSA-N",
-      "pubmed_pmids": [
-        "23644932",
-        "39025435",
-        "37702300",
-        "38363462",
-        "22840421"
-      ],
-      "reference": "Age-Related Eye Disease Study 2 Research Group Lutein + zeaxanthin and omega-3 fatty acids for age-related macular degeneration: the Age-Related Eye Disease Study 2 (AREDS2) randomized clinical trial. JAMA 2013. PMID 23644932"
+      "name_en": "LuteÃ­na + zeaxantina"
     },
     {
       "slug": "astaxanthin",
       "name": "Astaxantina",
       "category_es": "Carotenoide",
       "category_en": "Carotenoid",
-      "standard_dose": "4â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "8â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (piel/recuperaciÃ³n)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (piel/recuperaciÃ³n)",
       "form_es": "De Haematococcus pluvialis",
       "form_en": "From Haematococcus pluvialis",
       "timing_es": "Con comida grasa",
@@ -2046,24 +1397,14 @@
       "safety": {
         "oncology_caution_es": "Antioxidante potente: consultar oncÃ³logo durante radio/quimio.",
         "oncology_caution_en": "Potent antioxidant: consult oncologist during chemo/radiotherapy."
-      },
-      "pubchem_cid": 5281224,
-      "inchikey": "MQZIGYBFDRPAKN-UWFIBFSHSA-N",
-      "pubmed_pmids": [
-        "34578794",
-        "39930022",
-        "32202443",
-        "38892705",
-        "37020589"
-      ],
-      "reference": "Zhou X et al. Systematic Review and Meta-Analysis on the Effects of Astaxanthin on Human Skin Ageing. Nutrients 2021. PMID 34578794"
+      }
     },
     {
       "slug": "pqq",
       "name": "PQQ",
       "category_es": "Cofactor redox",
       "category_en": "Redox cofactor",
-      "standard_dose": "10â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
       "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (mitocondrial/cogniciÃ³n)",
       "form_es": "Pirroloquinolina quinona",
       "form_en": "Pyrroloquinoline quinone",
@@ -2076,25 +1417,15 @@
       "notes_es": "BiogÃ©nesis mitocondrial; sinergia con CoQ10. Evidencia emergente.",
       "notes_en": "Mitochondrial biogenesis; synergy with CoQ10. Emerging evidence.",
       "name_es": "PQQ",
-      "name_en": "PQQ",
-      "pubchem_cid": 1024,
-      "inchikey": "MMXZSJMASHPLLR-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "34415830",
-        "38908296",
-        "39275279",
-        "40943905",
-        "41651893"
-      ],
-      "reference": "Shiojima Y et al. Effect of Dietary Pyrroloquinoline Quinone Disodium Salt on Cognitive Function in Healthy Volunteers: A Randomized, Double-Blind, Placebo-Controlled, Parallel-Group Study. J Am Nutr Assoc 2022. PMID 34415830"
+      "name_en": "PQQ"
     },
     {
       "slug": "nmn",
       "name": "NMN",
       "category_es": "Precursor de NAD+",
       "category_en": "NAD+ precursor",
-      "standard_dose": "250â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "500â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (longevidad, estudios)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (longevidad, estudios)",
       "form_es": "Nicotinamida mononucleÃ³tido",
       "form_en": "Nicotinamide mononucleotide",
       "timing_es": "MaÃ±ana, en ayunas",
@@ -2106,25 +1437,15 @@
       "notes_es": "Sube NAD+; evidencia humana temprana. Estatus regulatorio variable.",
       "notes_en": "Raises NAD+; early human evidence. Regulatory status varies.",
       "name_es": "NMN",
-      "name_en": "NMN",
-      "pubchem_cid": 14180,
-      "inchikey": "DAYLJWODMCOQEW-TURQNECASA-N",
-      "pubmed_pmids": [
-        "36482258",
-        "37619764",
-        "33888596",
-        "36797393",
-        "34238308"
-      ],
-      "reference": "Yi L et al. The efficacy and safety of β-nicotinamide mononucleotide (NMN) supplementation in healthy middle-aged adults: a randomized, multicenter, double-blind, placebo-controlled, parallel-group, dose-dependent clinical trial. Geroscience 2023. PMID 36482258"
+      "name_en": "NMN"
     },
     {
       "slug": "nr",
       "name": "Nicotinamida ribÃ³sido (NR)",
       "category_es": "Precursor de NAD+",
       "category_en": "NAD+ precursor",
-      "standard_dose": "250â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "300â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
       "form_es": "Niagen",
       "form_en": "Niagen",
       "timing_es": "MaÃ±ana",
@@ -2136,17 +1457,7 @@
       "notes_es": "Sube NAD+ de forma robusta en humanos; buen perfil de seguridad.",
       "notes_en": "Robustly raises NAD+ in humans; good safety profile.",
       "name_es": "Nicotinamida ribÃ³sido (NR)",
-      "name_en": "Nicotinamida ribÃ³sido (NR)",
-      "pubchem_cid": 439924,
-      "inchikey": "JLEBZPBDRKPWTD-TURQNECASA-O",
-      "pubmed_pmids": [
-        "37478182",
-        "27721479",
-        "31278280",
-        "37994989",
-        "35235774"
-      ],
-      "reference": "Damgaard MV et al. What is really known about the effects of nicotinamide riboside supplementation in humans. Sci Adv 2023. PMID 37478182"
+      "name_en": "Nicotinamida ribÃ³sido (NR)"
     },
     {
       "slug": "dmannose",
@@ -2154,7 +1465,7 @@
       "category_es": "AzÃºcar simple",
       "category_en": "Simple sugar",
       "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (prevenciÃ³n ITU)",
-      "therapeutic_dose": "1.[DOSIS_CLINICA_REMOVIDA] 2â€“3Ã—/dÃ­a (ITU aguda)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA] 2â€“3Ã—/dÃ­a (ITU aguda)",
       "form_es": "D-manosa",
       "form_en": "D-mannose",
       "timing_es": "Con agua abundante",
@@ -2166,17 +1477,7 @@
       "notes_es": "Previene ITU por E. coli (impide adhesiÃ³n). No sustituye antibiÃ³tico en ITU grave.",
       "notes_en": "Prevents E. coli UTI (blocks adhesion). Not a substitute for antibiotics in severe UTI.",
       "name_es": "D-manosa",
-      "name_en": "D-manosa",
-      "pubchem_cid": 18950,
-      "inchikey": "WQZGKKKJIJFFOK-QTVWNMPRSA-N",
-      "pubmed_pmids": [
-        "35439028",
-        "32497610",
-        "23633128",
-        "27814608",
-        "42178306"
-      ],
-      "reference": "Khaled SK et al. Narsoplimab, a Mannan-Binding Lectin-Associated Serine Protease-2 Inhibitor, for the Treatment of Adult Hematopoietic Stem-Cell Transplantation-Associated Thrombotic Microangiopathy. J Clin Oncol 2022. PMID 35439028"
+      "name_en": "D-manosa"
     },
     {
       "slug": "cranberry",
@@ -2184,7 +1485,7 @@
       "category_es": "Fitoterapia (fruta)",
       "category_en": "Phytotherapy (fruit)",
       "standard_dose": "[DOSIS_CLINICA_REMOVIDA] PAC/dÃ­a",
-      "therapeutic_dose": "36â€“[DOSIS_CLINICA_REMOVIDA] proantocianidinas (PAC)/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA] proantocianidinas (PAC)/dÃ­a",
       "form_es": "Extracto estandarizado en PAC",
       "form_en": "PAC-standardized extract",
       "timing_es": "Con comida",
@@ -2196,24 +1497,14 @@
       "notes_es": "PrevenciÃ³n de ITU recurrente. Estandarizar por PAC, no por 'mg de fruta'.",
       "notes_en": "Recurrent UTI prevention. Standardize by PAC, not 'mg of fruit'.",
       "name_es": "ArÃ¡ndano rojo",
-      "name_en": "ArÃ¡ndano rojo",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "34473789",
-        "38214795",
-        "39668896",
-        "34444706",
-        "27092529"
-      ],
-      "reference": "Xia JY et al. Consumption of cranberry as adjuvant therapy for urinary tract infections in susceptible populations: A systematic review and meta-analysis with trial sequential analysis. PLoS One 2021. PMID 34473789"
+      "name_en": "ArÃ¡ndano rojo"
     },
     {
       "slug": "elderberry",
       "name": "SaÃºco (elderberry)",
       "category_es": "Fitoterapia (fruta)",
       "category_en": "Phytotherapy (fruit)",
-      "standard_dose": "300â€“[DOSIS_CLINICA_REMOVIDA] extracto/dÃ­a",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA] extracto/dÃ­a",
       "therapeutic_dose": "3.8â€“15 mL jarabe 2â€“4Ã—/dÃ­a (resfriado)",
       "form_es": "Extracto de Sambucus nigra",
       "form_en": "Sambucus nigra extract",
@@ -2226,24 +1517,14 @@
       "notes_es": "Puede acortar sÃ­ntomas de gripe/resfriado. Solo fruta cocida (cruda es tÃ³xica).",
       "notes_en": "May shorten cold/flu symptoms. Cooked fruit only (raw is toxic).",
       "name_es": "SaÃºco (elderberry)",
-      "name_en": "SaÃºco (elderberry)",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "30670267",
-        "27023596",
-        "33827515",
-        "39770987",
-        "40693198"
-      ],
-      "reference": "Hawkins J et al. Black elderberry (Sambucus nigra) supplementation effectively treats upper respiratory symptoms: A meta-analysis of randomized, controlled clinical trials. Complement Ther Med 2019. PMID 30670267"
+      "name_en": "SaÃºco (elderberry)"
     },
     {
       "slug": "echinacea",
       "name": "EquinÃ¡cea",
       "category_es": "Inmunomodulador (hierba)",
       "category_en": "Immunomodulator (herb)",
-      "standard_dose": "300â€“[DOSIS_CLINICA_REMOVIDA] 3Ã—/dÃ­a",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA] 3Ã—/dÃ­a",
       "therapeutic_dose": "Al inicio del resfriado, corto plazo",
       "form_es": "Extracto de E. purpurea",
       "form_en": "E. purpurea extract",
@@ -2256,25 +1537,15 @@
       "notes_es": "Evidencia inconsistente; posible reducciÃ³n leve de duraciÃ³n. No en autoinmunidad.",
       "notes_en": "Inconsistent evidence; possible mild duration reduction. Not in autoimmunity.",
       "name_es": "EquinÃ¡cea",
-      "name_en": "EquinÃ¡cea",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "16995328",
-        "21173411",
-        "20455962",
-        "16323289",
-        "12391710"
-      ],
-      "reference": "Woelkart K et al. Bioavailability and pharmacokinetics of Echinacea purpurea preparations and their interaction with the immune system. Int J Clin Pharmacol Ther 2006. PMID 16995328"
+      "name_en": "EquinÃ¡cea"
     },
     {
       "slug": "valerian",
       "name": "Valeriana",
       "category_es": "Sedante (hierba)",
       "category_en": "Sedative (herb)",
-      "standard_dose": "300â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "400â€“[DOSIS_CLINICA_REMOVIDA] 30â€“60 min antes de dormir",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA] 30â€“60 min antes de dormir",
       "form_es": "Extracto de raÃ­z",
       "form_en": "Root extract",
       "timing_es": "Antes de dormir",
@@ -2286,24 +1557,14 @@
       "notes_es": "Insomnio de inicio; efecto puede tardar 2 semanas. Somnolencia matutina posible.",
       "notes_en": "Sleep-onset insomnia; effect may take 2 weeks. Possible morning grogginess.",
       "name_es": "Valeriana",
-      "name_en": "Valeriana",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "37899385",
-        "27751669",
-        "12725454",
-        "40768551",
-        "10030529"
-      ],
-      "reference": "Chandra Shekhar H et al. Standardized Extract of Valeriana officinalis Improves Overall Sleep Quality in Human Subjects with Sleep Complaints: A Randomized, Double-Blind, Placebo-Controlled, Clinical Study. Adv Ther 2024. PMID 37899385"
+      "name_en": "Valeriana"
     },
     {
       "slug": "lemon_balm",
       "name": "Melisa (toronjil)",
       "category_es": "AnsiolÃ­tico (hierba)",
       "category_en": "Anxiolytic (herb)",
-      "standard_dose": "300â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
       "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA] (estrÃ©s agudo) / [DOSIS_CLINICA_REMOVIDA] dividido",
       "form_es": "Extracto de Melissa officinalis",
       "form_en": "Melissa officinalis extract",
@@ -2316,17 +1577,7 @@
       "notes_es": "Calma y sueÃ±o; sinergia con valeriana. Buen perfil de seguridad.",
       "notes_en": "Calm and sleep; synergy with valerian. Good safety profile.",
       "name_es": "Melisa (toronjil)",
-      "name_en": "Melisa (toronjil)",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "37059508",
-        "38771995",
-        "39794615",
-        "41264593",
-        "35167329"
-      ],
-      "reference": "Howard JF Jr et al. Safety and efficacy of zilucoplan in patients with generalised myasthenia gravis (RAISE): a randomised, double-blind, placebo-controlled, phase 3 study. Lancet Neurol 2023. PMID 37059508"
+      "name_en": "Melisa (toronjil)"
     },
     {
       "slug": "ps",
@@ -2346,25 +1597,15 @@
       "notes_es": "CogniciÃ³n en mayores y amortigua cortisol por ejercicio. Preferir de girasol.",
       "notes_en": "Cognition in elderly and blunts exercise cortisol. Prefer sunflower source.",
       "name_es": "Fosfatidilserina",
-      "name_en": "Fosfatidilserina",
-      "pubchem_cid": 9547096,
-      "inchikey": "TZCPCKNHXULUIY-RGULYWFUSA-N",
-      "pubmed_pmids": [
-        "36558392",
-        "25236982",
-        "23495677",
-        "39317299",
-        "38173190"
-      ],
-      "reference": "Zhang C et al. A Magtein(®), Magnesium L-Threonate, -Based Formula Improves Brain Cognitive Functions in Healthy Chinese Adults. Nutrients 2022. PMID 36558392"
+      "name_en": "Fosfatidilserina"
     },
     {
       "slug": "fenugreek",
       "name": "Fenogreco",
       "category_es": "Fitoterapia (hierba)",
       "category_en": "Phytotherapy (herb)",
-      "standard_dose": "500â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "5â€“[DOSIS_CLINICA_REMOVIDA] semilla/dÃ­a (glucemia, lactancia)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA] semilla/dÃ­a (glucemia, lactancia)",
       "form_es": "Extracto o semilla",
       "form_en": "Extract or seed",
       "timing_es": "Con comidas",
@@ -2376,24 +1617,14 @@
       "notes_es": "Baja glucosa posprandial; galactogogo. Puede dar olor a jarabe de arce.",
       "notes_en": "Lowers postprandial glucose; galactagogue. May cause maple-syrup odor.",
       "name_es": "Fenogreco",
-      "name_en": "Fenogreco",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "30000838",
-        "26791805",
-        "21261516",
-        "39288153",
-        "39873252"
-      ],
-      "reference": " Fenugreek.  2006. PMID 30000838"
+      "name_en": "Fenogreco"
     },
     {
       "slug": "maca",
       "name": "Maca",
       "category_es": "AdaptÃ³geno (raÃ­z)",
       "category_en": "Adaptogen (root)",
-      "standard_dose": "1.5â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
       "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (libido, energÃ­a)",
       "form_es": "Polvo de raÃ­z gelatinizado",
       "form_en": "Gelatinized root powder",
@@ -2406,24 +1637,14 @@
       "notes_es": "Libido y energÃ­a; no altera hormonas directamente. Gelatinizada mejor tolerada.",
       "notes_en": "Libido and energy; doesn't directly alter hormones. Gelatinized better tolerated.",
       "name_es": "Maca",
-      "name_en": "Maca",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "39796542",
-        "39334705",
-        "42356395",
-        "40960048",
-        "29359412"
-      ],
-      "reference": "Huerta Ojeda Á et al. Effects of Maca (Lepidium meyenii Walp.) on Physical Performance in Animals and Humans: A Systematic Review and Meta-Analysis. Nutrients 2024. PMID 39796542"
+      "name_en": "Maca"
     },
     {
       "slug": "nitrate",
       "name": "Remolacha (nitrato)",
       "category_es": "Nitrato dietÃ©tico",
       "category_en": "Dietary nitrate",
-      "standard_dose": "300â€“[DOSIS_CLINICA_REMOVIDA] nitrato/dÃ­a",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA] nitrato/dÃ­a",
       "therapeutic_dose": "6.4â€“12.8 mmol nitrato (rendimiento)",
       "form_es": "Zumo de remolacha / concentrado",
       "form_en": "Beetroot juice / concentrate",
@@ -2436,17 +1657,7 @@
       "notes_es": "Sube Ã³xido nÃ­trico â†’ resistencia y presiÃ³n. No usar colutorio (mata bacterias orales).",
       "notes_en": "Raises nitric oxide â†’ endurance and BP. Skip mouthwash (kills oral bacteria).",
       "name_es": "Remolacha (nitrato)",
-      "name_en": "Remolacha (nitrato)",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "39796497",
-        "23640589",
-        "19661447",
-        "40431460",
-        "41473738"
-      ],
-      "reference": "Neteca J et al. Effect of Beetroot Juice Supplementation on Aerobic Capacity in Female Athletes: A Randomized Controlled Study. Nutrients 2024. PMID 39796497"
+      "name_en": "Remolacha (nitrato)"
     },
     {
       "slug": "bromelain",
@@ -2454,7 +1665,7 @@
       "category_es": "Enzima proteolÃ­tica",
       "category_en": "Proteolytic enzyme",
       "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "500â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (inflamaciÃ³n/edema)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (inflamaciÃ³n/edema)",
       "form_es": "De tallo de piÃ±a (GDU/MCU)",
       "form_en": "From pineapple stem (GDU/MCU)",
       "timing_es": "En ayunas (antiinflamatorio)",
@@ -2470,17 +1681,7 @@
       "safety": {
         "stop_days_before_surgery": 7,
         "bleeding_risk": true
-      },
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "37202035",
-        "39929877",
-        "41315628",
-        "37179311",
-        "12391710"
-      ],
-      "reference": "Pereira IC et al. Bromelain supplementation and inflammatory markers: A systematic review of clinical trials. Clin Nutr ESPEN 2023. PMID 37202035"
+      }
     },
     {
       "slug": "saffron",
@@ -2493,24 +1694,14 @@
       "form_en": "Standardized extract (safranal/crocin)",
       "timing_es": "Con comida, dividido",
       "timing_en": "With food, divided",
-      "upper_limit": "â‰¤1.[DOSIS_CLINICA_REMOVIDA]/dÃ­a (dosis altas tÃ³xicas)",
+      "upper_limit": "â‰¤[DOSIS_CLINICA_REMOVIDA]/dÃ­a (dosis altas tÃ³xicas)",
       "evidence": "ClÃ­nico (moderado)",
       "interactions_es": "Antidepresivos (aditivo); anticoagulantes",
       "interactions_en": "Antidepressants (additive); anticoagulants",
       "notes_es": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a comparable a ISRS leve en depresiÃ³n leve-moderada. No exceder dosis.",
       "notes_en": "[DOSIS_CLINICA_REMOVIDA] comparable to mild SSRI in mild-moderate depression. Don't exceed dose.",
       "name_es": "AzafrÃ¡n",
-      "name_en": "AzafrÃ¡n",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "30741567",
-        "28735826",
-        "25384672",
-        "40414301",
-        "39507811"
-      ],
-      "reference": "Baziar S et al. Crocus sativus L. Versus Methylphenidate in Treatment of Children with Attention-Deficit/Hyperactivity Disorder: A Randomized, Double-Blind Pilot Study. J Child Adolesc Psychopharmacol 2019. PMID 30741567"
+      "name_en": "AzafrÃ¡n"
     },
     {
       "slug": "vitk1",
@@ -2518,7 +1709,7 @@
       "category_es": "Vitamina liposoluble",
       "category_en": "Fat-soluble vitamin",
       "standard_dose": "90â€“120 Âµg/dÃ­a",
-      "therapeutic_dose": "1â€“[DOSIS_CLINICA_REMOVIDA] (revertir sobre-anticoagulaciÃ³n, mÃ©dico)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA] (revertir sobre-anticoagulaciÃ³n, mÃ©dico)",
       "form_es": "Filoquinona",
       "form_en": "Phylloquinone",
       "timing_es": "Con comida grasa",
@@ -2534,17 +1725,7 @@
       "safety": {
         "note_es": "Antagoniza warfarina: mantener ingesta constante.",
         "note_en": "Antagonizes warfarin: keep intake constant."
-      },
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "23525894",
-        "37338608",
-        "24090644",
-        "28445289",
-        "39680321"
-      ],
-      "reference": "Knapen MH et al. Three-year low-dose menaquinone-7 supplementation helps decrease bone loss in healthy postmenopausal women. Osteoporos Int 2013. PMID 23525894"
+      }
     },
     {
       "slug": "lysine",
@@ -2552,7 +1733,7 @@
       "category_es": "AminoÃ¡cido esencial",
       "category_en": "Essential amino acid",
       "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "1â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (herpes labial)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (herpes labial)",
       "form_es": "L-lisina",
       "form_en": "L-lysine",
       "timing_es": "En ayunas",
@@ -2564,17 +1745,7 @@
       "notes_es": "Reduce recurrencia de herpes simple. Compite con arginina.",
       "notes_en": "Reduces herpes simplex recurrence. Competes with arginine.",
       "name_es": "L-lisina",
-      "name_en": "L-lisina",
-      "pubchem_cid": 5962,
-      "inchikey": "KDXKERNSBIXSRK-YFKPBYRVSA-N",
-      "pubmed_pmids": [
-        "39693714",
-        "19762820",
-        "41125682",
-        "38301081",
-        "33000161"
-      ],
-      "reference": "Goethals S et al. Lysine requirement of weaned piglets. Animal 2025. PMID 39693714"
+      "name_en": "L-lisina"
     },
     {
       "slug": "glutamine",
@@ -2582,7 +1753,7 @@
       "category_es": "AminoÃ¡cido",
       "category_en": "Amino acid",
       "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "10â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (intestino, catabolismo)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (intestino, catabolismo)",
       "form_es": "L-glutamina",
       "form_en": "L-glutamine",
       "timing_es": "Repartido, en ayunas",
@@ -2594,17 +1765,7 @@
       "notes_es": "Integridad intestinal en estrÃ©s/quemados; evidencia deportiva dÃ©bil.",
       "notes_en": "Gut integrity in stress/burns; weak sports evidence.",
       "name_es": "L-glutamina",
-      "name_en": "L-glutamina",
-      "pubchem_cid": 5961,
-      "inchikey": "ZDXPYRJPNDTMRX-VKHMYHEASA-N",
-      "pubmed_pmids": [
-        "39397201",
-        "34444657",
-        "29784526",
-        "36082909",
-        "36526494"
-      ],
-      "reference": "Abbasi F et al. A systematic review and meta-analysis of clinical trials on the effects of glutamine supplementation on gut permeability in adults. Amino Acids 2024. PMID 39397201"
+      "name_en": "L-glutamina"
     },
     {
       "slug": "hmb",
@@ -2624,25 +1785,15 @@
       "notes_es": "Reduce catabolismo muscular (mayores, dÃ©ficit calÃ³rico). Efecto modesto en entrenados.",
       "notes_en": "Reduces muscle catabolism (elderly, caloric deficit). Modest effect in trained.",
       "name_es": "HMB",
-      "name_en": "HMB",
-      "pubchem_cid": 6950804,
-      "inchikey": "AXFYFNCPONWUHW-UHFFFAOYSA-M",
-      "pubmed_pmids": [
-        "39999663",
-        "35301826",
-        "32483625",
-        "28251287",
-        "37248756"
-      ],
-      "reference": "Gu WT et al. The effects of β-hydroxy-β-methylbutyrate supplementation in patients with sarcopenia: A systematic review and meta-analysis. Maturitas 2025. PMID 39999663"
+      "name_en": "HMB"
     },
     {
       "slug": "bcaa",
       "name": "BCAA / EAA",
       "category_es": "AminoÃ¡cidos ramificados/esenciales",
       "category_en": "Branched/essential amino acids",
-      "standard_dose": "5â€“[DOSIS_CLINICA_REMOVIDA] BCAA",
-      "therapeutic_dose": "10â€“[DOSIS_CLINICA_REMOVIDA] EAA (mejor que BCAA)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA] BCAA",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA] EAA (mejor que BCAA)",
       "form_es": "EAA completos preferidos",
       "form_en": "Complete EAAs preferred",
       "timing_es": "Alrededor del ejercicio",
@@ -2654,25 +1805,15 @@
       "notes_es": "EAA > BCAA para sÃ­ntesis proteica. Innecesario si proteÃ­na dietÃ©tica es suficiente.",
       "notes_en": "EAA > BCAA for protein synthesis. Unnecessary if dietary protein is sufficient.",
       "name_es": "BCAA / EAA",
-      "name_en": "BCAA / EAA",
-      "pubchem_cid": 9886134,
-      "inchikey": "OCUSNPIJIZCRSZ-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "36235655",
-        "37686735",
-        "38701490",
-        "34233179",
-        "34072718"
-      ],
-      "reference": "Martinho DV et al. Oral Branched-Chain Amino Acids Supplementation in Athletes: A Systematic Review. Nutrients 2022. PMID 36235655"
+      "name_en": "BCAA / EAA"
     },
     {
       "slug": "caffeine",
       "name": "CafeÃ­na",
       "category_es": "Estimulante",
       "category_en": "Stimulant",
-      "standard_dose": "40â€“[DOSIS_CLINICA_REMOVIDA]",
-      "therapeutic_dose": "3â€“[DOSIS_CLINICA_REMOVIDA]/kg (rendimiento)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/kg (rendimiento)",
       "form_es": "Anhidra / natural",
       "form_en": "Anhydrous / natural",
       "timing_es": "30â€“60 min pre-ejercicio; evitar 8 h antes de dormir",
@@ -2684,24 +1825,14 @@
       "notes_es": "ErgogÃ©nico robusto. Cortar 8 h antes de dormir para no daÃ±ar el sueÃ±o.",
       "notes_en": "Robust ergogenic. Cut 8 h before bed to protect sleep.",
       "name_es": "CafeÃ­na",
-      "name_en": "CafeÃ­na",
-      "pubchem_cid": 2519,
-      "inchikey": "RYYVLZVUVIJVGH-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "41206802",
-        "36615805",
-        "40806142",
-        "30335479",
-        "38057002"
-      ],
-      "reference": "Wong CX et al. Caffeinated Coffee Consumption or Abstinence to Reduce Atrial Fibrillation: The DECAF Randomized Clinical Trial. JAMA 2026. PMID 41206802"
+      "name_en": "CafeÃ­na"
     },
     {
       "slug": "mucuna",
       "name": "Mucuna pruriens",
       "category_es": "Fitoterapia (L-DOPA)",
       "category_en": "Phytotherapy (L-DOPA)",
-      "standard_dose": "5% L-DOPA: ~200â€“[DOSIS_CLINICA_REMOVIDA] L-DOPA/dÃ­a",
+      "standard_dose": "5% L-DOPA: ~[DOSIS_CLINICA_REMOVIDA] L-DOPA/dÃ­a",
       "therapeutic_dose": "SegÃºn objetivo (Parkinson: con mÃ©dico)",
       "form_es": "Extracto estandarizado en L-DOPA",
       "form_en": "L-DOPA-standardized extract",
@@ -2714,25 +1845,15 @@
       "notes_es": "Fuente natural de L-DOPA (dopamina). Cuidado con fÃ¡rmacos dopaminÃ©rgicos.",
       "notes_en": "Natural L-DOPA source (dopamine). Caution with dopaminergic drugs.",
       "name_es": "Mucuna pruriens",
-      "name_en": "Mucuna pruriens",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "38462520",
-        "41269916",
-        "28679598",
-        "33256223",
-        "36565036"
-      ],
-      "reference": "Sakata M et al. Japanese Mucuna pruriens (Hasshou Beans) Showed Fast-acting and Long-lasting Effects in Parkinson's Disease. Intern Med 2024. PMID 38462520"
+      "name_en": "Mucuna pruriens"
     },
     {
       "slug": "tulsi",
       "name": "Tulsi (albahaca sagrada)",
       "category_es": "AdaptÃ³geno (hierba)",
       "category_en": "Adaptogen (herb)",
-      "standard_dose": "300â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "600â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (estrÃ©s/glucemia)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (estrÃ©s/glucemia)",
       "form_es": "Extracto de Ocimum sanctum",
       "form_en": "Ocimum sanctum extract",
       "timing_es": "Con comida",
@@ -2744,25 +1865,15 @@
       "notes_es": "Reduce estrÃ©s y glucosa levemente. Buen perfil de seguridad.",
       "notes_en": "Reduces stress and glucose mildly. Good safety profile.",
       "name_es": "Tulsi (albahaca sagrada)",
-      "name_en": "Tulsi (albahaca sagrada)",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "36370662",
-        "19253862",
-        "37361940",
-        "28811698",
-        "30589005"
-      ],
-      "reference": "Islam R et al. Modulation of growth performance, gut morphometry, and cecal microbiota in broilers by clove (Syzygium aromaticum) and tulsi (Ocimum sanctum) supplementation. Poult Sci 2023. PMID 36370662"
+      "name_en": "Tulsi (albahaca sagrada)"
     },
     {
       "slug": "schisandra",
       "name": "Schisandra",
       "category_es": "AdaptÃ³geno (baya)",
       "category_en": "Adaptogen (berry)",
-      "standard_dose": "500â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "1â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (hÃ­gado/estrÃ©s)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (hÃ­gado/estrÃ©s)",
       "form_es": "Extracto estandarizado (esquisandrinas)",
       "form_en": "Standardized extract (schisandrins)",
       "timing_es": "Con comida",
@@ -2774,25 +1885,15 @@
       "notes_es": "Hepatoprotector y anti-estrÃ©s. Puede alterar metabolismo de fÃ¡rmacos.",
       "notes_en": "Hepatoprotector and anti-stress. May alter drug metabolism.",
       "name_es": "Schisandra",
-      "name_en": "Schisandra",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "40832608",
-        "41901106",
-        "27763802",
-        "32260466",
-        "35956334"
-      ],
-      "reference": "Huang BH et al. Efficacy of Schisandra chinensis in liver injury: a systematic review and preclinical meta-analysis. Front Pharmacol 2025. PMID 40832608"
+      "name_en": "Schisandra"
     },
     {
       "slug": "eleuthero",
       "name": "Eleuterococo (ginseng siberiano)",
       "category_es": "AdaptÃ³geno (hierba)",
       "category_en": "Adaptogen (herb)",
-      "standard_dose": "300â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "2â€“[DOSIS_CLINICA_REMOVIDA] raÃ­z/dÃ­a (fatiga)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA] raÃ­z/dÃ­a (fatiga)",
       "form_es": "Extracto de Eleutherococcus",
       "form_en": "Eleutherococcus extract",
       "timing_es": "MaÃ±ana",
@@ -2804,17 +1905,7 @@
       "notes_es": "Anti-fatiga/resistencia. Evitar en hipertensiÃ³n no controlada.",
       "notes_en": "Anti-fatigue/endurance. Avoid in uncontrolled hypertension.",
       "name_es": "Eleuterococo (ginseng siberiano)",
-      "name_en": "Eleuterococo (ginseng siberiano)",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "30947761",
-        "37101730",
-        "24697344",
-        "41901106",
-        "8778554"
-      ],
-      "reference": "De Giuseppe R et al. Caffeine and blood pressure: a critical review perspective. Nutr Res Rev 2019. PMID 30947761"
+      "name_en": "Eleuterococo (ginseng siberiano)"
     },
     {
       "slug": "astragalus",
@@ -2822,7 +1913,7 @@
       "category_es": "Inmunomodulador (hierba)",
       "category_en": "Immunomodulator (herb)",
       "standard_dose": "[DOSIS_CLINICA_REMOVIDA] 2â€“3Ã—/dÃ­a",
-      "therapeutic_dose": "2â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (inmune)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (inmune)",
       "form_es": "Extracto de Astragalus membranaceus",
       "form_en": "Astragalus membranaceus extract",
       "timing_es": "Con comida",
@@ -2834,17 +1925,7 @@
       "notes_es": "InmunotÃ³nico; no usar en autoinmunidad ni trasplantados.",
       "notes_en": "Immune tonic; avoid in autoimmunity and transplant patients.",
       "name_es": "AstrÃ¡galo",
-      "name_en": "AstrÃ¡galo",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "41683325",
-        "40488850",
-        "41286474",
-        "31440984",
-        "41493245"
-      ],
-      "reference": "Zhuang SR et al. Effects of Astragalus membranaceus and Panax notoginseng Saponins Extract on the Pharmacokinetics of Whey Protein Absorption, Intestinal Permeability, and Muscle Function: A Pilot Study. Nutrients 2026. PMID 41683325"
+      "name_en": "AstrÃ¡galo"
     },
     {
       "slug": "andrographis",
@@ -2852,7 +1933,7 @@
       "category_es": "Inmunomodulador (hierba)",
       "category_en": "Immunomodulator (herb)",
       "standard_dose": "[DOSIS_CLINICA_REMOVIDA] 3Ã—/dÃ­a",
-      "therapeutic_dose": "60â€“[DOSIS_CLINICA_REMOVIDA] andrografÃ³lido/dÃ­a (resfriado)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA] andrografÃ³lido/dÃ­a (resfriado)",
       "form_es": "Extracto (andrografÃ³lidos)",
       "form_en": "Extract (andrographolides)",
       "timing_es": "A los primeros sÃ­ntomas",
@@ -2864,17 +1945,7 @@
       "notes_es": "Reduce sÃ­ntomas de infecciÃ³n respiratoria alta. No en embarazo.",
       "notes_en": "Reduces upper respiratory infection symptoms. Not in pregnancy.",
       "name_es": "Andrographis",
-      "name_en": "Andrographis",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "14750201",
-        "39005565",
-        "36709554",
-        "15095142",
-        "35887695"
-      ],
-      "reference": "Spasov AA et al. Comparative controlled study of Andrographis paniculata fixed combination, Kan Jang and an Echinacea preparation as adjuvant, in the treatment of uncomplicated respiratory disease in children. Phytother Res 2004. PMID 14750201"
+      "name_en": "Andrographis"
     },
     {
       "slug": "dim",
@@ -2882,7 +1953,7 @@
       "category_es": "Metabolito de crucÃ­feras",
       "category_en": "Cruciferous metabolite",
       "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "100â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (equilibrio estrogÃ©nico)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (equilibrio estrogÃ©nico)",
       "form_es": "Diindolilmetano",
       "form_en": "Diindolylmethane",
       "timing_es": "Con comida grasa",
@@ -2894,25 +1965,15 @@
       "notes_es": "Modula metabolismo de estrÃ³genos. Derivado de I3C del brÃ³coli.",
       "notes_en": "Modulates estrogen metabolism. Derived from broccoli I3C.",
       "name_es": "DIM (diindolilmetano)",
-      "name_en": "DIM (diindolilmetano)",
-      "pubchem_cid": 3071,
-      "inchikey": "VFTRKSBEFQDZKX-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "36642108",
-        "17317210",
-        "28560655",
-        "22075942",
-        "26693258"
-      ],
-      "reference": "Vermillion Maier ML et al. Benzo[a]pyrene toxicokinetics in humans following dietary supplementation with 3,3'-diindolylmethane (DIM) or Brussels sprouts. Toxicol Appl Pharmacol 2023. PMID 36642108"
+      "name_en": "DIM (diindolilmetano)"
     },
     {
       "slug": "glutathione",
       "name": "GlutatiÃ³n",
       "category_es": "Antioxidante",
       "category_en": "Antioxidant",
-      "standard_dose": "250â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "500â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (liposomal/acetilado)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (liposomal/acetilado)",
       "form_es": "Liposomal o S-acetil-glutatiÃ³n",
       "form_en": "Liposomal or S-acetyl-glutathione",
       "timing_es": "En ayunas",
@@ -2928,25 +1989,15 @@
       "safety": {
         "oncology_caution_es": "Antioxidante: separar de ciclos de quimio pro-oxidante.",
         "oncology_caution_en": "Antioxidant: separate from pro-oxidant chemo cycles."
-      },
-      "pubchem_cid": 124886,
-      "inchikey": "RWSXRVCMGQZWBV-WDSKDSINSA-N",
-      "pubmed_pmids": [
-        "9720743",
-        "36239789",
-        "17367938",
-        "32828910",
-        "17157802"
-      ],
-      "reference": "Brown SA et al. Parenteral glutamine protects hepatic function during bone marrow transplantation. Bone Marrow Transplant 1998. PMID 9720743"
+      }
     },
     {
       "slug": "tudca",
       "name": "TUDCA",
       "category_es": "Ãcido biliar",
       "category_en": "Bile acid",
-      "standard_dose": "250â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "1000â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (colestasis, mÃ©dico)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (colestasis, mÃ©dico)",
       "form_es": "Ãcido tauroursodesoxicÃ³lico",
       "form_en": "Tauroursodeoxycholic acid",
       "timing_es": "Con comida",
@@ -2958,24 +2009,14 @@
       "notes_es": "Hepatoprotector y del retÃ­culo endoplÃ¡smico. Uso clÃ­nico en colestasis.",
       "notes_en": "Hepatoprotector and ER-stress protectant. Clinical use in cholestasis.",
       "name_es": "TUDCA",
-      "name_en": "TUDCA",
-      "pubchem_cid": 9848818,
-      "inchikey": "BHTRKEVKTKCXOH-LBSADWJPSA-N",
-      "pubmed_pmids": [
-        "32877582",
-        "39447576",
-        "12804455",
-        "38293182",
-        "30501003"
-      ],
-      "reference": "Paganoni S et al. Trial of Sodium Phenylbutyrate-Taurursodiol for Amyotrophic Lateral Sclerosis. N Engl J Med 2020. PMID 32877582"
+      "name_en": "TUDCA"
     },
     {
       "slug": "artichoke",
       "name": "Alcachofa",
       "category_es": "Fitoterapia (hierba)",
       "category_en": "Phytotherapy (herb)",
-      "standard_dose": "300â€“[DOSIS_CLINICA_REMOVIDA] 3Ã—/dÃ­a",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA] 3Ã—/dÃ­a",
       "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (dispepsia/lÃ­pidos)",
       "form_es": "Extracto de hoja (cinarina)",
       "form_en": "Leaf extract (cynarin)",
@@ -2988,24 +2029,14 @@
       "notes_es": "Digestivo y baja colesterol levemente. Evitar en cÃ¡lculos biliares.",
       "notes_en": "Digestive and mildly lowers cholesterol. Avoid in gallstones.",
       "name_es": "Alcachofa",
-      "name_en": "Alcachofa",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "29520889",
-        "28609140",
-        "38892519",
-        "41270328",
-        "33197674"
-      ],
-      "reference": "Panahi Y et al. Efficacy of artichoke leaf extract in non-alcoholic fatty liver disease: A pilot double-blind randomized controlled trial. Phytother Res 2018. PMID 29520889"
+      "name_en": "Alcachofa"
     },
     {
       "slug": "red_yeast_rice",
       "name": "Levadura roja de arroz",
       "category_es": "Fitoterapia (estatina natural)",
       "category_en": "Phytotherapy (natural statin)",
-      "standard_dose": "1200â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
       "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (~[DOSIS_CLINICA_REMOVIDA] monacolina K)",
       "form_es": "Estandarizado en monacolina K",
       "form_en": "Standardized in monacolin K",
@@ -3022,17 +2053,7 @@
       "safety": {
         "oncology_caution_es": "Es lovastatina: NO combinar con estatinas.",
         "oncology_caution_en": "It is lovastatin: do NOT combine with statins."
-      },
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "34587702",
-        "38310834",
-        "30844537",
-        "28601545",
-        "38283922"
-      ],
-      "reference": "Minamizuka T et al. Low dose red yeast rice with monacolin K lowers LDL cholesterol and blood pressure in Japanese with mild dyslipidemia: A multicenter, randomized trial. Asia Pac J Clin Nutr 2021. PMID 34587702"
+      }
     },
     {
       "slug": "plant_sterols",
@@ -3040,7 +2061,7 @@
       "category_es": "Esterol vegetal",
       "category_en": "Plant sterol",
       "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "2â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (LDL)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (LDL)",
       "form_es": "Esteroles/estanoles",
       "form_en": "Sterols/stanols",
       "timing_es": "Con las comidas grasas",
@@ -3052,17 +2073,7 @@
       "notes_es": "Bajan LDL 8â€“10%. Repartir con comidas. Compensar carotenoides.",
       "notes_en": "Lower LDL 8â€“10%. Split with meals. Offset carotenoids.",
       "name_es": "Fitoesteroles",
-      "name_en": "Fitoesteroles",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "36351465",
-        "37447172",
-        "40263496",
-        "39275135",
-        "34468867"
-      ],
-      "reference": "Laffin LJ et al. Comparative Effects of Low-Dose Rosuvastatin, Placebo, and Dietary Supplements on Lipids and Inflammatory Biomarkers. J Am Coll Cardiol 2023. PMID 36351465"
+      "name_en": "Fitoesteroles"
     },
     {
       "slug": "bergamot",
@@ -3070,7 +2081,7 @@
       "category_es": "Fitoterapia (polifenol)",
       "category_en": "Phytotherapy (polyphenol)",
       "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "500â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (lÃ­pidos)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (lÃ­pidos)",
       "form_es": "Extracto polifenÃ³lico estandarizado",
       "form_en": "Standardized polyphenolic extract",
       "timing_es": "Antes de comidas",
@@ -3082,24 +2093,14 @@
       "notes_es": "Baja LDL y triglicÃ©ridos; alternativa/complemento a estatina.",
       "notes_en": "Lowers LDL and triglycerides; statin alternative/complement.",
       "name_es": "Bergamota (Citrus bergamia)",
-      "name_en": "Bergamota (Citrus bergamia)",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "42746152",
-        "41572527",
-        "37312672",
-        "35010984",
-        "37732027"
-      ],
-      "reference": "Chambari M et al. Bergamot (Citrus bergamia) Supplementation and Cardiovascular Disease Risk Factors: A Systematic Review and Meta-Analysis. Food Sci Nutr 2026. PMID 42746152"
+      "name_en": "Bergamota (Citrus bergamia)"
     },
     {
       "slug": "chondroitin",
       "name": "Condroitina",
       "category_es": "Glicosaminoglicano",
       "category_en": "Glycosaminoglycan",
-      "standard_dose": "800â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
       "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (artrosis, con glucosamina)",
       "form_es": "Sulfato de condroitina",
       "form_en": "Chondroitin sulfate",
@@ -3112,24 +2113,14 @@
       "notes_es": "Sinergia con glucosamina; efecto lento (semanas).",
       "notes_en": "Synergy with glucosamine; slow onset (weeks).",
       "name_es": "Condroitina",
-      "name_en": "Condroitina",
-      "pubchem_cid": 24766,
-      "inchikey": "KXKPYJOVDUMHGS-OSRGNVMNSA-N",
-      "pubmed_pmids": [
-        "26822714",
-        "38581640",
-        "30122200",
-        "32968713",
-        "35171954"
-      ],
-      "reference": "Lugo JP et al. Efficacy and tolerability of an undenatured type II collagen supplement in modulating knee osteoarthritis symptoms: a multicenter randomized, double-blind, placebo-controlled study. Nutr J 2016. PMID 26822714"
+      "name_en": "Condroitina"
     },
     {
       "slug": "hyaluronic",
       "name": "Ãcido hialurÃ³nico",
       "category_es": "Glicosaminoglicano",
       "category_en": "Glycosaminoglycan",
-      "standard_dose": "120â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
       "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (piel/articulaciÃ³n)",
       "form_es": "Oral (bajo peso molecular)",
       "form_en": "Oral (low molecular weight)",
@@ -3142,17 +2133,7 @@
       "notes_es": "HidrataciÃ³n de piel y confort articular. Bajo peso molecular se absorbe mejor.",
       "notes_en": "Skin hydration and joint comfort. Low molecular weight absorbs better.",
       "name_es": "Ãcido hialurÃ³nico",
-      "name_en": "Ãcido hialurÃ³nico",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "30592390",
-        "38931263",
-        "39819683",
-        "38538951",
-        "40069655"
-      ],
-      "reference": "Matas J et al. Umbilical Cord-Derived Mesenchymal Stromal Cells (MSCs) for Knee Osteoarthritis: Repeated MSC Dosing Is Superior to a Single MSC Dose and to Hyaluronic Acid in a Controlled Randomized Phase I/II Trial. Stem Cells Transl Med 2019. PMID 30592390"
+      "name_en": "Ãcido hialurÃ³nico"
     },
     {
       "slug": "glucomannan",
@@ -3160,7 +2141,7 @@
       "category_es": "Fibra soluble",
       "category_en": "Soluble fiber",
       "standard_dose": "[DOSIS_CLINICA_REMOVIDA] 3Ã—/dÃ­a antes de comidas",
-      "therapeutic_dose": "3â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (saciedad/LDL/glucosa)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (saciedad/LDL/glucosa)",
       "form_es": "Konjac",
       "form_en": "Konjac",
       "timing_es": "15â€“30 min antes con 1â€“2 vasos de agua",
@@ -3176,24 +2157,14 @@
       "safety": {
         "separate_from_es": "Separar 1â€“2 h de fÃ¡rmacos.",
         "separate_from_en": "Separate 1â€“2 h from drugs."
-      },
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "39064648",
-        "30528924",
-        "41117955",
-        "39640556",
-        "36435474"
-      ],
-      "reference": "Beteri B et al. Impact of Combined Prebiotic Galacto-Oligosaccharides and Bifidobacterium breve-Derived Postbiotic on Gut Microbiota and HbA1c in Prediabetic Adults: A Double-Blind, Randomized, Placebo-Controlled Study. Nutrients 2024. PMID 39064648"
+      }
     },
     {
       "slug": "capsaicin",
       "name": "Capsaicina",
       "category_es": "FitoquÃ­mico (pimiento)",
       "category_en": "Phytochemical (chili)",
-      "standard_dose": "2â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (oral)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (oral)",
       "therapeutic_dose": "TÃ³pico 0.025â€“0.075% (dolor)",
       "form_es": "CÃ¡psula oral o crema tÃ³pica",
       "form_en": "Oral capsule or topical cream",
@@ -3206,25 +2177,15 @@
       "notes_es": "TÃ³pico para dolor neuropÃ¡tico/artrÃ³sico. TermogÃ©nico leve oral.",
       "notes_en": "Topical for neuropathic/osteoarthritic pain. Mild thermogenic orally.",
       "name_es": "Capsaicina",
-      "name_en": "Capsaicina",
-      "pubchem_cid": 1548943,
-      "inchikey": "YKPUWZUDDOIDPM-SOFGYWHQSA-N",
-      "pubmed_pmids": [
-        "27746370",
-        "27485456",
-        "24550030",
-        "39307549",
-        "40781895"
-      ],
-      "reference": "Simpson DM et al. Capsaicin 8% Patch in Painful Diabetic Peripheral Neuropathy: A Randomized, Double-Blind, Placebo-Controlled Study. J Pain 2017. PMID 27746370"
+      "name_en": "Capsaicina"
     },
     {
       "slug": "cla",
       "name": "CLA (Ã¡cido linoleico conjugado)",
       "category_es": "Ãcido graso",
       "category_en": "Fatty acid",
-      "standard_dose": "3â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "3.4â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (composiciÃ³n corporal)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (composiciÃ³n corporal)",
       "form_es": "IsÃ³meros c9,t11 / t10,c12",
       "form_en": "c9,t11 / t10,c12 isomers",
       "timing_es": "Con comida",
@@ -3236,17 +2197,7 @@
       "notes_es": "Efecto modesto en grasa corporal; evidencia inconsistente.",
       "notes_en": "Modest effect on body fat; inconsistent evidence.",
       "name_es": "CLA (Ã¡cido linoleico conjugado)",
-      "name_en": "CLA (Ã¡cido linoleico conjugado)",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "31443231",
-        "38567248",
-        "29219061",
-        "25889408",
-        "39439191"
-      ],
-      "reference": "van Baak MA et al. Dietary Strategies for Weight Loss Maintenance. Nutrients 2019. PMID 31443231"
+      "name_en": "CLA (Ã¡cido linoleico conjugado)"
     },
     {
       "slug": "mct",
@@ -3254,7 +2205,7 @@
       "category_es": "Ãcido graso",
       "category_en": "Fatty acid",
       "standard_dose": "1 cucharada ([DOSIS_CLINICA_REMOVIDA])/dÃ­a",
-      "therapeutic_dose": "15â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (cetosis/energÃ­a)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (cetosis/energÃ­a)",
       "form_es": "C8/C10 (caprÃ­lico/cÃ¡prico)",
       "form_en": "C8/C10 (caprylic/capric)",
       "timing_es": "Empezar bajo (tolerancia GI)",
@@ -3266,25 +2217,15 @@
       "notes_es": "EnergÃ­a rÃ¡pida y cetonas. Subir gradual para evitar diarrea. C8 mÃ¡s cetogÃ©nico.",
       "notes_en": "Fast energy and ketones. Titrate up to avoid diarrhea. C8 most ketogenic.",
       "name_es": "Aceite MCT",
-      "name_en": "Aceite MCT",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "37264945",
-        "32588435",
-        "33103819",
-        "37159264",
-        "41481294"
-      ],
-      "reference": "Wang T et al. Association Between Omega-3 Fatty Acid Intake and Dyslipidemia: A Continuous Dose-Response Meta-Analysis of Randomized Controlled Trials. J Am Heart Assoc 2023. PMID 37264945"
+      "name_en": "Aceite MCT"
     },
     {
       "slug": "gotu_kola",
       "name": "Centella asiÃ¡tica (gotu kola)",
       "category_es": "Fitoterapia (hierba)",
       "category_en": "Phytotherapy (herb)",
-      "standard_dose": "60â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (triterpenos)",
-      "therapeutic_dose": "120â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (venoso/piel)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (triterpenos)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (venoso/piel)",
       "form_es": "Extracto estandarizado",
       "form_en": "Standardized extract",
       "timing_es": "Con comida",
@@ -3296,25 +2237,15 @@
       "notes_es": "Insuficiencia venosa y cicatrizaciÃ³n. Cursos de â‰¤6 semanas.",
       "notes_en": "Venous insufficiency and wound healing. Courses â‰¤6 weeks.",
       "name_es": "Centella asiÃ¡tica (gotu kola)",
-      "name_en": "Centella asiÃ¡tica (gotu kola)",
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "25255817",
-        "39929877",
-        "23313995",
-        "40327578",
-        "30456780"
-      ],
-      "reference": "Korgavkar K et al. Stretch marks during pregnancy: a review of topical prevention. Br J Dermatol 2015. PMID 25255817"
+      "name_en": "Centella asiÃ¡tica (gotu kola)"
     },
     {
       "slug": "sulforaphane",
       "name": "Sulforafano",
       "category_es": "Isotiocianato",
       "category_en": "Isothiocyanate",
-      "standard_dose": "10â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "30â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (Nrf2/detox)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (Nrf2/detox)",
       "form_es": "Brotes de brÃ³coli / mirosinasa activa",
       "form_en": "Broccoli sprouts / active myrosinase",
       "timing_es": "Con comida",
@@ -3326,25 +2257,15 @@
       "notes_es": "Activa Nrf2 (antioxidante/detox). Necesita mirosinasa para convertirse.",
       "notes_en": "Activates Nrf2 (antioxidant/detox). Needs myrosinase to convert.",
       "name_es": "Sulforafano",
-      "name_en": "Sulforafano",
-      "pubchem_cid": 5350,
-      "inchikey": "SUVMJBTUFCVSAD-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "39929977",
-        "41604557",
-        "40041932",
-        "41275316",
-        "33003518"
-      ],
-      "reference": "Dwibedi C et al. Effect of broccoli sprout extract and baseline gut microbiota on fasting blood glucose in prediabetes: a randomized, placebo-controlled trial. Nat Microbiol 2025. PMID 39929977"
+      "name_en": "Sulforafano"
     },
     {
       "slug": "policosanol",
       "name": "Policosanol",
       "category_es": "Alcohol graso (caÃ±a)",
       "category_en": "Fatty alcohol (sugarcane)",
-      "standard_dose": "5â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "10â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (lÃ­pidos)",
+      "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (lÃ­pidos)",
       "form_es": "De cera de caÃ±a de azÃºcar",
       "form_en": "From sugarcane wax",
       "timing_es": "Noche",
@@ -3359,17 +2280,7 @@
       "name_en": "Policosanol",
       "safety": {
         "bleeding_risk": true
-      },
-      "pubchem_cid": null,
-      "inchikey": null,
-      "pubmed_pmids": [
-        "28730734",
-        "31331588",
-        "38185399",
-        "38768866",
-        "22788832"
-      ],
-      "reference": "Gong J et al. Efficacy and safety of sugarcane policosanol on dyslipidemia: A meta-analysis of randomized controlled trials. Mol Nutr Food Res 2018. PMID 28730734"
+      }
     },
     {
       "slug": "apigenin",
@@ -3377,7 +2288,7 @@
       "category_es": "Flavonoide",
       "category_en": "Flavonoid",
       "standard_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a",
-      "therapeutic_dose": "50â€“[DOSIS_CLINICA_REMOVIDA]/dÃ­a (sueÃ±o/ansiedad)",
+      "therapeutic_dose": "[DOSIS_CLINICA_REMOVIDA]/dÃ­a (sueÃ±o/ansiedad)",
       "form_es": "De manzanilla/perejil",
       "form_en": "From chamomile/parsley",
       "timing_es": "Noche",
@@ -3389,19 +2300,7 @@
       "notes_es": "Ligando de receptores GABA/benzodiacepina (calma). Evidencia preclÃ­nica.",
       "notes_en": "GABA/benzodiazepine receptor ligand (calming). Preclinical evidence.",
       "name_es": "Apigenina",
-      "name_en": "Apigenina",
-      "pubchem_cid": 5280443,
-      "inchikey": "KZNIFHPLKGYRTM-UHFFFAOYSA-N",
-      "pubmed_pmids": [
-        "38447616",
-        "39836709",
-        "30041489",
-        "35661071",
-        "42119652"
-      ],
-      "reference": "Shao G et al. Therapeutic potential of traditional Chinese medicine in the prevention and treatment of digestive inflammatory cancer transformation: Portulaca oleracea L. as a promising drug. J Ethnopharmacol 2024. PMID 38447616"
+      "name_en": "Apigenina"
     }
-  ],
-  "enriched": true,
-  "enrichment_sources": "PubChem (public domain) + PubMed/NCBI (public)"
+  ]
 }
