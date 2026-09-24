@@ -75,8 +75,8 @@ R = [
  "Myopathy risk with statins. Monitor liver and kidney function.","Clínico"),
 ("omega-3-ethyl-esters","Omega-3 (ésteres etílicos, Rx)","Hipolipemiante","Lipid-lowering",
  "Con comida grasa","With a fatty meal",
- "2–4 g/día bajan TG 20–30%; la grasa mejora la absorción.",
- "2–4 g/day lower TG 20–30%; fat improves absorption.",
+ "2–[DOSIS_CLINICA_REMOVIDA] bajan TG 20–30%; la grasa mejora la absorción.",
+ "2–[DOSIS_CLINICA_REMOVIDA] lower TG 20–30%; fat improves absorption.",
  "Sangrado con anticoagulantes a dosis altas.",
  "Bleeding with anticoagulants at high doses.","Clínico"),
 ("niacin","Niacina (Rx)","Hipolipemiante","Lipid-lowering",
@@ -107,8 +107,8 @@ R = [
  "Cualquier hora","Any time",
  "Analgésico/antipirético; no antiinflamatorio.",
  "Analgesic/antipyretic; not anti-inflammatory.",
- "Hepatotóxico >3–4 g/día o con alcohol. Sumar todas las fuentes.",
- "Hepatotoxic >3–4 g/day or with alcohol. Count all sources.","Clínico"),
+ "Hepatotóxico >3–[DOSIS_CLINICA_REMOVIDA] o con alcohol. Sumar todas las fuentes.",
+ "Hepatotoxic >3–[DOSIS_CLINICA_REMOVIDA] or with alcohol. Count all sources.","Clínico"),
 ]
 
 FIELDS = ["key","name","class_es","class_en","timing_es","timing_en","why_es","why_en",

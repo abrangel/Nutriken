@@ -1768,7 +1768,7 @@
       {
         "drug_class": "anticoagulantes",
         "severity": "moderada",
-        "effect": "Dosis altas (>3g/día) potencian el efecto anticoagulante. Riesgo de sangrado aumentado.",
+        "effect": "Dosis altas ([DOSIS_CLINICA_REMOVIDA]) potencian el efecto anticoagulante. Riesgo de sangrado aumentado.",
         "mechanism": "Los ácidos grasos omega-3 reducen la producción de tromboxano A2 y la agregación plaquetaria.",
         "evidence": "Metaanálisis",
         "source": "Akintoye et al. Circ Cardiovasc Qual Outcomes 2018;11(11):e004584"
